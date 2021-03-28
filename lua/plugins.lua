@@ -1,4 +1,6 @@
 -- Plugins
+local use = require('packer').use
+
 return require('packer').startup(function()
 	-- Packer
 	use 'wbthomason/packer.nvim'
@@ -17,9 +19,6 @@ return require('packer').startup(function()
 
 	-- Start screen
 	use 'mhinz/vim-startify'
-
-	-- Highlight yanked text
-	use 'machakann/vim-highlightedyank'
 
 	-- Colorize color codes
 	use 'chrisbra/Colorizer'
@@ -88,12 +87,8 @@ return require('packer').startup(function()
 	-- Debugging
 	use 'mfussenegger/nvim-dap'
 
-	-- Extra IDE Features
-	-- Project
-	use 'dbakker/vim-projectroot'
-
 	-- Extra language support
-	-- 	GDScript
+	-- GDScript
 	use 'habamax/vim-godot'
 
 	-- Meta

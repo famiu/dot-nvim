@@ -5,7 +5,7 @@ local wo = vim.wo
 local bo = vim.bo
 
 local indent = 4
-local text_width = 90
+local fill_column = 90
 
 local config_dir = vim.fn.stdpath('config')
 local data_dir = vim.fn.stdpath('data')
@@ -46,11 +46,9 @@ bo.smartindent = true
 -- Linebreak and wrap behavior
 wo.linebreak = true
 wo.breakindent = true
-wo.wrap = true
-bo.textwidth = text_width
 
 -- Show fill column indicator
-wo.colorcolumn = '+1'
+wo.colorcolumn = tostring(fill_column + 1)
 
 -- Line numbers: Hybrid
 wo.number = true
@@ -96,3 +94,6 @@ cmd 'filetype plugin on'
 
 -- Automatically switch current window directory to directory of current file
 cmd 'autocmd BufEnter * silent! lcd %:p:h'
+
+-- Highlight text on yank
+cmd 'autocmd TextYankPost * silent! lua vim.highlight.on_yank()'

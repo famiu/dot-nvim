@@ -1,14 +1,13 @@
+local bind = vim.api.nvim_set_keymap
 local g = vim.g
 
-g.gitgutter_escape_grep = 1
 g.gitgutter_sign_priority = 10
-g.gitgutter_realtime = 1
-g.gitgutter_eager = 1
-g.gitgutter_highlight_linenrs = 1
 g.gitgutter_preview_win_floating = 1
-g.gitgutter_sign_added = '│'
-g.gitgutter_sign_modified = '│'
-g.gitgutter_sign_removed = '│'
-g.gitgutter_sign_removed_first_line = '│'
-g.gitgutter_sign_modified_removed = '│'
+g.gitgutter_set_sign_backgrounds = 1
 
+bind('n', ']h', '<Plug>(GitGutterNextHunk)', {})
+bind('n', '[h', '<Plug>(GitGutterPrevHunk)', {})
+
+bind('n', 'ghs', '<Plug>(GitGutterStageHunk)', {})
+bind('n', 'ghu', '<Plug>(GitGutterUndoHunk)', {})
+bind('n', 'ghp', '<Plug>(GitGutterPreviewHunk)', {})

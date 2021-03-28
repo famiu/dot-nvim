@@ -66,5 +66,3 @@ bind('n', '<C-s>', ':BufferPick<CR>', { noremap = true, silent = true })
 -- Sort automatically by...
 bind('n', '<Space>bd', ':BufferOrderByDirectory<CR>', { noremap = true, silent = true })
 bind('n', '<Space>bl', ':BufferOrderByLanguage<CR>', { noremap = true, silent = true })
-
-
