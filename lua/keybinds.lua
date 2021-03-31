@@ -14,3 +14,7 @@ bind('v', '<', '<gv^', { noremap = true })
 bind('v', '<Tab>', '>', {})
 bind('v', '<S-Tab>', '<', {})
 
+-- " Use <C-L> to clear the highlighting of :set hlsearch.
+bind('n', '<C-L>',
+    ":nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>",
+    { noremap = true, silent = true })

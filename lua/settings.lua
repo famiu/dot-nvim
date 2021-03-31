@@ -1,93 +1,100 @@
 local cmd = vim.cmd
+local set_opt = require('utils').set_opt
+local get_opt = require('utils').get_opt
 
-local o = vim.o
-local wo = vim.wo
-local bo = vim.bo
-
-local indent = 4
 local fill_column = 90
 
-local config_dir = vim.fn.stdpath('config')
-local data_dir = vim.fn.stdpath('data')
-local runtimepath = { config_dir, data_dir, data_dir..'/after' }
-
 -- Set encoding
-o.encoding = 'utf-8'
+set_opt('o', 'encoding', 'utf-8')
 
 -- Wildmenu
-o.wildmode = 'longest,list,full'
-o.wildmenu = true
+set_opt('o', 'wildmode', 'longest,list,full')
+set_opt('o', 'wildmenu', true)
 
 -- Hidden buffers to switch buffers without saving
-o.hidden = true
+set_opt('o', 'hidden', true)
 
 -- Enable mouse support
-o.mouse = 'a'
+set_opt('o', 'mouse', 'a')
 
 -- Project specific vimrc with secure
-o.exrc = true
-o.secure = true
+set_opt('o', 'exrc', true)
+set_opt('o', 'secure', true)
 
 -- GUI cursor
-o.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,'..
+set_opt('o', 'guicursor', 'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,'..
 	'a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,'..
-	'sm:block-blinkwait175-blinkoff150-blinkon175'
+	'sm:block-blinkwait175-blinkoff150-blinkon175')
 
 -- Persistent undo
-o.undofile = true
+set_opt('o', 'undofile', true)
+
+-- Auto read file changes
+set_opt('o', 'autoread', true)
+
+-- Backspace
+set_opt('o', 'backspace', 'indent,eol,start')
+
+-- Make last window always have a status line
+set_opt('o', 'laststatus', 2)
 
 -- Indent
-bo.tabstop = indent
-bo.shiftwidth = indent
-bo.expandtab = true
-bo.autoindent = true
-bo.smartindent = true
+-- o.tabstop = 8
+set_opt('b', 'softtabstop', 4)
+set_opt('b', 'shiftwidth', 4)
+set_opt('b', 'expandtab', true)
+set_opt('b', 'autoindent', true)
+set_opt('b', 'smartindent', true)
+
+-- Listchars
+set_opt('o', 'listchars', 'tab:> ,trail:-,extends:>,precedes:<,nbsp:+')
 
 -- Linebreak and wrap behavior
-wo.linebreak = true
-wo.breakindent = true
+set_opt('w', 'linebreak', true)
+set_opt('w', 'breakindent', true)
 
 -- Show fill column indicator
-wo.colorcolumn = tostring(fill_column + 1)
+set_opt('w', 'colorcolumn', tostring(fill_column + 1))
 
 -- Line numbers: Hybrid
-wo.number = true
-wo.relativenumber = true
+set_opt('w', 'number', true)
+set_opt('w', 'relativenumber', true)
 
 -- Folding (with Treesitter)
-wo.foldmethod = 'expr'
-wo.foldexpr = 'nvim_treesitter#foldexpr()'
-wo.foldlevel = 99
+set_opt('w', 'foldmethod', 'expr')
+set_opt('w', 'foldexpr', 'nvim_treesitter#foldexpr()')
+set_opt('w', 'foldlevel', 99)
 
 -- Search
-o.hlsearch = true
-o.incsearch = true
-o.ignorecase = true
-o.smartcase = true
+set_opt('o', 'hlsearch', true)
+set_opt('o', 'incsearch', true)
+set_opt('o', 'ignorecase', true)
+set_opt('o', 'smartcase', true)
 
 -- Incremental command
-o.inccommand = 'nosplit'
+set_opt('o', 'inccommand', 'nosplit')
 
 -- Completion
-o.completeopt = 'menuone,preview,noselect'
-o.shortmess = o.shortmess..'c'
+set_opt('o', 'completeopt', 'menuone,preview,noselect')
+set_opt('o', 'shortmess', get_opt('o', 'shortmess') .. 'c')
 
 -- Split options
-o.splitbelow = true
-o.splitright = true
+set_opt('o', 'splitbelow', true)
+set_opt('o', 'splitright', true)
 
 -- Faster update time
-o.updatetime = 100
-o.signcolumn = 'auto:4'
+set_opt('o', 'updatetime', 100)
+set_opt('o', 'signcolumn', 'auto:4')
 
 -- Highlight current line
-o.cursorline = true
+set_opt('o', 'cursorline', true)
 
--- Make sure that there's always ten lines above or below the cursor
-o.scrolloff = 10
+-- Scroll offsets
+set_opt('o', 'scrolloff', 10)
+set_opt('o', 'sidescrolloff', 5)
 
 -- GUI Font
-o.guifont = 'JetBrainsMono Nerd Font Mono:h10'
+set_opt('o', 'guifont', 'JetBrainsMono Nerd Font Mono:h10')
 
 -- Enable filetype plugin
 cmd 'filetype plugin on'
