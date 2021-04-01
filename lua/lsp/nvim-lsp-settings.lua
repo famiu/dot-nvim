@@ -88,7 +88,7 @@ end
 local function setup_servers()
     -- Language servers installed by system
     local servers = {'clangd', 'gdscript', 'rust_analyzer', 'bashls'}
-    
+
     for _, server in ipairs(servers) do
         local config = default_config()
         nvim_lsp[server].setup(config)
@@ -101,7 +101,7 @@ local function setup_servers()
 
     for _, server in ipairs(lspinstall_servers) do
         local config = default_config()
-        
+
         if server == "lua" then
             config.settings = lua_settings
         end
