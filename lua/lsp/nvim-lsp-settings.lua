@@ -51,29 +51,6 @@ local on_attach = function(client, bufnr)
 end
 
 -- LSP Server Configurations
-local lua_settings = {
-    Lua = {
-        runtime = {
-            -- Tell the language server which version of Lua you're using
-            -- (LuaJIT in the case of Neovim)
-            version = 'LuaJIT',
-            -- Setup your lua path
-            path = vim.split(package.path, ';'),
-        },
-        diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = {'vim'},
-        },
-        workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = {
-                [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-            },
-        },
-    },
-}
-
 local default_config = function()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true;
@@ -85,35 +62,48 @@ local default_config = function()
 end
 
 -- LSP Servers
-local function setup_servers()
-    -- Language servers installed by system
-    local servers = {'clangd', 'gdscript', 'rust_analyzer', 'bashls'}
 
-    for _, server in ipairs(servers) do
-        local config = default_config()
-        nvim_lsp[server].setup(config)
+-- Language servers installed by system
+local servers = {'clangd', 'gdscript', 'rust_analyzer', 'bashls', 'sumneko_lua',
+                 'pyright'}
+local lspinstall_path = vim.fn.stdpath('data') .. '/lspinstall/'
+
+for _, server in ipairs(servers) do
+    local config = default_config()
+
+    if server == "lua" then
+        config.cmd = {
+            lspinstall_path .. 'lua/sumneko-lua-language-server',
+            '-E', lspinstall_path .. 'lua/main.lua'
+        }
+        config.settings = {
+            Lua = {
+                runtime = {
+                    -- Tell the language server which version of Lua you're using (LuaJIT in the case of Neovim)
+                    version = 'LuaJIT',
+                    -- Setup your lua path
+                    path = vim.split(package.path, ';'),
+                },
+                diagnostics = {
+                    -- Get the language server to recognize the `vim` global
+                    globals = {'vim'},
+                },
+                workspace = {
+                    -- Make the server aware of Neovim runtime files
+                    library = {
+                        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+                    },
+                },
+            },
+        }
     end
 
-    require('lspinstall').setup()
-
-    -- Manually installed language servers
-    local lspinstall_servers = require('lspinstall').installed_servers()
-
-    for _, server in ipairs(lspinstall_servers) do
-        local config = default_config()
-
-        if server == "lua" then
-            config.settings = lua_settings
-        end
-
-        nvim_lsp[server].setup(config)
+    if server == "pyright" then
+        config.cmd = {
+            lspinstall_path .. 'python/node_modules/.bin/pyright-langserver', '--stdio'
+        }
     end
-end
 
-setup_servers()
-
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require('lspinstall').post_install_hook = function ()
-    setup_servers()
-    vim.cmd('doautocmd FileType')
+    nvim_lsp[server].setup(config)
 end
