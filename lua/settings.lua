@@ -104,3 +104,6 @@ cmd 'autocmd BufEnter * silent! lcd %:p:h'
 
 -- Highlight text on yank
 cmd 'autocmd TextYankPost * silent! lua vim.highlight.on_yank()'
+
+-- Enable syntax highlighting
+cmd 'syntax enable'
