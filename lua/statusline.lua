@@ -159,8 +159,8 @@ gls.right[1] = {
     GitIcon = {
         provider = function() return '  ' end,
         condition = condition.check_git_workspace,
-        separator = ' ' .. separators.vertical_bar,
-        separator_highlight = {colors_custom.black,colors.bg},
+        -- separator = separators.vertical_bar,
+        -- separator_highlight = {colors_custom.black,colors.bg},
         highlight = {colors_custom.white,colors_custom.black,'bold'},
     }
 }
@@ -201,8 +201,10 @@ gls.right[5] = {
 gls.right[6] = {
     PerCent = {
         provider = 'LinePercent',
-        separator = separators.vertical_bar .. ' ',
-        separator_highlight = {colors_custom.black,colors.bg},
+        -- separator = separators.vertical_bar .. ' ',
+        -- separator_highlight = {colors_custom.black,colors.bg},
+        separator = ' ',
+        separator_highlight = {'NONE',colors.bg},
         highlight = {colors.fg,colors.bg,'bold'},
     }
 }
