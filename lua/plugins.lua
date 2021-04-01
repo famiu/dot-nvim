@@ -72,6 +72,7 @@ return require('packer').startup(function()
     use 'neovim/nvim-lsp'
     use 'glepnir/lspsaga.nvim'
     use 'onsails/lspkind-nvim'
+    use 'ray-x/lsp_signature.nvim'
 
     -- Telescope
     use {
@@ -91,8 +92,7 @@ return require('packer').startup(function()
     -- Debugging
     use 'mfussenegger/nvim-dap'
 
-    -- Extra language support
-    -- GDScript
+    -- Godot
     use 'habamax/vim-godot'
 
     -- Meta

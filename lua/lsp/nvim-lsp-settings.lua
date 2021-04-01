@@ -45,6 +45,9 @@ local on_attach = function(client, bufnr)
             augroup END
                     ]], false)
     end
+
+    -- LSP Signatures
+    require('lsp_signature').on_attach()
 end
 
 local saga = require 'lspsaga'
@@ -178,5 +181,3 @@ vim.fn.sign_define('LspDiagnosticsSignInformation',
 
 vim.fn.sign_define('LspDiagnosticsSignHint',
     { text = '', texthl = 'LspDiagnosticsSignHint' })
-
-
