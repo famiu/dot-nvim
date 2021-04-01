@@ -1,6 +1,6 @@
 local cmd = vim.cmd
 local set_opt = require('utils').set_opt
-local get_opt = require('utils').get_opt
+local append_opt = require('utils').append_opt
 
 local fill_column = 90
 
@@ -76,7 +76,7 @@ set_opt('o', 'inccommand', 'nosplit')
 
 -- Completion
 set_opt('o', 'completeopt', 'menuone,preview,noselect')
-set_opt('o', 'shortmess', get_opt('o', 'shortmess') .. 'c')
+append_opt('o', 'shortmess', 'c')
 
 -- Split options
 set_opt('o', 'splitbelow', true)
