@@ -71,7 +71,7 @@ local lspinstall_path = vim.fn.stdpath('data') .. '/lspinstall/'
 for _, server in ipairs(servers) do
     local config = default_config()
 
-    if server == "lua" then
+    if server == 'sumneko_lua' then
         config.cmd = {
             lspinstall_path .. 'lua/sumneko-lua-language-server',
             '-E', lspinstall_path .. 'lua/main.lua'
