@@ -1,5 +1,3 @@
-local bind = vim.api.nvim_set_keymap
-
 require('telescope').setup{
     defaults = {
         vimgrep_arguments = {
@@ -60,7 +58,30 @@ require('telescope').setup{
     }
 }
 
-bind('n', '<Leader>ff', '<cmd>lua require(\'telescope.builtin\').find_files()<CR>', {})
-bind('n', '<Leader>fg', '<cmd>lua require(\'telescope.builtin\').live_grep()<CR>', {})
-bind('n', '<Leader>fb', '<cmd>lua require(\'telescope.builtin\').buffers()<CR>', {})
-bind('n', '<Leader>fh', '<cmd>lua require(\'telescope.builtin\').help_tags()<CR>', {})
+local bind_picker = function(keys, picker_name)
+    vim.api.nvim_set_keymap(
+        'n', keys,
+        "<cmd>lua require('telescope.builtin')['" .. picker_name .. "']()<CR>",
+        {}
+    )
+end
+
+-- Alt-Shift-P command palette
+bind_picker('<S-A-p>', 'commands')
+
+-- Normal
+bind_picker('<Leader>ff', 'find_files')
+bind_picker('<Leader>fg', 'live_grep')
+bind_picker('<Leader>fb', 'buffers')
+bind_picker('<Leader>fh', 'help_tags')
+
+-- LSP
+bind_picker('<Leader>ds', 'lsp_document_symbols')
+bind_picker('<Leader>ws', 'lsp_workspace_symbols')
+bind_picker('<Leader>ca', 'lsp_code_actions')
+bind_picker('<Leader>dd', 'lsp_document_diagnostics')
+bind_picker('<Leader>wd', 'lsp_workspace_diagnostics')
+
+-- Treesitter
+bind_picker('<Leader>ts', 'treesitter')
+
