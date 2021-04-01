@@ -37,6 +37,9 @@ return require('packer').startup(function()
     -- Undo Tree
     use 'mbbill/undotree'
 
+    -- Register Preview
+    use 'gennaro-tedesco/nvim-peekup'
+
     -- Terminal
     use 'skywind3000/vim-terminal-help'
 
