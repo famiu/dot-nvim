@@ -93,9 +93,6 @@ set_opt('o', 'cursorline', true)
 set_opt('o', 'scrolloff', 10)
 set_opt('o', 'sidescrolloff', 5)
 
--- GUI Font
-set_opt('o', 'guifont', 'JetBrainsMono Nerd Font Mono:h10')
-
 -- Enable filetype plugin
 cmd 'filetype plugin on'
 
