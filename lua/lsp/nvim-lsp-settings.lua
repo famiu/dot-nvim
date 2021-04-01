@@ -1,8 +1,6 @@
 local nvim_lsp = require('lspconfig')
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true;
-
+-- Default on_attach for LSP servers
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -52,62 +50,70 @@ local on_attach = function(client, bufnr)
     require('lsp_signature').on_attach()
 end
 
--- Use a loop to conveniently both setup defined servers
--- and map buffer local keybindings when the language server attaches
-local servers = {'clangd', 'gdscript', 'rust_analyzer', 'bashls'}
-
-for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup {
-        on_attach = on_attach,
-        capabilities = capabilities
-    }
-end
-
--- Servers which require special settings
--- pyls
-nvim_lsp['pyls'].setup {
-    settings = {
-        pyls = {
-            plugins = {
-                pylint = {
-                    enabled = true;
-                }
-            }
-        }
-    },
-
-    on_attach = on_attach,
-    capabilities = capabilities
-}
-
-nvim_lsp['sumneko_lua'].setup {
-    cmd = {
-        vim.fn.stdpath('data') .. "/lspinstall/lua/sumneko-lua-language-server",
-        "-E", vim.fn.stdpath('data') .. "/lspinstall/lua/main.lua"
-    },
-
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-                -- Setup your lua path
-                path = vim.split(package.path, ';'),
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = {'vim'},
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = {
-                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-                },
+-- LSP Server Configurations
+local lua_settings = {
+    Lua = {
+        runtime = {
+            -- Tell the language server which version of Lua you're using
+            -- (LuaJIT in the case of Neovim)
+            version = 'LuaJIT',
+            -- Setup your lua path
+            path = vim.split(package.path, ';'),
+        },
+        diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = {'vim'},
+        },
+        workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = {
+                [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
             },
         },
     },
-
-    on_attach = on_attach,
-    capabilities = capabilities
 }
+
+local default_config = function()
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true;
+
+    return {
+        capabilities = capabilities,
+        on_attach = on_attach,
+    }
+end
+
+-- LSP Servers
+local function setup_servers()
+    -- Language servers installed by system
+    local servers = {'clangd', 'gdscript', 'rust_analyzer', 'bashls'}
+    
+    for _, server in ipairs(servers) do
+        local config = default_config()
+        nvim_lsp[server].setup(config)
+    end
+
+    require('lspinstall').setup()
+
+    -- Manually installed language servers
+    local lspinstall_servers = require('lspinstall').installed_servers()
+
+    for _, server in ipairs(lspinstall_servers) do
+        local config = default_config()
+        
+        if server == "lua" then
+            config.settings = lua_settings
+        end
+
+        nvim_lsp[server].setup(config)
+    end
+end
+
+setup_servers()
+
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require('lspinstall').post_install_hook = function ()
+    setup_servers()
+    vim.cmd('doautocmd FileType')
+end
