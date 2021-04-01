@@ -1,6 +1,28 @@
 local fn = vim.fn
 local execute = vim.api.nvim_command
 
+-- Restart Vim without having to close and run again
+function Restart()
+    -- Load config
+    execute('luafile $MYVIMRC')
+
+    -- Close all buffers
+    execute('%bdelete')
+    execute('BufferCloseAllButCurrent')
+
+    -- Manually run VimEnter autocmd to emulate a new run of Vim
+    execute('doautocmd VimEnter')
+end
+
+-- Reload Vim configuration
+function Reload()
+    execute('luafile $MYVIMRC')
+end
+
+-- Add commands for reload and restart
+execute('command! Reload lua Reload()')
+execute('command! Restart lua Restart()')
+
 -- Set mapleader to space
 vim.g.mapleader = ' '
 
@@ -23,21 +45,9 @@ then
     -- Load plugins
     require('plugins')
 
-    -- Automatically sync packer and reload config
-    function OnPackerSync()
-        -- Load config
-        execute('luafile $MYVIMRC')
-
-        -- Close all buffers
-        execute('%bdelete')
-        execute('BufferCloseAllButCurrent')
-
-        -- Manually run VimEnter autocmd to emulate a new run of Vim
-        execute('doautocmd VimEnter')
-    end
-
+    -- Automatically sync packer and restart Vim
     execute('PackerSync')
-    execute('autocmd User PackerComplete lua OnPackerSync()')
+    execute('autocmd User PackerComplete lua Restart()')
 else
     -- Load plugins
     require('plugins')

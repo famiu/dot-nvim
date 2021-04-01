@@ -65,14 +65,13 @@ return require('packer').startup(function()
     use 'easymotion/vim-easymotion'
 
     -- Snippets
-    use 'hrsh7th/vim-vsnip'
-    use 'hrsh7th/vim-vsnip-integ'
+    use 'norcalli/snippets.nvim'
 
     -- LSP
     use 'neovim/nvim-lsp'
-    use 'glepnir/lspsaga.nvim'
     use 'onsails/lspkind-nvim'
     use 'ray-x/lsp_signature.nvim'
+    use 'kosayoda/nvim-lightbulb'
 
     -- Telescope
     use {

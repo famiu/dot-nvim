@@ -1,5 +1,8 @@
 local nvim_lsp = require('lspconfig')
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true;
+
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -12,7 +15,6 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
@@ -50,63 +52,15 @@ local on_attach = function(client, bufnr)
     require('lsp_signature').on_attach()
 end
 
-local saga = require 'lspsaga'
-
-saga.init_lsp_saga({
-    use_saga_diagnostic_sign = true,
-    error_sign = '',
-    warn_sign = '',
-    hint_sign = '',
-    infor_sign = '',
-    dianostic_header_icon = '   ',
-    code_action_icon = ' ',
-
-    code_action_prompt = {
-        enable = true,
-        sign = true,
-        sign_priority = 20,
-        virtual_text = true,
-    },
-
-    finder_definition_icon = '  ',
-    finder_reference_icon = '  ',
-
-    -- preview lines of lsp_finder and definition preview
-    max_preview_lines = 10,
-
-    finder_action_keys = {
-        open = 'o',
-        vsplit = 's',
-        split = 'i',
-        quit = 'q',
-        scroll_down = '<C-f>',
-        scroll_up = '<C-b>'
-    },
-
-    code_action_keys = {
-        quit = 'q',
-        exec = '<CR>'
-    },
-
-    rename_action_keys = {
-        quit = '<C-c>',
-        exec = '<CR>'  -- quit can be a table
-    },
-
-    definition_preview_icon = '  ',
-
-    -- 1: thin border | 2: rounded border | 3: thick border | 4: ascii border
-    border_style = 1,
-
-    rename_prompt_prefix = '➤',
-})
-
--- Use a loop to conveniently both setup defined servers 
+-- Use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
 local servers = {'clangd', 'gdscript', 'rust_analyzer', 'bashls'}
 
 for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup { on_attach = on_attach }
+    nvim_lsp[lsp].setup {
+        on_attach = on_attach,
+        capabilities = capabilities
+    }
 end
 
 -- Servers which require special settings
@@ -122,7 +76,8 @@ nvim_lsp['pyls'].setup {
         }
     },
 
-    on_attach = on_attach
+    on_attach = on_attach,
+    capabilities = capabilities
 }
 
 nvim_lsp['sumneko_lua'].setup {
@@ -133,51 +88,26 @@ nvim_lsp['sumneko_lua'].setup {
 
     settings = {
         Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+                -- Setup your lua path
+                path = vim.split(package.path, ';'),
+            },
             diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
+                -- Get the language server to recognize the `vim` global
+                globals = {'vim'},
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = {
+                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+                },
+            },
+        },
+    },
+
+    on_attach = on_attach,
+    capabilities = capabilities
 }
-
--- Diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
-    {
-        underline = true,
-        virtual_text = {
-            spacing = 4,
-            prefix = '~',
-        },
-        signs = {
-            -- Use a function to dynamically turn signs off
-            -- and on, using buffer local variables
-            enable = function(bufnr, client_id)
-                local ok, result = pcall(vim.api.nvim_buf_get_var, bufnr, 'show_signs')
-                -- No buffer local variable set, so just enable by default
-                if not ok then
-                    return true
-                end
-
-                return result
-            end,
-
-            priority = 20
-        },
-        -- Don't update in insert
-        update_in_insert = false,
-    }
-)
-
--- Diagnostic Signs
-vim.fn.sign_define('LspDiagnosticsSignError',
-    { text = '✗', texthl = 'LspDiagnosticsSignError' })
-
-vim.fn.sign_define('LspDiagnosticsSignWarning',
-    { text = '', texthl = 'LspDiagnosticsSignWarning' })
-
-vim.fn.sign_define('LspDiagnosticsSignInformation',
-    { text = '', texthl = 'LspDiagnosticsSignInformation' })
-
-vim.fn.sign_define('LspDiagnosticsSignHint',
-    { text = '', texthl = 'LspDiagnosticsSignHint' })
