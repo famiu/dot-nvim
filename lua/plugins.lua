@@ -65,7 +65,8 @@ return require('packer').startup(function()
     use 'easymotion/vim-easymotion'
 
     -- Snippets
-    use 'norcalli/snippets.nvim'
+    use 'hrsh7th/vim-vsnip'
+    use 'hrsh7th/vim-vsnip-integ'
 
     -- LSP
     use 'neovim/nvim-lsp'

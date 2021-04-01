@@ -19,25 +19,25 @@ require'compe'.setup {
         calc = true;
         nvim_lsp = true;
         nvim_lua = true;
-        vsnip = false;
+        vsnip = true;
     };
 }
 
 -- Keybinds
-vim.api.nvim_set_keymap("i", "<silent><noremap> <C-Space>", "compe#complete()",
+vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()",
     {noremap=true, silent=true, expr=true})
 
-vim.api.nvim_set_keymap("i", "<silent><expr> <CR>",
-    "compe#confirm({ 'keys': \"<Plug>delimitMateCR\", 'mode': '' }",
+vim.api.nvim_set_keymap("i", "<CR>",
+    "compe#confirm({ 'keys': \"<Plug>delimitMateCR\", 'mode': '' })",
     {noremap=true, silent=true, expr=true})
 
-vim.api.nvim_set_keymap("i", "<silent><expr> <C-e>", "compe#close('<C-e>')",
+vim.api.nvim_set_keymap("i", "<C-e>", "compe#close('<C-e>')",
     {noremap=true, silent=true, expr=true})
 
-vim.api.nvim_set_keymap("i", "<silent><expr> <C-f>", "compe#scroll({ 'delta': +4 })",
+vim.api.nvim_set_keymap("i", "<C-f>", "compe#scroll({ 'delta': +4 })",
     {noremap=true, silent=true, expr=true})
 
-vim.api.nvim_set_keymap("i", "<silent><expr> <C-d>", "compe#scroll({ 'delta': -4 })",
+vim.api.nvim_set_keymap("i", "<C-d>", "compe#scroll({ 'delta': -4 })",
     {noremap=true, silent=true, expr=true})
 
 -- Use (s-)tab to:
@@ -60,6 +60,8 @@ end
 _G.tab_complete = function()
     if vim.fn.pumvisible() == 1 then
         return t "<C-n>"
+    elseif vim.fn.call("vsnip#available", {1}) == 1 then
+        return t "<Plug>(vsnip-expand-or-jump)"
     elseif check_back_space() then
         return t "<Tab>"
     else
@@ -70,6 +72,8 @@ end
 _G.s_tab_complete = function()
     if vim.fn.pumvisible() == 1 then
         return t "<C-p>"
+    elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+        return t "<Plug>(vsnip-jump-prev)"
     else
         return t "<S-Tab>"
     end
