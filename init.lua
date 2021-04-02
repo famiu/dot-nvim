@@ -3,8 +3,8 @@ local execute = vim.api.nvim_command
 
 -- Restart Vim without having to close and run again
 function Restart()
-    -- Load config
-    execute('luafile $MYVIMRC')
+    -- Reload config
+    Reload()
 
     -- Close all buffers
     execute('%bdelete')
@@ -16,6 +16,7 @@ end
 
 -- Reload Vim configuration
 function Reload()
+    -- Source init.lua
     execute('luafile $MYVIMRC')
 end
 
