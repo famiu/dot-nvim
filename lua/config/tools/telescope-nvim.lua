@@ -87,10 +87,10 @@ bind_picker('<Leader>fb', 'buffers')
 bind_picker('<Leader>fh', 'help_tags')
 
 -- LSP
-bind_picker('<Leader>lds', 'lsp_document_symbols')
-bind_picker('<Leader>ldd', 'lsp_document_diagnostics')
-bind_picker('<Leader>lws', 'lsp_workspace_symbols')
-bind_picker('<Leader>lwd', 'lsp_workspace_diagnostics')
+bind_picker('<Leader>ls', 'lsp_document_symbols')
+bind_picker('<Leader>lS', 'lsp_workspace_symbols')
+bind_picker('<Leader>ld', 'lsp_document_diagnostics')
+bind_picker('<Leader>lD', 'lsp_workspace_diagnostics')
 bind_picker('<Leader>lc', 'lsp_code_actions')
 
 -- Treesitter
