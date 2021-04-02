@@ -1,3 +1,4 @@
+-- Telescope setup
 require('telescope').setup{
     defaults = {
         vimgrep_arguments = {
@@ -58,9 +59,11 @@ require('telescope').setup{
     }
 }
 
-local bind_picker = function(keys, picker_name, extension_name)
-    extension_name = extension_name or nil
+-- Telescope modules
+require('telescope').load_extension('dap')
 
+-- Function to bind picker to key combination
+local bind_picker = function(keys, picker_name, extension_name)
     if extension_name ~= nil then
         vim.api.nvim_set_keymap(
             'n', keys,
@@ -92,6 +95,13 @@ bind_picker('<Leader>lS', 'lsp_workspace_symbols')
 bind_picker('<Leader>ld', 'lsp_document_diagnostics')
 bind_picker('<Leader>lD', 'lsp_workspace_diagnostics')
 bind_picker('<Leader>lc', 'lsp_code_actions')
+
+-- DAP
+bind_picker('<Leader>dc', 'commands', 'dap')
+bind_picker('<Leader>dC', 'configurations', 'dap')
+bind_picker('<Leader>dlb', 'list_breakpoints', 'dap')
+bind_picker('<Leader>dv', 'variables', 'dap')
+bind_picker('<Leader>df', 'frames', 'dap')
 
 -- Treesitter
 bind_picker('<Leader>ts', 'treesitter')
