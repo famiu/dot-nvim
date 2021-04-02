@@ -44,6 +44,4 @@ g.nvim_tree_icons = {
 	}
 }
 
-bind('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true })
-bind('n', '<leader>r', ':NvimTreeRefresh<CR>', { noremap = true })
-bind('n', '<leader>n', ':NvimTreeFindFile<CR>', { noremap = true })
+bind('n', '<Leader>tn', ':NvimTreeToggle<CR>', { noremap = true })

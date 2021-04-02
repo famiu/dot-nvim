@@ -44,25 +44,25 @@ bufferline.letters = 'asdfjkl;ghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP'
 bufferline.no_name_title = v['null']
 
 -- Move to previous/next
-bind('n', '<A-h>', ':BufferPrevious<CR>', { noremap = true, silent = true })
-bind('n', '<A-l>', ':BufferNext<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>bp', ':BufferPrevious<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>bn', ':BufferNext<CR>', { noremap = true, silent = true })
 -- Re-order to previous/next
-bind('n', '<S-A-h>', ':BufferMovePrevious<CR>', { noremap = true, silent = true })
-bind('n', '<S-A-l>', ':BufferMoveNext<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>bmp', ':BufferMovePrevious<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>bmn', ':BufferMoveNext<CR>', { noremap = true, silent = true })
 -- Goto buffer in position...
-bind('n', '<A-1>', ':BufferGoto 1<CR>', { noremap = true, silent = true })
-bind('n', '<A-2>', ':BufferGoto 2<CR>', { noremap = true, silent = true })
-bind('n', '<A-3>', ':BufferGoto 3<CR>', { noremap = true, silent = true })
-bind('n', '<A-4>', ':BufferGoto 4<CR>', { noremap = true, silent = true })
-bind('n', '<A-5>', ':BufferGoto 5<CR>', { noremap = true, silent = true })
-bind('n', '<A-6>', ':BufferGoto 6<CR>', { noremap = true, silent = true })
-bind('n', '<A-7>', ':BufferGoto 7<CR>', { noremap = true, silent = true })
-bind('n', '<A-8>', ':BufferGoto 8<CR>', { noremap = true, silent = true })
-bind('n', '<A-9>', ':BufferLast<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>b1', ':BufferGoto 1<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>b2', ':BufferGoto 2<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>b3', ':BufferGoto 3<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>b4', ':BufferGoto 4<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>b5', ':BufferGoto 5<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>b6', ':BufferGoto 6<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>b7', ':BufferGoto 7<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>b8', ':BufferGoto 8<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>b9', ':BufferLast<CR>', { noremap = true, silent = true })
 -- Close buffer
-bind('n', '<A-x>', ':BufferClose<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>bx', ':BufferClose<CR>', { noremap = true, silent = true })
 -- Magic buffer-picking mode
-bind('n', '<C-s>', ':BufferPick<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>bc', ':BufferPick<CR>', { noremap = true, silent = true })
 -- Sort automatically by...
-bind('n', '<Space>bd', ':BufferOrderByDirectory<CR>', { noremap = true, silent = true })
-bind('n', '<Space>bl', ':BufferOrderByLanguage<CR>', { noremap = true, silent = true })
+bind('n', '<Space>bod', ':BufferOrderByDirectory<CR>', { noremap = true, silent = true })
+bind('n', '<Space>bol', ':BufferOrderByLanguage<CR>', { noremap = true, silent = true })

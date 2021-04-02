@@ -104,6 +104,12 @@ return require('packer').startup(function()
     -- Godot
     use 'habamax/vim-godot'
 
+    -- Whick Key
+    use {
+        'AckslD/nvim-whichkey-setup.lua',
+        requires = {'liuchengxu/vim-which-key'},
+    }
+
     -- Meta
     -- Read line and column from the command line
     use 'wsdjeg/vim-fetch'

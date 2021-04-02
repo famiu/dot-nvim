@@ -14,7 +14,7 @@ bind('n', '<Leader>dbc',
 bind('n', '<Leader>dbl',
     ':lua require("dap").set_breakpoint' ..
     '(nil, nil, vim.fn.input("Log point message: "))<CR>', opts)
-bind('n', '<Leader>dro', ':lua require("dap").repl.open()<CR>', opts)
-bind('n', '<Leader>drl', ':lua require("dap").run_last()<CR>', opts)
+bind('n', '<Leader>dr', ':lua require("dap").repl.open()<CR>', opts)
+bind('n', '<Leader>dR', ':lua require("dap").run_last()<CR>', opts)
 
 

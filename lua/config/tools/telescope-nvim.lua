@@ -75,7 +75,7 @@ local bind_picker = function(keys, picker_name, extension_name)
         vim.api.nvim_set_keymap(
             'n', keys,
             "<cmd>lua require('telescope.builtin')['" .. picker_name .. "']()<CR>",
-            {}
+        {}
         )
     end
 end
@@ -88,21 +88,18 @@ bind_picker('<Leader>ff', 'find_files')
 bind_picker('<Leader>fg', 'live_grep')
 bind_picker('<Leader>fb', 'buffers')
 bind_picker('<Leader>fh', 'help_tags')
+bind_picker('<Leader>ft', 'treesitter')
 
 -- LSP
-bind_picker('<Leader>ls', 'lsp_document_symbols')
-bind_picker('<Leader>lS', 'lsp_workspace_symbols')
-bind_picker('<Leader>ld', 'lsp_document_diagnostics')
-bind_picker('<Leader>lD', 'lsp_workspace_diagnostics')
+bind_picker('<Leader>lsd', 'lsp_document_symbols')
+bind_picker('<Leader>lsw', 'lsp_workspace_symbols')
+bind_picker('<Leader>ldd', 'lsp_document_diagnostics')
+bind_picker('<Leader>ldw', 'lsp_workspace_diagnostics')
 bind_picker('<Leader>lc', 'lsp_code_actions')
 
 -- DAP
 bind_picker('<Leader>dc', 'commands', 'dap')
-bind_picker('<Leader>dC', 'configurations', 'dap')
-bind_picker('<Leader>dlb', 'list_breakpoints', 'dap')
+bind_picker('<Leader>ds', 'configurations', 'dap')
+bind_picker('<Leader>dl', 'list_breakpoints', 'dap')
 bind_picker('<Leader>dv', 'variables', 'dap')
 bind_picker('<Leader>df', 'frames', 'dap')
-
--- Treesitter
-bind_picker('<Leader>ts', 'treesitter')
-
