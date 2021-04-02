@@ -21,15 +21,15 @@ bind('n', '<C-L>',
 
 -- Window keybinds
 -- Goto window number
-bind('n', '<Leader>1', 'exe 1 . "wincmd w"', { noremap = true, silent = true })
-bind('n', '<Leader>2', 'exe 2 . "wincmd w"', { noremap = true, silent = true })
-bind('n', '<Leader>3', 'exe 3 . "wincmd w"', { noremap = true, silent = true })
-bind('n', '<Leader>4', 'exe 4 . "wincmd w"', { noremap = true, silent = true })
-bind('n', '<Leader>5', 'exe 5 . "wincmd w"', { noremap = true, silent = true })
-bind('n', '<Leader>6', 'exe 6 . "wincmd w"', { noremap = true, silent = true })
-bind('n', '<Leader>7', 'exe 7 . "wincmd w"', { noremap = true, silent = true })
-bind('n', '<Leader>8', 'exe 8 . "wincmd w"', { noremap = true, silent = true })
-bind('n', '<Leader>9', 'exe 9 . "wincmd w"', { noremap = true, silent = true })
+bind('n', '<Leader>wg1', ':exe 1 . "wincmd w"<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>wg2', ':exe 2 . "wincmd w"<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>wg3', ':exe 3 . "wincmd w"<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>wg4', ':exe 4 . "wincmd w"<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>wg5', ':exe 5 . "wincmd w"<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>wg6', ':exe 6 . "wincmd w"<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>wg7', ':exe 7 . "wincmd w"<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>wg8', ':exe 8 . "wincmd w"<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>wg9', ':exe 9 . "wincmd w"<CR>', { noremap = true, silent = true })
 
 -- Goto window above/below/left/right
 bind('n', '<Leader>wh', ':wincmd h<CR>', { noremap = true, silent = true })

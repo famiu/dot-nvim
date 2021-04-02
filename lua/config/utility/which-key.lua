@@ -1,17 +1,20 @@
 local wk = require('whichkey_setup')
 
 local keymap = {
-    ['1'] = 'Window 1',
-    ['2'] = 'Window 2',
-    ['3'] = 'Window 3',
-    ['4'] = 'Window 4',
-    ['5'] = 'Window 5',
-    ['6'] = 'Window 6',
-    ['7'] = 'Window 7',
-    ['8'] = 'Window 8',
-    ['9'] = 'Window 9',
     w = {
         name = '+windows',
+        g = {
+            name = '+goto-window',
+            ['1'] = 'Window 1',
+            ['2'] = 'Window 2',
+            ['3'] = 'Window 3',
+            ['4'] = 'Window 4',
+            ['5'] = 'Window 5',
+            ['6'] = 'Window 6',
+            ['7'] = 'Window 7',
+            ['8'] = 'Window 8',
+            ['9'] = 'Window 9',
+        },
         h = 'Go to window left',
         j = 'Go to window below',
         k = 'Go to window above',
