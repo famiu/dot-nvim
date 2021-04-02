@@ -43,6 +43,9 @@ return require('packer').startup(function()
     -- Terminal
     use 'skywind3000/vim-terminal-help'
 
+    -- Color Picker
+    use 'KabbAmine/vCoolor.vim'
+
     -- Surround
     use 'tpope/vim-surround'
 
