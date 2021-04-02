@@ -55,9 +55,6 @@ else
     -- Load configuration
     require('config')
 
-    -- All LSP and LSP-related configurations
-    require('lsp')
-
     -- Load statusline
     require('statusline')
 end

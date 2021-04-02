@@ -1,5 +1,0 @@
-require('lsp.nvim-lsp-settings')
-require('lsp.diagnostics')
-require('lsp.nvim-compe')
-require('lsp.lspkind')
-require('lsp.nvim-lightbulb')
