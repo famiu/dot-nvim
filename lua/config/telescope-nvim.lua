@@ -58,12 +58,23 @@ require('telescope').setup{
     }
 }
 
-local bind_picker = function(keys, picker_name)
-    vim.api.nvim_set_keymap(
-        'n', keys,
-        "<cmd>lua require('telescope.builtin')['" .. picker_name .. "']()<CR>",
-        {}
-    )
+local bind_picker = function(keys, picker_name, extension_name)
+    extension_name = extension_name or nil
+
+    if extension_name ~= nil then
+        vim.api.nvim_set_keymap(
+            'n', keys,
+            "<cmd>lua require('telescope').extensions['" .. extension_name .. "']"
+            .. "['" .. picker_name .. "']()<CR>",
+            {}
+        )
+    else
+        vim.api.nvim_set_keymap(
+            'n', keys,
+            "<cmd>lua require('telescope.builtin')['" .. picker_name .. "']()<CR>",
+            {}
+        )
+    end
 end
 
 -- Alt-Shift-P command palette
@@ -76,11 +87,11 @@ bind_picker('<Leader>fb', 'buffers')
 bind_picker('<Leader>fh', 'help_tags')
 
 -- LSP
-bind_picker('<Leader>ds', 'lsp_document_symbols')
-bind_picker('<Leader>ws', 'lsp_workspace_symbols')
-bind_picker('<Leader>ca', 'lsp_code_actions')
-bind_picker('<Leader>dd', 'lsp_document_diagnostics')
-bind_picker('<Leader>wd', 'lsp_workspace_diagnostics')
+bind_picker('<Leader>lds', 'lsp_document_symbols')
+bind_picker('<Leader>ldd', 'lsp_document_diagnostics')
+bind_picker('<Leader>lws', 'lsp_workspace_symbols')
+bind_picker('<Leader>lwd', 'lsp_workspace_diagnostics')
+bind_picker('<Leader>lc', 'lsp_code_actions')
 
 -- Treesitter
 bind_picker('<Leader>ts', 'treesitter')
