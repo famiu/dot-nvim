@@ -1,4 +1,5 @@
 local g = vim.g
+local bind = vim.api.nvim_buf_set_keymap
 
 g.mkdp_auto_start = 0
 g.mkdp_auto_close = 1
