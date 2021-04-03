@@ -6,10 +6,6 @@ function Restart()
     -- Reload config
     Reload()
 
-    -- Close all buffers
-    execute('%bdelete')
-    execute('BufferCloseAllButCurrent')
-
     -- Manually run VimEnter autocmd to emulate a new run of Vim
     execute('doautocmd VimEnter')
 end

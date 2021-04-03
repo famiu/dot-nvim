@@ -107,6 +107,12 @@ return require('packer').startup(function()
     -- Godot
     use 'habamax/vim-godot'
 
+    -- Markdown preview
+    use {
+        'iamcco/markdown-preview.nvim',
+        run = function() vim.fn['mkdp#util#install']() end
+    }
+
     -- Which Key
     use {
         'AckslD/nvim-whichkey-setup.lua',
