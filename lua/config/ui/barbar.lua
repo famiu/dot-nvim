@@ -5,19 +5,19 @@ local v = vim.v
 
 bufferline = {}
 
-bufferline.animation = v['true']
-bufferline.auto_hide = v['true']
-bufferline.closable = v['true']
-bufferline.clickable = v['true']
+bufferline.animation = true
+bufferline.auto_hide = true
+bufferline.closable = true
+bufferline.clickable = true
 
 -- Enable/disable icons
 -- If set to 'numbers', will show buffer index in the tabline
 -- If set to 'both', will show buffer index and icons in the tabline
-bufferline.icons = v['true']
+bufferline.icons = true
 
 -- Sets the icon's highlight group.
 -- If false, will use nvim-web-devicons colors
-bufferline.icon_custom_colors = v['false']
+bufferline.icon_custom_colors = false
 
 -- Configure icons on the bufferline.
 bufferline.icon_separator_active = '▎'
@@ -32,7 +32,7 @@ bufferline.maximum_padding = 4
 -- assigned based on their name. Otherwise or in case all letters are
 -- already assigned, the behavior is to assign letters in order of
 -- usability (see order below)
-bufferline.semantic_letters = v['true']
+bufferline.semantic_letters = true
 
 -- New buffer letters are assigned in this order. This order is
 -- optimal for the qwerty keyboard layout but might need adjustement
