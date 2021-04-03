@@ -1,5 +1,4 @@
 local bind = vim.api.nvim_buf_set_keymap
-local utils = require('utils')
 
 function GodotSettings()
     bind(0, 'n', '<LocalLeader>l', ':GodotRunLast<CR>', { noremap = true })
@@ -17,6 +16,6 @@ function GodotSettings()
     require('whichkey_setup').register_keymap('localleader', keys)
 end
 
-utils.create_augroup({
+require('utils').create_augroup({
 	{'FileType', 'gdscript', 'lua GodotSettings()'},
 }, 'godot')
