@@ -1,24 +1,9 @@
 local fn = vim.fn
-local execute = vim.api.nvim_command
-
--- Restart Vim without having to close and run again
-function Restart()
-    -- Reload config
-    Reload()
-
-    -- Manually run VimEnter autocmd to emulate a new run of Vim
-    execute('doautocmd VimEnter')
-end
-
--- Reload Vim configuration
-function Reload()
-    -- Source init.lua
-    execute('luafile $MYVIMRC')
-end
+local cmd = vim.cmd
 
 -- Add commands for reload and restart
-execute('command! Reload lua Reload()')
-execute('command! Restart lua Restart()')
+cmd('command! Reload lua require("utils").Reload()')
+cmd('command! Restart lua require("utils").Restart()')
 
 -- Set mapleader to space
 vim.g.mapleader = ' '
@@ -36,15 +21,15 @@ local packer_install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.
 if fn.empty(fn.glob(packer_install_path)) > 0
 then
     -- Download Packer and add it
-    execute('!git clone https://github.com/wbthomason/packer.nvim '..packer_install_path)
-    execute('packadd packer.nvim')
+    cmd('!git clone https://github.com/wbthomason/packer.nvim '..packer_install_path)
+    cmd('packadd packer.nvim')
 
     -- Load plugins
     require('plugins')
 
     -- Automatically sync packer and restart Vim
-    execute('PackerSync')
-    execute('autocmd User PackerComplete lua Restart()')
+    cmd('PackerSync')
+    cmd('autocmd User PackerComplete lua Restart()')
 else
     -- Load plugins
     require('plugins')

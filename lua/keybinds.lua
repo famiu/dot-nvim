@@ -67,6 +67,12 @@ bind('n', '<Leader>wq', ':wincmd q<CR>', opts)
 bind('n', '<Leader>ws', ':wincmd s<CR>', opts)
 bind('n', '<Leader>wv', ':wincmd v<CR>', opts)
 
+-- Keybinds for editing vim config
+bind('n', '<Leader>ve', ':edit $MYVIMRC<CR>', opts)
+bind('n', '<Leader>vr', ':lua require("utils").Reload()<CR>', opts)
+bind('n', '<Leader>vR', ':lua require("utils").Restart()<CR>', opts)
+bind('n', '<Leader>vv', ':version<CR>', opts)
+
 local keys = {
     q = 'Quit all',
     Q = 'Quit all without save',
@@ -109,6 +115,13 @@ local keys = {
         q = 'Delete window',
         s = 'Split horizontally',
         v = 'Split vertically',
+    },
+    v = {
+        name = '+vim',
+        c = 'Edit config',
+        r = 'Reload',
+        R = 'Restart',
+        v = 'Version'
     }
 }
 

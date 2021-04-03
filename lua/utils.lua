@@ -2,6 +2,21 @@ local M = {}
 local cmd = vim.cmd
 local types = {o = vim.o, b = vim.bo, w = vim.wo}
 
+-- Reload Vim configuration
+function M.Reload()
+    -- Source init.lua
+    cmd('luafile $MYVIMRC')
+end
+
+-- Restart Vim without having to close and run again
+function M.Restart()
+    -- Reload config
+    M.Reload()
+
+    -- Manually run VimEnter autocmd to emulate a new run of Vim
+    cmd('doautocmd VimEnter')
+end
+
 -- Get table length
 function M.length(table)
     local count = 0
