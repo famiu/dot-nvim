@@ -89,6 +89,9 @@ return require('packer').startup(function()
         requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
 
+    -- Search and replace across multiple files
+    use 'brooth/far.vim'
+
     -- Completion
     use 'hrsh7th/nvim-compe'
 
