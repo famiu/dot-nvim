@@ -62,23 +62,7 @@ require('telescope').setup{
 -- Telescope modules
 require('telescope').load_extension('dap')
 
--- Function to bind picker to key combination
-local bind_picker = function(keys, picker_name, extension_name)
-    if extension_name ~= nil then
-        vim.api.nvim_set_keymap(
-            'n', keys,
-            "<cmd>lua require('telescope').extensions['" .. extension_name .. "']"
-            .. "['" .. picker_name .. "']()<CR>",
-            {}
-        )
-    else
-        vim.api.nvim_set_keymap(
-            'n', keys,
-            "<cmd>lua require('telescope.builtin')['" .. picker_name .. "']()<CR>",
-        {}
-        )
-    end
-end
+local bind_picker = require('config.tools.telescope-nvim-utils').bind_picker
 
 -- Alt-Shift-P command palette
 bind_picker('<S-A-p>', 'commands')
@@ -90,12 +74,16 @@ bind_picker('<Leader>fb', 'buffers')
 bind_picker('<Leader>fh', 'help_tags')
 bind_picker('<Leader>ft', 'treesitter')
 
--- LSP
-bind_picker('<Leader>lsd', 'lsp_document_symbols')
-bind_picker('<Leader>lsw', 'lsp_workspace_symbols')
-bind_picker('<Leader>ldd', 'lsp_document_diagnostics')
-bind_picker('<Leader>ldw', 'lsp_workspace_diagnostics')
-bind_picker('<Leader>lc', 'lsp_code_actions')
+local keys = {
+    f = {
+        name = '+telescope',
+        b = 'Buffers',
+        f = 'Find files',
+        g = 'Live grep',
+        h = 'Help tags',
+        t = 'Treesitter'
+    }
+}
 
 -- DAP
 bind_picker('<Leader>dc', 'commands', 'dap')
@@ -103,3 +91,14 @@ bind_picker('<Leader>ds', 'configurations', 'dap')
 bind_picker('<Leader>dl', 'list_breakpoints', 'dap')
 bind_picker('<Leader>dv', 'variables', 'dap')
 bind_picker('<Leader>df', 'frames', 'dap')
+
+keys.d = {
+    name = '+dap',
+    c = 'Commands',
+    s = 'Configurations',
+    l = 'List breakpoints',
+    v = 'Variables',
+    f = 'Frames',
+}
+
+require('whichkey_setup').register_keymap('leader', keys)

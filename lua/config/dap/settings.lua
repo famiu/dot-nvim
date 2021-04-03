@@ -1,5 +1,4 @@
 local g = vim.g
-local fn = vim.fn
 local dap = require('dap')
 
 -- Enable DAP virtual text

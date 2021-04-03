@@ -2,6 +2,13 @@ local M = {}
 local cmd = vim.cmd
 local types = {o = vim.o, b = vim.bo, w = vim.wo}
 
+-- Get table length
+function M.length(table)
+    local count = 0
+    for _ in ipairs(table) do count = count + 1 end
+    return count
+end
+
 -- Get option
 function M.get_opt(type, name)
     return types[type][name]

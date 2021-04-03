@@ -60,9 +60,40 @@ bind('n', '<Leader>b7', ':BufferGoto 7<CR>', { noremap = true, silent = true })
 bind('n', '<Leader>b8', ':BufferGoto 8<CR>', { noremap = true, silent = true })
 bind('n', '<Leader>b9', ':BufferLast<CR>', { noremap = true, silent = true })
 -- Close buffer
-bind('n', '<Leader>bx', ':BufferClose<CR>', { noremap = true, silent = true })
+bind('n', '<Leader>bd', ':BufferClose<CR>', { noremap = true, silent = true })
 -- Magic buffer-picking mode
 bind('n', '<Leader>bc', ':BufferPick<CR>', { noremap = true, silent = true })
 -- Sort automatically by...
 bind('n', '<Space>bod', ':BufferOrderByDirectory<CR>', { noremap = true, silent = true })
 bind('n', '<Space>bol', ':BufferOrderByLanguage<CR>', { noremap = true, silent = true })
+
+local keys = {
+    b = {
+        name = '+buffer',
+        ['1'] = 'Goto 1',
+        ['2'] = 'Goto 2',
+        ['3'] = 'Goto 3',
+        ['4'] = 'Goto 4',
+        ['5'] = 'Goto 5',
+        ['6'] = 'Goto 6',
+        ['7'] = 'Goto 7',
+        ['8'] = 'Goto 8',
+        ['9'] = 'Goto Last',
+        c = 'Choose',
+        n = 'Next',
+        p = 'Previous',
+        x = 'Close',
+        m = {
+            name = '+move',
+            n = 'Next',
+            p = 'Previous'
+        },
+        o = {
+            name = '+order',
+            d = 'By Directory',
+            l = 'By Language'
+        }
+    },
+}
+
+require('whichkey_setup').register_keymap('leader', keys)

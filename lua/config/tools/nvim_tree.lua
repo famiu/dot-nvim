@@ -45,3 +45,10 @@ g.nvim_tree_icons = {
 }
 
 bind('n', '<Leader>tn', ':NvimTreeToggle<CR>', { noremap = true })
+
+require('whichkey_setup').register_keymap('leader', {
+    t = {
+        name = '+ui-toggle',
+        n = 'NvimTree',
+    }
+})

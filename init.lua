@@ -27,6 +27,9 @@ execute('command! Restart lua Restart()')
 -- Set mapleader to space
 vim.g.mapleader = ' '
 
+-- Set localleader to comma
+vim.g.maplocalleader = ','
+
 -- Sensible defaults
 require('settings')
 

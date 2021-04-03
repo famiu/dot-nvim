@@ -23,9 +23,34 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<Leader>ldp', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', '<Leader>ldn', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
-    -- Add keymaps to which-key
-    local keymap = {
+    local function buf_bind_picker(...)
+        require('config.tools.telescope-nvim-utils').buf_bind_picker(bufnr, ...)
+    end
+
+    -- Telescope LSP
+    buf_bind_picker('<Leader>lsd', 'lsp_document_symbols')
+    buf_bind_picker('<Leader>lsw', 'lsp_workspace_symbols')
+    buf_bind_picker('<Leader>ldd', 'lsp_document_diagnostics')
+    buf_bind_picker('<Leader>ldw', 'lsp_workspace_diagnostics')
+    buf_bind_picker('<Leader>lc', 'lsp_code_actions')
+
+    local keys = {
         l = {
+            name = '+lsp',
+            s = {
+                name = '+symbols',
+                d = 'Document Symbols',
+                w = 'Workspace Symbols'
+            },
+            d = {
+                name = '+diagnostics',
+                s = 'Show line diagnostics',
+                p = 'Goto prev',
+                n = 'Goto next',
+                d = 'Document Diagnostics',
+                w = 'Workspace Diagnostics'
+            },
+            c = 'Code Actions',
             w = {
                 name = '+workspace',
                 a = 'Add workspace folder',
@@ -34,25 +59,20 @@ local on_attach = function(client, bufnr)
             },
             D = 'Type definition',
             r = 'Rename',
-            d = {
-                s = 'Show line diagnostics',
-                p = 'Goto prev',
-                n = 'Goto next'
-            }
         }
     }
 
     if client.resolved_capabilities.document_formatting then
         buf_set_keymap("n", "<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
         vim.api.nvim_command('autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)')
-        keymap.l.f = 'Format'
+        keys.l.f = 'Format'
     elseif client.resolved_capabilities.document_range_formatting then
         buf_set_keymap("n", "<space>lf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
         vim.api.nvim_command('autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)')
-        keymap.l.f = 'Range Format'
+        keys.l.f = 'Range Format'
     end
 
-    require('whichkey_setup').register_keymap('leader', keymap)
+    require('whichkey_setup').register_keymap('leader', keys)
 
     -- Set autocommands conditional on server_capabilities
     if client.resolved_capabilities.document_highlight then
@@ -84,8 +104,6 @@ local default_config = function()
 end
 
 -- LSP Servers
-
--- Language servers installed by system
 local servers = {'clangd', 'gdscript', 'rust_analyzer', 'bashls', 'sumneko_lua',
                  'pyright'}
 local lspinstall_path = vim.fn.stdpath('data') .. '/lspinstall/'

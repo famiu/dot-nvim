@@ -17,4 +17,18 @@ bind('n', '<Leader>dbl',
 bind('n', '<Leader>dr', ':lua require("dap").repl.open()<CR>', opts)
 bind('n', '<Leader>dR', ':lua require("dap").run_last()<CR>', opts)
 
+local keys = {
+    d = {
+        name = '+dap',
+        t = 'Toggle breakpoint',
+        b = {
+            name = '+breakpoint',
+            c = 'Conditional breakpoint',
+            l = 'Log point'
+        },
+        r = 'Open REPL',
+        R = 'Run last'
+    }
+}
 
+require('whichkey_setup').register_keymap('leader', keys)

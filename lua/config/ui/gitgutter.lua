@@ -14,6 +14,24 @@ highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 bind('n', ']h', '<Plug>(GitGutterNextHunk)', {})
 bind('n', '[h', '<Plug>(GitGutterPrevHunk)', {})
 
-bind('n', 'ghs', '<Plug>(GitGutterStageHunk)', {})
-bind('n', 'ghu', '<Plug>(GitGutterUndoHunk)', {})
-bind('n', 'ghp', '<Plug>(GitGutterPreviewHunk)', {})
+bind('n', '<Leader>ghn', '<Plug>(GitGutterNextHunk)', {})
+bind('n', '<Leader>ghp', '<Plug>(GitGutterPrevHunk)', {})
+
+bind('n', '<Leader>ghs', '<Plug>(GitGutterStageHunk)', {})
+bind('n', '<Leader>ghu', '<Plug>(GitGutterUndoHunk)', {})
+bind('n', '<Leader>ghv', '<Plug>(GitGutterPreviewHunk)', {})
+
+local keys = {
+    g = {
+        h = {
+            name = '+hunk',
+            n = 'Next hunk',
+            p = 'Previous hunk',
+            s = 'Stage hunk',
+            u = 'Undo hunk',
+            v = 'Preview hunk'
+        }
+    }
+}
+
+require('whichkey_setup').register_keymap('leader', keys)
