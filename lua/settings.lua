@@ -96,9 +96,6 @@ set_opt('o', 'sidescrolloff', 5)
 -- Enable filetype plugin
 cmd 'filetype plugin on'
 
--- Automatically switch current window directory to directory of current file
-cmd 'autocmd BufEnter * silent! lcd %:p:h'
-
 -- Highlight text on yank
 cmd 'autocmd TextYankPost * silent! lua vim.highlight.on_yank()'
 

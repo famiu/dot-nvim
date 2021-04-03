@@ -1,5 +1,4 @@
 require('config.ui.colorscheme')
-require('config.ui.colorizer')
 require('config.ui.gitgutter')
 require('config.ui.barbar')
 require('config.ui.startify')

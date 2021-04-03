@@ -64,6 +64,9 @@ return require('packer').startup(function()
     -- UNIX helper
     use 'tpope/vim-eunuch'
 
+    -- Automatically change current directory
+    use 'airblade/vim-rooter'
+
     -- Editorconfig
     use 'editorconfig/editorconfig-vim'
 
