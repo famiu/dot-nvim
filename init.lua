@@ -33,9 +33,6 @@ vim.g.maplocalleader = ','
 -- Sensible defaults
 require('settings')
 
--- Load keybinds
-require('keybinds')
-
 -- If Packer is not installed, download it and all plugins and reload config
 -- If Packer is installed, load configuration as usual
 local packer_install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
@@ -55,6 +52,9 @@ then
 else
     -- Load plugins
     require('plugins')
+
+    -- Load keybinds
+    require('keybinds')
 
     -- Load configuration
     require('config')
