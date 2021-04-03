@@ -61,6 +61,8 @@ bind('n', '<Leader>b8', ':BufferGoto 8<CR>', { noremap = true, silent = true })
 bind('n', '<Leader>b9', ':BufferLast<CR>', { noremap = true, silent = true })
 -- Close buffer
 bind('n', '<Leader>bd', ':BufferClose<CR>', { noremap = true, silent = true })
+-- Kill buffer
+bind('n', '<Leader>bk', ':BufferDelete<CR>', { noremap = true, silent = true })
 -- Magic buffer-picking mode
 bind('n', '<Leader>bc', ':BufferPick<CR>', { noremap = true, silent = true })
 -- Sort automatically by...
@@ -82,7 +84,8 @@ local keys = {
         c = 'Choose',
         n = 'Next',
         p = 'Previous',
-        x = 'Close',
+        d = 'Close',
+        k = 'Kill',
         m = {
             name = '+move',
             n = 'Next',
