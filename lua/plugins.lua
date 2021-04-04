@@ -41,7 +41,7 @@ return require('packer').startup(function()
     use 'gennaro-tedesco/nvim-peekup'
 
     -- Terminal
-    use 'skywind3000/vim-terminal-help'
+    use 'akinsho/nvim-toggleterm.lua'
 
     -- Color Picker
     use 'KabbAmine/vCoolor.vim'
