@@ -39,7 +39,6 @@ set_opt('o', 'backspace', 'indent,eol,start')
 set_opt('o', 'laststatus', 2)
 
 -- Indent
--- o.tabstop = 8
 set_opt('b', 'softtabstop', 4)
 set_opt('b', 'shiftwidth', 4)
 set_opt('b', 'expandtab', true)
