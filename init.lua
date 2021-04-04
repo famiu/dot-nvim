@@ -29,7 +29,9 @@ then
 
     -- Automatically sync packer and restart Vim
     cmd('PackerSync')
-    cmd('autocmd User PackerComplete lua Restart()')
+    require('utils').create_augroup({
+        {'User', 'PackerComplete', 'lua require("utils").Restart()'}
+    }, 'init_reload_after_packer')
 else
     -- Load plugins
     require('plugins')

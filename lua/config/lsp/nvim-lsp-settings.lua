@@ -64,12 +64,42 @@ local on_attach = function(client, bufnr)
 
     if client.resolved_capabilities.document_formatting then
         buf_set_keymap("n", "<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-        vim.api.nvim_command('autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)')
+
+        require('utils').create_augroup({
+            {'BufWritePre', '*', 'lua vim.lsp.buf.formatting_sync(nil, 1000)'}
+        }, 'lsp_auto_format')
+
         keys.l.f = 'Format'
+
+        if client.resolved_capabilities.document_range_formatting then
+            buf_set_keymap('n', '<space>lF',
+                '<cmd>lua vim.lsp.buf.range_formatting()<CR>',
+                opts
+            )
+
+            keys.l.F = 'Range Format'
+        end
+
     elseif client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap("n", "<space>lf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-        vim.api.nvim_command('autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)')
-        keys.l.f = 'Range Format'
+        buf_set_keymap(
+            'n', '<space>lf',
+            '<cmd>lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})<CR>',
+            opts
+        )
+        buf_set_keymap('n', '<space>lF',
+            '<cmd>lua vim.lsp.buf.range_formatting()<CR>',
+            opts
+        )
+
+        require('utils').create_augroup({
+            {
+                'BufWritePre', '*',
+                'lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})'
+            }
+        }, 'lsp_auto_format')
+
+        keys.l.f = 'Format'
+        keys.l.F = 'Range Format'
     end
 
     require('whichkey_setup').register_keymap('leader', keys)

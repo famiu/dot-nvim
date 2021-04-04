@@ -32,6 +32,9 @@ end
 
 -- Reload Vim configuration
 function M.Reload()
+    -- Stop LSP
+    cmd('LspStop')
+
     -- Unload all already loaded modules
     M.UnloadAllModules()
 

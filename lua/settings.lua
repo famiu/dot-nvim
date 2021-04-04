@@ -97,7 +97,9 @@ set_opt('o', 'sidescrolloff', 5)
 cmd 'filetype plugin on'
 
 -- Highlight text on yank
-cmd 'autocmd TextYankPost * silent! lua vim.highlight.on_yank()'
+require('utils').create_augroup({
+    {'TextYankPost', '*', 'silent!', 'lua vim.highlight.on_yank()'}
+}, 'highlight_on_yank')
 
 -- Enable syntax highlighting
 cmd 'syntax enable'
