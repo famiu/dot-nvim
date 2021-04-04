@@ -41,7 +41,7 @@ bufferline.letters = 'asdfjkl;ghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP'
 
 -- Sets the name of unnamed buffers. By default format is "[Buffer X]"
 -- where X is the buffer number. But only a static string is accepted here.
-bufferline.no_name_title = v['null']
+bufferline.no_name_title = nil
 
 -- Move to previous/next
 bind('n', '<Leader>bp', ':BufferPrevious<CR>', { noremap = true, silent = true })
