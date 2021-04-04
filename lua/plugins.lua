@@ -12,7 +12,7 @@ return require('packer').startup(function()
     use 'tomasiser/vim-code-dark'
 
     -- Tab bar
-    use 'romgrk/barbar.nvim'
+    use 'akinsho/nvim-bufferline.lua'
 
     -- Statusline
     use { 'glepnir/galaxyline.nvim', branch = 'main' }
