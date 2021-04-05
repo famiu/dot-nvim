@@ -31,7 +31,7 @@ return require('packer').startup(function()
 
     -- Git
     use 'tpope/vim-fugitive'
-    use 'airblade/vim-gitgutter'
+    use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
     use 'junegunn/gv.vim'
 
     -- Undo Tree
