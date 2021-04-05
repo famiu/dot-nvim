@@ -73,9 +73,6 @@ return require('packer').startup(function()
     -- Editorconfig
     use 'editorconfig/editorconfig-vim'
 
-    -- Easymotion
-    use 'easymotion/vim-easymotion'
-
     -- Snippets
     use 'hrsh7th/vim-vsnip'
     use 'hrsh7th/vim-vsnip-integ'
