@@ -94,6 +94,7 @@ return require('packer').startup(function()
 
     -- Tresitter
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
 
     -- LSP Install
     use 'kabouzeid/nvim-lspinstall'
