@@ -1,5 +1,5 @@
 require"toggleterm".setup {
-    size = 20,
+    size = 14,
     open_mapping = [[<A-=>]],
     shade_filetypes = {},
     shade_terminals = true,
@@ -7,6 +7,6 @@ require"toggleterm".setup {
     -- default: 1 for dark backgrounds, 3 for light
     shading_factor = 1,
     start_in_insert = true,
-    persist_size = false,
+    persist_size = true,
     direction = 'horizontal',
 }
