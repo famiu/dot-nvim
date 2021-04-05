@@ -50,7 +50,7 @@ return require('packer').startup(function()
     use 'tpope/vim-surround'
 
     -- Comments
-    use 'tpope/vim-commentary'
+    use 'b3nj5m1n/kommentary'
 
     -- Tabs and text alignment
     use 'godlygeek/tabular'
