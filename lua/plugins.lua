@@ -26,9 +26,6 @@ return require('packer').startup(function()
     -- Neovim icons
     use 'kyazdani42/nvim-web-devicons'
 
-    -- Indent guides
-    use {'lukas-reineke/indent-blankline.nvim', branch = 'lua'}
-
     -- File Tree
     use 'kyazdani42/nvim-tree.lua'
 
