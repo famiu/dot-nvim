@@ -65,10 +65,6 @@ local on_attach = function(client, bufnr)
     if client.resolved_capabilities.document_formatting then
         buf_set_keymap("n", "<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
-        require('utils').create_augroup({
-            {'BufWritePre', '*', 'lua vim.lsp.buf.formatting_sync(nil, 1000)'}
-        }, 'lsp_auto_format')
-
         keys.l.f = 'Format'
 
         if client.resolved_capabilities.document_range_formatting then
@@ -90,13 +86,6 @@ local on_attach = function(client, bufnr)
             '<cmd>lua vim.lsp.buf.range_formatting()<CR>',
             opts
         )
-
-        require('utils').create_augroup({
-            {
-                'BufWritePre', '*',
-                'lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})'
-            }
-        }, 'lsp_auto_format')
 
         keys.l.f = 'Format'
         keys.l.F = 'Range Format'
@@ -135,7 +124,7 @@ end
 
 -- LSP Servers
 local servers = {'clangd', 'gdscript', 'rust_analyzer', 'bashls', 'sumneko_lua',
-                 'pyright'}
+                 'pyright', 'cmake'}
 local lspinstall_path = vim.fn.stdpath('data') .. '/lspinstall/'
 
 for _, server in ipairs(servers) do
@@ -172,6 +161,12 @@ for _, server in ipairs(servers) do
     if server == "pyright" then
         config.cmd = {
             lspinstall_path .. 'python/node_modules/.bin/pyright-langserver', '--stdio'
+        }
+    end
+
+    if server == "cmake" then
+        config.cmd = {
+            lspinstall_path .. 'cmake/venv/bin/cmake-language-server'
         }
     end
 
