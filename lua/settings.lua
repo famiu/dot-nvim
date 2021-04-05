@@ -69,6 +69,7 @@ set_opt('o', 'hlsearch', true)
 set_opt('o', 'incsearch', true)
 set_opt('o', 'ignorecase', true)
 set_opt('o', 'smartcase', true)
+set_opt('o', 'gdefault', true)
 
 -- Incremental command
 set_opt('o', 'inccommand', 'nosplit')
