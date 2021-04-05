@@ -73,6 +73,7 @@ bind_picker('<Leader>fg', 'live_grep')
 bind_picker('<Leader>fb', 'buffers')
 bind_picker('<Leader>fh', 'help_tags')
 bind_picker('<Leader>ft', 'treesitter')
+bind_picker('<Leader>fo', 'oldfiles')
 
 local keys = {
     f = {
@@ -81,7 +82,8 @@ local keys = {
         f = 'Find files',
         g = 'Live grep',
         h = 'Help tags',
-        t = 'Treesitter'
+        t = 'Treesitter',
+        o = 'Old files'
     }
 }
 
@@ -98,7 +100,7 @@ keys.d = {
     s = 'Configurations',
     l = 'List breakpoints',
     v = 'Variables',
-    f = 'Frames',
+    f = 'Frames'
 }
 
 require('whichkey_setup').register_keymap('leader', keys)
