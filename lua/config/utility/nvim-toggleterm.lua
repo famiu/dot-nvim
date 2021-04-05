@@ -7,6 +7,6 @@ require"toggleterm".setup {
     -- default: 1 for dark backgrounds, 3 for light
     shading_factor = 1,
     start_in_insert = true,
-    persist_size = true,
+    persist_size = false,
     direction = 'horizontal',
 }

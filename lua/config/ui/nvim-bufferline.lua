@@ -20,7 +20,7 @@ require'bufferline'.setup {
         -- NOTE: this will be called a lot so don't do any heavy processing here
         custom_filter = function(buf_number)
             -- Filter out terminal buffers
-            if string.sub(vim.fn.bufname(buf_number), 1, string.len("term://")) ~= "term://" then
+            if vim.bo[buf_number].buftype ~= "terminal" then
                 return true
             end
         end,
