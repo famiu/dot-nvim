@@ -23,9 +23,6 @@ return require('packer').startup(function()
     -- Colorize color codes
     use 'chrisbra/Colorizer'
 
-    -- Rainbow delimiters
-    use 'p00f/nvim-ts-rainbow'
-
     -- Neovim icons
     use 'kyazdani42/nvim-web-devicons'
 
