@@ -1,3 +1,5 @@
+local bind = vim.api.nvim_set_keymap
+
 require('gitsigns').setup {
     signs = {
         add          = {hl = 'GitGutterAdd'   , text = '│', numhl='GitGutterAddNr'   , linehl='GitGutterAddLn'},
@@ -8,26 +10,6 @@ require('gitsigns').setup {
     },
     numhl = false,
     linehl = false,
-    keymaps = {
-        -- Default keymap options
-        noremap = true,
-
-        ['n ]h'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"},
-        ['n [h'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
-
-        ['n <leader>ghn'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"},
-        ['n <leader>ghp'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
-
-        ['n <leader>ghs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-        ['n <leader>ghu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-        ['n <leader>ghr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-        ['n <leader>ghv'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-        ['n <leader>ghb'] = '<cmd>lua require"gitsigns".blame_line()<CR>',
-
-        -- Text objects
-        ['o ih'] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
-        ['x ih'] = ':<C-U>lua require"gitsigns".select_hunk()<CR>'
-    },
     watch_index = {
         interval = 1000
     },
@@ -44,6 +26,25 @@ highlight GitGutterAdd    guifg=#009900 ctermfg=2
 highlight GitGutterChange guifg=#bbbb00 ctermfg=3
 highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 ]], false)
+
+-- -- Default keymap options
+local opts = { noremap = true }
+
+bind('n', ']h', "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'",
+    { noremap = true, expr=true })
+bind('n', '[h', "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'",
+    { noremap = true, expr=true })
+
+bind('n', '<leader>ghn', "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'",
+    { noremap = true, expr=true })
+bind('n', '<leader>ghp', "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'",
+    { noremap = true, expr=true })
+
+bind('n', '<leader>ghs', '<cmd>lua require"gitsigns".stage_hunk()<CR>', opts)
+bind('n', '<leader>ghu', '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>', opts)
+bind('n', '<leader>ghr', '<cmd>lua require"gitsigns".reset_hunk()<CR>', opts)
+bind('n', '<leader>ghv', '<cmd>lua require"gitsigns".preview_hunk()<CR>', opts)
+bind('n', '<leader>ghb', '<cmd>lua require"gitsigns".blame_line()<CR>', opts)
 
 local keys = {
     g = {
