@@ -1,136 +1,138 @@
 -- Plugins
-local use = require('packer').use
+local packer = require('packer')
+local use = packer.use
 
-return require('packer').startup(function()
-    -- Packer
-    use 'wbthomason/packer.nvim'
+packer.reset()
+packer.init()
 
-    -- Neovim GUI Shim
-    use { 'equalsraf/neovim-gui-shim', opt = true }
+-- Packer
+use 'wbthomason/packer.nvim'
 
-    -- Colorscheme
-    use 'tomasiser/vim-code-dark'
+-- Neovim GUI Shim
+use { 'equalsraf/neovim-gui-shim', opt = true }
 
-    -- Tab bar
-    use 'akinsho/nvim-bufferline.lua'
+-- Colorscheme
+use 'tomasiser/vim-code-dark'
 
-    -- Statusline
-    use { 'glepnir/galaxyline.nvim', branch = 'main' }
+-- Tab bar
+use 'akinsho/nvim-bufferline.lua'
 
-    -- Start screen
-    use 'mhinz/vim-startify'
+-- Statusline
+use { 'glepnir/galaxyline.nvim', branch = 'main' }
 
-    -- Colorize color codes
-    use 'chrisbra/Colorizer'
+-- Start screen
+use 'mhinz/vim-startify'
 
-    -- Neovim icons
-    use 'kyazdani42/nvim-web-devicons'
+-- Colorize color codes
+use 'chrisbra/Colorizer'
 
-    -- Indent guides
-    use {'lukas-reineke/indent-blankline.nvim', branch = 'lua'}
+-- Neovim icons
+use 'kyazdani42/nvim-web-devicons'
 
-    -- File Tree
-    use 'kyazdani42/nvim-tree.lua'
+-- Indent guides
+use {'lukas-reineke/indent-blankline.nvim', branch = 'lua'}
 
-    -- Git
-    use 'tpope/vim-fugitive'
-    use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
-    use 'junegunn/gv.vim'
+-- Which Key
+use {
+    'AckslD/nvim-whichkey-setup.lua',
+    requires = {'liuchengxu/vim-which-key'},
+}
 
-    -- Undo Tree
-    use 'mbbill/undotree'
+-- Smooth scrolling
+use 'psliwka/vim-smoothie'
 
-    -- Register Preview
-    use 'gennaro-tedesco/nvim-peekup'
+-- File Tree
+use 'kyazdani42/nvim-tree.lua'
 
-    -- Terminal
-    use 'akinsho/nvim-toggleterm.lua'
+-- Git
+use 'tpope/vim-fugitive'
+use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
+use 'junegunn/gv.vim'
 
-    -- Color Picker
-    use 'KabbAmine/vCoolor.vim'
+-- Undo Tree
+use 'mbbill/undotree'
 
-    -- Surround
-    use 'tpope/vim-surround'
+-- Register Preview
+use 'gennaro-tedesco/nvim-peekup'
 
-    -- Comments
-    use 'b3nj5m1n/kommentary'
+-- Terminal
+use 'akinsho/nvim-toggleterm.lua'
 
-    -- Tabs and text alignment
-    use 'godlygeek/tabular'
+-- Color Picker
+use 'KabbAmine/vCoolor.vim'
 
-    -- Delimit
-    use 'Raimondi/delimitMate'
+-- Surround
+use 'tpope/vim-surround'
 
-    -- Remember last location in file
-    use 'farmergreg/vim-lastplace'
+-- Comments
+use 'b3nj5m1n/kommentary'
 
-    -- UNIX helper
-    use 'tpope/vim-eunuch'
+-- Tabs and text alignment
+use 'godlygeek/tabular'
 
-    -- Automatically change current directory
-    use 'airblade/vim-rooter'
+-- Delimit
+use 'Raimondi/delimitMate'
 
-    -- Editorconfig
-    use 'editorconfig/editorconfig-vim'
+-- Remember last location in file
+use 'farmergreg/vim-lastplace'
 
-    -- Snippets
-    use 'hrsh7th/vim-vsnip'
-    use 'hrsh7th/vim-vsnip-integ'
+-- UNIX helper
+use 'tpope/vim-eunuch'
 
-    -- LSP
-    use 'neovim/nvim-lsp'
-    use 'onsails/lspkind-nvim'
-    use 'ray-x/lsp_signature.nvim'
-    use 'kosayoda/nvim-lightbulb'
+-- Automatically change current directory
+use 'airblade/vim-rooter'
 
-    -- Telescope
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-    }
+-- Editorconfig
+use 'editorconfig/editorconfig-vim'
 
-    -- Search and replace across multiple files
-    use 'brooth/far.vim'
+-- Snippets
+use 'hrsh7th/vim-vsnip'
+use 'hrsh7th/vim-vsnip-integ'
 
-    -- Completion
-    use 'hrsh7th/nvim-compe'
+-- LSP
+use 'neovim/nvim-lsp'
+use 'onsails/lspkind-nvim'
+use 'ray-x/lsp_signature.nvim'
+use 'kosayoda/nvim-lightbulb'
 
-    -- Tresitter
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use 'nvim-treesitter/nvim-treesitter-textobjects'
+-- Telescope
+use {
+    'nvim-telescope/telescope.nvim',
+    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+}
 
-    -- LSP Install
-    use 'kabouzeid/nvim-lspinstall'
+-- Search and replace across multiple files
+use 'brooth/far.vim'
 
-    -- Debugging
-    use 'mfussenegger/nvim-dap'
-    use 'mfussenegger/nvim-dap-python'
-    use 'theHamsta/nvim-dap-virtual-text'
-    use 'nvim-telescope/telescope-dap.nvim'
+-- Completion
+use 'hrsh7th/nvim-compe'
 
-    -- Godot
-    use 'habamax/vim-godot'
+-- Tresitter
+use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+use 'nvim-treesitter/nvim-treesitter-textobjects'
 
-    -- Markdown preview
-    use {
-        'iamcco/markdown-preview.nvim',
-        run = function() vim.fn['mkdp#util#install']() end
-    }
+-- LSP Install
+use 'kabouzeid/nvim-lspinstall'
 
-    -- Which Key
-    use {
-        'AckslD/nvim-whichkey-setup.lua',
-        requires = {'liuchengxu/vim-which-key'},
-    }
+-- Debugging
+use 'mfussenegger/nvim-dap'
+use 'mfussenegger/nvim-dap-python'
+use 'theHamsta/nvim-dap-virtual-text'
+use 'nvim-telescope/telescope-dap.nvim'
 
-    -- Smooth scrolling
-    use 'psliwka/vim-smoothie'
+-- Godot
+use 'habamax/vim-godot'
 
-    -- Meta
-    -- Read line and column from the command line
-    use 'wsdjeg/vim-fetch'
+-- Markdown preview
+use {
+    'iamcco/markdown-preview.nvim',
+    run = function() vim.fn['mkdp#util#install']() end
+}
 
-    -- Misc
-    -- Discord Rich Presence
-    use 'andweeb/presence.nvim'
-end)
+-- Meta
+-- Read line and column from the command line
+use 'wsdjeg/vim-fetch'
+
+-- Misc
+-- Discord Rich Presence
+use 'andweeb/presence.nvim'
