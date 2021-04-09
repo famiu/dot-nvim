@@ -123,6 +123,9 @@ return require('packer').startup(function()
         requires = {'liuchengxu/vim-which-key'},
     }
 
+    -- Smooth scrolling
+    use 'psliwka/vim-smoothie'
+
     -- Meta
     -- Read line and column from the command line
     use 'wsdjeg/vim-fetch'
