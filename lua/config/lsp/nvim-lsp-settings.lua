@@ -65,6 +65,11 @@ local on_attach = function(client, bufnr)
     if client.resolved_capabilities.document_formatting then
         buf_set_keymap("n", "<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
+        -- Format on save
+        require('utils').create_augroup({
+            {'BufWritePre', '*', 'lua vim.lsp.buf.formatting_sync(nil, 1000)'}
+        }, 'lsp_auto_format')
+
         keys.l.f = 'Format'
 
         if client.resolved_capabilities.document_range_formatting then
@@ -86,6 +91,14 @@ local on_attach = function(client, bufnr)
             '<cmd>lua vim.lsp.buf.range_formatting()<CR>',
             opts
         )
+
+        -- Format on save
+        require('utils').create_augroup({
+            {
+                'BufWritePre', '*',
+                'lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})'
+            }
+        }, 'lsp_auto_format')
 
         keys.l.f = 'Format'
         keys.l.F = 'Range Format'
@@ -123,7 +136,7 @@ local default_config = function()
 end
 
 -- LSP Servers
-local servers = {'ccls', 'gdscript', 'bashls', 'rust_analyzer', 'sumneko_lua',
+local servers = {'clangd', 'gdscript', 'bashls', 'rust_analyzer', 'sumneko_lua',
                  'pyright', 'cmake'}
 local lspinstall_path = vim.fn.stdpath('data') .. '/lspinstall/'
 
