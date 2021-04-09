@@ -15,3 +15,16 @@ vim.g.indent_blankline_context_patterns = {'class', 'function', 'method', '^if',
 
 g.indent_blankline_filetype_exclude = {'help', 'startify', 'NvimTree', 'undotree'}
 g.indent_blankline_buftype_exclude = {'terminal', 'nofile'}
+
+vim.api.nvim_set_keymap(
+    'n', '<Leader>ti',
+    '<cmd>IndentBlanklineToggle<CR>',
+    { noremap = true, silent = true }
+)
+
+require('whichkey_setup').register_keymap('leader', {
+    t = {
+        name = '+ui-toggle',
+        i = 'Indent guides',
+    }
+})
