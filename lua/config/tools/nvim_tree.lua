@@ -5,6 +5,7 @@ local bind = vim.api.nvim_set_keymap
 g.nvim_tree_side = 'left'
 g.nvim_tree_width = 40
 g.nvim_tree_ignore = {'.git', 'node_modules', '.cache'}
+g.nvim_tree_gitignore = 1
 g.nvim_tree_auto_open = 1
 g.nvim_tree_auto_close = 1
 g.nvim_tree_auto_ignore_ft = {'startify', 'dashboard'}
@@ -19,6 +20,8 @@ g.nvim_tree_width_allow_resize = 0
 g.nvim_tree_disable_netrw = 1
 g.nvim_tree_hijack_netrw = 1
 g.nvim_tree_add_trailing = 0
+g.nvim_tree_group_empty = 1
+g.nvim_tree_lsp_diagnostics = 1
 g.nvim_tree_show_icons = {
     git = 1,
     folders = 1,
@@ -28,20 +31,20 @@ g.nvim_tree_icons = {
     default = '',
     symlink = '',
     git = {
-		unstaged = "✗",
-		staged = "✓",
-		unmerged = "",
-		renamed = "➜",
-		untracked = "★"
+        unstaged = "✗",
+        staged = "✓",
+        unmerged = "",
+        renamed = "➜",
+        untracked = "★"
     },
     folder = {
-		default = "",
-		open = "",
-		empty = "",
-		empty_open = "",
-		symlink = "",
-		symlink_open = "",
-	}
+        default = "",
+        open = "",
+        empty = "",
+        empty_open = "",
+        symlink = "",
+        symlink_open = "",
+    }
 }
 
 bind('n', '<Leader>tn', ':NvimTreeToggle<CR>', { noremap = true })
