@@ -11,9 +11,12 @@ g.indent_blankline_show_trailing_blankline_indent = false
 
 g.indent_blankline_use_treesitter = true
 g.indent_blankline_show_current_context = true
-vim.g.indent_blankline_context_patterns = {'class', 'function', 'method', '^if', '^while', '^for', '^object', '^table', 'block', 'arguments'}
+g.indent_blankline_context_patterns = {
+    'class', 'function', 'method', '^if', '^while',
+    '^for', '^object', '^table', 'block', 'arguments'
+}
 
-g.indent_blankline_filetype_exclude = {'help', 'startify', 'NvimTree', 'undotree'}
+g.indent_blankline_filetype_exclude = {'help', 'startify', 'NvimTree', 'undotree', 'packer'}
 g.indent_blankline_buftype_exclude = {'terminal', 'nofile'}
 
 vim.api.nvim_set_keymap(
