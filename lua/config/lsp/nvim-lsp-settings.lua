@@ -123,7 +123,7 @@ local default_config = function()
 end
 
 -- LSP Servers
-local servers = {'clangd', 'gdscript', 'rust_analyzer', 'bashls', 'sumneko_lua',
+local servers = {'ccls', 'gdscript', 'bashls', 'rust_analyzer', 'sumneko_lua',
                  'pyright', 'cmake'}
 local lspinstall_path = vim.fn.stdpath('data') .. '/lspinstall/'
 
@@ -158,9 +158,20 @@ for _, server in ipairs(servers) do
         }
     end
 
-    if server == "pyright" then
-        config.cmd = {
-            lspinstall_path .. 'python/node_modules/.bin/pyright-langserver', '--stdio'
+    if server == "rust_analyzer" then
+        config.settings = {
+            ["rust-analyzer"] = {
+                assist = {
+                    importMergeBehavior = "last",
+                    importPrefix = "by_self",
+                },
+                cargo = {
+                    loadOutDirsFromCheck = true
+                },
+                procMacro = {
+                    enable = true
+                },
+            }
         }
     end
 
