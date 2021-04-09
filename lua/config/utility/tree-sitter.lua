@@ -1,6 +1,6 @@
 -- Tree-sitter
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = {'c', 'cpp', 'python', 'gdscript', 'rust', 'bash', 'lua'},
+    ensure_installed = {'c', 'cpp', 'python', 'gdscript', 'rust', 'bash', 'lua', 'toml'},
     highlight = {
         enable = true,
         disable = {},
