@@ -2,7 +2,7 @@ local cmd = vim.cmd
 local set_opt = require('utils').set_opt
 local append_opt = require('utils').append_opt
 
-local fill_column = 80
+local fill_column = 100
 
 -- Set encoding
 set_opt('o', 'encoding', 'utf-8')
