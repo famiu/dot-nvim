@@ -37,7 +37,7 @@ gl.short_line_list = {
     'dbui',
     'packer',
     'startify',
-    'term',
+    'toggleterm',
     'fugitive',
     'fugitiveblame'
 }
