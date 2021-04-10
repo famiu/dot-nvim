@@ -111,6 +111,9 @@ use 'hrsh7th/nvim-compe'
 use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 use 'nvim-treesitter/nvim-treesitter-textobjects'
 
+-- Rainbow parenthesis
+use 'p00f/nvim-ts-rainbow'
+
 -- LSP Install
 use 'kabouzeid/nvim-lspinstall'
 
