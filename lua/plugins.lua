@@ -90,7 +90,7 @@ use 'hrsh7th/vim-vsnip'
 use 'hrsh7th/vim-vsnip-integ'
 
 -- LSP
-use 'neovim/nvim-lsp'
+use 'neovim/nvim-lspconfig'
 use 'onsails/lspkind-nvim'
 use 'ray-x/lsp_signature.nvim'
 use 'kosayoda/nvim-lightbulb'
