@@ -55,8 +55,8 @@ use 'mbbill/undotree'
 -- Register Preview
 use 'gennaro-tedesco/nvim-peekup'
 
--- Terminal
-use 'akinsho/nvim-toggleterm.lua'
+-- Floating Terminal
+use "numtostr/FTerm.nvim"
 
 -- Color Picker
 use 'KabbAmine/vCoolor.vim'
