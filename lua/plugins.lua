@@ -17,9 +17,6 @@ use 'tomasiser/vim-code-dark'
 -- Tab bar
 use 'akinsho/nvim-bufferline.lua'
 
--- Statusline
-use { 'glepnir/galaxyline.nvim', branch = 'main' }
-
 -- Start screen
 use 'mhinz/vim-startify'
 
