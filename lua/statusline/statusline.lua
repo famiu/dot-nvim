@@ -3,7 +3,7 @@ local separators = require('statusline.defaults').separators
 local gen = require('statusline.generator')
 
 local lsp = require('statusline.providers.lsp')
-local vi_mode_utils = require('statusline.components.vi-mode-utils')
+local vi_mode_utils = require('statusline.providers.vi_mode')
 
 gen.properties.force_inactive.filetypes = {
     'NvimTree',

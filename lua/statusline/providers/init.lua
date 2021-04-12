@@ -4,6 +4,9 @@ local bo = vim.bo
 
 local git = require('statusline.providers.git')
 local lsp = require('statusline.providers.lsp')
+local vi_mode = require('statusline.providers.vi_mode')
+
+M.vi_mode = vi_mode.vi_mode
 
 M.git_branch = git.git_branch
 M.git_diff_added = git.git_diff_added
@@ -14,10 +17,6 @@ M.diagnostic_errors = lsp.diagnostic_errors
 M.diagnostic_warnings = lsp.diagnostic_warnings
 M.diagnostic_hints = lsp.diagnostic_hints
 M.diagnostic_info = lsp.diagnostic_info
-
-function M.vi_mode()
-    return ''
-end
 
 function M.file_info()
     local filename = fn.expand('%:t')
@@ -51,7 +50,7 @@ function M.file_size()
 end
 
 function M.file_type()
-    return bo[vim.api.nvim_get_current_buf()].filetype
+    return bo[vim.api.nvim_get_current_buf()].filetype:upper()
 end
 
 function M.position()

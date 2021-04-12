@@ -3,7 +3,7 @@ local fn = vim.fn
 local utils = require('utils')
 local gen = require('statusline.generator')
 
-require('statusline.components')
+require('statusline.statusline')
 
 function _G.statusline()
     if g.statusline_winid == fn.win_getid() then
