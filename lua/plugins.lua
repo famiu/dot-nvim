@@ -14,6 +14,9 @@ use { 'equalsraf/neovim-gui-shim', opt = true }
 -- Colorscheme
 use 'tomasiser/vim-code-dark'
 
+-- Statusline
+use 'Famiu/feline.nvim'
+
 -- Tab bar
 use 'akinsho/nvim-bufferline.lua'
 

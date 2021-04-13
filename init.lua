@@ -41,7 +41,4 @@ else
 
     -- Load configuration
     require('config')
-
-    -- Load statusline
-    require('statusline')
 end

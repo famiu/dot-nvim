@@ -1,4 +1,5 @@
 require('config.ui.colorscheme')
+require('config.ui.feline')
 require('config.ui.gitsigns')
 require('config.ui.nvim-bufferline')
 require('config.ui.indent-blankline')
