@@ -136,3 +136,6 @@ use 'wsdjeg/vim-fetch'
 -- Misc
 -- Discord Rich Presence
 use 'andweeb/presence.nvim'
+
+-- Profiler
+use { 'norcalli/profiler.nvim', opt = true }
