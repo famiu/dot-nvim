@@ -35,9 +35,4 @@ require'nvim-treesitter.configs'.setup {
             },
         },
     },
-    rainbow = {
-        enable = true,
-        -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-        extended_mode = false
-    }
 }
