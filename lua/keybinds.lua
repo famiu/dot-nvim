@@ -15,6 +15,9 @@ bind('v', '<', '<gv^', { noremap = true })
 bind('v', '<Tab>', '>', {})
 bind('v', '<S-Tab>', '<', {})
 
+-- Apply the . command to all selected lines in visual mode
+bind('v', '.', ':normal .<CR>', opts)
+
 -- " Use Alt-L to clear the highlighting of :set hlsearch.
 bind('n', '<A-l>',
     ":nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>",
