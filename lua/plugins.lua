@@ -15,7 +15,7 @@ use { 'equalsraf/neovim-gui-shim', opt = true }
 use 'tomasiser/vim-code-dark'
 
 -- Statusline
-use '~/Workspace/Neovim/feline'
+use '~/Workspace/neovim/feline'
 
 -- Tab bar
 use 'akinsho/nvim-bufferline.lua'
