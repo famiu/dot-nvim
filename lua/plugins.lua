@@ -101,8 +101,8 @@ use {
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
 }
 
--- Search and replace across multiple files
-use 'brooth/far.vim'
+-- Better quickfix window
+use 'kevinhwang91/nvim-bqf'
 
 -- Completion
 use 'hrsh7th/nvim-compe'
