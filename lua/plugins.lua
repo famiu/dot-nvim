@@ -120,9 +120,6 @@ use 'mfussenegger/nvim-dap-python'
 use 'theHamsta/nvim-dap-virtual-text'
 use 'nvim-telescope/telescope-dap.nvim'
 
--- Godot
-use 'habamax/vim-godot'
-
 -- Markdown preview
 use {
     'iamcco/markdown-preview.nvim',
