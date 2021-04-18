@@ -7,6 +7,9 @@ local fill_column = 100
 -- Set encoding
 set_opt('o', 'encoding', 'utf-8')
 
+-- Default grep command
+set_opt('o', 'grepprg', 'grep -nH')
+
 -- Wildmenu
 set_opt('o', 'wildmode', 'longest,list,full')
 set_opt('o', 'wildmenu', true)
