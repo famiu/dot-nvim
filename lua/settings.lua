@@ -8,7 +8,12 @@ local fill_column = 100
 set_opt('o', 'encoding', 'utf-8')
 
 -- Default grep command
-set_opt('o', 'grepprg', 'grep -nH')
+-- Use ag if possible
+if vim.fn.executable('ag') == 1 then
+    set_opt('o', 'grepprg', 'ag --nogroup --nocolor')
+else
+    set_opt('o', 'grepprg', 'grep -nH')
+end
 
 -- Wildmenu
 set_opt('o', 'wildmode', 'longest,list,full')
