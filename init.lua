@@ -1,10 +1,6 @@
 local fn = vim.fn
 local cmd = vim.cmd
 
--- Add commands for reload and restart
-cmd('command! Reload lua require("utils").Reload()')
-cmd('command! Restart lua require("utils").Restart()')
-
 -- Set mapleader to space
 vim.g.mapleader = ' '
 
@@ -30,7 +26,7 @@ then
     -- Automatically sync packer and restart Vim
     cmd('PackerSync')
     require('utils').create_augroup({
-        {'User', 'PackerComplete', 'lua require("utils").Restart()'}
+        {'User', 'PackerComplete', '++once', 'lua require("nvim-reload").Restart()'}
     }, 'init_reload_after_packer')
 else
     -- Load plugins

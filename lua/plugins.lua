@@ -139,3 +139,6 @@ use 'andweeb/presence.nvim'
 
 -- Profiler
 use { 'norcalli/profiler.nvim', opt = true }
+
+-- Reload config
+use '~/Workspace/neovim/reload'
