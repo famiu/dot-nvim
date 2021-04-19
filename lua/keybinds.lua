@@ -19,9 +19,7 @@ bind('v', '<S-Tab>', '<', {})
 bind('v', '.', ':normal .<CR>', opts)
 
 -- " Use Alt-L to clear the highlighting of :set hlsearch.
-bind('n', '<A-l>',
-    ":nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>",
-    opts)
+bind('n', '<A-l>', ":nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>", opts)
 
 -- Quit
 bind('n', '<Leader>q', ':quitall<CR>', opts)
