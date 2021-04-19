@@ -1,6 +1,6 @@
 local bind = vim.api.nvim_set_keymap
 
-bind('n', '<Space>gb', ':Gblame<CR>', {})
+bind('n', '<Space>gb', ':Git blame<CR>', {})
 bind('n', '<Space>gs', ':Git<CR>', {})
 bind('n', '<Space>gc', ':Git commit -v<CR>', {})
 bind('n', '<Space>ga', ':Git add -p<CR>', {})
