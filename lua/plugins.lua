@@ -95,6 +95,9 @@ use 'onsails/lspkind-nvim'
 use 'ray-x/lsp_signature.nvim'
 use 'kosayoda/nvim-lightbulb'
 
+-- Luadev
+use 'rafcamlet/nvim-luapad'
+
 -- Telescope
 use {
     'nvim-telescope/telescope.nvim',
