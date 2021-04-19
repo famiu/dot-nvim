@@ -1,3 +1,5 @@
+require('feline').reset_highlights()
+
 local components = require('feline.presets').default.components
 local nvim_exec = vim.api.nvim_exec
 
