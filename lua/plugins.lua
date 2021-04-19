@@ -56,7 +56,7 @@ use 'mbbill/undotree'
 use 'gennaro-tedesco/nvim-peekup'
 
 -- Floating Terminal
-use "numtostr/FTerm.nvim"
+use 'numtostr/FTerm.nvim'
 
 -- Color Picker
 use 'KabbAmine/vCoolor.vim'
