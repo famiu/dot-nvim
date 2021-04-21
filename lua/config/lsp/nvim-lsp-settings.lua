@@ -1,3 +1,4 @@
+local utils = require('utils')
 local nvim_lsp = require('lspconfig')
 
 -- Default on_attach for LSP servers
@@ -66,8 +67,8 @@ local on_attach = function(client, bufnr)
         buf_set_keymap("n", "<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
         -- Format on save
-        require('utils').create_augroup({
-            {'BufWritePre', '*', 'lua vim.lsp.buf.formatting_sync(nil, 1000)'}
+        utils.create_buf_augroup({
+            {'BufWritePre', '<buffer>', 'lua vim.lsp.buf.formatting_sync(nil, 1000)'}
         }, 'lsp_auto_format')
 
         keys.l.f = 'Format'
@@ -93,9 +94,9 @@ local on_attach = function(client, bufnr)
         )
 
         -- Format on save
-        require('utils').create_augroup({
+        utils.create_buf_augroup({
             {
-                'BufWritePre', '*',
+                'BufWritePre', '<buffer>',
                 'lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})'
             }
         }, 'lsp_auto_format')
@@ -106,19 +107,10 @@ local on_attach = function(client, bufnr)
 
     require('whichkey_setup').register_keymap('leader', keys)
 
-    -- Set autocommands conditional on server_capabilities
-    if client.resolved_capabilities.document_highlight then
-        vim.api.nvim_exec([[
-        hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-        hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-        hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-        augroup lsp_document_highlight
-            autocmd! * <buffer>
-            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END
-        ]], false)
-    end
+    -- Show line diagnostics on cursor hold
+    utils.create_buf_augroup({
+        {'CursorHold', '<buffer>', 'lua vim.lsp.diagnostic.show_line_diagnostics()'}
+    }, 'lsp_diagnostics_on_hold')
 
     -- LSP Signatures
     require('lsp_signature').on_attach()

@@ -47,6 +47,18 @@ function M.create_augroup(autocmds, name)
     cmd('augroup END')
 end
 
+-- Create a buffer-local augroup
+function M.create_buf_augroup(autocmds, name)
+    cmd('augroup ' .. name)
+    cmd('autocmd!' .. ' * <buffer>')
+
+    for _, autocmd in ipairs(autocmds) do
+        cmd('autocmd ' .. table.concat(autocmd, ' '))
+    end
+
+    cmd('augroup END')
+end
+
 -- Make navigation keys navigate through display lines instead of physical lines
 function M.set_buffer_soft_line_nagivation()
     local opts = { noremap = true, silent = true }
