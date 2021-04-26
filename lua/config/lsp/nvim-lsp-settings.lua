@@ -23,6 +23,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<Leader>lds', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
     buf_set_keymap('n', '<Leader>ldp', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', '<Leader>ldn', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap('n', '<Leader>lt', '<cmd>SymbolsOutline<CR>', opts)
 
     local function buf_bind_picker(...)
         require('config.tools.telescope-nvim-utils').buf_bind_picker(bufnr, ...)
@@ -60,6 +61,7 @@ local on_attach = function(client, bufnr)
             },
             D = 'Type definition',
             r = 'Rename',
+            t = 'Tags'
         }
     }
 

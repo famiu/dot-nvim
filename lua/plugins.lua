@@ -90,10 +90,11 @@ use 'hrsh7th/vim-vsnip'
 use 'hrsh7th/vim-vsnip-integ'
 
 -- LSP
-use 'neovim/nvim-lspconfig'
-use 'onsails/lspkind-nvim'
-use 'ray-x/lsp_signature.nvim'
-use 'kosayoda/nvim-lightbulb'
+use 'neovim/nvim-lspconfig' -- Configuration
+use 'onsails/lspkind-nvim' -- Completion Icons
+use 'ray-x/lsp_signature.nvim' -- Signature Help
+use 'kosayoda/nvim-lightbulb' -- Lightbulb on Code Action
+use 'simrat39/symbols-outline.nvim' -- Symbols list
 
 -- Luadev
 use 'rafcamlet/nvim-luapad'
