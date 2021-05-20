@@ -103,4 +103,4 @@ keys.d = {
     f = 'Frames'
 }
 
-require('whichkey_setup').register_keymap('leader', keys)
+require('which-key').register(keys, { prefix = "<leader>" })

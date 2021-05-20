@@ -1,5 +1,17 @@
 local utils = require('utils')
-local nvim_lsp = require('lspconfig')
+local lspconfig = require('lspconfig')
+local wk = require('which-key')
+
+-- Make LSP floating windows have borders
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+    vim.lsp.handlers.hover,
+    { border = "single" }
+)
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+    vim.lsp.handlers.signature_help,
+    { border = "single" }
+)
 
 -- Default on_attach for LSP servers
 local on_attach = function(client, bufnr)
@@ -10,20 +22,54 @@ local on_attach = function(client, bufnr)
 
     -- Mappings.
     local opts = { noremap=true, silent=true }
+
     buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<Leader>lwa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<Leader>lwr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<Leader>lwl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+    buf_set_keymap('n', '<Leader>lwa',
+        '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',
+        opts
+    )
+    buf_set_keymap('n', '<Leader>lwr',
+        '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',
+        opts
+    )
+    buf_set_keymap('n', '<Leader>lwl',
+        '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
+        opts
+    )
     buf_set_keymap('n', '<Leader>lD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', '<Leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<Leader>lds', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '<Leader>ldp', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', '<Leader>ldn', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap('n', '<C-Space>',
+        '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "single" })<CR>',
+        opts
+    )
+    buf_set_keymap('n', ']g',
+        '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>',
+        opts
+    )
+    buf_set_keymap('n', '[g',
+        '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>',
+        opts
+    )
+    buf_set_keymap('n', '<Leader>lds', '<C-Space>', { silent = true })
+    buf_set_keymap('n', '<Leader>ldn', ']g', { silent = true })
+    buf_set_keymap('n', '<Leader>ldp', '[g', { silent = true })
+
     buf_set_keymap('n', '<Leader>lt', '<cmd>SymbolsOutline<CR>', opts)
+
+    wk.register({
+        g = {
+            D = "Declaration",
+            d = "Definition",
+            i = "Implementation",
+            r = "References"
+        },
+        ["]"] = { g = "Next diagnostic" },
+        ["["] = { g = "Previous diagnostic" }
+    }, { buffer = bufnr })
 
     local function buf_bind_picker(...)
         require('config.tools.telescope-nvim-utils').buf_bind_picker(bufnr, ...)
@@ -107,12 +153,7 @@ local on_attach = function(client, bufnr)
         keys.l.F = 'Range Format'
     end
 
-    require('whichkey_setup').register_keymap('leader', keys)
-
-    -- Show line diagnostics on cursor hold
-    utils.create_buf_augroup({
-        {'CursorHold', '<buffer>', 'lua vim.lsp.diagnostic.show_line_diagnostics()'}
-    }, 'lsp_diagnostics_on_hold')
+    wk.register(keys, { prefix = "<leader>", buffer = bufnr })
 
     -- LSP Signatures
     require('lsp_signature').on_attach()
@@ -130,8 +171,16 @@ local default_config = function()
 end
 
 -- LSP Servers
-local servers = {'clangd', 'gdscript', 'bashls', 'rust_analyzer', 'sumneko_lua',
-                 'pyright', 'cmake'}
+local servers = {
+    'clangd',
+    'gdscript',
+    'bashls',
+    'rust_analyzer',
+    'sumneko_lua',
+    'pyright',
+    'cmake'
+}
+
 local lspinstall_path = vim.fn.stdpath('data') .. '/lspinstall/'
 
 for _, server in ipairs(servers) do
@@ -188,5 +237,5 @@ for _, server in ipairs(servers) do
         }
     end
 
-    nvim_lsp[server].setup(config)
+    lspconfig[server].setup(config)
 end

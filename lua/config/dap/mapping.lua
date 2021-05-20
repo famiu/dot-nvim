@@ -1,6 +1,7 @@
 -- DAP mapping
 local bind = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
+local bufnr = vim.api.nvim_get_current_buf()
 
 bind('n', '<F5>', ':lua require("dap").continue()<CR>', opts)
 bind('n', '<S-F5>', ':lua require("config.dap.utils").reload_continue()<CR>', opts)
@@ -31,4 +32,4 @@ local keys = {
     }
 }
 
-require('whichkey_setup').register_keymap('leader', keys)
+require('which-key').register(keys, { prefix = "<leader>", buffer = bufnr })

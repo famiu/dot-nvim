@@ -45,8 +45,8 @@ local opts = { noremap = true, silent = true }
 
 -- These commands will navigate through buffers in order regardless of which mode you are using
 -- e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
-bind('n', 'b[', ':BufferLineCycleNext<CR>', opts)
-bind('n', 'b]', ':BufferLineCyclePrev<CR>', opts)
+bind('n', ']b', ':BufferLineCycleNext<CR>', opts)
+bind('n', '[b', ':BufferLineCyclePrev<CR>', opts)
 
 bind('n', '<Leader>bn', ':BufferLineCycleNext<CR>', opts)
 bind('n', '<Leader>bp', ':BufferLineCyclePrev<CR>', opts)
@@ -78,33 +78,38 @@ bind('n', '<Leader>bd', ':bdelete<CR>', opts)
 bind('n', '<Leader>bk', ':bwipeout<CR>', opts)
 
 local keys = {
-    b = {
-        name = '+buffer',
-        ['1'] = 'Goto 1',
-        ['2'] = 'Goto 2',
-        ['3'] = 'Goto 3',
-        ['4'] = 'Goto 4',
-        ['5'] = 'Goto 5',
-        ['6'] = 'Goto 6',
-        ['7'] = 'Goto 7',
-        ['8'] = 'Goto 8',
-        ['9'] = 'Goto Last',
-        c = 'Choose',
-        n = 'Next',
-        p = 'Previous',
-        d = 'Close',
-        k = 'Kill',
-        m = {
-            name = '+move',
+    ["]"] = { b = "Next buffer" },
+    ["["] = { b = "Previous buffer" },
+
+    ["<leader>"] = {
+        b = {
+            name = '+buffer',
+            ['1'] = 'Goto 1',
+            ['2'] = 'Goto 2',
+            ['3'] = 'Goto 3',
+            ['4'] = 'Goto 4',
+            ['5'] = 'Goto 5',
+            ['6'] = 'Goto 6',
+            ['7'] = 'Goto 7',
+            ['8'] = 'Goto 8',
+            ['9'] = 'Goto Last',
+            c = 'Choose',
             n = 'Next',
-            p = 'Previous'
-        },
-        sort = {
-            name = '+sort',
-            d = 'By Directory',
-            e = 'By Extension'
+            p = 'Previous',
+            d = 'Close',
+            k = 'Kill',
+            m = {
+                name = '+move',
+                n = 'Next',
+                p = 'Previous'
+            },
+            sort = {
+                name = '+sort',
+                d = 'By Directory',
+                e = 'By Extension'
+            }
         }
-    },
+    }
 }
 
-require('whichkey_setup').register_keymap('leader', keys)
+require('which-key').register(keys)

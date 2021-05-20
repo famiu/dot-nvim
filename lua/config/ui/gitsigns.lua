@@ -47,18 +47,23 @@ bind('n', '<leader>ghv', '<cmd>lua require"gitsigns".preview_hunk()<CR>', opts)
 bind('n', '<leader>ghb', '<cmd>lua require"gitsigns".blame_line()<CR>', opts)
 
 local keys = {
-    g = {
-        h = {
-            name = '+hunk',
-            n = 'Next hunk',
-            p = 'Previous hunk',
-            s = 'Stage hunk',
-            u = 'Undo hunk',
-            v = 'Preview hunk',
-            r = 'Reset hunk',
-            b = 'Blame line'
+    ["]"] = { h = "Next hunk" },
+    ["["] = { h = "Previous hunk" },
+
+    ["<leader>"] = {
+        g = {
+            h = {
+                name = '+hunk',
+                n = 'Next hunk',
+                p = 'Previous hunk',
+                s = 'Stage hunk',
+                u = 'Undo hunk',
+                v = 'Preview hunk',
+                r = 'Reset hunk',
+                b = 'Blame line'
+            }
         }
     }
 }
 
-require('whichkey_setup').register_keymap('leader', keys)
+require('which-key').register(keys)

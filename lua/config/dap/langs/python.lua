@@ -2,6 +2,7 @@ local M = {}
 
 local bind = vim.api.nvim_buf_set_keymap
 local opts = { noremap = true, silent = true }
+local bufnr = vim.api.nvim_get_current_buf()
 
 require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 
@@ -25,8 +26,15 @@ function M.dap_python_bindings()
         }
     }
 
-    require('whichkey_setup').register_keymap('localleader', keys)
-    require('whichkey_setup').register_keymap('localvisual', visual_keys)
+    require('which-key').register(keys, {
+        prefix = "<localleader>",
+        buffer = bufnr
+    })
+    require('which-key').register(visual_keys, {
+        prefix = "<localleader>",
+        mode = "v",
+        buffer = bufnr
+    })
 end
 
 require('utils').create_augroup({

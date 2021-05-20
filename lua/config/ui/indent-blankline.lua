@@ -25,9 +25,9 @@ vim.api.nvim_set_keymap(
     { noremap = true, silent = true }
 )
 
-require('whichkey_setup').register_keymap('leader', {
+require('which-key').register({
     t = {
         name = '+ui-toggle',
         i = 'Indent guides',
     }
-})
+}, { prefix = "<leader>" })

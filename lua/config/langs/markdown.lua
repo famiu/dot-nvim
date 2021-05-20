@@ -1,5 +1,6 @@
 -- Markdown filetype settings
 local bind = vim.api.nvim_buf_set_keymap
+local bufnr = vim.api.nvim_get_current_buf()
 
 function MarkdownSettings()
     require('utils').set_buffer_soft_line_nagivation()
@@ -14,7 +15,7 @@ function MarkdownSettings()
         t = 'Toggle preview'
     }
 
-    require('whichkey_setup').register_keymap('localleader', keys)
+    require('which-key').register(keys, { prefix = "<localleader>", buffer = bufnr })
 end
 
 require('utils').create_augroup({

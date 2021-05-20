@@ -33,10 +33,7 @@ use 'kyazdani42/nvim-web-devicons'
 use {'lukas-reineke/indent-blankline.nvim', branch = 'lua'}
 
 -- Which Key
-use {
-    'AckslD/nvim-whichkey-setup.lua',
-    requires = {'liuchengxu/vim-which-key'},
-}
+use 'folke/which-key.nvim'
 
 -- Smooth scrolling
 use 'psliwka/vim-smoothie'

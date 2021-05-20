@@ -8,5 +8,4 @@ require('config.dap.mapping')
 require('config.dap.configurations')
 
 -- Load DAP language configs
-require('config.dap.cpp_rust')
-require('config.dap.python')
+require('config.dap.langs')

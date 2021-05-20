@@ -1,8 +1,8 @@
 vim.api.nvim_set_keymap('n', '<Leader>tu', ':UndotreeToggle<CR>', { noremap = true })
 
-require('whichkey_setup').register_keymap('leader', {
+require('which-key').register({
     t = {
         name = '+ui-toggle',
         u = 'UndoTree'
     }
-})
+}, { prefix = "<leader>" })
