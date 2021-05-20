@@ -49,9 +49,6 @@ use 'junegunn/gv.vim'
 -- Undo Tree
 use 'mbbill/undotree'
 
--- Register Preview
-use 'gennaro-tedesco/nvim-peekup'
-
 -- Floating Terminal
 use 'numtostr/FTerm.nvim'
 
@@ -67,7 +64,7 @@ use 'b3nj5m1n/kommentary'
 -- Tabs and text alignment
 use 'godlygeek/tabular'
 
--- Delimit
+-- Delimit characters automatically
 use 'Raimondi/delimitMate'
 
 -- Remember last location in file
@@ -78,9 +75,6 @@ use 'tpope/vim-eunuch'
 
 -- Automatically change current directory
 use 'airblade/vim-rooter'
-
--- Editorconfig
-use 'editorconfig/editorconfig-vim'
 
 -- Snippets
 use 'hrsh7th/vim-vsnip'
@@ -126,10 +120,6 @@ use {
     'iamcco/markdown-preview.nvim',
     run = function() vim.fn['mkdp#util#install']() end
 }
-
--- Meta
--- Read line and column from the command line
-use 'wsdjeg/vim-fetch'
 
 -- Misc
 -- Discord Rich Presence
