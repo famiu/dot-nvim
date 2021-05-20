@@ -49,8 +49,8 @@ use 'junegunn/gv.vim'
 -- Undo Tree
 use 'mbbill/undotree'
 
--- Floating Terminal
-use 'numtostr/FTerm.nvim'
+-- Terminal
+use 'akinsho/nvim-toggleterm.lua'
 
 -- Color Picker
 use 'KabbAmine/vCoolor.vim'

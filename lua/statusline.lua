@@ -1,7 +1,11 @@
 require('feline').reset_highlights()
 
 local components = require('feline.presets').default.components
+local properties = require('feline.presets').default.properties
 local nvim_exec = vim.api.nvim_exec
+
+-- Force toggleterm to be inactive
+table.insert(properties.force_inactive.filetypes, 'toggleterm')
 
 -- Remove all inactive statusline components
 components.left.inactive = {}
