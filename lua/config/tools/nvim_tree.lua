@@ -22,6 +22,16 @@ g.nvim_tree_hijack_netrw = 1
 g.nvim_tree_add_trailing = 0
 g.nvim_tree_group_empty = 1
 g.nvim_tree_lsp_diagnostics = 1
+g.nvim_tree_disable_window_picker = 0
+g.nvim_tree_special_files = {
+    'README.md',
+    'LICENSE',
+    'LICENSE.md',
+    'Makefile',
+    'MAKEFILE',
+    'CMakeLists.txt',
+    'Cargo.toml'
+}
 g.nvim_tree_show_icons = {
     git = 1,
     folders = 1,
@@ -44,6 +54,12 @@ g.nvim_tree_icons = {
         empty_open = "",
         symlink = "",
         symlink_open = "",
+    },
+    lsp = {
+        hint = "",
+        info = "",
+        warning = "",
+        error = "",
     }
 }
 
