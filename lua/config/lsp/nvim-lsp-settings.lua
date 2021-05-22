@@ -183,7 +183,8 @@ local servers = {
     'rust_analyzer',
     'sumneko_lua',
     'pyright',
-    'cmake'
+    'cmake',
+    'texlab'
 }
 
 local lspinstall_path = vim.fn.stdpath('data') .. '/lspinstall/'
@@ -239,6 +240,28 @@ for _, server in ipairs(servers) do
     if server == "cmake" then
         config.cmd = {
             lspinstall_path .. 'cmake/venv/bin/cmake-language-server'
+        }
+    end
+
+    if server == "texlab" then
+        config.filetypes = { "tex", "plaintex", "bib" }
+        config.settings = {
+            texlab = {
+                build = {
+                    executable = "latexmk",
+                    args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "-pvc", "%f" },
+                    isContinuous = true,
+                },
+                chktex = {
+                    onEdit = false,
+                    onOpenAndSave = true,
+                },
+                formatterLineLength = 100,
+                forwardSearch = {
+                    executable = "okular",
+                    args = { "--unique", "%p#src:%l%f" }
+                }
+            }
         }
     end
 
