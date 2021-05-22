@@ -114,11 +114,6 @@ local on_attach = function(client, bufnr)
     if client.resolved_capabilities.document_formatting then
         buf_set_keymap("n", "<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
-        -- Format on save
-        utils.create_buf_augroup({
-            {'BufWritePre', '<buffer>', 'lua vim.lsp.buf.formatting_sync(nil, 1000)'}
-        }, 'lsp_auto_format')
-
         keys.l.f = 'Format'
 
         if client.resolved_capabilities.document_range_formatting then
@@ -140,14 +135,6 @@ local on_attach = function(client, bufnr)
             '<cmd>lua vim.lsp.buf.range_formatting()<CR>',
             opts
         )
-
-        -- Format on save
-        utils.create_buf_augroup({
-            {
-                'BufWritePre', '<buffer>',
-                'lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})'
-            }
-        }, 'lsp_auto_format')
 
         keys.l.f = 'Format'
         keys.l.F = 'Range Format'
