@@ -3,6 +3,17 @@ local cmd = vim.cmd
 local types = {o = vim.o, b = vim.bo, w = vim.wo}
 local buf_bind = vim.api.nvim_buf_set_keymap
 
+-- Check if list contains element
+function M.contains(list, elem)
+    for _, v in pairs(list) do
+        if v == elem then
+            return true
+        end
+    end
+
+    return false
+end
+
 -- Get option
 function M.get_opt(type, name)
     return types[type][name]
