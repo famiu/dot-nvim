@@ -159,7 +159,7 @@ local function default_on_attach(client, bufnr)
         keys.l.F = 'Range Format'
     end
 
-    wk.register(keys, { prefix = "<leader>", buffer = bufnr })
+    wk.register(keys, { prefix = '<leader>', buffer = bufnr })
 
     -- LSP Signatures
     require('lsp_signature').on_attach()
@@ -176,38 +176,62 @@ local function default_config()
     }
 end
 
+-- Utility function to add bindings along with whichkey configuration to buffer
+local function client_add_binds(bufnr, binds, wk_labels, wk_config)
+    local function buf_set_keymap(...)
+        vim.api.nvim_buf_set_keymap(bufnr, ...)
+    end
+
+    for _, bind in ipairs(binds) do
+        buf_set_keymap(unpack(bind))
+    end
+
+    wk_config['buffer'] = bufnr
+
+    if wk_labels then wk.register(wk_labels, wk_config) end
+end
+
 -- Client-local configuration
-client_config['texlab'] = {
+client_config['clangd'] = {
     on_attach = function(client, bufnr)
         default_on_attach(client, bufnr)
 
-        -- Preview on save
-        utils.create_buf_augroup({
-            {
-                'BufWritePost',
-                'TexlabForward'
-            }
-        }, 'texlab_preview_on_save', bufnr)
+        local opts = { noremap = true, silent = true }
+
+        client_add_binds(
+            bufnr,
+            {{'n', '<Leader>lh', '<cmd>ClangdSwitchSourceHeader<CR>', opts}},
+            { h = 'Switch source/header' },
+            { prefix = '<leader>l' }
+        )
+    end
+}
+
+client_config['rust_analyzer'] = {
+    on_attach = function(client, bufnr)
+        default_on_attach(client, bufnr)
+
+        local opts = { noremap = true, silent = true }
+
+        client_add_binds(
+            bufnr,
+            {{'n', '<Leader>lR', '<cmd>CargoReload<CR>', opts}},
+            { R = 'Reload workspace' },
+            { prefix = '<leader>l' }
+        )
     end,
-
-    filetypes = { 'tex', 'plaintex', 'bib' },
-
     settings = {
-        texlab = {
-            build = {
-                executable = 'latexmk',
-                args = { '-pdf', '-interaction=nonstopmode', '-synctex=1', '-pvc', '%f' },
-                isContinuous = true,
+        ['rust-analyzer'] = {
+            assist = {
+                importMergeBehavior = "last",
+                importPrefix = "by_self",
             },
-            chktex = {
-                onEdit = false,
-                onOpenAndSave = true,
+            cargo = {
+                loadOutDirsFromCheck = true
             },
-            formatterLineLength = 100,
-            forwardSearch = {
-                executable = 'okular',
-                args = { '--unique', '%p#src:%l%f' }
-            }
+            procMacro = {
+                enable = true
+            },
         }
     }
 }
@@ -240,26 +264,71 @@ client_config['sumneko_lua'] = {
     }
 }
 
-client_config['rust_analyzer'] = {
-    settings = {
-        ["rust-analyzer"] = {
-            assist = {
-                importMergeBehavior = "last",
-                importPrefix = "by_self",
-            },
-            cargo = {
-                loadOutDirsFromCheck = true
-            },
-            procMacro = {
-                enable = true
-            },
-        }
-    }
+client_config['pyright'] = {
+    on_attach = function(client, bufnr)
+        default_on_attach(client, bufnr)
+
+        local opts = { noremap = true, silent = true }
+
+        client_add_binds(
+            bufnr,
+            {{'n', '<Leader>lo', '<cmd>PyrightOrganizeImports<CR>', opts}},
+            { o = 'Organize imports' },
+            { prefix = '<leader>l' }
+        )
+    end
 }
 
 client_config['cmake'] = {
     cmd = {
         lspinstall_path .. 'cmake/venv/bin/cmake-language-server'
+    }
+}
+
+client_config['texlab'] = {
+    on_attach = function(client, bufnr)
+        default_on_attach(client, bufnr)
+
+        local opts = { noremap = true, silent = true }
+
+        -- Preview on save
+        utils.create_buf_augroup({
+            {
+                'BufWritePost',
+                'TexlabForward'
+            }
+        }, 'texlab_preview_on_save', bufnr)
+
+        client_add_binds(
+            bufnr,
+            {
+                {'n', '<Leader>lb', '<cmd>TexlabBuild<CR>', opts},
+                {'n', '<Leader>lp', '<cmd>TexlabForward<CR>', opts}
+            },
+            { b = 'Build', p = 'Preview' },
+            { prefix = '<leader>l' }
+        )
+    end,
+
+    filetypes = { 'tex', 'plaintex', 'bib' },
+
+    settings = {
+        texlab = {
+            build = {
+                executable = 'latexmk',
+                args = { '-pdf', '-interaction=nonstopmode', '-synctex=1', '-pvc', '%f' },
+                isContinuous = true,
+            },
+            chktex = {
+                onEdit = false,
+                onOpenAndSave = true,
+            },
+            formatterLineLength = 100,
+            forwardSearch = {
+                executable = 'okular',
+                args = { '--unique', '%p#src:%l%f' }
+            }
+        }
     }
 }
 
