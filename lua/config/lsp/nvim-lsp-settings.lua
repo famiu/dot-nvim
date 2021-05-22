@@ -1,9 +1,26 @@
 local utils = require('utils')
 local lspconfig = require('lspconfig')
 local wk = require('which-key')
--- Client-local functions to call on on_attach
-local on_attach_client_local = {}
 
+-- List of LSP Servers to configure
+local servers = {
+    'clangd',
+    'gdscript',
+    'bashls',
+    'rust_analyzer',
+    'sumneko_lua',
+    'pyright',
+    'cmake',
+    'texlab'
+}
+
+-- Path where lspinstall installs LSP servers
+local lspinstall_path = vim.fn.stdpath('data') .. '/lspinstall/'
+
+-- Client local LSP server configuration
+local client_config = {}
+
+-- Global configuration
 -- Make LSP floating windows have borders
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     vim.lsp.handlers.hover,
@@ -16,7 +33,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
 )
 
 -- Default on_attach for LSP servers
-local on_attach = function(client, bufnr)
+local function default_on_attach(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -148,121 +165,110 @@ local on_attach = function(client, bufnr)
     require('lsp_signature').on_attach()
 end
 
--- LSP Server Configurations
-local default_config = function()
+-- Default config for LSP servers
+local function default_config()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true;
 
     return {
         capabilities = capabilities,
-        on_attach = function(client, bufnr)
-            on_attach(client, bufnr)
-            if type(on_attach_client_local[client.name]) == "function" then
-                on_attach_client_local[client.name](client, bufnr)
-            end
-        end,
+        on_attach = default_on_attach
     }
 end
 
--- Client-local on_attach configuration
-on_attach_client_local["texlab"] = function(_, bufnr)
-    -- Preview on save
-    utils.create_buf_augroup({
-        {
-            'BufWritePost',
-            'TexlabForward'
-        }
-    }, 'texlab_preview_on_save', bufnr)
-end
+-- Client-local configuration
+client_config['texlab'] = {
+    on_attach = function(client, bufnr)
+        default_on_attach(client, bufnr)
 
--- LSP Servers
-local servers = {
-    'clangd',
-    'gdscript',
-    'bashls',
-    'rust_analyzer',
-    'sumneko_lua',
-    'pyright',
-    'cmake',
-    'texlab'
+        -- Preview on save
+        utils.create_buf_augroup({
+            {
+                'BufWritePost',
+                'TexlabForward'
+            }
+        }, 'texlab_preview_on_save', bufnr)
+    end,
+
+    filetypes = { 'tex', 'plaintex', 'bib' },
+
+    settings = {
+        texlab = {
+            build = {
+                executable = 'latexmk',
+                args = { '-pdf', '-interaction=nonstopmode', '-synctex=1', '-pvc', '%f' },
+                isContinuous = true,
+            },
+            chktex = {
+                onEdit = false,
+                onOpenAndSave = true,
+            },
+            formatterLineLength = 100,
+            forwardSearch = {
+                executable = 'okular',
+                args = { '--unique', '%p#src:%l%f' }
+            }
+        }
+    }
 }
 
-local lspinstall_path = vim.fn.stdpath('data') .. '/lspinstall/'
+client_config['sumneko_lua'] = {
+    cmd = {
+        lspinstall_path .. 'lua/sumneko-lua-language-server',
+        '-E', lspinstall_path .. 'lua/main.lua'
+    },
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+                -- Setup your lua path
+                path = vim.split(package.path, ';'),
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { 'vim' },
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = {
+                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+                },
+            },
+        },
+    }
+}
+
+client_config['rust_analyzer'] = {
+    settings = {
+        ["rust-analyzer"] = {
+            assist = {
+                importMergeBehavior = "last",
+                importPrefix = "by_self",
+            },
+            cargo = {
+                loadOutDirsFromCheck = true
+            },
+            procMacro = {
+                enable = true
+            },
+        }
+    }
+}
+
+client_config['cmake'] = {
+    cmd = {
+        lspinstall_path .. 'cmake/venv/bin/cmake-language-server'
+    }
+}
 
 for _, server in ipairs(servers) do
     local config = default_config()
+    local config_overrides = client_config[server] or {}
 
-    if server == 'sumneko_lua' then
-        config.cmd = {
-            lspinstall_path .. 'lua/sumneko-lua-language-server',
-            '-E', lspinstall_path .. 'lua/main.lua'
-        }
-        config.settings = {
-            Lua = {
-                runtime = {
-                    -- Tell the language server which version of Lua you're using (LuaJIT in the case of Neovim)
-                    version = 'LuaJIT',
-                    -- Setup your lua path
-                    path = vim.split(package.path, ';'),
-                },
-                diagnostics = {
-                    -- Get the language server to recognize the `vim` global
-                    globals = {'vim'},
-                },
-                workspace = {
-                    -- Make the server aware of Neovim runtime files
-                    library = {
-                        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-                    },
-                },
-            },
-        }
-    end
-
-    if server == "rust_analyzer" then
-        config.settings = {
-            ["rust-analyzer"] = {
-                assist = {
-                    importMergeBehavior = "last",
-                    importPrefix = "by_self",
-                },
-                cargo = {
-                    loadOutDirsFromCheck = true
-                },
-                procMacro = {
-                    enable = true
-                },
-            }
-        }
-    end
-
-    if server == "cmake" then
-        config.cmd = {
-            lspinstall_path .. 'cmake/venv/bin/cmake-language-server'
-        }
-    end
-
-    if server == "texlab" then
-        config.filetypes = { "tex", "plaintex", "bib" }
-        config.settings = {
-            texlab = {
-                build = {
-                    executable = "latexmk",
-                    args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "-pvc", "%f" },
-                    isContinuous = true,
-                },
-                chktex = {
-                    onEdit = false,
-                    onOpenAndSave = true,
-                },
-                formatterLineLength = 100,
-                forwardSearch = {
-                    executable = "okular",
-                    args = { "--unique", "%p#src:%l%f" }
-                }
-            }
-        }
+    for k, v in pairs(config_overrides) do
+        config[k] = v
     end
 
     lspconfig[server].setup(config)
