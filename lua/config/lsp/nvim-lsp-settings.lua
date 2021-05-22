@@ -1,6 +1,8 @@
 local utils = require('utils')
 local lspconfig = require('lspconfig')
 local wk = require('which-key')
+-- Client-local functions to call on on_attach
+local on_attach_client_local = {}
 
 -- Make LSP floating windows have borders
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
@@ -153,8 +155,24 @@ local default_config = function()
 
     return {
         capabilities = capabilities,
-        on_attach = on_attach,
+        on_attach = function(client, bufnr)
+            on_attach(client, bufnr)
+            if type(on_attach_client_local[client.name]) == "function" then
+                on_attach_client_local[client.name](client, bufnr)
+            end
+        end,
     }
+end
+
+-- Client-local on_attach configuration
+on_attach_client_local["texlab"] = function(_, bufnr)
+    -- Preview on save
+    utils.create_buf_augroup({
+        {
+            'BufWritePost',
+            'TexlabForward'
+        }
+    }, 'texlab_preview_on_save', bufnr)
 end
 
 -- LSP Servers
