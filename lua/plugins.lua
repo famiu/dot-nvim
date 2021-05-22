@@ -3,7 +3,11 @@ local packer = require('packer')
 local use = packer.use
 
 packer.reset()
-packer.init()
+packer.init {
+    git = {
+        clone_timeout = -1
+    }
+}
 
 -- Packer
 use 'wbthomason/packer.nvim'
