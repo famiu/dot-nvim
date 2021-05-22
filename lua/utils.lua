@@ -59,12 +59,21 @@ function M.create_augroup(autocmds, name)
 end
 
 -- Create a buffer-local augroup
-function M.create_buf_augroup(autocmds, name)
+function M.create_buf_augroup(autocmds, name, bufnr)
+    local buftext
+
     cmd('augroup ' .. name)
-    cmd('autocmd!' .. ' * <buffer>')
+
+    if bufnr then
+        buftext = string.format("<buffer=%d>", bufnr)
+    else
+        buftext = "<buffer>"
+    end
+
+    cmd('autocmd! * ' .. buftext)
 
     for _, autocmd in ipairs(autocmds) do
-        cmd('autocmd ' .. table.concat(autocmd, ' '))
+        cmd(string.format("autocmd %s %s %s", autocmd[1], buftext, table.concat(autocmd, ' ', 2)))
     end
 
     cmd('augroup END')
