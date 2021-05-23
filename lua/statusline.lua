@@ -35,7 +35,7 @@ components.left.inactive[1] = {
 }
 
 -- Setup feline.nvim
-require('feline').setup{
+require('feline').setup {
     colors = {
         fg = '#EAEAEA',
         bg = '#151515',
