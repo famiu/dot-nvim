@@ -88,7 +88,7 @@ use 'ray-x/lsp_signature.nvim' -- Signature Help
 use 'kosayoda/nvim-lightbulb' -- Lightbulb on Code Action
 use 'simrat39/symbols-outline.nvim' -- Symbols list
 
--- Luadev
+-- Lua development
 use 'rafcamlet/nvim-luapad'
 
 -- Telescope
@@ -125,9 +125,6 @@ use {
 -- Misc
 -- Discord Rich Presence
 use 'andweeb/presence.nvim'
-
--- Profiler
-use { 'norcalli/profiler.nvim', opt = true }
 
 -- Reload config
 use '~/Workspace/neovim/reload'
