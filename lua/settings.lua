@@ -1,8 +1,12 @@
 local cmd = vim.cmd
-local set_opt = require('utils').set_opt
-local append_opt = require('utils').append_opt
+local fn = vim.fn
+local utils = require('utils')
+local set_opt = utils.set_opt
+local append_opt = utils.append_opt
 
 local fill_column = 100
+
+local M = {}
 
 -- Set encoding
 set_opt('o', 'encoding', 'utf-8')
@@ -105,9 +109,33 @@ set_opt('o', 'sidescrolloff', 5)
 cmd 'filetype plugin on'
 
 -- Highlight text on yank
-require('utils').create_augroup({
+utils.create_augroup({
     {'TextYankPost', '*', 'silent!', 'lua vim.highlight.on_yank()'}
 }, 'highlight_on_yank')
 
 -- Enable syntax highlighting
 cmd 'syntax enable'
+
+-- Remember last location in file
+M.no_restore_cursor_buftypes = {
+    'quickfix', 'nofile', 'help', 'terminal'
+}
+
+M.no_restore_cursor_filetypes = {
+    'gitcommit', 'gitrebase'
+}
+
+function M.RestoreCursor()
+    if fn.line([['"]]) >= 1 and fn.line([['"]]) <= fn.line('$')
+    and not vim.tbl_contains(M.no_restore_cursor_buftypes, vim.bo.buftype)
+    and not vim.tbl_contains(M.no_restore_cursor_filetypes, vim.bo.filetype)
+    then
+        cmd('normal! g`" | zv')
+    end
+end
+
+utils.create_augroup({
+    { 'BufReadPost', '*', 'lua require(\'settings\').RestoreCursor()' }
+}, 'RestoreCursorOnOpen')
+
+return M

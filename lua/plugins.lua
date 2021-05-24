@@ -71,9 +71,6 @@ use 'godlygeek/tabular'
 -- Delimit characters automatically
 use 'Raimondi/delimitMate'
 
--- Remember last location in file
-use 'farmergreg/vim-lastplace'
-
 -- UNIX helper
 use 'tpope/vim-eunuch'
 
