@@ -165,6 +165,25 @@ local function default_on_attach(client, bufnr)
     require('lsp_signature').on_attach()
 end
 
+-- Function to add formatting on save to an LSP client
+local function format_on_save(client)
+    if client.resolved_capabilities.document_formatting then
+        utils.create_buf_augroup({
+            {
+                'BufWritePre',
+                'lua vim.lsp.buf.formatting_sync(nil, 1000)'
+            }
+        }, 'lsp_auto_format')
+    elseif client.resolved_capabilities.document_range_formatting then
+        utils.create_buf_augroup({
+            {
+                'BufWritePre',
+                'lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})'
+            }
+        }, 'lsp_auto_format')
+    end
+end
+
 -- Default config for LSP servers
 local function default_config()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -204,6 +223,8 @@ client_config['clangd'] = {
             { h = 'Switch source/header' },
             { prefix = '<leader>l' }
         )
+
+        format_on_save(client)
     end
 }
 
