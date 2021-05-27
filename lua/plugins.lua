@@ -77,6 +77,9 @@ use 'tpope/vim-eunuch'
 -- Automatically change current directory
 use 'airblade/vim-rooter'
 
+-- Better buffer delete
+use '~/Workspace/neovim/bufdelete'
+
 -- Snippets
 use 'hrsh7th/vim-vsnip'
 use 'hrsh7th/vim-vsnip-integ'

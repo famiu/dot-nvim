@@ -4,7 +4,7 @@ require'bufferline'.setup {
         numbers = "ordinal",
         number_style = "superscript", -- buffer_id at index 1, ordinal at index 2
         mappings = false,
-        buffer_close_icon= '',
+        buffer_close_icon = '',
         modified_icon = '●',
         close_icon = '',
         left_trunc_marker = '',
@@ -74,8 +74,8 @@ bind('n', '<Leader>b9', ':lua require("bufferline").go_to_buffer(9)<CR>', opts)
 bind('n', '<Leader>bc', ':BufferLinePick<CR>', opts)
 
 -- Close / kill buffer
-bind('n', '<Leader>bd', ':bdelete<CR>', opts)
-bind('n', '<Leader>bk', ':bwipeout<CR>', opts)
+bind('n', '<Leader>bd', ':Bdelete<CR>', opts)
+bind('n', '<Leader>bk', ':Bwipeout<CR>', opts)
 
 local keys = {
     ["]"] = { b = "Next buffer" },
