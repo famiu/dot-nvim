@@ -9,8 +9,10 @@ local M = {}
 opt.encoding = 'utf-8'
 
 -- Default grep command
--- Use ag if possible
-if vim.fn.executable('ag') == 1 then
+-- Prefer ripgrep and ag over grep
+if vim.fn.executable('rg') == 1 then
+    opt.grepprg = 'rg --vimgrep --smart-case'
+elseif vim.fn.executable('ag') == 1 then
     opt.grepprg = 'ag --nogroup --nocolor'
 else
     opt.grepprg = 'grep -nH'
