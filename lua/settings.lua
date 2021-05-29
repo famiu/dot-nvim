@@ -1,6 +1,8 @@
+local g = vim.g
 local cmd = vim.cmd
 local fn = vim.fn
 local opt = vim.opt
+local bind = vim.api.nvim_set_keymap
 local utils = require('utils')
 
 local M = {}
@@ -112,6 +114,10 @@ opt.cursorline = true
 -- Scroll offsets
 opt.scrolloff = 10
 opt.sidescrolloff = 5
+
+-- Disable using netrw for 'gx' and set it manually
+g.netrw_nogx = 1
+bind('n', 'gx', '<cmd>!xdg-open <cfile><CR>', { noremap = true })
 
 -- Enable filetype plugin
 cmd 'filetype plugin on'
