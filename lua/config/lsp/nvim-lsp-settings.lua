@@ -130,18 +130,24 @@ local function default_on_attach(client, bufnr)
         }
     }
 
+    local visual_keys = {
+        l = {
+            name = '+lsp'
+        }
+    }
+
     if client.resolved_capabilities.document_formatting then
         buf_set_keymap("n", "<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
         keys.l.f = 'Format'
 
         if client.resolved_capabilities.document_range_formatting then
-            buf_set_keymap('n', '<space>lF',
-                '<cmd>lua vim.lsp.buf.range_formatting()<CR>',
+            buf_set_keymap('v', '<space>lF',
+                ':lua vim.lsp.buf.range_formatting()<CR>',
                 opts
             )
 
-            keys.l.F = 'Range Format'
+            visual_keys.l.F = 'Range Format'
         end
 
     elseif client.resolved_capabilities.document_range_formatting then
@@ -150,16 +156,17 @@ local function default_on_attach(client, bufnr)
             '<cmd>lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})<CR>',
             opts
         )
-        buf_set_keymap('n', '<space>lF',
-            '<cmd>lua vim.lsp.buf.range_formatting()<CR>',
+        buf_set_keymap('v', '<space>lF',
+            ':lua vim.lsp.buf.range_formatting()<CR>',
             opts
         )
 
         keys.l.f = 'Format'
-        keys.l.F = 'Range Format'
+        visual_keys.l.F = 'Range Format'
     end
 
     wk.register(keys, { prefix = '<leader>', buffer = bufnr })
+    wk.register(visual_keys, { prefix = '<leader>', mode = 'v', buffer = bufnr })
 
     -- LSP Signatures
     require('lsp_signature').on_attach()
@@ -223,8 +230,6 @@ client_config['clangd'] = {
             { h = 'Switch source/header' },
             { prefix = '<leader>l' }
         )
-
-        format_on_save(client)
     end
 }
 
