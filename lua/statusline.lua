@@ -1,8 +1,7 @@
-require('feline').reset_highlights()
+local exec = vim.api.nvim_exec
 
 local components = require('feline.presets').default.components
 local properties = require('feline.presets').default.properties
-local nvim_exec = vim.api.nvim_exec
 
 -- Force toggleterm to be inactive
 table.insert(properties.force_inactive.filetypes, 'toggleterm')
@@ -14,9 +13,9 @@ components.right.inactive = {}
 
 -- Get highlight of inactive statusline by parsing the style, fg and bg of VertSplit
 local InactiveStatusHL = {
-    fg = nvim_exec("highlight VertSplit", true):match("guifg=(#%d+)") or '#444444',
-    bg = nvim_exec("highlight VertSplit", true):match("guibg=(#%d+)") or '#1E1E1E',
-    style = nvim_exec("highlight VertSplit", true):match("gui=(#%d+)") or ''
+    fg = exec("highlight VertSplit", true):match("guifg=(#%d+)") or '#444444',
+    bg = exec("highlight VertSplit", true):match("guibg=(#%d+)") or '#1E1E1E',
+    style = exec("highlight VertSplit", true):match("gui=(#%d+)") or ''
 }
 
 -- Add strikethrough to inactive statusline highlight style
@@ -33,6 +32,9 @@ components.left.inactive[1] = {
     provider = '',
     hl = InactiveStatusHL
 }
+
+-- Reset feline highlights
+require('feline').reset_highlights()
 
 -- Setup feline.nvim
 require('feline').setup {
