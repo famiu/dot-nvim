@@ -169,7 +169,18 @@ local function default_on_attach(client, bufnr)
     wk.register(visual_keys, { prefix = '<leader>', mode = 'v', buffer = bufnr })
 
     -- LSP Signatures
-    require('lsp_signature').on_attach()
+    require('lsp_signature').on_attach({
+        bind = true,
+        floating_window = true,
+        hint_enable = true,
+        hint_prefix = "-> ",
+        hint_scheme = "String",
+        use_lspsaga = false,
+        hi_parameter = "Search",
+        handler_opts = {
+            border = "single"
+        },
+    })
 end
 
 -- Function to add formatting on save to an LSP client
