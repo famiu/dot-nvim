@@ -209,7 +209,7 @@ function M.format_on_save(client)
 end
 
 -- Setup client with the following config overrides
-function M.setup_client(client_name, config_overrides)
+local function setup_client(client_name, config_overrides)
     config_overrides = config_overrides or {}
     local config = M.default_config()
 
@@ -219,5 +219,19 @@ function M.setup_client(client_name, config_overrides)
 
     lspconfig[client_name].setup(config)
 end
+
+-- More terse frontend for setup_client
+M.clients = setmetatable({}, {
+    __index = function(_, key)
+        return {
+            setup = function(config_overrides)
+                setup_client(key, config_overrides)
+            end
+        }
+    end,
+    __newindex = function(_, _, _)
+    end,
+    __metatable = false
+})
 
 return M

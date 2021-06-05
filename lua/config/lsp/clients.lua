@@ -5,7 +5,7 @@ local lsputils = require('config.lsp.utils')
 local lspinstall_path = vim.fn.stdpath('data') .. '/lspinstall/'
 
 -- Client setup
-lsputils.setup_client('clangd', {
+lsputils.clients['clangd'].setup {
     on_attach = function(client, bufnr)
         lsputils.default_on_attach(client, bufnr)
 
@@ -18,9 +18,9 @@ lsputils.setup_client('clangd', {
             { prefix = '<leader>l' }
         )
     end
-})
+}
 
-lsputils.setup_client('rust_analyzer', {
+lsputils.clients['rust_analyzer'].setup {
     on_attach = function(client, bufnr)
         lsputils.default_on_attach(client, bufnr)
 
@@ -47,9 +47,9 @@ lsputils.setup_client('rust_analyzer', {
             },
         }
     }
-})
+}
 
-lsputils.setup_client('sumneko_lua', {
+lsputils.clients['sumneko_lua'].setup {
     cmd = {
         lspinstall_path .. 'lua/sumneko-lua-language-server',
         '-E', lspinstall_path .. 'lua/main.lua'
@@ -75,9 +75,9 @@ lsputils.setup_client('sumneko_lua', {
             },
         },
     }
-})
+}
 
-lsputils.setup_client('pyright', {
+lsputils.clients['pyright'].setup {
     on_attach = function(client, bufnr)
         lsputils.default_on_attach(client, bufnr)
 
@@ -90,15 +90,15 @@ lsputils.setup_client('pyright', {
             { prefix = '<leader>l' }
         )
     end
-})
+}
 
-lsputils.setup_client('cmake', {
+lsputils.clients['cmake'].setup {
     cmd = {
         lspinstall_path .. 'cmake/venv/bin/cmake-language-server'
     }
-})
+}
 
-lsputils.setup_client('texlab', {
+lsputils.clients['texlab'].setup {
     on_attach = function(client, bufnr)
         lsputils.default_on_attach(client, bufnr)
 
@@ -143,7 +143,7 @@ lsputils.setup_client('texlab', {
             }
         }
     }
-})
+}
 
-lsputils.setup_client('bashls')
-lsputils.setup_client('gdscript')
+lsputils.clients['bashls'].setup {}
+lsputils.clients['gdscript'].setup {}
