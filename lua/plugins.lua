@@ -86,7 +86,6 @@ use 'hrsh7th/vim-vsnip-integ'
 
 -- LSP
 use 'neovim/nvim-lspconfig' -- Configuration
-use 'onsails/lspkind-nvim' -- Completion Icons
 use 'ray-x/lsp_signature.nvim' -- Signature Help
 use 'kosayoda/nvim-lightbulb' -- Lightbulb on Code Action
 use 'simrat39/symbols-outline.nvim' -- Symbols list

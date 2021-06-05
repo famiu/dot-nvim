@@ -32,6 +32,35 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
     { border = "single" }
 )
 
+-- LSP Item Kinds
+require('vim.lsp.protocol').CompletionItemKind = {
+    '', -- Text
+    'ƒ', -- Method
+    '', -- Function
+    '', -- Constructor
+    '', -- Field
+    '', -- Variable
+    '', -- Class
+    'ﰮ', -- Interface
+    '', -- Module
+    '', -- Property
+    '', -- Unit
+    '', -- Value
+    '了', -- Enum
+    '', -- Keyword
+    '﬌', -- Snippet
+    '', -- Color
+    '', -- File
+    '', -- Reference
+    '', -- Folder
+    '', -- EnumMember
+    '', -- Constant
+    '', -- Struct
+    '', -- Event
+    'ﬦ', -- Operator
+    '', -- TypeParameter
+}
+
 -- Default on_attach for LSP servers
 local function default_on_attach(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
