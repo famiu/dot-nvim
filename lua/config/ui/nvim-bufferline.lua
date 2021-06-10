@@ -35,7 +35,8 @@ require'bufferline'.setup {
         separator_style = "slant",
         enforce_regular_tabs = true,
         always_show_bufferline = true,
-        sort_by = 'directory'
+        sort_by = 'directory',
+        close_command = function(bufnr) require('bufdelete').bufdelete(bufnr) end
     }
 }
 
