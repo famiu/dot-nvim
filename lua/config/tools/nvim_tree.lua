@@ -14,6 +14,7 @@ g.nvim_tree_follow = 1
 g.nvim_tree_indent_markers = 1
 g.nvim_tree_hide_dotfiles = 1
 g.nvim_tree_git_hl = 1
+g.nvim_tree_highlight_opened_files = 0
 g.nvim_tree_root_folder_modifier = ':~'
 g.nvim_tree_tab_open = 1
 g.nvim_tree_width_allow_resize = 0
@@ -23,6 +24,13 @@ g.nvim_tree_add_trailing = 0
 g.nvim_tree_group_empty = 1
 g.nvim_tree_lsp_diagnostics = 1
 g.nvim_tree_disable_window_picker = 0
+g.nvim_tree_hijack_cursor = 1
+g.nvim_tree_icon_padding = ' '
+g.nvim_tree_update_cwd = 0
+g.nvim_tree_window_picker_exclude = {
+    filetype = {'packer', 'qf', 'startify'},
+    buftype = {'terminal', 'toggleterm'}
+}
 g.nvim_tree_special_files = {
     'README.md',
     'LICENSE',
@@ -36,6 +44,7 @@ g.nvim_tree_show_icons = {
     git = 1,
     folders = 1,
     files = 1,
+    folder_arrows = 0
 }
 g.nvim_tree_icons = {
     default = '',
@@ -45,9 +54,13 @@ g.nvim_tree_icons = {
         staged = "✓",
         unmerged = "",
         renamed = "➜",
-        untracked = "★"
+        untracked = "★",
+        deleted = "",
+        ignored = "◌"
     },
     folder = {
+        arrow_open = "",
+        arrow_closed = "",
         default = "",
         open = "",
         empty = "",
