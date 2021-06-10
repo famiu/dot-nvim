@@ -34,7 +34,7 @@ use 'chrisbra/Colorizer'
 use 'kyazdani42/nvim-web-devicons'
 
 -- Indent guides
-use {'lukas-reineke/indent-blankline.nvim', branch = 'lua'}
+use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
 
 -- Which Key
 use 'folke/which-key.nvim'
@@ -117,12 +117,6 @@ use 'mfussenegger/nvim-dap'
 use 'mfussenegger/nvim-dap-python'
 use 'theHamsta/nvim-dap-virtual-text'
 use 'nvim-telescope/telescope-dap.nvim'
-
--- Markdown preview
-use {
-    'iamcco/markdown-preview.nvim',
-    run = function() vim.fn['mkdp#util#install']() end
-}
 
 -- Misc
 -- Discord Rich Presence
