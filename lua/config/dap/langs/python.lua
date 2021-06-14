@@ -38,7 +38,7 @@ function M.dap_python_bindings()
 end
 
 require('utils').create_augroup({
-    {'FileType', 'python', 'lua require("config.dap.python").dap_python_bindings()'}
+    {'FileType', 'python', 'lua require("config.dap.langs.python").dap_python_bindings()'}
 }, 'dap_python')
 
 return M
