@@ -34,7 +34,7 @@ use 'chrisbra/Colorizer'
 use 'kyazdani42/nvim-web-devicons'
 
 -- Indent guides
-use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
+use 'lukas-reineke/indent-blankline.nvim'
 
 -- Which Key
 use 'folke/which-key.nvim'
