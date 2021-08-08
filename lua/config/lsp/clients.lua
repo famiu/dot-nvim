@@ -1,9 +1,6 @@
 local utils = require('utils')
 local lsputils = require('config.lsp.utils')
 
--- Path where lspinstall installs LSP servers
-local lspinstall_path = vim.fn.stdpath('data') .. '/lspinstall/'
-
 -- Client setup
 lsputils.clients['clangd'].setup {
     on_attach = function(client, bufnr)
@@ -50,10 +47,7 @@ lsputils.clients['rust_analyzer'].setup {
 }
 
 lsputils.clients['sumneko_lua'].setup {
-    cmd = {
-        lspinstall_path .. 'lua/sumneko-lua-language-server',
-        '-E', lspinstall_path .. 'lua/main.lua'
-    },
+    cmd = {'lua-language-server'},
     settings = {
         Lua = {
             runtime = {
@@ -90,12 +84,6 @@ lsputils.clients['pyright'].setup {
             { prefix = '<leader>l' }
         )
     end
-}
-
-lsputils.clients['cmake'].setup {
-    cmd = {
-        lspinstall_path .. 'cmake/venv/bin/cmake-language-server'
-    }
 }
 
 lsputils.clients['texlab'].setup {

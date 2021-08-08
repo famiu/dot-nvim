@@ -21,17 +21,11 @@ use 'tomasiser/vim-code-dark'
 -- Statusline
 use '~/Workspace/neovim/feline'
 
--- Tab bar
-use 'akinsho/nvim-bufferline.lua'
-
 -- Neovim icons
 use 'kyazdani42/nvim-web-devicons'
 
 -- Which Key
 use 'folke/which-key.nvim'
-
--- Smooth scrolling
-use 'psliwka/vim-smoothie'
 
 -- Git
 use 'tpope/vim-fugitive'
@@ -42,9 +36,6 @@ use 'tpope/vim-surround'
 
 -- Comments
 use 'b3nj5m1n/kommentary'
-
--- Tabs and text alignment
-use 'godlygeek/tabular'
 
 -- Delimit characters automatically
 use 'Raimondi/delimitMate'
@@ -84,15 +75,8 @@ use 'hrsh7th/nvim-compe'
 use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 use 'nvim-treesitter/nvim-treesitter-textobjects'
 
--- LSP Install
-use 'kabouzeid/nvim-lspinstall'
-
 -- Debugging
 use 'mfussenegger/nvim-dap'
 use 'mfussenegger/nvim-dap-python'
 use 'theHamsta/nvim-dap-virtual-text'
 use 'nvim-telescope/telescope-dap.nvim'
-
--- Misc
--- Discord Rich Presence
-use 'andweeb/presence.nvim'
