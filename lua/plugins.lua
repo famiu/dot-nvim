@@ -24,17 +24,8 @@ use '~/Workspace/neovim/feline'
 -- Tab bar
 use 'akinsho/nvim-bufferline.lua'
 
--- Start screen
-use 'mhinz/vim-startify'
-
--- Colorize color codes
-use 'chrisbra/Colorizer'
-
 -- Neovim icons
 use 'kyazdani42/nvim-web-devicons'
-
--- Indent guides
-use 'lukas-reineke/indent-blankline.nvim'
 
 -- Which Key
 use 'folke/which-key.nvim'
@@ -42,22 +33,9 @@ use 'folke/which-key.nvim'
 -- Smooth scrolling
 use 'psliwka/vim-smoothie'
 
--- File Tree
-use 'kyazdani42/nvim-tree.lua'
-
 -- Git
 use 'tpope/vim-fugitive'
 use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
-use 'junegunn/gv.vim'
-
--- Undo Tree
-use 'mbbill/undotree'
-
--- Terminal
-use 'akinsho/nvim-toggleterm.lua'
-
--- Color Picker
-use 'KabbAmine/vCoolor.vim'
 
 -- Surround
 use 'tpope/vim-surround'
@@ -90,9 +68,6 @@ use 'ray-x/lsp_signature.nvim' -- Signature Help
 use 'kosayoda/nvim-lightbulb' -- Lightbulb on Code Action
 use 'simrat39/symbols-outline.nvim' -- Symbols list
 
--- Lua development
-use 'rafcamlet/nvim-luapad'
-
 -- Telescope
 use {
     'nvim-telescope/telescope.nvim',
@@ -121,6 +96,3 @@ use 'nvim-telescope/telescope-dap.nvim'
 -- Misc
 -- Discord Rich Presence
 use 'andweeb/presence.nvim'
-
--- Reload config
-use '~/Workspace/neovim/reload'

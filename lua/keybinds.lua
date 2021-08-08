@@ -5,7 +5,7 @@ local opts = { noremap = true, silent = true }
 bind('n', 'Y', 'y$', { noremap = true })
 
 -- Make U redo
-bind('n', 'U', 'undo', { noremap = true })
+bind('n', 'U', 'redo', { noremap = true })
 
 -- Don't leave visual mode after indenting
 bind('v', '>', '>gv^', { noremap = true })
@@ -70,8 +70,6 @@ bind('n', '<Leader>wv', ':wincmd v<CR>', opts)
 
 -- Keybinds for editing vim config
 bind('n', '<Leader>vc', ':edit $MYVIMRC<CR>', opts)
-bind('n', '<Leader>vr', ':lua require("nvim-reload").Reload()<CR>', opts)
-bind('n', '<Leader>vR', ':lua require("nvim-reload").Restart()<CR>', opts)
 bind('n', '<Leader>vv', ':version<CR>', opts)
 
 local keys = {
@@ -120,8 +118,6 @@ local keys = {
     v = {
         name = '+vim',
         c = 'Edit config',
-        r = 'Reload',
-        R = 'Restart',
         v = 'Version'
     }
 }

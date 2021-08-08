@@ -8,9 +8,6 @@ bind('n', '<Space>gm', ':Git commit --amend<CR>', {})
 bind('n', '<Space>gp', ':Git push<CR>', {})
 bind('n', '<Space>gd', ':Gdiff<CR>', {})
 bind('n', '<Space>gw', ':Gwrite<CR>', {})
-bind('n', '<Space>gvo', ':GV<CR>', {})
-bind('n', '<Space>gvc', ':GV!<CR>', {})
-bind('n', '<Space>gvl', ':GV?<CR>', {})
 
 local keys = {
     g = {
@@ -22,12 +19,6 @@ local keys = {
         m = 'Amend',
         p = 'Push',
         s = 'Status',
-        v = {
-            name = '+commit-browser',
-            o = 'Open commit browser',
-            c = 'List commits that affected current file',
-            l = 'Fill location list with revisions of current file'
-        },
         w = 'Write'
     },
 }

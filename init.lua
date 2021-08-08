@@ -10,6 +10,14 @@ vim.g.maplocalleader = ','
 -- Sensible defaults
 require('settings')
 
+-- Configuration to load after loading plugins
+function _G.load_post_plugin_config()
+    require('plugins')
+    require('keybinds')
+    require('config')
+    require('statusline')
+end
+
 -- If Packer is not installed, download it and all plugins and reload config
 -- If Packer is installed, load configuration as usual
 local packer_install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
@@ -22,22 +30,13 @@ then
 
     -- Load plugins
     require('plugins')
+    package.loaded['plugins'] = nil
 
-    -- Automatically sync packer and restart Vim
+    -- Automatically sync packer and load the rest of the config
     cmd('PackerSync')
     require('utils').create_augroup({
-        {'User', 'PackerComplete', '++once', 'lua require("nvim-reload").Restart()'}
-    }, 'init_reload_after_packer')
+        {'User', 'PackerComplete', '++once', 'call v:lua.load_post_plugin_config()'}
+    }, 'load_post_plugin_config')
 else
-    -- Load plugins
-    require('plugins')
-
-    -- Load keybinds
-    require('keybinds')
-
-    -- Load configuration
-    require('config')
-
-    -- Load statusline
-    require('statusline')
+    _G.load_post_plugin_config()
 end
