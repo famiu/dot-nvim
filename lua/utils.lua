@@ -36,7 +36,7 @@ function M.create_buf_augroup(autocmds, name, bufnr)
 end
 
 -- Make navigation keys navigate through display lines instead of physical lines
-function M.set_buffer_soft_line_nagivation()
+function M.set_buffer_soft_line_navigation()
     local opts = { noremap = true, silent = true }
 
     buf_bind(0, 'n', 'k', 'gk', opts)
