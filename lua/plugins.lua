@@ -21,6 +21,9 @@ use 'tomasiser/vim-code-dark'
 -- Statusline
 use '~/Workspace/neovim/feline'
 
+-- Tabline
+use {'romgrk/barbar.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
+
 -- Neovim icons
 use 'kyazdani42/nvim-web-devicons'
 
