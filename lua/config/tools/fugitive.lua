@@ -6,6 +6,9 @@ bind('n', '<Space>gc', ':Git commit -v<CR>', {})
 bind('n', '<Space>ga', ':Git add -p<CR>', {})
 bind('n', '<Space>gm', ':Git commit --amend<CR>', {})
 bind('n', '<Space>gp', ':Git push<CR>', {})
+bind('n', '<Space>gf', ':Git fetch<CR>', {})
+bind('n', '<Space>gF', ':Git pull<CR>', {})
+bind('n', '<Space>gR', ':Git pull --rebase<CR>', {})
 bind('n', '<Space>gd', ':Gdiff<CR>', {})
 bind('n', '<Space>gw', ':Gwrite<CR>', {})
 
@@ -18,6 +21,9 @@ local keys = {
         d = 'Diff',
         m = 'Amend',
         p = 'Push',
+        f = 'Fetch',
+        F = 'Pull',
+        R = 'Pull (rebase)',
         s = 'Status',
         w = 'Write'
     },
