@@ -1,7 +1,6 @@
 local exec = vim.api.nvim_exec
 
 local components = require('feline.presets').default.components
-local properties = require('feline.presets').default.properties
 
 -- Remove all inactive statusline components
 components.left.inactive = {}
