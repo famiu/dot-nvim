@@ -119,6 +119,9 @@ opt.sidescrolloff = 5
 g.netrw_nogx = 1
 bind('n', 'gx', '<cmd>!xdg-open <cfile><CR>', { noremap = true })
 
+-- Use LaTeX as default tex flavor
+g.tex_flavor = "latex"
+
 -- Enable filetype plugin
 cmd 'filetype plugin on'
 
@@ -141,8 +144,8 @@ M.no_restore_cursor_filetypes = {
 
 function M.RestoreCursor()
     if fn.line([['"]]) >= 1 and fn.line([['"]]) <= fn.line('$')
-    and not vim.tbl_contains(M.no_restore_cursor_buftypes, vim.bo.buftype)
-    and not vim.tbl_contains(M.no_restore_cursor_filetypes, vim.bo.filetype)
+    and not vim.tbl_contains(M.no_restore_cursor_buftypes, opt.buftype:get())
+    and not vim.tbl_contains(M.no_restore_cursor_filetypes, opt.filetype:get())
     then
         cmd('normal! g`" | zv')
     end
