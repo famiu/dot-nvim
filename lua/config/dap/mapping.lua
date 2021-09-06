@@ -18,6 +18,8 @@ bind('n', '<Leader>dbl',
 bind('n', '<Leader>dr', ':lua require("dap").repl.open()<CR>', opts)
 bind('n', '<Leader>dR', ':lua require("dap").run_last()<CR>', opts)
 
+bind('v', '<M-k>', '<Cmd>lua require("dapui").eval()<CR>', opts)
+
 local keys = {
     d = {
         name = '+dap',
