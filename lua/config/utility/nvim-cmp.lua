@@ -33,14 +33,14 @@ cmp.setup {
     formatting = {
         format = function(entry, vim_item)
             vim_item.kind = lspkind.presets.default[vim_item.kind]
-            -- vim_item.menu = ({
-            --     buffer = "[Buffer]",
-            --     path = "[Path]",
-            --     nvim_lsp = "[LSP]",
-            --     nvim_lua = "[Lua]",
-            --     vsnip = "[VSnip]",
-            --     calc = "[Calc]",
-            -- })[entry.source.name]
+            vim_item.menu = ({
+                buffer = "[Buffer]",
+                path = "[Path]",
+                nvim_lsp = "[LSP]",
+                nvim_lua = "[Lua]",
+                vsnip = "[VSnip]",
+                calc = "[Calc]",
+            })[entry.source.name]
             return vim_item
         end,
     },
