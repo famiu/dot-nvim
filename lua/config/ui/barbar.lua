@@ -46,7 +46,7 @@ vim.g.bufferline = {
     insert_at_end = true,
 
     -- Sets the maximum padding width with which to surround each tab
-    maximum_padding = 10000,
+    maximum_padding = 4,
 
     -- Sets the maximum buffer name length.
     maximum_length = 30,
