@@ -1,5 +1,5 @@
 require('config.utility.tree-sitter')
 require('config.utility.nvim-cmp')
-require('config.utility.rooter')
+require('config.utility.project-nvim')
 require('config.utility.kommentary')
 require('config.utility.whichkey')

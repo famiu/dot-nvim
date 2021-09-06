@@ -46,8 +46,8 @@ use 'Raimondi/delimitMate'
 -- UNIX helper
 use 'tpope/vim-eunuch'
 
--- Automatically change current directory
-use 'airblade/vim-rooter'
+-- Project management
+use 'ahmedkhalf/project.nvim'
 
 -- Better buffer delete
 use '~/Workspace/neovim/bufdelete'
