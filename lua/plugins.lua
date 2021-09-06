@@ -65,6 +65,8 @@ use {
     requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'}
 }
 
+use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
 -- Better quickfix window
 use 'kevinhwang91/nvim-bqf'
 
