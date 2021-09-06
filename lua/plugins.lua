@@ -52,27 +52,36 @@ use 'airblade/vim-rooter'
 -- Better buffer delete
 use '~/Workspace/neovim/bufdelete'
 
--- Snippets
-use 'hrsh7th/vim-vsnip'
-use 'hrsh7th/vim-vsnip-integ'
-
 -- LSP
 use 'neovim/nvim-lspconfig' -- Configuration
 use 'ray-x/lsp_signature.nvim' -- Signature Help
 use 'kosayoda/nvim-lightbulb' -- Lightbulb on Code Action
 use 'simrat39/symbols-outline.nvim' -- Symbols list
+use 'onsails/lspkind-nvim' -- LSP Completion Item Icons
 
 -- Telescope
 use {
     'nvim-telescope/telescope.nvim',
-    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+    requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'}
 }
 
 -- Better quickfix window
 use 'kevinhwang91/nvim-bqf'
 
--- Completion
-use 'hrsh7th/nvim-compe'
+-- Completion and snippets
+use {
+    'hrsh7th/nvim-cmp',
+    requires = {
+        'hrsh7th/vim-vsnip',
+        'hrsh7th/vim-vsnip-integ',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lua',
+        'hrsh7th/cmp-vsnip',
+        'hrsh7th/cmp-calc'
+    }
+}
 
 -- Tresitter
 use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
