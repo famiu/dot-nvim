@@ -3,7 +3,7 @@ packadd neovim-gui-shim
 GuiTabline 0
 GuiPopupmenu 0
 GuiScrollBar 1
-GuiLinespace 1
+GuiLinespace 0
 Guifont! SauceCodePro Nerd Font Mono:h10
 
 " Right Click Context Menu (Copy-Cut-Paste)
