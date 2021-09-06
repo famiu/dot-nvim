@@ -1,12 +1,22 @@
 -- nvim-cmp configuration
 local cmp = require('cmp')
 local lspkind = require('lspkind')
+local luasnip = require('luasnip')
+
+local check_back_space = function()
+  local col = vim.fn.col '.' - 1
+  return col == 0 or vim.fn.getline('.'):sub(col, col):match '%s' ~= nil
+end
+
+local t = function(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
 
 cmp.setup {
     snippet = {
         expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
-        end,
+            luasnip.lsp_expand(args.body)
+        end
     },
 
     mapping = {
@@ -18,15 +28,27 @@ cmp.setup {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
         }),
-        ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' })
+        ["<Tab>"] = cmp.mapping(
+            function(fallback)
+                if vim.fn.pumvisible() == 1 then
+                    vim.fn.feedkeys(t("<C-n>"), "n")
+                elseif luasnip.expand_or_jumpable() then
+                    vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
+                elseif check_back_space() then
+                    vim.fn.feedkeys(t("<Tab>"), "n")
+                else
+                    fallback()
+                end
+            end,
+            {'i', 's'}
+        ),
     },
 
     sources = {
-        -- { name = 'buffer' },
         { name = 'path' },
         { name = 'nvim_lsp' },
         { name = 'nvim_lua' },
-        { name = 'vsnip' },
+        { name = 'luasnip' },
         { name = 'calc' }
     },
 
@@ -38,7 +60,7 @@ cmp.setup {
                 path = "[Path]",
                 nvim_lsp = "[LSP]",
                 nvim_lua = "[Lua]",
-                vsnip = "[VSnip]",
+                luasnip = "[LuaSnip]",
                 calc = "[Calc]",
             })[entry.source.name]
             return vim_item
