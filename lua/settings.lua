@@ -152,7 +152,20 @@ function M.RestoreCursor()
 end
 
 utils.create_augroup({
-    { 'BufReadPost', '*', 'lua require(\'settings\').RestoreCursor()' }
+    { 'BufReadPost', '*', 'lua require("settings").RestoreCursor()' }
 }, 'RestoreCursorOnOpen')
+
+-- Automatically create missing directories before save
+function M.create_file_directory_structure()
+    local path = fn.expand('%:p:h')
+
+    if fn.isdirectory(path) == 0 then
+        fn.mkdir(path, 'p')
+    end
+end
+
+utils.create_augroup({
+    { 'BufWritePre', '*', 'lua require("settings").create_file_directory_structure()' }
+}, 'MkdirOnSave')
 
 return M
