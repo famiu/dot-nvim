@@ -2,11 +2,6 @@ local exec = vim.api.nvim_exec
 
 local components = require('feline.presets').default.components
 
--- Remove all inactive statusline components
-components.left.inactive = {}
-components.mid.inactive = {}
-components.right.inactive = {}
-
 local InactiveStatusHL = {
     fg = exec("highlight VertSplit", true):match("guifg=(#[0-9A-Fa-f]+)") or "#444444",
     bg = exec("highlight VertSplit", true):match("guibg=(#[0-9A-Fa-f]+)") or "#1E1E1E",
@@ -23,9 +18,13 @@ end
 
 -- Apply the highlight to the statusline
 -- by having an empty provider with the highlight
-components.left.inactive[1] = {
-    provider = '',
-    hl = InactiveStatusHL
+components.inactive = {
+    {
+        {
+            provider = '',
+            hl = InactiveStatusHL
+        }
+    }
 }
 
 -- Reset feline highlights
