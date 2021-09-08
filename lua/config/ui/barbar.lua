@@ -72,6 +72,7 @@ map('n', '<Leader>bp', ':BufferPrevious<CR>', opts)
 map('n', '<Leader>bn', ':BufferNext<CR>', opts)
 -- Close buffer
 map('n', '<Leader>bd', ':BufferClose<CR>', opts)
+map('n', '<A-c>', ':BufferClose<CR>', opts)
 -- Magic buffer-picking mode
 map('n', '<Leader>bc', ':BufferPick<CR>', opts)
 -- Re-order to previous/next
