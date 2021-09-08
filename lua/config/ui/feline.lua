@@ -27,9 +27,6 @@ components.inactive = {
     }
 }
 
--- Reset feline highlights
-require('feline').reset_highlights()
-
 -- Setup feline.nvim
 require('feline').setup {
     colors = {
