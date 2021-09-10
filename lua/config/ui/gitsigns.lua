@@ -1,68 +1,70 @@
-local bind = vim.api.nvim_set_keymap
-
 require('gitsigns').setup {
     signs = {
-        add          = {hl = 'GitGutterAdd'   , text = '│', numhl='GitGutterAddNr'   , linehl='GitGutterAddLn'},
-        change       = {hl = 'GitGutterChange', text = '│', numhl='GitGutterChangeNr', linehl='GitGutterChangeLn'},
-        delete       = {hl = 'GitGutterDelete', text = '_', numhl='GitGutterDeleteNr', linehl='GitGutterDeleteLn'},
-        topdelete    = {hl = 'GitGutterDelete', text = '‾', numhl='GitGutterDeleteNr', linehl='GitGutterDeleteLn'},
-        changedelete = {hl = 'GitGutterChange', text = '~', numhl='GitGutterChangeNr', linehl='GitGutterChangeLn'},
+        add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+        change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+        delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+        topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+        changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
     },
-    numhl = false,
-    linehl = false,
+    signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
+    numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
+    linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
+    word_diff  = true, -- Toggle with `:Gitsigns toggle_word_diff`
+    keymaps = {
+        -- Default keymap options
+        noremap = true,
+
+        ['n ]h'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
+        ['n [h'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
+
+        ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+        ['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+        ['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+        ['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+        ['v <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+        ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+        ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+        ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
+        ['n <leader>hS'] = '<cmd>lua require"gitsigns".stage_buffer()<CR>',
+        ['n <leader>hU'] = '<cmd>lua require"gitsigns".reset_buffer_index()<CR>',
+
+        -- Text objects
+        ['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
+        ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
+    },
     watch_index = {
-        interval = 1000
+        interval = 1000,
+        follow_files = true
     },
-    current_line_blame = false,
+    attach_to_untracked = true,
+    current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+    current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+        delay = 1000,
+    },
+    current_line_blame_formatter_opts = {
+        relative_time = false
+    },
     sign_priority = 6,
     update_debounce = 100,
     status_formatter = nil, -- Use default
-    use_internal_diff = true,  -- If luajit is present
+    max_file_length = 40000,
+    preview_config = {
+        -- Options passed to nvim_open_win
+        border = 'single',
+        style = 'minimal',
+        relative = 'cursor',
+        row = 0,
+        col = 1
+    },
+    yadm = {
+        enable = false
+    },
 }
 
 vim.api.nvim_exec([[
-highlight GitGutterAdd    guifg=#009900 ctermfg=2
-highlight GitGutterChange guifg=#bbbb00 ctermfg=3
-highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+highlight GitSignsAdd    guifg=#009900 ctermfg=2
+highlight GitSignsChange guifg=#bbbb00 ctermfg=3
+highlight GitSignsDelete guifg=#ff2222 ctermfg=1
 ]], false)
-
--- -- Default keymap options
-local opts = { noremap = true }
-
-bind('n', ']h', "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'",
-    { noremap = true, expr=true })
-bind('n', '[h', "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'",
-    { noremap = true, expr=true })
-
-bind('n', '<leader>ghn', "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'",
-    { noremap = true, expr=true })
-bind('n', '<leader>ghp', "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'",
-    { noremap = true, expr=true })
-
-bind('n', '<leader>ghs', '<cmd>lua require"gitsigns".stage_hunk()<CR>', opts)
-bind('n', '<leader>ghu', '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>', opts)
-bind('n', '<leader>ghr', '<cmd>lua require"gitsigns".reset_hunk()<CR>', opts)
-bind('n', '<leader>ghv', '<cmd>lua require"gitsigns".preview_hunk()<CR>', opts)
-bind('n', '<leader>ghb', '<cmd>lua require"gitsigns".blame_line()<CR>', opts)
-
-local keys = {
-    ["]"] = { h = "Next hunk" },
-    ["["] = { h = "Previous hunk" },
-
-    ["<leader>"] = {
-        g = {
-            h = {
-                name = '+hunk',
-                n = 'Next hunk',
-                p = 'Previous hunk',
-                s = 'Stage hunk',
-                u = 'Undo hunk',
-                v = 'Preview hunk',
-                r = 'Reset hunk',
-                b = 'Blame line'
-            }
-        }
-    }
-}
-
-require('which-key').register(keys)
