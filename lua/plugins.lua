@@ -27,9 +27,6 @@ use {'romgrk/barbar.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
 -- Neovim icons
 use 'kyazdani42/nvim-web-devicons'
 
--- Which Key
-use 'folke/which-key.nvim'
-
 -- Git
 use 'tpope/vim-fugitive'
 use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}

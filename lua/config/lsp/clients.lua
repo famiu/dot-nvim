@@ -1,3 +1,4 @@
+local bind = vim.api.nvim_buf_set_keymap
 local utils = require('utils')
 local lsputils = require('config.lsp.utils')
 
@@ -6,13 +7,10 @@ lsputils.clients['clangd'].setup {
     on_attach = function(client, bufnr)
         lsputils.default_on_attach(client, bufnr)
 
-        local opts = { noremap = true, silent = true }
-
-        lsputils.client_add_binds(
-            bufnr,
-            {{'n', '<Leader>lh', '<cmd>ClangdSwitchSourceHeader<CR>', opts}},
-            { h = 'Switch source/header' },
-            { prefix = '<leader>l' }
+        bind(
+            bufnr, 'n', '<Leader>lh',
+            '<cmd>ClangdSwitchSourceHeader<CR>',
+            { noremap = true, silent = true }
         )
     end
 }
@@ -21,14 +19,7 @@ lsputils.clients['rust_analyzer'].setup {
     on_attach = function(client, bufnr)
         lsputils.default_on_attach(client, bufnr)
 
-        local opts = { noremap = true, silent = true }
-
-        lsputils.client_add_binds(
-            bufnr,
-            {{'n', '<Leader>lR', '<cmd>CargoReload<CR>', opts}},
-            { R = 'Reload workspace' },
-            { prefix = '<leader>l' }
-        )
+        bind(bufnr, 'n', '<Leader>lR', '<cmd>CargoReload<CR>', { noremap = true, silent = true })
     end,
     settings = {
         ['rust-analyzer'] = {
@@ -75,13 +66,11 @@ lsputils.clients['pyright'].setup {
     on_attach = function(client, bufnr)
         lsputils.default_on_attach(client, bufnr)
 
-        local opts = { noremap = true, silent = true }
 
-        lsputils.client_add_binds(
-            bufnr,
-            {{'n', '<Leader>lo', '<cmd>PyrightOrganizeImports<CR>', opts}},
-            { o = 'Organize imports' },
-            { prefix = '<leader>l' }
+        bind(
+            bufnr, 'n', '<Leader>lo',
+            '<cmd>PyrightOrganizeImports<CR>',
+            { noremap = true, silent = true }
         )
     end
 }
@@ -100,15 +89,8 @@ lsputils.clients['texlab'].setup {
             }
         }, 'texlab_preview_on_save', bufnr)
 
-        lsputils.client_add_binds(
-            bufnr,
-            {
-                {'n', '<Leader>lb', '<cmd>TexlabBuild<CR>', opts},
-                {'n', '<Leader>lp', '<cmd>TexlabForward<CR>', opts}
-            },
-            { b = 'Build', p = 'Preview' },
-            { prefix = '<leader>l' }
-        )
+        bind(bufnr, 'n', '<Leader>lb', '<cmd>TexlabBuild<CR>', opts)
+        bind(bufnr, 'n', '<Leader>lp', '<cmd>TexlabForward<CR>', opts)
     end,
 
     filetypes = { 'tex', 'plaintex', 'bib' },

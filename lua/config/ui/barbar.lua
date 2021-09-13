@@ -76,12 +76,8 @@ map('n', '<A-c>', ':BufferClose<CR>', opts)
 -- Magic buffer-picking mode
 map('n', '<Leader>bc', ':BufferPick<CR>', opts)
 -- Re-order to previous/next
-map('n', '<Leader>bmp', ':BufferMovePrevious<CR>', opts)
-map('n', '<Leader>bmn', ':BufferMoveNext<CR>', opts)
--- Sort automatically by...
-map('n', '<Leader>bob', ':BufferOrderByBufferNumber<CR>', opts)
-map('n', '<Leader>bod', ':BufferOrderByDirectory<CR>', opts)
-map('n', '<Leader>bol', ':BufferOrderByLanguage<CR>', opts)
+map('n', '<Leader>bP', ':BufferMovePrevious<CR>', opts)
+map('n', '<Leader>bN', ':BufferMoveNext<CR>', opts)
 -- Goto buffer in position...
 map('n', '<A-1>', ':BufferGoto 1<CR>', opts)
 map('n', '<A-2>', ':BufferGoto 2<CR>', opts)
@@ -93,27 +89,3 @@ map('n', '<A-7>', ':BufferGoto 7<CR>', opts)
 map('n', '<A-8>', ':BufferGoto 8<CR>', opts)
 map('n', '<A-9>', ':BufferGoto 9<CR>', opts)
 map('n', '<A-0>', ':BufferLast<CR>', opts)
-
-require('which-key').register(
-    {
-        b = {
-            name = '+buffer',
-            p = 'Previous Buffer',
-            n = 'Next Buffer',
-            d = 'Close Buffer',
-            c = 'Pick Buffer',
-            m = {
-                name = '+move',
-                p = 'Previous',
-                n = 'Next'
-            },
-            o = {
-                name = '+order-by',
-                b = 'Bufnr',
-                d = 'Directory',
-                l = 'Language'
-            }
-        }
-    },
-    { prefix = '<leader>' }
-)

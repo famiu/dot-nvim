@@ -1,6 +1,5 @@
 local bind = vim.api.nvim_set_keymap
 local config = require('kommentary.config')
-local wk = require('which-key')
 
 config.configure_language("lua", {
     single_line_comment_string = '--',
@@ -15,24 +14,3 @@ bind('n', '<leader>cd', '<Plug>kommentary_motion_decrease', {})
 
 bind('v', '<leader>ci', '<Plug>kommentary_visual_increase', {})
 bind('v', '<leader>cd', '<Plug>kommentary_visual_decrease', {})
-
-wk.register({
-    c = {
-        name = '+comment',
-        i = 'Increase commenting level for motion',
-        d = 'Decrease commenting level for motion',
-        c = {
-            name = '+line',
-            i = 'Increase commenting level for line',
-            d = 'Decrease commenting level for line',
-        }
-    }
-}, { prefix = "<leader>" })
-
-wk.register({
-    c = {
-        name = '+comment',
-        i = 'Increase commenting level',
-        d = 'Decrease commenting level'
-    }
-}, { prefix = "<leader>", mode = "v" })

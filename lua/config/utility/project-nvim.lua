@@ -40,4 +40,3 @@ require('project_nvim').setup {
 }
 
 require('config.tools.telescope-nvim-utils').bind_picker('<Leader>p', 'projects', 'projects')
-require('which-key').register({ p = 'Projects' }, { prefix = "<leader>" })

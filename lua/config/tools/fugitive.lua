@@ -11,22 +11,3 @@ bind('n', '<Space>gF', ':Git pull<CR>', {})
 bind('n', '<Space>gR', ':Git pull --rebase<CR>', {})
 bind('n', '<Space>gd', ':Gdiff<CR>', {})
 bind('n', '<Space>gw', ':Gwrite<CR>', {})
-
-local keys = {
-    g = {
-        name = '+git',
-        a = 'Add',
-        b = 'Blame',
-        c = 'Commit',
-        d = 'Diff',
-        m = 'Amend',
-        p = 'Push',
-        f = 'Fetch',
-        F = 'Pull',
-        R = 'Pull (rebase)',
-        s = 'Status',
-        w = 'Write'
-    },
-}
-
-require('which-key').register(keys, { prefix = "<leader>" })

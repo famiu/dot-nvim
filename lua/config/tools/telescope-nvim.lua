@@ -70,32 +70,9 @@ bind_picker('<Leader>fh', 'help_tags')
 bind_picker('<Leader>ft', 'treesitter')
 bind_picker('<Leader>fo', 'oldfiles')
 
-local keys = {
-    f = {
-        name = '+telescope',
-        b = 'Buffers',
-        f = 'Find files',
-        g = 'Live grep',
-        h = 'Help tags',
-        t = 'Treesitter',
-        o = 'Old files'
-    }
-}
-
 -- DAP
 bind_picker('<Leader>dc', 'commands', 'dap')
 bind_picker('<Leader>ds', 'configurations', 'dap')
 bind_picker('<Leader>dl', 'list_breakpoints', 'dap')
 bind_picker('<Leader>dv', 'variables', 'dap')
 bind_picker('<Leader>df', 'frames', 'dap')
-
-keys.d = {
-    name = '+dap',
-    c = 'Commands',
-    s = 'Configurations',
-    l = 'List breakpoints',
-    v = 'Variables',
-    f = 'Frames'
-}
-
-require('which-key').register(keys, { prefix = "<leader>" })
