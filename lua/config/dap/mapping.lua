@@ -14,7 +14,7 @@ bind(
     '(vim.fn.input("Breakpoint condition: "))<CR>', opts
 )
 bind(
-    'n', '<M-l>',
+    'n', '<C-M-b>',
     ':lua require("dap").set_breakpoint' ..
     '(nil, nil, vim.fn.input("Log point message: "))<CR>', opts
 )
