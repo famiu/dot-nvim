@@ -195,7 +195,6 @@ components.active[2] = {
     },
     {
         provider = 'diagnostic_errors',
-        enabled = function() return lsp.diagnostics_exist('Error') end,
         hl = {
             fg = 'red',
             bg = 'gray'
@@ -203,7 +202,6 @@ components.active[2] = {
     },
     {
         provider = 'diagnostic_warnings',
-        enabled = function() return lsp.diagnostics_exist('Warning') end,
         hl = {
             fg = 'yellow',
             bg = 'gray'
@@ -211,7 +209,6 @@ components.active[2] = {
     },
     {
         provider = 'diagnostic_hints',
-        enabled = function() return lsp.diagnostics_exist('Hint') end,
         hl = {
             fg = 'cyan',
             bg = 'gray'
@@ -219,7 +216,6 @@ components.active[2] = {
     },
     {
         provider = 'diagnostic_info',
-        enabled = function() return lsp.diagnostics_exist('Information') end,
         hl = {
             fg = 'oceanblue',
             bg = 'gray'
@@ -257,7 +253,7 @@ components.active[2] = {
     },
     {
         provider = '',
-        enable = function(winid) return git.git_info_exists(winid) end,
+        enabled = git.git_info_exists,
         left_sep = {
             {
                 str = 'left_rounded',
@@ -305,7 +301,7 @@ components.active[2] = {
     },
     {
         provider = '',
-        enable = function(winid) return git.git_info_exists(winid) end,
+        enabled = git.git_info_exists,
         right_sep = {
             {
                 str = ' ',
