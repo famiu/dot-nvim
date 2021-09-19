@@ -27,7 +27,7 @@ end
 -- by having an empty provider with the highlight
 components.inactive[1] = {
     {
-        provider = '',
+        provider = ' ',
         hl = InactiveStatusHL
     }
 }
