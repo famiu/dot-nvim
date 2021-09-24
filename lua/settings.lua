@@ -2,8 +2,9 @@ local g = vim.g
 local cmd = vim.cmd
 local fn = vim.fn
 local opt = vim.opt
-local bind = vim.api.nvim_set_keymap
-local utils = require('utils')
+local api = vim.api
+local bind = api.nvim_set_keymap
+local create_augroup = require('utils').create_augroup
 
 local M = {}
 
@@ -12,9 +13,9 @@ opt.encoding = 'utf-8'
 
 -- Default grep command
 -- Prefer ripgrep and ag over grep
-if vim.fn.executable('rg') == 1 then
+if fn.executable('rg') == 1 then
     opt.grepprg = 'rg --vimgrep --smart-case'
-elseif vim.fn.executable('ag') == 1 then
+elseif fn.executable('ag') == 1 then
     opt.grepprg = 'ag --nogroup --nocolor'
 else
     opt.grepprg = 'grep -nH'
@@ -84,7 +85,13 @@ opt.relativenumber = true
 -- Folding (with Treesitter)
 opt.foldmethod = 'expr'
 opt.foldexpr = 'nvim_treesitter#foldexpr()'
+opt.foldtext = [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').]] ..
+    [[' ... '.trim(getline(v:foldend)).]] ..
+    [[' ('.(v:foldend-v:foldstart).' lines folded...)']]
+opt.fillchars = "fold: "
 opt.foldlevel = 99
+opt.foldnestmax = 3
+opt.foldminlines = 4
 
 -- Search
 opt.hlsearch = true
@@ -126,7 +133,7 @@ g.tex_flavor = "latex"
 cmd 'filetype plugin on'
 
 -- Highlight text on yank
-utils.create_augroup({
+create_augroup({
     {'TextYankPost', '*', 'silent!', 'lua vim.highlight.on_yank()'}
 }, 'highlight_on_yank')
 
@@ -151,7 +158,7 @@ function M.RestoreCursor()
     end
 end
 
-utils.create_augroup({
+create_augroup({
     { 'BufReadPost', '*', 'lua require("settings").RestoreCursor()' }
 }, 'RestoreCursorOnOpen')
 
@@ -164,7 +171,7 @@ function M.create_file_directory_structure()
     end
 end
 
-utils.create_augroup({
+create_augroup({
     { 'BufWritePre', '*', 'lua require("settings").create_file_directory_structure()' }
 }, 'MkdirOnSave')
 
