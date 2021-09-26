@@ -38,7 +38,6 @@ components.active[1] = {
         provider = function()
             return ' ' .. vi_mode.get_vim_mode()
         end,
-
         hl = function()
             return {
                 fg = vi_mode.get_mode_color(),
@@ -46,7 +45,6 @@ components.active[1] = {
                 style = 'bold'
             }
         end,
-
         left_sep = {
             str = 'left_rounded',
             hl = {
@@ -96,7 +94,6 @@ components.active[1] = {
         provider = function(_, winid)
             return string.format('%d:%d', unpack(api.nvim_win_get_cursor(winid)))
         end,
-
         hl = {
             fg = 'orange',
             bg = 'gray'
@@ -164,7 +161,6 @@ components.active[1] = {
 components.active[2] = {
     {
         provider = ' LSP',
-
         enabled = function(_, winid)
             local bufnr = api.nvim_win_get_buf(winid)
 
@@ -173,7 +169,6 @@ components.active[2] = {
                 lsp.diagnostics_exist('Hint', bufnr) or
                 lsp.diagnostics_exist('Information', bufnr)
         end,
-
         hl = {
             fg = 'cyan',
             bg = 'gray'
@@ -223,7 +218,6 @@ components.active[2] = {
     },
     {
         provider = '',
-
         enabled = function(_, winid)
             local bufnr = api.nvim_win_get_buf(winid)
 
@@ -232,7 +226,6 @@ components.active[2] = {
                 lsp.diagnostics_exist('Hint', bufnr) or
                 lsp.diagnostics_exist('Information', bufnr)
         end,
-
         right_sep = {
             {
                 str = ' ',
