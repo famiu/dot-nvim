@@ -1,36 +1,10 @@
 local api = vim.api
-local exec = api.nvim_exec
 
 local lsp = require('feline.providers.lsp')
 local vi_mode = require('feline.providers.vi_mode')
 local git = require('feline.providers.git')
 
-local components = { active = {}, inactive = {} }
-
--- Use a thin line with the same highlight as VertSplit for inactive statusline
--- In order to do so, first get the fg, bg and style options of VertSplit
-local InactiveStatusHL = {
-    fg = exec("highlight VertSplit", true):match("guifg=(#[0-9A-Fa-f]+)") or "#444444",
-    bg = exec("highlight VertSplit", true):match("guibg=(#[0-9A-Fa-f]+)") or "#1E1E1E",
-    style = exec("highlight VertSplit", true):match("gui=(#[0-9A-Fa-f]+)") or "",
-}
-
--- Add underline to inactive statusline highlight style
--- in order to have a thin line instead of the statusline
-if InactiveStatusHL.style == '' then
-    InactiveStatusHL.style = 'underline'
-else
-    InactiveStatusHL.style = InactiveStatusHL.style .. ',underline'
-end
-
--- Apply the highlight to the statusline
--- by having an empty provider with the highlight
-components.inactive[1] = {
-    {
-        provider = ' ',
-        hl = InactiveStatusHL
-    }
-}
+local components = { active = {} }
 
 -- Active statusline
 components.active[1] = {
@@ -155,7 +129,7 @@ components.active[1] = {
             },
             ' '
         }
-    },
+    }
 }
 
 components.active[2] = {
@@ -217,7 +191,6 @@ components.active[2] = {
         }
     },
     {
-        provider = '',
         enabled = function(_, winid)
             local bufnr = api.nvim_win_get_buf(winid)
 
@@ -245,7 +218,6 @@ components.active[2] = {
         }
     },
     {
-        provider = '',
         enabled = git.git_info_exists,
         left_sep = {
             {
@@ -293,7 +265,6 @@ components.active[2] = {
         },
     },
     {
-        provider = '',
         enabled = git.git_info_exists,
         right_sep = {
             {
@@ -317,6 +288,13 @@ components.active[2] = {
 -- Setup feline.nvim
 require('feline').setup {
     components = components,
+    default_hl = {
+        inactive = {
+            fg = string.format('#%06x', api.nvim_get_hl_by_name('VertSplit', true).foreground),
+            bg = 'NONE',
+            style = 'underline'
+        }
+    },
     colors = {
         fg = '#FFFFFF',
         bg = 'NONE',
