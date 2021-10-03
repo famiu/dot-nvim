@@ -65,8 +65,8 @@ components.active[1] = {
         }
     },
     {
-        provider = function(_, winid)
-            return string.format('%d:%d', unpack(api.nvim_win_get_cursor(winid)))
+        provider = function()
+            return string.format('%d:%d', unpack(api.nvim_win_get_cursor(0)))
         end,
         hl = {
             fg = 'orange',
@@ -135,13 +135,11 @@ components.active[1] = {
 components.active[2] = {
     {
         provider = ' LSP',
-        enabled = function(_, winid)
-            local bufnr = api.nvim_win_get_buf(winid)
-
-            return lsp.diagnostics_exist('Error', bufnr) or
-                lsp.diagnostics_exist('Warning', bufnr) or
-                lsp.diagnostics_exist('Hint', bufnr) or
-                lsp.diagnostics_exist('Information', bufnr)
+        enabled = function()
+            return lsp.diagnostics_exist('Error') or
+                lsp.diagnostics_exist('Warning') or
+                lsp.diagnostics_exist('Hint') or
+                lsp.diagnostics_exist('Information')
         end,
         hl = {
             fg = 'cyan',
@@ -191,13 +189,11 @@ components.active[2] = {
         }
     },
     {
-        enabled = function(_, winid)
-            local bufnr = api.nvim_win_get_buf(winid)
-
-            return lsp.diagnostics_exist('Error', bufnr) or
-                lsp.diagnostics_exist('Warning', bufnr) or
-                lsp.diagnostics_exist('Hint', bufnr) or
-                lsp.diagnostics_exist('Information', bufnr)
+        enabled = function()
+            return lsp.diagnostics_exist('Error') or
+                lsp.diagnostics_exist('Warning') or
+                lsp.diagnostics_exist('Hint') or
+                lsp.diagnostics_exist('Information')
         end,
         right_sep = {
             {
