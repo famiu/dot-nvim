@@ -4,7 +4,7 @@ local lsp = require('feline.providers.lsp')
 local vi_mode = require('feline.providers.vi_mode')
 local git = require('feline.providers.git')
 
-local components = { active = {} }
+local components = { active = {}, inactive = {} }
 
 -- Active statusline
 components.active[1] = {
@@ -277,6 +277,17 @@ components.active[2] = {
                 },
                 always_visible = true
             },
+        }
+    }
+}
+
+-- Use thin line for inactive statusline
+components.inactive[1] = {
+    {
+        hl = {
+            fg = string.format('#%06x', api.nvim_get_hl_by_name('VertSplit', true).foreground),
+            bg = 'NONE',
+            style = 'underline'
         }
     }
 }
