@@ -15,6 +15,9 @@ use 'wbthomason/packer.nvim'
 -- Neovim GUI Shim
 use { 'equalsraf/neovim-gui-shim', opt = true }
 
+-- Automatic session management
+use 'rmagatti/auto-session'
+
 -- Colorscheme
 use 'tomasiser/vim-code-dark'
 
