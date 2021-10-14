@@ -1,11 +1,6 @@
-vim.opt.sessionoptions =
-    vim.opt.sessionoptions + 'options' + 'localoptions' + 'resize' + 'winpos' + 'terminal'
+vim.opt.sessionoptions = vim.opt.sessionoptions + 'resize' + 'winpos' + 'terminal'
 
-require('auto-session').setup {
-    auto_session_enabled = false,
-    auto_save_enabled = false,
-    auto_restore_enabled = false
-}
+require('auto-session').setup ()
 
 local bind = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
