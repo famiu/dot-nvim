@@ -22,7 +22,7 @@ else
 end
 
 -- Wildmenu
-opt.wildmode = {'longest', 'full'}
+opt.wildmode = {'longest', 'list', 'full'}
 opt.wildmenu = true
 
 -- Hidden buffers to switch buffers without saving
