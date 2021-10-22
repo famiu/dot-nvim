@@ -13,7 +13,6 @@ require('settings')
 -- Configuration to load after loading plugins
 function _G.load_post_plugin_config()
     require('plugins')
-    require('colorscheme')
     require('keybinds')
     require('config')
 end
