@@ -281,16 +281,13 @@ components.active[2] = {
     }
 }
 
--- Use thin line for inactive statusline
-components.inactive[1] = {
-    {
-        hl = {
-            fg = string.format('#%06x', api.nvim_get_hl_by_name('VertSplit', true).foreground),
-            bg = 'NONE',
-            style = 'underline'
-        }
-    }
-}
+local VertSplitFG = string.format('#%06x', api.nvim_get_hl_by_name('VertSplit', true).foreground)
+
+-- Use thin line for horizontal splits
+api.nvim_command(string.format(
+    'highlight StatusLineNC gui=underline guifg=%s guibg=NONE',
+    VertSplitFG
+))
 
 -- Setup feline.nvim
 require('feline').setup {
