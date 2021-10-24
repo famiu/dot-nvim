@@ -9,9 +9,12 @@ local components = { active = {}, inactive = {} }
 -- Active statusline
 components.active[1] = {
     {
-        provider = function()
-            return ' ' .. vi_mode.get_vim_mode()
-        end,
+        provider = {
+            name = 'vi_mode',
+            opts = {
+                show_mode_name = true
+            }
+        },
         hl = function()
             return {
                 fg = vi_mode.get_mode_color(),
