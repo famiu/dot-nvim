@@ -302,7 +302,7 @@ require('feline').setup {
             style = 'underline'
         }
     },
-    colors = {
+    theme = {
         fg = '#FFFFFF',
         bg = 'NONE',
         lightgray = '#323232',
