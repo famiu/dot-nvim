@@ -68,9 +68,12 @@ components.active[1] = {
         }
     },
     {
-        provider = function()
-            return string.format('%d:%d', unpack(api.nvim_win_get_cursor(0)))
-        end,
+        provider = {
+            name = 'position',
+            opts = {
+                padding = false
+            }
+        },
         hl = {
             fg = 'orange',
             bg = 'gray'
@@ -139,10 +142,7 @@ components.active[2] = {
     {
         provider = ' LSP',
         enabled = function()
-            return lsp.diagnostics_exist('Error') or
-                lsp.diagnostics_exist('Warning') or
-                lsp.diagnostics_exist('Hint') or
-                lsp.diagnostics_exist('Information')
+            return lsp.diagnostics_exist()
         end,
         hl = {
             fg = 'cyan',
@@ -193,10 +193,7 @@ components.active[2] = {
     },
     {
         enabled = function()
-            return lsp.diagnostics_exist('Error') or
-                lsp.diagnostics_exist('Warning') or
-                lsp.diagnostics_exist('Hint') or
-                lsp.diagnostics_exist('Information')
+            return lsp.diagnostics_exist()
         end,
         right_sep = {
             {
