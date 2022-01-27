@@ -87,6 +87,7 @@ use {
 -- Tresitter
 use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 use 'nvim-treesitter/nvim-treesitter-textobjects'
+use 'romgrk/nvim-treesitter-context'
 
 -- Debugging
 use 'mfussenegger/nvim-dap'
