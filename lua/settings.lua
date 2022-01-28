@@ -12,17 +12,18 @@ local M = {}
 opt.encoding = 'utf-8'
 
 -- Default grep command
--- Prefer ripgrep and ag over grep
-if fn.executable('rg') == 1 then
-    opt.grepprg = 'rg --vimgrep --smart-case'
-elseif fn.executable('ag') == 1 then
-    opt.grepprg = 'ag --nogroup --nocolor'
-else
-    opt.grepprg = 'grep -nH'
+if fn.executable('rg') ~= 1 then
+    vim.api.nvim_err_writeln(
+        "Ripgrep not found in PATH. Please install ripgrep in order to use this configuration."
+    )
+
+    return
 end
 
+opt.grepprg = 'rg --vimgrep --smart-case'
+
 -- Wildmenu
-opt.wildmode = {'longest', 'list', 'full'}
+opt.wildmode = { 'longest', 'list', 'full' }
 opt.wildmenu = true
 
 -- Hidden buffers to switch buffers without saving
