@@ -3,6 +3,9 @@ local api = vim.api
 local lsp = require('feline.providers.lsp')
 local vi_mode = require('feline.providers.vi_mode')
 local git = require('feline.providers.git')
+local gps = require('nvim-gps')
+
+gps.setup()
 
 local components = { active = {}, inactive = {} }
 
@@ -139,6 +142,30 @@ components.active[1] = {
 }
 
 components.active[2] = {
+    {
+        enabled = function()
+            return gps.is_available()
+        end,
+        provider = function()
+            return gps.get_location()
+        end,
+        hl = {
+            fg = 'white',
+            bg = 'darkpurple',
+            style = 'bold'
+        },
+        left_sep = {
+            str = 'left_rounded',
+            hl = { fg = 'darkpurple', bg = 'NONE' }
+        },
+        right_sep = {
+            {
+                str = 'right_rounded',
+                hl = { fg = 'darkpurple', bg = 'NONE' }
+            },
+            ' ',
+        },
+    },
     {
         provider = ' LSP',
         enabled = function()
@@ -308,6 +335,7 @@ require('feline').setup {
         green = '#5E9274',
         cyan = '#51AAAB',
         purple = '#78558C',
+        darkpurple = '#67217A',
     },
     vi_mode_colors = {
         ['NORMAL'] = 'green',
