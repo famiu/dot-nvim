@@ -150,4 +150,19 @@ require('feline').setup {
         purple = '#78558C',
         darkpurple = '#67217A',
     },
+    disable = {
+        filetypes = {
+            '^NvimTree$',
+            '^packer$',
+            '^startify$',
+            '^fugitive$',
+            '^fugitiveblame$',
+            '^qf$',
+            '^help$',
+        },
+        buftypes = {
+            '^terminal$',
+            '^nofile$'
+        },
+    }
 }
