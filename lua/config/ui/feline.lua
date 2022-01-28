@@ -1,5 +1,6 @@
 local api = vim.api
 
+local vi_mode = require('feline.providers.vi_mode')
 local git = require('feline.providers.git')
 local lsp = require('feline.providers.lsp')
 local gps = require('nvim-gps')
@@ -16,6 +17,9 @@ components.active[1] = {
         right_sep = ' '
     },
     {
+        enabled = function()
+            return vim.bo.filetype ~= ''
+        end,
         provider = {
             name = 'file_type',
             opts = {
@@ -32,6 +36,7 @@ components.active[1] = {
         icon = '',
         hl = function()
             return {
+                fg = vi_mode.get_mode_color(),
                 bg = 'gray',
                 style = 'bold'
             }
