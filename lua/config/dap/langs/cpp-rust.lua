@@ -42,7 +42,9 @@ M.start_c_debugger = function(args, mi_mode, mi_debugger_path)
     dap.repl.open()
 end
 
-cmd('command! -complete=file -nargs=* DebugC lua require "my_debug".start_c_debugger({<f-args>}, "gdb")')
-cmd('command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")')
+cmd('command! -complete=file -nargs=* DebugC ' ..
+    'lua require("config.dap.langs.cpp-rust").start_c_debugger({<f-args>}, "gdb")')
+cmd('command! -complete=file -nargs=* DebugRust ' ..
+    'lua require("config.dap.langs.cpp-rust").start_c_debugger({<f-args>}, "gdb", "rust-gdb")')
 
 return M

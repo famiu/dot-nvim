@@ -15,6 +15,9 @@ use 'wbthomason/packer.nvim'
 -- Neovim GUI Shim
 use { 'equalsraf/neovim-gui-shim', opt = true }
 
+-- Debug terminal programs
+vim.cmd [[packadd termdebug]]
+
 -- Automatic session management
 use 'rmagatti/auto-session'
 
