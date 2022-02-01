@@ -78,6 +78,16 @@ components.active[1] = {
 
 components.active[2] = {
     {
+        provider = {
+            name = 'file_info',
+            opts = {
+                type = 'unique',
+                colored_icon = false
+            }
+        },
+        right_sep = '  '
+    },
+    {
         provider = function()
             local line, col = unpack(api.nvim_win_get_cursor(0))
             col = vim.str_utfindex(api.nvim_get_current_line(), col) + 1
