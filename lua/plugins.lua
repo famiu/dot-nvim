@@ -35,7 +35,7 @@ use 'tpope/vim-surround'
 use 'b3nj5m1n/kommentary'
 
 -- Delimit characters automatically
-use 'Raimondi/delimitMate'
+use 'windwp/nvim-autopairs'
 
 -- Project management
 use 'ahmedkhalf/project.nvim'
