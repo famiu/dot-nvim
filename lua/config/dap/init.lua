@@ -1,14 +1,50 @@
--- Load DAP settings
-require('config.dap.settings')
+local g = vim.g
+local dap = require('dap')
+local bind = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
 
--- Load DAP UI settings
-require('config.dap.dap-ui')
+-- Enable DAP virtual text
+g.dap_virtual_text = true
 
--- Load DAP mapping
-require('config.dap.mapping')
+-- DAP REPL autocomplete
+require('utils').create_augroup({
+    {'FileType', 'dap-repl', 'lua require("dap.ext.autocompl").attach()'}
+}, 'dap_repl')
 
--- Load DAP configurations
-require('config.dap.configurations')
+-- DAP Terminal settings
+dap.defaults.fallback.external_terminal = {
+    command = '/usr/bin/env';
+    args = {'konsole', '-e'};
+}
+
+-- Load DAP UI
+require("dapui").setup()
+
+-- Utility functions used by mappings
+function _G.nvim_dap_reload_continue()
+    package.loaded['dap_config'] = nil
+    require('dap_config')
+    dap.continue()
+end
+
+-- DAP mappings
+bind('n', '<F5>', ':lua require("dap").continue()<CR>', opts)
+bind('n', '<S-F5>', ':lua nvim_dap_reload_continue()<CR>', opts)
+bind('n', '<F10>', ':lua require("dap").step_over()<CR>', opts)
+bind('n', '<F11>', ':lua require("dap").step_into()<CR>', opts)
+bind('n', '<F12>', ':lua require("dap").step_out()<CR>', opts)
+bind('n', '<M-b>', ':lua require("dap").toggle_breakpoint()<CR>', opts)
+bind(
+    'n', '<M-B>',
+    ':lua require("dap").set_breakpoint' ..
+    '(vim.fn.input("Breakpoint condition: "))<CR>', opts
+)
+bind(
+    'n', '<C-M-b>',
+    ':lua require("dap").set_breakpoint' ..
+    '(nil, nil, vim.fn.input("Log point message: "))<CR>', opts
+)
+bind('v', '<M-k>', '<Cmd>lua require("dapui").eval()<CR>', opts)
 
 -- Load DAP language configs
 require('config.dap.langs')
