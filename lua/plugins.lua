@@ -9,26 +9,17 @@ packer.init {
     }
 }
 
--- Packer
+-- Neovim package manager
 use 'wbthomason/packer.nvim'
 
 -- Neovim GUI Shim
 use { 'equalsraf/neovim-gui-shim', opt = true }
-
--- Debug terminal programs
-vim.cmd [[packadd termdebug]]
-
--- Automatic session management
-use 'rmagatti/auto-session'
 
 -- Colorscheme
 use 'tomasiser/vim-code-dark'
 
 -- Statusline
 use { '~/Workspace/neovim/feline', requires = 'kyazdani42/nvim-web-devicons' }
-
--- Tabline
-use { 'romgrk/barbar.nvim', requires = 'kyazdani42/nvim-web-devicons' }
 
 -- File tree view
 use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
@@ -46,19 +37,11 @@ use 'b3nj5m1n/kommentary'
 -- Delimit characters automatically
 use 'Raimondi/delimitMate'
 
--- UNIX helper
-use 'tpope/vim-eunuch'
-
 -- Project management
 use 'ahmedkhalf/project.nvim'
 
--- Better buffer delete
-use '~/Workspace/neovim/bufdelete'
-
 -- LSP
 use 'neovim/nvim-lspconfig' -- Configuration
-use 'ray-x/lsp_signature.nvim' -- Signature Help
-use 'kosayoda/nvim-lightbulb' -- Lightbulb on Code Action
 use 'onsails/lspkind-nvim' -- LSP Completion Item Icons
 
 -- Telescope
@@ -66,7 +49,6 @@ use {
     'nvim-telescope/telescope.nvim',
     requires = { 'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim' }
 }
-
 use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
 -- Better quickfix window
@@ -77,12 +59,9 @@ use 'L3MON4D3/LuaSnip'
 use {
     'hrsh7th/nvim-cmp',
     requires = {
-        'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-nvim-lua',
-        'hrsh7th/cmp-calc',
-        'saadparwaiz1/cmp_luasnip',
     }
 }
 

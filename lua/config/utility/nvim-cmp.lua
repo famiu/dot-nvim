@@ -74,19 +74,16 @@ cmp.setup {
         { name = 'nvim_lsp' },
         { name = 'nvim_lua' },
         { name = 'luasnip' },
-        { name = 'calc' }
     },
 
     formatting = {
         format = function(entry, vim_item)
             vim_item.kind = lspkind.presets.default[vim_item.kind]
             vim_item.menu = ({
-                buffer = "[Buffer]",
                 path = "[Path]",
                 nvim_lsp = "[LSP]",
                 nvim_lua = "[Lua]",
                 luasnip = "[LuaSnip]",
-                calc = "[Calc]",
             })[entry.source.name]
             return vim_item
         end,

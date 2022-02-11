@@ -83,6 +83,3 @@ require('lspkind').init({
 
 -- Load client configuration
 require('config.lsp.clients')
-
--- Load LSP-related plugins
-require('config.lsp.lightbulb')

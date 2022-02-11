@@ -76,20 +76,6 @@ function M.default_on_attach(client, bufnr)
             opts
         )
     end
-
-    -- LSP Signatures
-    require('lsp_signature').on_attach({
-        bind = true,
-        floating_window = true,
-        hint_enable = true,
-        hint_prefix = "-> ",
-        hint_scheme = "String",
-        use_lspsaga = false,
-        hi_parameter = "Search",
-        handler_opts = {
-            border = "single"
-        },
-    })
 end
 
 -- Default capabilities for LSP servers
