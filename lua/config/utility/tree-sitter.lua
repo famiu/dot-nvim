@@ -39,3 +39,6 @@ require('nvim-treesitter.configs').setup {
         },
     },
 }
+
+-- Tree-sitter context virtual text
+require('nvim_context_vt').setup()

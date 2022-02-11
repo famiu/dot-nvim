@@ -72,6 +72,7 @@ use {
 use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 use 'nvim-treesitter/nvim-treesitter-textobjects'
 use 'SmiteshP/nvim-gps'
+use 'haringsrob/nvim_context_vt'
 
 -- Debugging
 use 'mfussenegger/nvim-dap'
