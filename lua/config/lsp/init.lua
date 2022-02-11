@@ -50,7 +50,7 @@ fn.sign_define('DiagnosticSignHint', {text = '', texthl = 'DiagnosticSignHint
 
 -- LSP Item Kinds
 require('lspkind').init({
-    with_text = true,
+    mode = 'symbol_text',
     preset = 'codicons',
     symbol_map = {
         Text = "",

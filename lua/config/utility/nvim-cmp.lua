@@ -77,15 +77,19 @@ cmp.setup {
     },
 
     formatting = {
-        format = function(entry, vim_item)
-            vim_item.kind = lspkind.presets.default[vim_item.kind]
-            vim_item.menu = ({
-                path = "[Path]",
-                nvim_lsp = "[LSP]",
-                nvim_lua = "[Lua]",
-                luasnip = "[LuaSnip]",
-            })[entry.source.name]
-            return vim_item
-        end,
-    },
+        format = lspkind.cmp_format({
+            mode = 'symbol_text', -- show only symbol annotations
+            maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+
+            before = function(entry, vim_item)
+                vim_item.menu = ({
+                    path = "[Path]",
+                    nvim_lsp = "[LSP]",
+                    nvim_lua = "[Lua]",
+                    luasnip = "[LuaSnip]",
+                })[entry.source.name]
+                return vim_item
+            end,
+        })
+    }
 }
