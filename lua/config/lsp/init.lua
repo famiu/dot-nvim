@@ -86,4 +86,3 @@ require('config.lsp.clients')
 
 -- Load LSP-related plugins
 require('config.lsp.lightbulb')
-require('config.lsp.symbols-outline')

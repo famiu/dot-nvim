@@ -59,7 +59,6 @@ use '~/Workspace/neovim/bufdelete'
 use 'neovim/nvim-lspconfig' -- Configuration
 use 'ray-x/lsp_signature.nvim' -- Signature Help
 use 'kosayoda/nvim-lightbulb' -- Lightbulb on Code Action
-use 'simrat39/symbols-outline.nvim' -- Symbols list
 use 'onsails/lspkind-nvim' -- LSP Completion Item Icons
 
 -- Telescope

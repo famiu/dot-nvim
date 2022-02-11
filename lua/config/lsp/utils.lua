@@ -45,7 +45,6 @@ function M.default_on_attach(client, bufnr)
         '<cmd>lua vim.diagnostic.goto_prev()<CR>',
         opts
     )
-    buf_set_keymap('n', '<Leader>ls', '<cmd>SymbolsOutline<CR>', opts)
 
     local function buf_bind_picker(...)
         require('config.tools.telescope-nvim-utils').buf_bind_picker(bufnr, ...)
