@@ -40,6 +40,9 @@ use 'windwp/nvim-autopairs'
 -- Project management
 use 'ahmedkhalf/project.nvim'
 
+-- Better buffer delete
+use '~/Workspace/neovim/bufdelete'
+
 -- LSP
 use 'neovim/nvim-lspconfig' -- Configuration
 use 'onsails/lspkind-nvim' -- LSP Completion Item Icons
