@@ -51,8 +51,7 @@ function M.default_on_attach(client, bufnr)
     end
 
     -- Telescope LSP
-    buf_bind_picker('<Leader>ld', 'lsp_document_diagnostics')
-    buf_bind_picker('<Leader>lD', 'lsp_workspace_diagnostics')
+    buf_bind_picker('<Leader>ld', 'diagnostics')
     buf_bind_picker('<Leader>lc', 'lsp_code_actions')
 
     if client.resolved_capabilities.document_formatting then
