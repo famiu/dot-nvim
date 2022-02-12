@@ -107,6 +107,10 @@ bind('n', '<A-9>', ':tabnext9<CR>', opts)
 bind('n', '[t', ':tabprevious<CR>', opts)
 bind('n', ']t', ':tabnext<CR>', opts)
 
+-- Move current tab
+bind('n', '[T', ':tabmove -1<CR>', opts)
+bind('n', ']T', ':tabmove +1<CR>', opts)
+
 -- New tab
 bind('n', '<C-t>', ':tabnew<CR>', opts)
 
