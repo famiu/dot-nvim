@@ -2,7 +2,7 @@
 packadd neovim-gui-shim
 GuiTabline 0
 GuiPopupmenu 0
-GuiScrollBar 1
+GuiScrollBar 0
 GuiLinespace 0
 Guifont! SauceCodePro Nerd Font Mono:h10
 

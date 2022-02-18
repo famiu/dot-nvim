@@ -16,7 +16,7 @@ use 'wbthomason/packer.nvim'
 use { 'equalsraf/neovim-gui-shim', opt = true }
 
 -- Colorscheme
-use 'tomasiser/vim-code-dark'
+use 'Mofiqul/vscode.nvim'
 
 -- Statusline
 use { '~/Workspace/neovim/feline', requires = 'kyazdani42/nvim-web-devicons' }
