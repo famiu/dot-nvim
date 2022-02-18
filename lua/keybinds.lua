@@ -115,8 +115,8 @@ bind('n', ']T', ':tabmove +1<CR>', opts)
 bind('n', '<C-t>', ':tabnew<CR>', opts)
 
 -- Close tab
-bind('n', '<C-c>', ':tabclose<CR>', opts)
-bind('n', '<C-C>', ':tabclose!<CR>', opts)
+bind('n', '<C-w>', ':tabclose<CR>', opts)
+bind('n', '<C-W>', ':tabclose!<CR>', opts)
 
 -- Keybinds for editing vim config
 bind('n', 'vc', ':edit $MYVIMRC<CR>', opts)
