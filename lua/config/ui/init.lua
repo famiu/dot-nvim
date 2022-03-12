@@ -9,5 +9,6 @@ vim.cmd('colorscheme vscode')
 
 -- Load UI modules
 require('config.ui.feline')
+require('config.ui.tabline')
 require('config.ui.gitsigns')
 require('config.ui.nvim-tree')
