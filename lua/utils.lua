@@ -1,38 +1,27 @@
 local M = {}
+local api = vim.api
 local cmd = vim.cmd
-local buf_bind = vim.api.nvim_buf_set_keymap
+local buf_bind = api.nvim_buf_set_keymap
 
 -- Create an augroup
-function M.create_augroup(autocmds, name)
-    cmd('augroup ' .. name)
-    cmd('autocmd!')
+function M.create_augroup(autocmds, name, clear)
+    local group = api.nvim_create_augroup(name, { clear = clear })
 
     for _, autocmd in ipairs(autocmds) do
-        cmd('autocmd ' .. table.concat(autocmd, ' '))
+        autocmd.opts.group = group
+        api.nvim_create_autocmd(autocmd.event, autocmd.opts)
     end
-
-    cmd('augroup END')
 end
 
 -- Create a buffer-local augroup
-function M.create_buf_augroup(autocmds, name, bufnr)
-    local buftext
-
-    cmd('augroup ' .. name)
-
-    if bufnr then
-        buftext = string.format("<buffer=%d>", bufnr)
-    else
-        buftext = "<buffer>"
-    end
-
-    cmd('autocmd! * ' .. buftext)
+function M.create_buf_augroup(bufnr, autocmds, name, clear)
+    bufnr = bufnr or 0
 
     for _, autocmd in ipairs(autocmds) do
-        cmd(string.format("autocmd %s %s %s", autocmd[1], buftext, table.concat(autocmd, ' ', 2)))
+        autocmd.opts.buffer = bufnr
     end
 
-    cmd('augroup END')
+    M.create_augroup(autocmds, name, clear)
 end
 
 -- Make navigation keys navigate through display lines instead of physical lines

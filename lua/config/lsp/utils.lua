@@ -100,15 +100,15 @@ function M.format_on_save(client)
     if client.resolved_capabilities.document_formatting then
         utils.create_buf_augroup({
             {
-                'BufWritePre',
-                'lua vim.lsp.buf.formatting_sync(nil, 1000)'
+                event = 'BufWritePre',
+                opts = { command = 'lua vim.lsp.buf.formatting_sync(nil, 1000)' }
             }
         }, 'lsp_auto_format')
     elseif client.resolved_capabilities.document_range_formatting then
         utils.create_buf_augroup({
             {
-                'BufWritePre',
-                'lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})'
+                event = 'BufWritePre',
+                opts = { command = 'lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})' }
             }
         }, 'lsp_auto_format')
     end

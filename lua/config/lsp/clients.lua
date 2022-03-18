@@ -84,8 +84,8 @@ lsputils.clients['texlab'].setup {
         -- Preview on save
         utils.create_buf_augroup({
             {
-                'BufWritePost',
-                'TexlabForward'
+                event = 'BufWritePost',
+                opts = { command = 'TexlabForward' }
             }
         }, 'texlab_preview_on_save', bufnr)
 

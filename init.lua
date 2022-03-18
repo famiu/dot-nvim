@@ -11,7 +11,7 @@ vim.g.maplocalleader = ','
 require('settings')
 
 -- Configuration to load after loading plugins
-function _G.load_post_plugin_config()
+local function load_post_plugin_config()
     require('plugins')
     require('keybinds')
     require('config')
@@ -34,8 +34,11 @@ then
     -- Automatically sync packer and load the rest of the config
     cmd('PackerSync')
     require('utils').create_augroup({
-        {'User', 'PackerComplete', '++once', 'call v:lua.load_post_plugin_config()'}
+        {
+            event = 'User PackerComplete',
+            opts = { once = true, callback = load_post_plugin_config }
+        }
     }, 'load_post_plugin_config')
 else
-    _G.load_post_plugin_config()
+    load_post_plugin_config()
 end

@@ -8,7 +8,13 @@ g.dap_virtual_text = true
 
 -- DAP REPL autocomplete
 require('utils').create_augroup({
-    {'FileType', 'dap-repl', 'lua require("dap.ext.autocompl").attach()'}
+    {
+        event = 'FileType',
+        opts = {
+            pattern = 'dap-repl',
+            callback = require("dap.ext.autocompl").attach
+        }
+    }
 }, 'dap_repl')
 
 -- DAP Terminal settings

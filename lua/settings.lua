@@ -6,8 +6,6 @@ local api = vim.api
 local bind = api.nvim_set_keymap
 local create_augroup = require('utils').create_augroup
 
-local M = {}
-
 -- Set encoding
 opt.encoding = 'utf-8'
 
@@ -135,36 +133,42 @@ cmd 'filetype plugin on'
 
 -- Highlight text on yank
 create_augroup({
-    {'TextYankPost', '*', 'silent!', 'lua vim.highlight.on_yank()'}
+    {
+        event = 'TextYankPost',
+        opts = { callback = vim.highlight.on_yank }
+    }
 }, 'highlight_on_yank')
 
 -- Enable syntax highlighting
 cmd 'syntax enable'
 
 -- Remember last location in file
-M.no_restore_cursor_buftypes = {
+local no_restore_cursor_buftypes = {
     'quickfix', 'nofile', 'help', 'terminal'
 }
 
-M.no_restore_cursor_filetypes = {
+local no_restore_cursor_filetypes = {
     'gitcommit', 'gitrebase'
 }
 
-function M.RestoreCursor()
+local function RestoreCursor()
     if fn.line([['"]]) >= 1 and fn.line([['"]]) <= fn.line('$')
-    and not vim.tbl_contains(M.no_restore_cursor_buftypes, opt.buftype:get())
-    and not vim.tbl_contains(M.no_restore_cursor_filetypes, opt.filetype:get())
+    and not vim.tbl_contains(no_restore_cursor_buftypes, opt.buftype:get())
+    and not vim.tbl_contains(no_restore_cursor_filetypes, opt.filetype:get())
     then
         cmd('normal! g`" | zv')
     end
 end
 
 create_augroup({
-    { 'BufReadPost', '*', 'lua require("settings").RestoreCursor()' }
+    {
+        event = 'BufReadPost',
+        opts = { callback = RestoreCursor }
+    }
 }, 'RestoreCursorOnOpen')
 
 -- Automatically create missing directories before save
-function M.create_file_directory_structure()
+local function create_file_directory_structure()
     local path = fn.expand('%:p:h')
 
     if fn.isdirectory(path) == 0 then
@@ -173,7 +177,8 @@ function M.create_file_directory_structure()
 end
 
 create_augroup({
-    { 'BufWritePre', '*', 'lua require("settings").create_file_directory_structure()' }
+    {
+        event = 'BufWritePre',
+        opts = { callback = create_file_directory_structure }
+    }
 }, 'MkdirOnSave')
-
-return M
