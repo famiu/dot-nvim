@@ -55,8 +55,8 @@ opt.autoread = true
 -- Backspace
 opt.backspace = {'indent', 'eol', 'start'}
 
--- Make last window always have a status line
-opt.laststatus = 2
+-- Use global statusline
+opt.laststatus = 3
 
 -- Indent
 opt.softtabstop = 4
