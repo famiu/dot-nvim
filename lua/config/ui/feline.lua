@@ -88,12 +88,7 @@ components.active[2] = {
         right_sep = '  '
     },
     {
-        provider = function()
-            local line, col = unpack(api.nvim_win_get_cursor(0))
-            col = vim.str_utfindex(api.nvim_get_current_line(), col) + 1
-
-            return string.format('Ln %d, Col %d', line, col)
-        end,
+        provider = 'position_custom',
         right_sep = ' '
     },
     {
@@ -131,24 +126,65 @@ components.active[2] = {
     }
 }
 
-local VertSplitFG = string.format('#%06x', api.nvim_get_hl_by_name('VertSplit', true).foreground)
+components.inactive[1] = {
+    {
+        enabled = function()
+            return vim.bo.filetype ~= ''
+        end,
+        provider = {
+            name = 'file_type',
+            opts = {
+                case = 'titlecase',
+                filetype_icon = true,
+                colored_icon = false
+            }
+        },
+        left_sep = ' ',
+        right_sep = '  '
+    },
+    {
+        provider = 'vi_mode',
+        icon = '',
+        hl = function()
+            return {
+                fg = vi_mode.get_mode_color(),
+                bg = 'gray',
+                style = 'bold'
+            }
+        end,
+        left_sep = {
+            {
+                str = 'left_filled',
+                hl = { fg = 'gray' }
+            },
+            {
+                str = ' ',
+                hl = { bg = 'gray' }
+            }
+        },
+        right_sep = {
+            {
+                str = ' ',
+                hl = { bg = 'gray' }
+            },
+            {
+                str = 'right_filled',
+                hl = { fg = 'gray' }
+            },
+        },
+    },
+}
 
--- Use thin line for horizontal splits
-api.nvim_command(string.format(
-    'highlight StatusLineNC gui=underline guifg=%s guibg=NONE',
-    VertSplitFG
-))
+components.inactive[2] = {
+    {
+        provider = 'position_custom',
+        right_sep = ' '
+    }
+}
 
 -- Setup feline.nvim
 require('feline').setup {
     components = components,
-    default_hl = {
-        inactive = {
-            fg = string.format('#%06x', api.nvim_get_hl_by_name('VertSplit', true).foreground),
-            bg = 'NONE',
-            style = 'underline'
-        }
-    },
     theme = {
         fg = '#FFFFFF',
         bg = '#007ACD',
@@ -160,7 +196,7 @@ require('feline').setup {
         purple = '#78558C',
         darkpurple = '#67217A',
     },
-    disable = {
+    force_inactive = {
         filetypes = {
             '^NvimTree$',
             '^packer$',
@@ -174,5 +210,13 @@ require('feline').setup {
             '^terminal$',
             '^nofile$'
         },
+    },
+    custom_providers = {
+        position_custom = function()
+            local line, col = unpack(api.nvim_win_get_cursor(0))
+            col = vim.str_utfindex(api.nvim_get_current_line(), col) + 1
+
+            return string.format('Ln %d, Col %d', line, col)
+        end
     }
 }
