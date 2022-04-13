@@ -48,7 +48,6 @@ use '~/Workspace/neovim/bufdelete'
 
 -- LSP
 use 'neovim/nvim-lspconfig' -- Configuration
-use 'onsails/lspkind-nvim' -- LSP Completion Item Icons
 
 -- Telescope
 use {

@@ -2,7 +2,6 @@
 local api = vim.api
 local fn = vim.fn
 local cmp = require('cmp')
-local lspkind = require('lspkind')
 local luasnip = require('luasnip')
 
 local has_words_before = function()
@@ -77,19 +76,16 @@ cmp.setup {
     },
 
     formatting = {
-        format = lspkind.cmp_format({
-            mode = 'symbol_text', -- show only symbol annotations
-            maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+        format = function(entry, vim_item)
+            vim_item.menu = ({
+                path = "[Path]",
+                nvim_lsp = "[LSP]",
+                nvim_lua = "[Lua]",
+                luasnip = "[LuaSnip]",
+            })[entry.source.name]
+            vim_item.kind = vim.lsp.protocol.CompletionItemKind[vim_item.kind]
 
-            before = function(entry, vim_item)
-                vim_item.menu = ({
-                    path = "[Path]",
-                    nvim_lsp = "[LSP]",
-                    nvim_lua = "[Lua]",
-                    luasnip = "[LuaSnip]",
-                })[entry.source.name]
-                return vim_item
-            end,
-        })
+            return vim_item
+        end
     }
 }
