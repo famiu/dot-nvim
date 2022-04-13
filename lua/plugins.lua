@@ -31,6 +31,9 @@ use { 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' }
 -- Surround
 use 'tpope/vim-surround'
 
+-- Automatically detect indentation
+use 'tpope/vim-sleuth'
+
 -- Comments
 use 'b3nj5m1n/kommentary'
 
