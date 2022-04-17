@@ -2,8 +2,6 @@ local g = vim.g
 local cmd = vim.cmd
 local fn = vim.fn
 local opt = vim.opt
-local api = vim.api
-local bind = api.nvim_set_keymap
 local create_augroup = require('utils').create_augroup
 
 -- Set encoding
@@ -123,7 +121,7 @@ opt.sidescrolloff = 5
 
 -- Disable using netrw for 'gx' and set it manually
 g.netrw_nogx = 1
-bind('n', 'gx', '<cmd>!xdg-open <cfile><CR>', { noremap = true })
+vim.keymap.set('n', 'gx', '<cmd>!xdg-open <cfile><CR>', { noremap = true })
 
 -- Use LaTeX as default tex flavor
 g.tex_flavor = "latex"

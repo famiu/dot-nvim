@@ -1,4 +1,4 @@
-local bind = vim.api.nvim_buf_set_keymap
+local keymap = vim.keymap
 local utils = require('utils')
 local lsputils = require('config.lsp.utils')
 
@@ -6,11 +6,9 @@ local lsputils = require('config.lsp.utils')
 lsputils.clients['clangd'].setup {
     on_attach = function(client, bufnr)
         lsputils.default_on_attach(client, bufnr)
-
-        bind(
-            bufnr, 'n', '<Leader>lh',
-            '<cmd>ClangdSwitchSourceHeader<CR>',
-            { noremap = true, silent = true }
+        keymap.set(
+            'n', '<Leaderlh', '<CMD>ClangdSwitchSourceHeader<CR>',
+            { noremap = true, silent = true, buffer = bufnr }
         )
     end
 }
@@ -18,8 +16,10 @@ lsputils.clients['clangd'].setup {
 lsputils.clients['rust_analyzer'].setup {
     on_attach = function(client, bufnr)
         lsputils.default_on_attach(client, bufnr)
-
-        bind(bufnr, 'n', '<Leader>lR', '<cmd>CargoReload<CR>', { noremap = true, silent = true })
+        keymap.set(
+            'n', '<Leader>lR', '<cmd>CargoReload<CR>',
+            { noremap = true, silent = true, buffer = bufnr }
+        )
     end,
     settings = {
         ['rust-analyzer'] = {
@@ -38,7 +38,7 @@ lsputils.clients['rust_analyzer'].setup {
 }
 
 lsputils.clients['sumneko_lua'].setup {
-    cmd = {'lua-language-server'},
+    cmd = { os.getenv('HOME') .. '/Workspace/neovim/lua-language-server/bin/lua-language-server' },
     settings = {
         Lua = {
             runtime = {
@@ -65,12 +65,9 @@ lsputils.clients['sumneko_lua'].setup {
 lsputils.clients['pyright'].setup {
     on_attach = function(client, bufnr)
         lsputils.default_on_attach(client, bufnr)
-
-
-        bind(
-            bufnr, 'n', '<Leader>lo',
-            '<cmd>PyrightOrganizeImports<CR>',
-            { noremap = true, silent = true }
+        keymap.set(
+            'n', '<Leader>lo', '<cmd>PyrightOrganizeImports<CR>',
+            { noremap = true, silent = true, buffer = bufnr }
         )
     end
 }
@@ -79,7 +76,7 @@ lsputils.clients['texlab'].setup {
     on_attach = function(client, bufnr)
         lsputils.default_on_attach(client, bufnr)
 
-        local opts = { noremap = true, silent = true }
+        local opts = { noremap = true, silent = true, buffer = bufnr }
 
         -- Preview on save
         utils.create_buf_augroup({
@@ -89,8 +86,8 @@ lsputils.clients['texlab'].setup {
             }
         }, 'texlab_preview_on_save', bufnr)
 
-        bind(bufnr, 'n', '<Leader>lb', '<cmd>TexlabBuild<CR>', opts)
-        bind(bufnr, 'n', '<Leader>lp', '<cmd>TexlabForward<CR>', opts)
+        keymap.set('n', '<Leader>lb', '<cmd>TexlabBuild<CR>', opts)
+        keymap.set('n', '<Leader>lp', '<cmd>TexlabForward<CR>', opts)
     end,
 
     filetypes = { 'tex', 'plaintex', 'bib' },

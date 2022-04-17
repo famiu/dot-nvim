@@ -1,6 +1,4 @@
 local dap = require('dap')
-local cmd = vim.cmd
-local M = {}
 local last_gdb_config
 
 dap.adapters.cpp = {
@@ -16,7 +14,7 @@ dap.adapters.cpp = {
     name = "lldb"
 }
 
-M.start_c_debugger = function(args, mi_mode, mi_debugger_path)
+local function start_c_debugger(args, mi_mode, mi_debugger_path)
     if args and #args > 0 then
         last_gdb_config = {
             type = "cpp",
@@ -42,9 +40,18 @@ M.start_c_debugger = function(args, mi_mode, mi_debugger_path)
     dap.repl.open()
 end
 
-cmd('command! -complete=file -nargs=* DebugC ' ..
-    'lua require("config.dap.langs.cpp-rust").start_c_debugger({<f-args>}, "gdb")')
-cmd('command! -complete=file -nargs=* DebugRust ' ..
-    'lua require("config.dap.langs.cpp-rust").start_c_debugger({<f-args>}, "gdb", "rust-gdb")')
+local function DebugC(opts)
+    local args = opts.fargs
+    args[#args+1] = 'gdb'
+    start_c_debugger(args)
+end
 
-return M
+local function DebugRust(opts)
+    local args = opts.fargs
+    args[#args+1] = 'gdb'
+    args[#args+1] = 'rust-gdb'
+    start_c_debugger(args)
+end
+
+vim.api.nvim_create_user_command('DebugC', DebugC, { complete = 'file', nargs = '*' })
+vim.api.nvim_create_user_command('DebugRust', DebugRust, { complete = 'file', nargs = '*' })
