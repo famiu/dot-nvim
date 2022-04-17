@@ -55,7 +55,6 @@ require('telescope').setup {
 -- Telescope modules
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('projects')
-require('telescope').load_extension('dap')
 
 local bind_picker = require('config.tools.telescope-nvim-utils').bind_picker
 
