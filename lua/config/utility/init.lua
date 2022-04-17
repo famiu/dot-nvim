@@ -5,6 +5,3 @@ require('config.utility.kommentary')
 
 -- Auto-pairs
 require('nvim-autopairs').setup{}
-
--- Command completion
-require('command-completion').setup{}

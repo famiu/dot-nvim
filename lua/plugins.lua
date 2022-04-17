@@ -59,9 +59,6 @@ use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 -- Better quickfix window
 use 'kevinhwang91/nvim-bqf'
 
--- Automatic command line completion
-use 'smolck/command-completion.nvim'
-
 -- Completion and snippets
 use 'L3MON4D3/LuaSnip'
 use {
