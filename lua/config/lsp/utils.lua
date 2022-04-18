@@ -52,9 +52,9 @@ function M.default_on_attach(client, bufnr)
     buf_bind_picker('<Leader>ld', 'diagnostics')
     buf_bind_picker('<Leader>lc', 'lsp_code_actions')
 
-    if client.resolved_capabilities.document_formatting then
+    if client.supports_method('textDocument/formatting') then
         keymap.set("n", "<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    elseif client.resolved_capabilities.document_range_formatting then
+    elseif client.supports_method('textDocument/rangeFormatting') then
         keymap.set(
             'n', '<space>lf', 
             '<cmd>lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})<CR>',
@@ -62,7 +62,7 @@ function M.default_on_attach(client, bufnr)
         )
     end
 
-    if client.resolved_capabilities.document_range_formatting then
+    if client.supports_method('textDocument/rangeFormatting') then
         keymap.set('v', '<space>lF', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
     end
 end
@@ -87,14 +87,14 @@ end
 
 -- Function to add formatting on save to an LSP client
 function M.format_on_save(client)
-    if client.resolved_capabilities.document_formatting then
+    if client.supports_method('textDocument/formatting') then
         utils.create_buf_augroup({
             {
                 event = 'BufWritePre',
                 opts = { command = 'lua vim.lsp.buf.formatting_sync(nil, 1000)' }
             }
         }, 'lsp_auto_format')
-    elseif client.resolved_capabilities.document_range_formatting then
+    elseif client.supports_method('textDocument/rangeFormatting') then
         utils.create_buf_augroup({
             {
                 event = 'BufWritePre',
