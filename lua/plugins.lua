@@ -12,8 +12,8 @@ packer.init {
 -- Neovim package manager
 use 'wbthomason/packer.nvim'
 
--- Neovim GUI Shim
-use { 'equalsraf/neovim-gui-shim', opt = true }
+-- Load Lua modules faster
+use 'lewis6991/impatient.nvim'
 
 -- Colorscheme
 use 'Mofiqul/vscode.nvim'

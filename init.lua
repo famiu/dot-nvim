@@ -1,3 +1,6 @@
+-- Use impatient.nvim to load Lua modules faster
+require('impatient')
+
 local fn = vim.fn
 local cmd = vim.cmd
 
