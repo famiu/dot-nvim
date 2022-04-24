@@ -133,7 +133,7 @@ cmd 'filetype plugin on'
 create_augroup({
     {
         event = 'TextYankPost',
-        opts = { callback = vim.highlight.on_yank }
+        opts = { callback = function() vim.highlight.on_yank() end }
     }
 }, 'highlight_on_yank')
 
