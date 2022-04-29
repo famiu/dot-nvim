@@ -1,9 +1,6 @@
 local keymap = vim.keymap
 local opts = { silent = true }
 
--- Make Y key yank to end of line
-keymap.set('n', 'Y', 'y$', {})
-
 -- Don't leave visual mode after indenting
 keymap.set('v', '>', '>gv^', {})
 keymap.set('v', '<', '<gv^', {})
