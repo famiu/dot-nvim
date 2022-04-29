@@ -65,9 +65,6 @@ require("telescope").load_extension("ui-select")
 
 local bind_picker = require('config.tools.telescope-nvim-utils').bind_picker
 
--- Alt-Shift-P command palette
-bind_picker('<S-A-p>', 'commands')
-
 -- Normal
 bind_picker('<Leader>ff', 'find_files')
 bind_picker('<Leader>fg', 'live_grep')
@@ -75,10 +72,3 @@ bind_picker('<Leader>fb', 'buffers')
 bind_picker('<Leader>fh', 'help_tags')
 bind_picker('<Leader>ft', 'treesitter')
 bind_picker('<Leader>fo', 'oldfiles')
-
--- DAP
-bind_picker('<Leader>dc', 'commands', 'dap')
-bind_picker('<Leader>ds', 'configurations', 'dap')
-bind_picker('<Leader>dl', 'list_breakpoints', 'dap')
-bind_picker('<Leader>dv', 'variables', 'dap')
-bind_picker('<Leader>df', 'frames', 'dap')
