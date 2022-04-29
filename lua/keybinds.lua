@@ -1,15 +1,15 @@
 local keymap = vim.keymap
-local opts = { noremap = true, silent = true }
+local opts = { silent = true }
 
 -- Make Y key yank to end of line
-keymap.set('n', 'Y', 'y$', { noremap = true })
+keymap.set('n', 'Y', 'y$', {})
 
 -- Make U redo
-keymap.set('n', 'U', 'redo', { noremap = true })
+keymap.set('n', 'U', 'redo', {})
 
 -- Don't leave visual mode after indenting
-keymap.set('v', '>', '>gv^', { noremap = true })
-keymap.set('v', '<', '<gv^', { noremap = true })
+keymap.set('v', '>', '>gv^', {})
+keymap.set('v', '<', '<gv^', {})
 
 -- Indent with Tab and Shift-Tab
 keymap.set('v', '<Tab>', '>', {})

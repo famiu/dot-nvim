@@ -8,7 +8,7 @@ lsputils.clients['clangd'].setup {
         lsputils.default_on_attach(client, bufnr)
         keymap.set(
             'n', '<Leaderlh', '<CMD>ClangdSwitchSourceHeader<CR>',
-            { noremap = true, silent = true, buffer = bufnr }
+            { silent = true, buffer = bufnr }
         )
     end
 }
@@ -18,7 +18,7 @@ lsputils.clients['rust_analyzer'].setup {
         lsputils.default_on_attach(client, bufnr)
         keymap.set(
             'n', '<Leader>lR', '<cmd>CargoReload<CR>',
-            { noremap = true, silent = true, buffer = bufnr }
+            { silent = true, buffer = bufnr }
         )
     end,
     settings = {
@@ -66,7 +66,7 @@ lsputils.clients['pyright'].setup {
         lsputils.default_on_attach(client, bufnr)
         keymap.set(
             'n', '<Leader>lo', '<cmd>PyrightOrganizeImports<CR>',
-            { noremap = true, silent = true, buffer = bufnr }
+            { silent = true, buffer = bufnr }
         )
     end
 }
@@ -75,7 +75,7 @@ lsputils.clients['texlab'].setup {
     on_attach = function(client, bufnr)
         lsputils.default_on_attach(client, bufnr)
 
-        local opts = { noremap = true, silent = true, buffer = bufnr }
+        local opts = { silent = true, buffer = bufnr }
 
         -- Preview on save
         utils.create_buf_augroup({

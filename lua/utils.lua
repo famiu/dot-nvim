@@ -26,7 +26,7 @@ end
 
 -- Make navigation keys navigate through display lines instead of physical lines
 function M.set_buffer_soft_line_navigation()
-    local opts = { noremap = true, silent = true, buffer = 0 }
+    local opts = { silent = true, buffer = 0 }
 
     keymap.set('n', 'k', 'gk', opts)
     keymap.set('n', 'j', 'gj', opts)

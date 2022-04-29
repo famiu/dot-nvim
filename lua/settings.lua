@@ -84,7 +84,7 @@ opt.sidescrolloff = 5
 
 -- Disable using netrw for 'gx' and set it manually
 g.netrw_nogx = 1
-vim.keymap.set('n', 'gx', '<cmd>!xdg-open <cfile><CR>', { noremap = true })
+vim.keymap.set('n', 'gx', '<cmd>!xdg-open <cfile><CR>', {})
 
 -- Use LaTeX as default tex flavor
 g.tex_flavor = "latex"
