@@ -48,15 +48,17 @@ function M.default_on_attach(client, bufnr)
         require('config.tools.telescope-nvim-utils').buf_bind_picker(bufnr, ...)
     end
 
-    -- Telescope LSP
+    -- Telescope LSP bindings
     buf_bind_picker('<Leader>ld', 'diagnostics')
-    buf_bind_picker('<Leader>lc', 'lsp_code_actions')
+
+    -- Code actions
+    keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, opts)
 
     if client.supports_method('textDocument/formatting') then
         keymap.set("n", "<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
     elseif client.supports_method('textDocument/rangeFormatting') then
         keymap.set(
-            'n', '<space>lf', 
+            'n', '<space>lf',
             '<cmd>lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})<CR>',
             opts
         )
