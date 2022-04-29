@@ -53,20 +53,15 @@ use 'kevinhwang91/nvim-bqf'
 
 -- Completion and snippets
 use 'L3MON4D3/LuaSnip'
-use {
-    'hrsh7th/nvim-cmp',
-    requires = {
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-nvim-lua',
-    }
-}
+use 'hrsh7th/nvim-cmp'
+use 'hrsh7th/cmp-path'
+use 'hrsh7th/cmp-nvim-lsp'
+use 'hrsh7th/cmp-nvim-lua'
 
 -- Tresitter
 use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 use 'nvim-treesitter/nvim-treesitter-textobjects'
 use 'SmiteshP/nvim-gps'
-use 'haringsrob/nvim_context_vt'
 
 -- Local plugins, use URL if not locally available
 if vim.fn.isdirectory(vim.fn.expand('~/Workspace/neovim/feline')) == 1 then
