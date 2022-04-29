@@ -1,10 +1,6 @@
 local keymap = vim.keymap
 local opts = { silent = true }
 
--- Don't leave visual mode after indenting
-keymap.set('v', '>', '>gv^', {})
-keymap.set('v', '<', '<gv^', {})
-
 -- Indent with Tab and Shift-Tab
 keymap.set('v', '<Tab>', '>', {})
 keymap.set('v', '<S-Tab>', '<', {})
@@ -40,5 +36,5 @@ keymap.set('n', ']T', ':tabmove +1<CR>', opts)
 keymap.set('n', '<C-t>', ':tabnew<CR>', opts)
 
 -- Close tab
-keymap.set('n', '<C-c>', ':tabclose<CR>', opts)
-keymap.set('n', '<C-C>', ':tabclose!<CR>', opts)
+keymap.set('n', '<A-x>', ':tabclose<CR>', opts)
+keymap.set('n', '<A-X>', ':tabclose!<CR>', opts)

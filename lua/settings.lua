@@ -95,9 +95,6 @@ vim.keymap.set('n', 'gx', '<cmd>!xdg-open <cfile><CR>', {})
 -- Use LaTeX as default tex flavor
 g.tex_flavor = "latex"
 
--- Enable filetype plugin
-cmd 'filetype plugin on'
-
 -- Highlight text on yank
 create_augroup({
     {
