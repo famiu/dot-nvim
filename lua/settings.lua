@@ -4,6 +4,12 @@ local fn = vim.fn
 local opt = vim.opt
 local create_augroup = require('utils').create_augroup
 
+-- Set mapleader to space
+vim.g.mapleader = ' '
+
+-- Set localleader to comma
+vim.g.maplocalleader = ','
+
 -- Set encoding
 opt.encoding = 'utf-8'
 

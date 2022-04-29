@@ -18,9 +18,6 @@ use 'lewis6991/impatient.nvim'
 -- Colorscheme
 use 'Mofiqul/vscode.nvim'
 
--- Statusline
-use { '~/Workspace/neovim/feline', requires = 'kyazdani42/nvim-web-devicons' }
-
 -- Git
 use 'tpope/vim-fugitive'
 use { 'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim' }
@@ -39,9 +36,6 @@ use 'windwp/nvim-autopairs'
 
 -- Project management
 use 'ahmedkhalf/project.nvim'
-
--- Better buffer delete
-use '~/Workspace/neovim/bufdelete'
 
 -- LSP
 use 'neovim/nvim-lspconfig'
@@ -73,3 +67,16 @@ use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 use 'nvim-treesitter/nvim-treesitter-textobjects'
 use 'SmiteshP/nvim-gps'
 use 'haringsrob/nvim_context_vt'
+
+-- Local plugins, use URL if not locally available
+if vim.fn.isdirectory(vim.fn.expand('~/Workspace/neovim/feline')) == 1 then
+    use { '~/Workspace/neovim/feline', requires = 'kyazdani42/nvim-web-devicons' }
+else
+    use { 'feline-nvim/feline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
+end
+
+if vim.fn.isdirectory(vim.fn.expand('~/Workspace/neovim/bufdelete')) == 1 then
+    use '~/Workspace/neovim/bufdelete'
+else
+    use 'famiu/bufdelete.nvim'
+end

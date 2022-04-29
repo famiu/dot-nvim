@@ -1,21 +1,12 @@
 -- Use impatient.nvim to load Lua modules faster
-require('impatient')
-
 local fn = vim.fn
 local cmd = vim.cmd
-
--- Set mapleader to space
-vim.g.mapleader = ' '
-
--- Set localleader to comma
-vim.g.maplocalleader = ','
-
--- Sensible defaults
-require('settings')
 
 -- Configuration to load after loading plugins
 local function load_post_plugin_config()
     require('plugins')
+    require('impatient')  -- Use impatient.nvim to load Lua modules faster
+    require('settings')
     require('keybinds')
     require('config')
 end
@@ -32,7 +23,6 @@ then
 
     -- Load plugins
     require('plugins')
-    package.loaded['plugins'] = nil
 
     -- Automatically sync packer and load the rest of the config
     cmd('PackerSync')
@@ -43,5 +33,6 @@ then
         }
     }, 'load_post_plugin_config')
 else
+    require('plugins')
     load_post_plugin_config()
 end
