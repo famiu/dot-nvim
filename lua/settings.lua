@@ -14,7 +14,7 @@ vim.g.maplocalleader = ','
 opt.encoding = 'utf-8'
 
 -- Default grep command
-if fn.executable('rg') ~= 1 then
+if fn.executable('rg') == 0 then
     vim.api.nvim_err_writeln(
         "Ripgrep not found in PATH. Please install ripgrep in order to use this configuration."
     )
@@ -23,6 +23,9 @@ if fn.executable('rg') ~= 1 then
 end
 
 opt.grepprg = 'rg --vimgrep --smart-case'
+
+--- Wildmenu
+opt.wildmode = { 'longest', 'list', 'full' }
 
 -- Enable mouse support
 opt.mouse = 'a'
