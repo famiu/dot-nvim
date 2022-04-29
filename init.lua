@@ -1,5 +1,4 @@
 -- Use impatient.nvim to load Lua modules faster
-local fn = vim.fn
 local cmd = vim.cmd
 
 -- Configuration to load after loading plugins
@@ -13,10 +12,9 @@ end
 
 -- If Packer is not installed, download it and all plugins and reload config
 -- If Packer is installed, load configuration as usual
-local packer_install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local packer_install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
-if fn.empty(fn.glob(packer_install_path)) > 0
-then
+if vim.fn.isdirectory(packer_install_path) == 0 then
     -- Download Packer and add it
     cmd('!git clone https://github.com/wbthomason/packer.nvim '..packer_install_path)
     cmd('packadd packer.nvim')

@@ -33,7 +33,7 @@ keymap.set('n', '[T', ':tabmove -1<CR>', opts)
 keymap.set('n', ']T', ':tabmove +1<CR>', opts)
 
 -- New tab
-keymap.set('n', '<C-t>', ':tabnew<CR>', opts)
+keymap.set('n', '<C-n>', ':tabnew<CR>', opts)
 
 -- Close tab
 keymap.set('n', '<A-x>', ':tabclose<CR>', opts)
