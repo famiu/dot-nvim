@@ -18,38 +18,11 @@ end
 
 opt.grepprg = 'rg --vimgrep --smart-case'
 
--- Wildmenu
-opt.wildmode = { 'longest', 'list', 'full' }
-opt.wildmenu = true
-
--- Hidden buffers to switch buffers without saving
-opt.hidden = true
-
 -- Enable mouse support
 opt.mouse = 'a'
 
--- Project specific vimrc with secure
-opt.exrc = true
-opt.secure = true
-
--- GUI cursor
-opt.guicursor = {
-    'n-v-c:block',
-    'i-ci-ve:ver25',
-    'r-cr:hor20',
-    'o:hor50',
-    'a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor',
-    'sm:block-blinkwait175-blinkoff150-blinkon175'
-}
-
 -- Persistent undo
 opt.undofile = true
-
--- Auto read file changes
-opt.autoread = true
-
--- Backspace
-opt.backspace = {'indent', 'eol', 'start'}
 
 -- Use global statusline
 opt.laststatus = 3
@@ -58,11 +31,7 @@ opt.laststatus = 3
 opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
-opt.autoindent = true
 opt.smartindent = true
-
--- Listchars
-opt.listchars = {tab = '> ', trail = '-', extends = '>', precedes = '<', nbsp = '+'}
 
 -- Linebreak and wrap behavior
 opt.linebreak = true
@@ -91,17 +60,12 @@ opt.foldnestmax = 3
 opt.foldminlines = 4
 
 -- Search
-opt.hlsearch = true
-opt.incsearch = true
 opt.ignorecase = true
 opt.smartcase = true
 opt.gdefault = true
 
--- Incremental command
-opt.inccommand = 'nosplit'
-
 -- Completion
-opt.completeopt = {'menuone', 'preview', 'noselect'}
+opt.completeopt = { 'menuone', 'preview' }
 opt.shortmess:append('c')
 
 -- Split options
@@ -110,7 +74,6 @@ opt.splitright = true
 
 -- Faster update time
 opt.updatetime = 100
-opt.signcolumn = 'auto:4'
 
 -- Highlight current line
 opt.cursorline = true
@@ -136,9 +99,6 @@ create_augroup({
         opts = { callback = function() vim.highlight.on_yank() end }
     }
 }, 'highlight_on_yank')
-
--- Enable syntax highlighting
-cmd 'syntax enable'
 
 -- Remember last location in file
 local no_restore_cursor_buftypes = {
