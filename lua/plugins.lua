@@ -44,7 +44,8 @@ use 'ahmedkhalf/project.nvim'
 use '~/Workspace/neovim/bufdelete'
 
 -- LSP
-use 'neovim/nvim-lspconfig' -- Configuration
+use 'neovim/nvim-lspconfig'
+use 'williamboman/nvim-lsp-installer'
 
 -- Telescope
 use {

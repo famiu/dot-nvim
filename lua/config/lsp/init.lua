@@ -72,5 +72,17 @@ vim.lsp.protocol.CompletionItemKind = {
     TypeParameter = ""
 }
 
--- Load client configuration
+-- Setup LSP Installer
+require("nvim-lsp-installer").setup {
+    ensure_installed = { 'sumneko_lua', 'vimls' },
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+}
+
+-- Load client configurations
 require('config.lsp.clients')

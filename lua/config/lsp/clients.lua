@@ -38,7 +38,6 @@ lsputils.clients['rust_analyzer'].setup {
 }
 
 lsputils.clients['sumneko_lua'].setup {
-    cmd = { os.getenv('HOME') .. '/Workspace/neovim/lua-language-server/bin/lua-language-server' },
     settings = {
         Lua = {
             runtime = {
