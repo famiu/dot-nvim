@@ -1,6 +1,10 @@
 local keymap = vim.keymap
 local opts = { silent = true }
 
+-- Don't leave visual mode after indenting
+keymap.set('v', '>', '>gv^', {})
+keymap.set('v', '<', '<gv^', {})
+
 -- Indent with Tab and Shift-Tab
 keymap.set('v', '<Tab>', '>', {})
 keymap.set('v', '<S-Tab>', '<', {})
