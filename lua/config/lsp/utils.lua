@@ -1,3 +1,5 @@
+local lsp = vim.lsp
+local diagnostic = vim.diagnostic
 local keymap = vim.keymap
 local lspconfig = require('lspconfig')
 local utils = require('utils')
@@ -12,35 +14,35 @@ function M.default_on_attach(client, bufnr)
     -- Mappings.
     local opts = { noremap=true, silent=true, buffer = bufnr }
 
-    keymap.set('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    keymap.set('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    keymap.set('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    keymap.set('n', 'gD', function() lsp.buf.declaration() end, opts)
+    keymap.set('n', 'gd', function() lsp.buf.definition() end, opts)
+    keymap.set('n', 'K', function() lsp.buf.hover() end, opts)
+    keymap.set('n', 'gi', function() lsp.buf.implementation() end, opts)
+    keymap.set('n', 'gr', function() lsp.buf.references() end, opts)
     keymap.set('n', '<Leader>wa',
-        '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',
+        function() lsp.buf.add_workspace_folder() end,
         opts
     )
     keymap.set('n', '<Leader>wr',
-        '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',
+        function() lsp.buf.remove_workspace_folder() end,
         opts
     )
     keymap.set('n', '<Leader>wl',
-        '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
+        function() print(vim.inspect(lsp.buf.list_workspace_folders())) end,
         opts
     )
-    keymap.set('n', '<Leader>lt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    keymap.set('n', '<Leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    keymap.set('n', '<Leader>lt', function() lsp.buf.type_definition() end, opts)
+    keymap.set('n', '<Leader>r', function() lsp.buf.rename() end, opts)
     keymap.set('n', '<C-Space>',
-        '<cmd>lua vim.diagnostic.open_float()<CR>',
+        function() diagnostic.open_float() end,
         opts
     )
     keymap.set('n', ']g',
-        '<cmd>lua vim.diagnostic.goto_next()',
+        function() diagnostic.goto_next() end,
         opts
     )
     keymap.set('n', '[g',
-        '<cmd>lua vim.diagnostic.goto_prev()<CR>',
+        function() diagnostic.goto_prev() end,
         opts
     )
 
@@ -52,26 +54,26 @@ function M.default_on_attach(client, bufnr)
     buf_bind_picker('<Leader>ld', 'diagnostics')
 
     -- Code actions
-    keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, opts)
+    keymap.set('n', '<Leader>ca', lsp.buf.code_action, opts)
 
     if client.supports_method('textDocument/formatting') then
-        keymap.set("n", "<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+        keymap.set("n", "<space>lf", function() lsp.buf.format() end, opts)
     elseif client.supports_method('textDocument/rangeFormatting') then
         keymap.set(
             'n', '<space>lf',
-            '<cmd>lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})<CR>',
+            function() lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line("$"), 0 }) end,
             opts
         )
     end
 
     if client.supports_method('textDocument/rangeFormatting') then
-        keymap.set('v', '<space>lF', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
+        keymap.set('v', '<space>lF', function() vim.lsp.buf.range_formatting() end, opts)
     end
 end
 
 -- Default capabilities for LSP servers
 function M.default_capabilities()
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    local capabilities = lsp.protocol.make_client_capabilities()
 
     capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
@@ -93,14 +95,18 @@ function M.format_on_save(client)
         utils.create_buf_augroup({
             {
                 event = 'BufWritePre',
-                opts = { command = 'lua vim.lsp.buf.formatting_sync(nil, 1000)' }
+                opts = { callback = function() lsp.buf.format() end }
             }
         }, 'lsp_auto_format')
     elseif client.supports_method('textDocument/rangeFormatting') then
         utils.create_buf_augroup({
             {
                 event = 'BufWritePre',
-                opts = { command = 'lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})' }
+                opts = {
+                    callback = function()
+                        lsp.buf.range_formatting({}, {0, 0}, { vim.fn.line("$"), 0 })
+                    end
+                }
             }
         }, 'lsp_auto_format')
     end
