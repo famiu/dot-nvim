@@ -4,7 +4,6 @@ require('nvim-treesitter.configs').setup {
         'c',
         'cpp',
         'python',
-        'gdscript',
         'rust',
         'bash',
         'lua',
