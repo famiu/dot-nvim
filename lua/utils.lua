@@ -1,6 +1,5 @@
 local M = {}
 local api = vim.api
-local cmd = vim.cmd
 local keymap = vim.keymap
 
 -- Create an augroup
