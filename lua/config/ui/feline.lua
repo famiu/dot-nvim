@@ -218,5 +218,8 @@ require('feline').setup {
 
             return string.format('Ln %d, Col %d', line, col)
         end
-    }
+    },
 }
+
+-- Setup feline.nvim winbar
+require('feline').winbar.setup()
