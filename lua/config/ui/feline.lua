@@ -221,5 +221,34 @@ require('feline').setup {
     },
 }
 
+local winbar_components = {
+    active = {
+        {
+            {
+                provider = 'file_info',
+                hl = {
+                    fg = 'skyblue',
+                    bg = 'NONE',
+                    style = 'bold',
+                },
+            },
+        },
+    },
+    inactive = {
+        {
+            {
+                provider = 'file_info',
+                hl = {
+                    fg = 'white',
+                    bg = 'NONE',
+                    style = 'bold',
+                },
+            },
+        },
+    },
+}
+
 -- Setup feline.nvim winbar
-require('feline').winbar.setup()
+require('feline').winbar.setup {
+    components = winbar_components
+}
