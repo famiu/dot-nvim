@@ -88,7 +88,12 @@ components.active[2] = {
         right_sep = '  '
     },
     {
-        provider = 'position_custom',
+        provider = {
+            name = 'position',
+            opts = {
+                format = 'Ln {line}, Col {col}'
+            }
+        },
         right_sep = ' '
     },
     {
@@ -177,7 +182,12 @@ components.inactive[1] = {
 
 components.inactive[2] = {
     {
-        provider = 'position_custom',
+        provider = {
+            name = 'position',
+            opts = {
+                format = 'Ln {line}, Col {col}'
+            }
+        },
         right_sep = ' '
     }
 }
@@ -210,14 +220,6 @@ require('feline').setup {
             '^terminal$',
             '^nofile$'
         },
-    },
-    custom_providers = {
-        position_custom = function()
-            local line, col = unpack(api.nvim_win_get_cursor(0))
-            col = vim.str_utfindex(api.nvim_get_current_line(), col) + 1
-
-            return string.format('Ln %d, Col %d', line, col)
-        end
     },
 }
 
