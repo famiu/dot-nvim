@@ -1,6 +1,10 @@
 local keymap = vim.keymap
 local opts = { silent = true }
 
+-- Map H and L to ^ and $
+keymap.set('n', 'H', '^', {})
+keymap.set('n', 'L', '$', {})
+
 -- Don't leave visual mode after indenting
 keymap.set('v', '>', '>gv^', {})
 keymap.set('v', '<', '<gv^', {})
