@@ -26,8 +26,8 @@ if vim.fn.isdirectory(packer_install_path) == 0 then
     cmd('PackerSync')
     require('utils').create_augroup({
         {
-            event = 'User PackerComplete',
-            opts = { once = true, callback = load_post_plugin_config }
+            event = 'User',
+            opts = { pattern = 'PackerComplete', once = true, callback = load_post_plugin_config }
         }
     }, 'load_post_plugin_config')
 else

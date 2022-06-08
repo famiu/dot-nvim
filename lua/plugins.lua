@@ -41,6 +41,11 @@ use 'ahmedkhalf/project.nvim'
 use 'neovim/nvim-lspconfig'
 use 'williamboman/nvim-lsp-installer'
 
+-- DAP
+use 'mfussenegger/nvim-dap'
+use 'rcarriga/nvim-dap-ui'
+use 'theHamsta/nvim-dap-virtual-text'
+
 -- Telescope
 use {
     'nvim-telescope/telescope.nvim',
