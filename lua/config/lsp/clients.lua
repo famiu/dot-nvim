@@ -57,6 +57,10 @@ lsputils.clients['sumneko_lua'].setup {
                     [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
                 },
             },
+            -- Disable telemetry
+            telemetry = {
+                enable = false
+            }
         },
     }
 }
