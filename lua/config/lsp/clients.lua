@@ -116,5 +116,4 @@ lsputils.clients['texlab'].setup {
 }
 
 lsputils.clients['bashls'].setup {}
-lsputils.clients['gdscript'].setup {}
 lsputils.clients['cmake'].setup {}
