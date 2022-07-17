@@ -27,9 +27,6 @@ opt.grepprg = 'rg --vimgrep --smart-case'
 --- Wildmenu
 opt.wildmode = { 'longest', 'list', 'full' }
 
--- Enable mouse support
-opt.mouse = 'a'
-
 -- Persistent undo
 opt.undofile = true
 
