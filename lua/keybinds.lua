@@ -49,3 +49,6 @@ keymap.set('n', '<Leader>tX', '<CMD>tabclose!<CR>', opts)
 
 -- Open config
 keymap.set('n', '<Leader>vc', '<CMD>edit $MYVIMRC<CR>', opts)
+
+-- Trim trailing whitespace
+keymap.set('n', '<Leader>t<Space>', [[<CMD>%s/\s\+$//e<CR>]], opts)
