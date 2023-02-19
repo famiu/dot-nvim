@@ -63,6 +63,7 @@ lsp.protocol.CompletionItemKind = {
 
 -- LSP configuration
 api.nvim_create_autocmd('LspAttach', {
+    desc = 'LSP configuration',
     callback = function(args)
         local bufnr = args.buf
         local client = lsp.get_client_by_id(args.data.client_id)

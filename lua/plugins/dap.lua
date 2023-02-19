@@ -47,6 +47,7 @@ function M.config()
     api.nvim_create_autocmd('FileType', {
         pattern = 'dap-repl',
         callback = function() require('dap.ext.autocompl').attach() end,
+        desc = 'DAP Autocompletion',
         group = augroup
     })
 

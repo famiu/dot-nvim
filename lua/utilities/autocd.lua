@@ -33,5 +33,5 @@ end
 local augroup = api.nvim_create_augroup('AutoCD', {})
 api.nvim_create_autocmd(
     { 'VimEnter', 'BufEnter', 'BufReadPost', 'LspAttach' },
-    { group = augroup, callback = autocd }
+    { group = augroup, callback = autocd, desc = 'Automatically change current directory' }
 )
