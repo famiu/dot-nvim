@@ -1,19 +1,21 @@
-local navic = require('nvim-navic')
-
-require('lualine').setup {
-    winbar = {
-        lualine_c = { 'filename' },
-        lualine_x = {
-            function()
-                if navic.is_available() then
-                    return navic.get_location()
-                else
-                    return ''
+return {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'kyazdani42/nvim-web-devicons', 'SmiteshP/nvim-navic' },
+    opts = {
+        winbar = {
+            lualine_c = { 'filename' },
+            lualine_x = {
+                function()
+                    if require('nvim-navic').is_available() then
+                        return require('nvim-navic').get_location()
+                    else
+                        return ''
+                    end
                 end
-            end
+            }
+        },
+        inactive_winbar = {
+            lualine_c = { 'filename' },
         }
-    },
-    inactive_winbar = {
-        lualine_c = { 'filename' },
     }
 }
