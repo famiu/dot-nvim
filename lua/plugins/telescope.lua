@@ -1,10 +1,24 @@
 local M = {
     'nvim-telescope/telescope.nvim',
+    lazy = true,
     dependencies = {
         'nvim-lua/plenary.nvim',
         'nvim-telescope/telescope-ui-select.nvim'
     },
 }
+
+function M.init()
+    local keymap = vim.keymap
+
+    keymap.set('n', '<Leader>ff', function() require('telescope.builtin').find_files() end, {})
+    keymap.set('n', '<Leader>fg', function() require('telescope.builtin').live_grep() end, {})
+    keymap.set('n', '<Leader>fb', function() require('telescope.builtin').buffers() end, {})
+    keymap.set('n', '<Leader>fh', function() require('telescope.builtin').help_tags() end, {})
+    keymap.set('n', '<Leader>ft', function() require('telescope.builtin').treesitter() end, {})
+    keymap.set('n', '<Leader>fd', function() require('telescope.builtin').diagnostics() end, {})
+    keymap.set('n', '<Leader>fo', function() require('telescope.builtin').oldfiles() end, {})
+    keymap.set('n', '<Leader>qf', function() require('telescope.builtin').quickfix() end, {})
+end
 
 function M.config()
     require('telescope').setup {
@@ -22,18 +36,6 @@ function M.config()
     }
 
     require('telescope').load_extension('ui-select')
-
-    local ts_builtin = require('telescope.builtin')
-    local keymap = vim.keymap
-
-    keymap.set('n', '<Leader>ff', ts_builtin.find_files, {})
-    keymap.set('n', '<Leader>fg', ts_builtin.live_grep, {})
-    keymap.set('n', '<Leader>fb', ts_builtin.buffers, {})
-    keymap.set('n', '<Leader>fh', ts_builtin.help_tags, {})
-    keymap.set('n', '<Leader>ft', ts_builtin.treesitter, {})
-    keymap.set('n', '<Leader>fd', ts_builtin.diagnostics, {})
-    keymap.set('n', '<Leader>fo', ts_builtin.oldfiles, {})
-    keymap.set('n', '<Leader>qf', ts_builtin.quickfix, {})
 end
 
 return M

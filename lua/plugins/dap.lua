@@ -5,6 +5,7 @@ local augroup = api.nvim_create_augroup('dap-settings', {})
 
 local M = {
     'mfussenegger/nvim-dap',
+    lazy = true,
     dependencies = {
         'rcarriga/nvim-dap-ui',
         'theHamsta/nvim-dap-virtual-text'
@@ -13,23 +14,22 @@ local M = {
 
 function M.init()
     -- Keybindings
-    keymap.set('n', '<F5>', function() require('dap').continue() end, { silent = true })
-    keymap.set('n', '<F6>', function() require('dap').step_back() end, { silent = true })
-    keymap.set('n', '<F10>', function() require('dap').step_over() end, { silent = true })
-    keymap.set('n', '<F11>', function() require('dap').step_into() end, { silent = true })
-    keymap.set('n', '<F12>', function() require('dap').step_out() end, { silent = true })
-    keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end,
-        { silent = true })
-    keymap.set('n', '<Leader>B',
-        function() require('dap').set_breakpoint(fn.input('Breakpoint condition: ')) end,
-        { silent = true })
-    keymap.set('n', '<Leader>lp',
-        function()
-            require('dap').set_breakpoint(nil, nil, fn.input('Log point message: '))
-        end,
-        { silent = true })
-    keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end, { silent = true })
-    keymap.set('n', '<Leader>dl', function() require('dap').run_last() end, { silent = true })
+    keymap.set('n', '<F5>', function() require('dap').continue() end)
+    keymap.set('n', '<F6>', function() require('dap').step_back() end)
+    keymap.set('n', '<F10>', function() require('dap').step_over() end)
+    keymap.set('n', '<F11>', function() require('dap').step_into() end)
+    keymap.set('n', '<F12>', function() require('dap').step_out() end)
+    keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
+    keymap.set(
+        'n', '<Leader>B',
+        function() require('dap').set_breakpoint(fn.input('Breakpoint condition: ')) end
+    )
+    keymap.set(
+        'n', '<Leader>lp',
+        function() require('dap').set_breakpoint(nil, nil, fn.input('Log point message: ')) end
+    )
+    keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
+    keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
 end
 
 function M.config()
@@ -49,78 +49,6 @@ function M.config()
         callback = function() require('dap.ext.autocompl').attach() end,
         desc = 'DAP Autocompletion',
         group = augroup
-    })
-
-    -- Dap UI
-    dapui.setup({
-        controls = {
-            element = 'repl',
-            enabled = true,
-            icons = {
-                disconnect = '',
-                pause = '',
-                play = '',
-                run_last = '',
-                step_back = '',
-                step_into = '',
-                step_out = '',
-                step_over = '',
-                terminate = ''
-            }
-        },
-        element_mappings = {},
-        expand_lines = true,
-        floating = {
-            border = 'single',
-            mappings = {
-                close = { 'q', '<Esc>' }
-            }
-        },
-        force_buffers = true,
-        icons = {
-            collapsed = '',
-            current_frame = '',
-            expanded = ''
-        },
-        layouts = { {
-            elements = { {
-                id = 'scopes',
-                size = 0.25
-            }, {
-                id = 'breakpoints',
-                size = 0.25
-            }, {
-                id = 'stacks',
-                size = 0.25
-            }, {
-                id = 'watches',
-                size = 0.25
-            } },
-            position = 'left',
-            size = 40
-        }, {
-            elements = { {
-                id = 'repl',
-                size = 0.5
-            }, {
-                id = 'console',
-                size = 0.5
-            } },
-            position = 'bottom',
-            size = 10
-        } },
-        mappings = {
-            edit = 'e',
-            expand = { '<CR>', '<2-LeftMouse>' },
-            open = 'o',
-            remove = 'd',
-            repl = 'r',
-            toggle = 't'
-        },
-        render = {
-            indent = 1,
-            max_value_lines = 100
-        }
     })
 
     dap.listeners.after.event_initialized['dapui_config'] = function()

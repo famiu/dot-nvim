@@ -1,6 +1,8 @@
 return {
     {
         'tpope/vim-fugitive',
+        lazy = true,
+        cmd = 'Git',
         init = function()
             local keymap = vim.keymap
 

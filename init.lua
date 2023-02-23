@@ -24,7 +24,12 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Load plugins
-require('lazy').setup('plugins')
+require('lazy').setup({ import = 'plugins' }, {
+    dev = {
+        path = '~/Workspace/neovim'
+    },
+    concurrency = PU_COUNT,
+})
 
 -- LSP
 require('lsp')

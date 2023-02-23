@@ -6,7 +6,6 @@ return {
     {
         'hrsh7th/nvim-cmp',
         dependencies = {
-            'L3MON4D3/LuaSnip',
             'saadparwaiz1/cmp_luasnip',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-nvim-lsp',
@@ -17,11 +16,12 @@ return {
         config = function()
             -- Set up nvim-cmp.
             local cmp = require('cmp')
+            local luasnip = require('luasnip')
 
             cmp.setup({
                 snippet = {
                     expand = function(args)
-                        require('luasnip').lsp_expand(args.body)
+                        luasnip.lsp_expand(args.body)
                     end,
                 },
                 window = {

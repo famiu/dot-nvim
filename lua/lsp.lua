@@ -69,7 +69,7 @@ api.nvim_create_autocmd('LspAttach', {
         local client = lsp.get_client_by_id(args.data.client_id)
 
         -- Mappings.
-        local opts = { silent = true, buffer = bufnr }
+        local opts = { buffer = bufnr }
         keymap.set('n', 'gD', function() lsp.buf.declaration() end, opts)
         keymap.set('n', 'gd', function() lsp.buf.definition() end, opts)
         keymap.set('n', 'K', function() lsp.buf.hover() end, opts)
@@ -77,11 +77,9 @@ api.nvim_create_autocmd('LspAttach', {
         keymap.set('n', 'gr', function() lsp.buf.references() end, opts)
         keymap.set('n', '<Leader>wa', function() lsp.buf.add_workspace_folder() end, opts)
         keymap.set('n', '<Leader>wr', function() lsp.buf.remove_workspace_folder() end, opts)
-        keymap.set(
-            'n', '<Leader>wl', function()
-            print(vim.inspect(lsp.buf.list_workspace_folders()))
-        end, opts
-        )
+        keymap.set('n', '<Leader>wl',
+            function() print(vim.inspect(lsp.buf.list_workspace_folders())) end,
+            opts)
         keymap.set('n', '<Leader>lt', function() lsp.buf.type_definition() end, opts)
         keymap.set('n', '<Leader>r', function() lsp.buf.rename() end, opts)
         keymap.set('n', '<C-Space>', function() diagnostic.open_float() end, opts)
@@ -89,10 +87,13 @@ api.nvim_create_autocmd('LspAttach', {
         keymap.set('n', '[g', function() diagnostic.goto_prev() end, opts)
         keymap.set('n', '<Leader>ca', lsp.buf.code_action, opts)
 
-        -- Telescope mappings
-        local ts_builtin = require('telescope.builtin')
-        keymap.set('n', '<Leader>lsd', ts_builtin.lsp_document_symbols, opts)
-        keymap.set('n', '<Leader>lsw', ts_builtin.lsp_workspace_symbols, opts)
+        -- Telescope mappings (lazy-loaded)
+        keymap.set('n', '<Leader>lsd',
+            function() require('telescope.builtin').lsp_document_symbols() end,
+            opts)
+        keymap.set('n', '<Leader>lsw',
+            function() require('telescope.builtin').lsp_workspace_symbols() end,
+            opts)
 
         if client.supports_method('textDocument/formatting') then
             keymap.set({ 'n', 'v' }, '<space>lf', function() lsp.buf.format() end, opts)
