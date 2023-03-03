@@ -67,6 +67,9 @@ vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.o.splitbelow = true
 vim.o.splitright = true
 
+-- Diff options
+vim.o.diffopt = "internal,filler,closeoff,vertical"
+
 -- Faster update time
 vim.o.updatetime = 100
 
