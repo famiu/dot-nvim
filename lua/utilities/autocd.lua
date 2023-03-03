@@ -1,7 +1,7 @@
 local api = vim.api
 local lsp = vim.lsp
 
--- Automatically change to project root directory
+-- Automatically change to project root directory using either LSP or configured root patterns
 local root_patterns = { '.git', 'Makefile', 'CMakeLists.txt' }
 
 local function autocd()
@@ -15,12 +15,14 @@ local function autocd()
     end
 
     local bufname = api.nvim_buf_get_name(0)
+    -- Parse URLs such as file:// and fugitive:// and extract the file path from buffer name
+    local path_match = bufname:match([[^([a-zA-Z]+:/)(/.*)]])
 
-    if bufname == '' then
+    if path_match == nil or path_match[2] == nil then
         return
     end
 
-    local path = vim.fs.dirname(bufname)
+    local path = vim.fs.dirname(path_match[2])
     local root_pattern_match = vim.fs.find(root_patterns, { path = path, upward = true })[1]
 
     if root_pattern_match == nil then
