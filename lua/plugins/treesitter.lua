@@ -20,7 +20,8 @@ function M.config()
             'bash',
             'lua',
             'toml',
-            'latex'
+            'latex',
+            'regex'
         },
         highlight = {
             enable = true,
