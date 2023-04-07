@@ -12,7 +12,7 @@ function M.config()
             'c',
             'lua',
             'vim',
-            'help',
+            'vimdoc',
             'cpp',
             'cmake',
             'python',
