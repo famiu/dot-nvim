@@ -80,6 +80,9 @@ vim.o.cursorline = true
 vim.o.scrolloff = 10
 vim.o.sidescrolloff = 5
 
+-- Allow project specific configuration
+vim.o.exrc = true
+
 -- Disable using netrw for 'gx' and set it manually
 g.netrw_nogx = 1
 vim.keymap.set('n', 'gx', '<cmd>!xdg-open <cfile><CR>', {})
