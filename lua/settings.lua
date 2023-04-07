@@ -68,7 +68,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 -- Diff options
-vim.o.diffopt = "internal,filler,closeoff,vertical"
+vim.o.diffopt = "internal,filler,closeoff,vertical,linematch:60"
 
 -- Faster update time
 vim.o.updatetime = 100
