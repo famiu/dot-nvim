@@ -88,10 +88,10 @@ api.nvim_create_autocmd('LspAttach', {
         keymap.set('n', '<Leader>ca', lsp.buf.code_action, opts)
 
         -- Telescope mappings (lazy-loaded)
-        keymap.set('n', '<Leader>lsd',
+        keymap.set('n', '<Leader>fS',
             function() require('telescope.builtin').lsp_document_symbols() end,
             opts)
-        keymap.set('n', '<Leader>lsw',
+        keymap.set('n', '<Leader>fs',
             function() require('telescope.builtin').lsp_workspace_symbols() end,
             opts)
 
