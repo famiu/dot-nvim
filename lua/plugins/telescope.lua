@@ -8,7 +8,7 @@ return {
             local keymap = vim.keymap
 
             keymap.set('n', '<Leader>ff', function() require('telescope.builtin').find_files() end, {})
-            keymap.set('n', '<Leader>fg', function() require('telescope').extensions.live_grep_args.live_grep_args() end, {})
+            keymap.set('n', '<Leader>fg', function() require('telescope.builtin').live_grep() end, {})
             keymap.set('n', '<Leader>fb', function() require('telescope.builtin').buffers() end, {})
             keymap.set('n', '<Leader>fh', function() require('telescope.builtin').help_tags() end, {})
             keymap.set('n', '<Leader>ft', function() require('telescope.builtin').treesitter() end, {})
@@ -40,15 +40,6 @@ return {
                 extensions = {
                     ['ui-select'] = {
                         require('telescope.themes').get_dropdown {
-                        }
-                    },
-                    live_grep_args = {
-                        auto_quoting = true,
-                        mappings = {
-                            i = {
-                                ['<C-k>'] = require('telescope-live-grep-args.actions').quote_prompt(),
-                                ['<C-i>'] = require('telescope-live-grep-args.actions').quote_prompt({ postfix = ' --iglob ' }),
-                            }
                         }
                     }
                 }
@@ -82,10 +73,4 @@ return {
 
         config = function() require('telescope').load_extension('smart_history') end
     },
-
-    {
-        'nvim-telescope/telescope-live-grep-args.nvim',
-        dependencies = 'nvim-telescope/telescope.nvim',
-        config = function() require('telescope').load_extension('live_grep_args') end
-    }
 }
