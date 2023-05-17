@@ -60,7 +60,7 @@ return {
         cond = function()
             -- Notify if libsqlite is not installed
             if vim.fn.system('/usr/bin/env ldconfig -p | grep libsqlite3.so') == "" then
-                vim.notify(
+                vim.notify_once(
                     "libsqlite not found in system. Telescope smart history needs libsqlite to work",
                     vim.log.levels.INFO
                 )

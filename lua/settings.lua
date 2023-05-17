@@ -6,8 +6,9 @@ vim.g.mapleader = ' '
 
 -- Default grep command
 if fn.executable('rg') == 0 then
-    vim.api.nvim_err_writeln(
-        'Ripgrep not found in PATH. Please install ripgrep in order to use this configuration.'
+    vim.notify_once(
+        'Ripgrep not found in PATH. Please install ripgrep in order to use this configuration.',
+        vim.log.levels.ERROR
     )
 
     return
