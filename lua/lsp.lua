@@ -110,90 +110,116 @@ local function buf_parent_dir(bufnr)
     return fs.dirname(api.nvim_buf_get_name(bufnr))
 end
 
-local function find_git_root(bufnr)
-    return fs.dirname(fs.find('.git', { upward = true, path = buf_parent_dir(bufnr) })[1])
+local function buf_find_root(bufnr, pattern)
+    return fs.dirname(fs.find(pattern, { upward = true, path = buf_parent_dir(bufnr) })[1])
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-api.nvim_create_autocmd('FileType', {
-    pattern = { 'c', 'cpp' },
-    group = augroup,
-    callback = function(opts)
-        lsp.start {
-            name = 'clangd',
-            cmd = { 'clangd', '--background-index' },
-            root_dir = fs.dirname(fs.find({ 'compile_commands.json', '.git' },
-                { upward = true, path = buf_parent_dir(opts.buf) })[1]),
-            capabilities = capabilities
-        }
-    end
-})
+-- Configure an LSP server.
+--
+-- Takes a single configuration dict. The following keys are required:
+--   - name (string) : Name of the LSP server
+--   - ftpattern (string | array[string]) : Filetype pattern(s) that trigger the LSP server
+--   - cmd (array[string]) : Command used to launch the LSP server
+--   - root_pattern (string | array[string]) : Patterns used to find the root_dir
+--
+-- All other provided keys are passed to vim.lsp.start()
+local function configure_lsp(config)
+    local function validate_config_key(key, expected_type)
+        local val = config[key]
+        config[key] = nil
 
-api.nvim_create_autocmd('FileType', {
-    pattern = 'rust',
-    group = augroup,
-    callback = function(opts)
-        lsp.start {
-            name = 'rust-analyzer',
-            cmd = { 'rust-analyzer' },
-            root_dir = fs.dirname(fs.find({ 'Cargo.toml', '.git' },
-                { upward = true, path = buf_parent_dir(opts.buf) })[1]),
-            capabilities = capabilities
-        }
-    end
-})
+        if val == nil then
+            vim.api.nvim_err_writeln(
+                string.format([[Required key '%s' is not provided in LSP configuration]], key)
+            )
 
-api.nvim_create_autocmd('FileType', {
-    pattern = 'python',
-    group = augroup,
-    callback = function(opts)
-        lsp.start {
-            name = 'pyright',
-            cmd = { 'pyright-langserver', '--stdio' },
-            root_dir = fs.dirname(fs.find({ 'setup.py', 'requirements.txt', 'Pipfile', '.git' },
-                { upward = true, path = buf_parent_dir(opts.buf) })[1]),
-            capabilities = capabilities
-        }
-    end
-})
+            return nil
+        elseif not vim.tbl_contains(expected_type, type(val)) then
+            vim.api.nvim_err_writeln(
+                string.format(
+                    [[Invalid type '%s' for '%s'. Expected one of: %s]],
+                    type(val),
+                    key,
+                    table.concat(expected_type, ', ')
+                )
+            )
 
-api.nvim_create_autocmd('FileType', {
-    pattern = 'lua',
-    group = augroup,
-    callback = function(opts)
-        lsp.start {
-            name = 'lua-language-server',
-            cmd = { 'lua-language-server' },
-            root_dir = find_git_root(opts.buf),
-            before_init = require('neodev.lsp').before_init,
-            capabilities = capabilities
-        }
+            return nil
+        else
+            return val
+        end
     end
-})
 
-api.nvim_create_autocmd('FileType', {
-    pattern = { 'sh', 'bash', 'zsh' },
-    group = augroup,
-    callback = function(opts)
-        lsp.start {
-            name = 'bash-language-server',
-            cmd = { 'bash-language-server', 'start' },
-            root_dir = find_git_root(opts.buf),
-            capabilities = capabilities
-        }
-    end
-})
+    local name = validate_config_key('name', { 'string' })
+    local ftpattern = validate_config_key('ftpattern', { 'string', 'table' })
+    local cmd = validate_config_key('cmd', { 'table' })
+    local root_pattern = validate_config_key('root_pattern', { 'string', 'table' })
 
-api.nvim_create_autocmd('FileType', {
-    pattern = 'cmake',
-    group = augroup,
-    callback = function(opts)
-        lsp.start {
-            name = 'cmake-language-server',
-            cmd = { 'cmake-language-server' },
-            root_dir = find_git_root(opts.buf),
-            capabilities = capabilities
+    if name == nil or ftpattern == nil or cmd == nil or root_pattern == nil then return end
+
+    api.nvim_create_autocmd('FileType', {
+        pattern = ftpattern,
+        group = augroup,
+        callback = function(opts)
+            local lsp_start_opts = {
+                name = name,
+                cmd = cmd,
+                root_dir = buf_find_root(opts.buf, root_pattern)
+            }
+
+            lsp.start(vim.tbl_extend('keep', lsp_start_opts, config))
+        end
+    })
+end
+
+configure_lsp {
+    name = 'clangd',
+    ftpattern = { 'c', 'cpp' },
+    cmd = { 'clangd', '--background-index' },
+    root_pattern = { 'compile_commands.json', '.git' },
+}
+
+configure_lsp {
+    name = 'rust-analyzer',
+    ftpattern = 'rust',
+    cmd = { 'rust-analyzer' },
+    root_pattern = { 'Cargo.toml', '.git' },
+}
+
+configure_lsp {
+    name = 'pyright',
+    ftpattern = 'python',
+    cmd = { 'pyright-langserver', '--stdio' },
+    root_pattern = { 'setup.py', 'requirements.txt', 'Pipfile', '.git' },
+}
+
+configure_lsp {
+    name = 'lua-language-server',
+    ftpattern = 'lua',
+    cmd = { 'lua-language-server' },
+    root_pattern = '.git',
+    before_init = require('neodev.lsp').before_init,
+    settings = {
+        Lua = {
+            workspace = {
+                checkThirdParty = false
+            }
         }
-    end
-})
+    }
+}
+
+configure_lsp {
+    name = 'bash-language-server',
+    ftpattern = { 'sh', 'bash', 'zsh' },
+    cmd = { 'bash-language-server', 'start' },
+    root_pattern = '.git',
+}
+
+configure_lsp {
+    name = 'cmake-language-server',
+    ftpattern = 'cmake',
+    cmd = { 'cmake-language-server' },
+    root_pattern = '.git',
+}
