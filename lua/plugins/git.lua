@@ -1,8 +1,6 @@
 return {
     {
         'tpope/vim-fugitive',
-        lazy = true,
-        cmd = 'Git',
         init = function()
             local keymap = vim.keymap
 
@@ -11,6 +9,8 @@ return {
             keymap.set('n', '<Leader>ga', ':Git add -p<CR>', {})
             keymap.set('n', '<Leader>gc', ':Git commit -v<CR>', {})
             keymap.set('n', '<Leader>gm', ':Git commit --amend<CR>', {})
+            keymap.set('n', '<Leader>gl', ':Git log --oneline<CR>', {})
+            keymap.set('n', '<Leader>gh', ':Git log --oneline -- %<CR>', {})
         end
     },
     {
