@@ -41,4 +41,15 @@ return {
     'tpope/vim-surround',
     'tpope/vim-sleuth',
     'tpope/vim-eunuch',
+    {
+        'rmagatti/auto-session',
+        opts = {
+            log_level = 'error',
+            auto_session_enabled = true,
+            auto_session_suppress_dirs = { '~/' },
+            auto_session_use_git_branch = true,
+            -- the configs below are lua only
+            bypass_session_save_file_types = nil
+        }
+    }
 }
