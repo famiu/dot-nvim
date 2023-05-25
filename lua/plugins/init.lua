@@ -42,6 +42,13 @@ return {
     'tpope/vim-sleuth',
     'tpope/vim-eunuch',
     {
+        'akinsho/toggleterm.nvim',
+        opts = {
+            size = 20,
+            open_mapping = [[<C-t>]]
+        }
+    },
+    {
         'rmagatti/auto-session',
         opts = {
             log_level = 'error',
