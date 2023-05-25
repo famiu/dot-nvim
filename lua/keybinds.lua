@@ -51,3 +51,9 @@ keymap.set('n', '<Leader>vc', '<CMD>edit $MYVIMRC<CR>', {})
 
 -- Trim trailing whitespace
 keymap.set('n', '<Leader>t<Space>', [[<CMD>%s/\s\+$//e<CR>]], {})
+
+-- Disable arrow keys
+keymap.set({'n', 'i'}, '<Left>', '<Nop>', {})
+keymap.set({'n', 'i'}, '<Right>', '<Nop>', {})
+keymap.set({'n', 'i'}, '<Up>', '<Nop>', {})
+keymap.set({'n', 'i'}, '<Down>', '<Nop>', {})
