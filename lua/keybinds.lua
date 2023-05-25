@@ -57,3 +57,7 @@ keymap.set({'n', 'i'}, '<Left>', '<Nop>', {})
 keymap.set({'n', 'i'}, '<Right>', '<Nop>', {})
 keymap.set({'n', 'i'}, '<Up>', '<Nop>', {})
 keymap.set({'n', 'i'}, '<Down>', '<Nop>', {})
+
+-- Quitall shortcut
+keymap.set('n', '<Leader>qq', '<CMD>quitall<CR>', {})
+keymap.set('n', '<Leader>QQ', '<CMD>quitall!<CR>', {})
