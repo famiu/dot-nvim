@@ -21,10 +21,7 @@ return {
         config = function()
             require('telescope').setup {
                 defaults = {
-                    cache_picker = {
-                        num_pickers = 10,
-                        limit_entries = 1000,
-                    },
+                    cache_picker = false,
                     mappings = {
                         i = {
                             ['<C-Down>'] = require('telescope.actions').cycle_history_next,
