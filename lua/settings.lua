@@ -57,7 +57,7 @@ vim.o.foldnestmax = 3
 vim.o.foldminlines = 4
 
 -- Session options
-vim.o.sessionoptions = "blank,buffers,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = "blank,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Search
 vim.o.ignorecase = true
