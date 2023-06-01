@@ -58,13 +58,14 @@ local function dapconfig()
     -- DAP Virtual Text
     require('nvim-dap-virtual-text').setup {}
 
+    -- Adapters
     dap.adapters.lldb = {
         type = 'executable',
         command = vim.trim(fn.system({ '/usr/bin/which', 'lldb-vscode' })),
         name = 'lldb'
     }
 
-    local base_config = {
+    local c_cpp_rust_base_config = {
         {
             name = 'Launch',
             type = 'lldb',
@@ -86,10 +87,17 @@ local function dapconfig()
         },
     }
 
+    -- External Terminal
+    dap.defaults.fallback.force_external_terminal = true
+    dap.defaults.fallback.external_terminal = {
+        command = vim.trim(fn.system({ '/usr/bin/which', 'gnome-terminal' })),
+        args = { '--' };
+    }
+
     -- Language configurations
-    dap.configurations.cpp = base_config
-    dap.configurations.c = base_config
-    dap.configurations.rust = base_config
+    dap.configurations.cpp = c_cpp_rust_base_config
+    dap.configurations.c = c_cpp_rust_base_config
+    dap.configurations.rust = c_cpp_rust_base_config
 
     -- Program specific configs
     table.insert(dap.configurations.c, {
@@ -97,7 +105,10 @@ local function dapconfig()
         type = 'lldb',
         request = 'launch',
         program = '/home/famiu/Workspace/neovim/neovim/build/bin/nvim',
-        externalConsole = true,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = { '--clean' },
+        runInTerminal = true,
     })
 end
 
