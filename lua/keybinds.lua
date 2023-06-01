@@ -8,10 +8,6 @@ keymap.set('n', 'L', '$', {})
 keymap.set('v', '>', '>gv^', {})
 keymap.set('v', '<', '<gv^', {})
 
--- Indent with Tab and Shift-Tab
-keymap.set('v', '<Tab>', '>', {})
-keymap.set('v', '<S-Tab>', '<', {})
-
 -- Apply the . command to all selected lines in visual mode
 keymap.set('v', '.', ':normal .<CR>', {})
 
@@ -49,7 +45,7 @@ keymap.set('n', '<Leader>tX', '<CMD>tabclose!<CR>', {})
 -- Open config
 keymap.set('n', '<Leader>vc', '<CMD>edit $MYVIMRC<CR>', {})
 
--- Trim trailing whitespace
+-- Trim trailing whitespace in file
 keymap.set('n', '<Leader>t<Space>', [[<CMD>%s/\s\+$//e<CR>]], {})
 
 -- Disable arrow keys
