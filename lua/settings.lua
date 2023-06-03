@@ -17,7 +17,7 @@ end
 vim.o.grepprg = 'rg --vimgrep --smart-case'
 
 --- Wildmenu
-vim.o.wildmode = 'longest:list:full'
+vim.o.wildmode = 'longest,list,full'
 
 -- Persistent undo
 vim.o.undofile = true
