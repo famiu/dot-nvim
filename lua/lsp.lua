@@ -123,6 +123,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 --   - ftpattern (string | array[string]) : Filetype pattern(s) that trigger the LSP server
 --   - cmd (array[string]) : Command used to launch the LSP server
 --   - root_pattern (string | array[string]) : Patterns used to find the root_dir
+--   - capabilities (table) (optional) : Capability overrides
 --
 -- All other provided keys are passed to vim.lsp.start()
 local function configure_lsp(config)
@@ -156,6 +157,8 @@ local function configure_lsp(config)
     local ftpattern = validate_config_key('ftpattern', { 'string', 'table' })
     local cmd = validate_config_key('cmd', { 'table' })
     local root_pattern = validate_config_key('root_pattern', { 'string', 'table' })
+    local final_capabilities = vim.tbl_extend('force', capabilities, config.capabilities or {})
+    config.capabilities = nil
 
     if name == nil or ftpattern == nil or cmd == nil or root_pattern == nil then return end
 
@@ -166,7 +169,8 @@ local function configure_lsp(config)
             local lsp_start_opts = {
                 name = name,
                 cmd = cmd,
-                root_dir = buf_find_root(opts.buf, root_pattern)
+                root_dir = buf_find_root(opts.buf, root_pattern),
+                capabilities = final_capabilities
             }
 
             lsp.start(vim.tbl_extend('keep', lsp_start_opts, config))
