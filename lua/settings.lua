@@ -63,8 +63,11 @@ vim.o.sessionoptions = "blank,folds,help,tabpages,winsize,winpos,terminal,localo
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
+-- Substitution
+vim.o.gdefault = true
+
 -- Completion
-vim.o.completeopt = 'menuone,preview'
+vim.o.completeopt = 'menuone,preview,noinsert'
 vim.o.shortmess = vim.o.shortmess .. 'c'
 
 -- Split options
