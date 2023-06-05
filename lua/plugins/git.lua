@@ -3,14 +3,15 @@ return {
         'tpope/vim-fugitive',
         init = function()
             local keymap = vim.keymap
+            local opts = { silent = true }
 
-            keymap.set('n', '<Leader>gb', ':Git blame<CR>', {})
-            keymap.set('n', '<Leader>gs', ':silent! Git<CR>', {})
-            keymap.set('n', '<Leader>ga', ':Git add -p<CR>', {})
-            keymap.set('n', '<Leader>gc', ':Git commit -v<CR>', {})
-            keymap.set('n', '<Leader>gm', ':Git commit --amend<CR>', {})
-            keymap.set('n', '<Leader>gl', ':Git log --oneline<CR>', {})
-            keymap.set('n', '<Leader>gh', ':Git log --oneline -- %<CR>', {})
+            keymap.set('n', '<Leader>gb', ':Git blame<CR>', opts)
+            keymap.set('n', '<Leader>gs', ':silent! Git<CR>', opts)
+            keymap.set('n', '<Leader>ga', ':Git add -p<CR>', opts)
+            keymap.set('n', '<Leader>gc', ':Git commit -v<CR>', opts)
+            keymap.set('n', '<Leader>gm', ':Git commit --amend<CR>', opts)
+            keymap.set('n', '<Leader>gl', ':Git log --oneline<CR>', opts)
+            keymap.set('n', '<Leader>gh', ':Git log --oneline -- %<CR>', opts)
         end
     },
     {
