@@ -206,6 +206,9 @@ configure_lsp {
     cmd = { 'lua-language-server' },
     root_pattern = '.git',
     before_init = require('neodev.lsp').before_init,
+    on_attach = function(client, bufnr)
+        client.server_capabilities.completionProvider.triggerCharacters = { '.', ':' }
+    end,
     settings = {
         Lua = {
             workspace = {
