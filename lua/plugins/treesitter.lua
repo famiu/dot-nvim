@@ -83,6 +83,7 @@ function M.config()
                 enable = true,
                 set_jumps = true, -- whether to set jumps in the jumplist
                 goto_next_start = {
+                    [']a'] = '@parameter.inner',
                     [']m'] = '@function.outer',
                     [']]'] = '@class.outer',
                     [']d'] = '@conditional.outer',
@@ -91,10 +92,12 @@ function M.config()
                     [']z'] = { query = '@fold', query_group = 'folds' },
                 },
                 goto_next_end = {
+                    [']A'] = '@parameter.inner',
                     [']M'] = '@function.outer',
                     [']['] = '@class.outer',
                 },
                 goto_previous_start = {
+                    ['[a'] = '@parameter.inner',
                     ['[m'] = '@function.outer',
                     ['[['] = '@class.outer',
                     ['[d'] = '@conditional.outer',
@@ -103,6 +106,7 @@ function M.config()
                     ['[z'] = { query = '@fold', query_group = 'folds' },
                 },
                 goto_previous_end = {
+                    ['[A'] = '@parameter.inner',
                     ['[M'] = '@function.outer',
                     ['[]'] = '@class.outer',
                 },
