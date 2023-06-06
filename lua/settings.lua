@@ -67,7 +67,7 @@ vim.o.smartcase = true
 vim.o.gdefault = true
 
 -- Completion
-vim.o.completeopt = 'menuone,preview,noinsert'
+vim.o.completeopt = 'menuone,preview,noselect'
 vim.o.shortmess = vim.o.shortmess .. 'c'
 
 -- Split options
