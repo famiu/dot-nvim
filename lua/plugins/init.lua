@@ -6,23 +6,6 @@ return {
             vim.cmd.colorscheme('carbonfox')
         end
     },
-    {
-        'williamboman/mason.nvim',
-        opts = {
-            PATH = 'append',
-            pip = { upgrade_pip = true },
-            max_concurrent_installers = PU_COUNT,
-            ensure_installed = {
-                'pyright',
-                'lua-language-server',
-                'vim-language-server',
-                'bash-language-server',
-                'cmake-language-server',
-                'json-lsp',
-                'debugpy'
-            }
-        },
-    },
     { 'folke/neodev.nvim', lazy = true,  opts = { lspconfig = false } },
     { 'ggandor/leap.nvim', config = function() require('leap').add_default_mappings(true) end },
     {

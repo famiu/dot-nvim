@@ -33,34 +33,6 @@ fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInf
 fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
 fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignOk' })
 
-lsp.protocol.CompletionItemKind = {
-    Text          = '',
-    Method        = '',
-    Function      = '',
-    Constructor   = '',
-    Field         = 'ﰠ',
-    Variable      = '',
-    Class         = 'ﴯ',
-    Interface     = '',
-    Module        = '',
-    Property      = 'ﰠ',
-    Unit          = '塞',
-    Value         = '',
-    Enum          = '',
-    Keyword       = '',
-    Snippet       = '',
-    Color         = '',
-    File          = '',
-    Reference     = '',
-    Folder        = '',
-    EnumMember    = '',
-    Constant      = '',
-    Struct        = 'פּ',
-    Event         = '',
-    Operator      = '',
-    TypeParameter = ''
-}
-
 -- LSP configuration
 api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP configuration',
@@ -102,6 +74,26 @@ api.nvim_create_autocmd('LspAttach', {
         if client.server_capabilities.documentSymbolProvider then
             navic.attach(client, bufnr)
         end
+
+        -- Completion (using nvim-lsp-compl)
+        require('lsp_compl').attach(client, bufnr, {
+            server_side_fuzzy_completion = true,
+            trigger_on_delete = true,
+        })
+
+        keymap.set('i', '<CR>', function()
+            return require('lsp_compl').accept_pum() and '<c-y>' or '<CR>'
+        end, { expr = true })
+
+        -- Cycle through completion using Tab / Shift-Tab.
+        keymap.set('i', '<Tab>', function()
+            return vim.fn.pumvisible() and '<C-n>' or '<Tab>'
+        end, { expr = true })
+
+        -- Cycle through completion using Tab / Shift-Tab.
+        keymap.set('i', '<S-Tab>', function()
+            return vim.fn.pumvisible() and '<C-p>' or '<S-Tab>'
+        end, { expr = true })
     end
 })
 
@@ -114,7 +106,11 @@ local function buf_find_root(bufnr, pattern)
     return fs.dirname(fs.find(pattern, { upward = true, path = buf_parent_dir(bufnr) })[1])
 end
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = vim.tbl_deep_extend(
+    'force',
+    vim.lsp.protocol.make_client_capabilities(),
+    require('lsp_compl').capabilities()
+)
 
 -- Configure an LSP server.
 --
