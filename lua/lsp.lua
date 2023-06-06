@@ -123,16 +123,18 @@ local capabilities = vim.tbl_deep_extend(
 --
 -- All other provided keys are passed to vim.lsp.start()
 local function configure_lsp(config)
-    local function validate_config_key(key, expected_type)
+    local function validate_config_key(key, expected_type, is_optional, default)
         local val = config[key]
         config[key] = nil
 
         if val == nil then
-            vim.api.nvim_err_writeln(
-                string.format([[Required key '%s' is not provided in LSP configuration]], key)
-            )
+            if not is_optional then
+                vim.api.nvim_err_writeln(
+                    string.format([[Required key '%s' is not provided in LSP configuration]], key)
+                )
+            end
 
-            return nil
+            return default
         elseif not vim.tbl_contains(expected_type, type(val)) then
             vim.api.nvim_err_writeln(
                 string.format(
@@ -143,7 +145,7 @@ local function configure_lsp(config)
                 )
             )
 
-            return nil
+            return default
         else
             return val
         end
@@ -153,8 +155,11 @@ local function configure_lsp(config)
     local ftpattern = validate_config_key('ftpattern', { 'string', 'table' })
     local cmd = validate_config_key('cmd', { 'table' })
     local root_pattern = validate_config_key('root_pattern', { 'string', 'table' })
-    local final_capabilities = vim.tbl_extend('force', capabilities, config.capabilities or {})
-    config.capabilities = nil
+    local final_capabilities = vim.tbl_extend(
+        'force',
+        capabilities,
+        validate_config_key('capabilities', { 'table' }, true, {})
+    )
 
     if name == nil or ftpattern == nil or cmd == nil or root_pattern == nil then return end
 
