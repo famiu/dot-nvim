@@ -209,7 +209,7 @@ configure_lsp {
     root_pattern = '.git',
     before_init = require('neodev.lsp').before_init,
     on_attach = function(client, _)
-        client.server_capabilities.completionProvider.triggerCharacters = { '.', ':' }
+        client.server_capabilities.completionProvider.triggerCharacters = { '.', ':', ' ' }
     end,
     settings = {
         Lua = {
