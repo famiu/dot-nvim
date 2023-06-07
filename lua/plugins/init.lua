@@ -38,7 +38,6 @@ return {
         end
     },
     'tpope/vim-sleuth',
-    'tpope/vim-eunuch',
     {
         'akinsho/toggleterm.nvim',
         opts = {
