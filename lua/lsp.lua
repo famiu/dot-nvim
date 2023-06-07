@@ -49,9 +49,11 @@ api.nvim_create_autocmd('LspAttach', {
         keymap.set('n', 'gr', function() lsp.buf.references() end, opts)
         keymap.set('n', '<Leader>wa', function() lsp.buf.add_workspace_folder() end, opts)
         keymap.set('n', '<Leader>wr', function() lsp.buf.remove_workspace_folder() end, opts)
-        keymap.set('n', '<Leader>wl',
+        keymap.set(
+            'n', '<Leader>wl',
             function() print(vim.inspect(lsp.buf.list_workspace_folders())) end,
-            opts)
+            opts
+        )
         keymap.set('n', '<Leader>lt', function() lsp.buf.type_definition() end, opts)
         keymap.set('n', '<Leader>r', function() lsp.buf.rename() end, opts)
         keymap.set('n', '<C-Space>', function() diagnostic.open_float() end, opts)
