@@ -1,10 +1,11 @@
 local api = vim.api
 local cmd = vim.cmd
 local fn = vim.fn
+local loop = vim.loop
 local lazypath = fn.stdpath('data') .. '/lazy/lazy.nvim'
 
 -- Get number of processing units to use for configuring concurrent stuff
-PU_COUNT = tonumber(fn.system({ 'nproc' }))
+PU_COUNT = #loop.cpu_info()
 
 local InstallConfigDeps
 local LoadPlugins
@@ -16,7 +17,7 @@ local function BootstrapConfig()
     require('keybinds')
 
     -- Use Ansible to install dependencies for the Neovim configuration if needed
-    if not vim.loop.fs_stat(lazypath) then
+    if not loop.fs_stat(lazypath) then
         InstallConfigDeps()
 
         api.nvim_create_autocmd('User', {
