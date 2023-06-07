@@ -7,7 +7,6 @@ return {
         end
     },
     { 'folke/neodev.nvim', lazy = true,  opts = { lspconfig = false } },
-    { 'ggandor/leap.nvim', config = function() require('leap').add_default_mappings(true) end },
     {
         'famiu/bufdelete.nvim',
         lazy = true,
