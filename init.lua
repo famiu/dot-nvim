@@ -45,14 +45,14 @@ end
 InstallConfigDeps = function()
     if fn.executable('ansible-playbook') == 0 then
         api.nvim_err_writeln('ansible-playbook not found. Cannot install config dependencies')
-	return
+        return
     end
 
     vim.notify('Installing config dependencies using Ansible', vim.log.levels.INFO)
 
     -- Make sure current window is the only window
     if #api.nvim_list_wins() > 1 then
-	cmd.wincmd('o')
+        cmd.wincmd('o')
     end
 
     -- Open Ansible in current window
