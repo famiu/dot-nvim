@@ -55,5 +55,7 @@ return {
             -- the configs below are lua only
             bypass_session_save_file_types = nil
         }
-    }
+    },
+    'L3MON4D3/LuaSnip',
+    'mfussenegger/nvim-lsp-compl',
 }

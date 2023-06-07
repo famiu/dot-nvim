@@ -1,38 +1,96 @@
+local api = vim.api
+local cmd = vim.cmd
+local fn = vim.fn
+local lazypath = fn.stdpath('data') .. '/lazy/lazy.nvim'
+
 -- Get number of processing units to use for configuring concurrent stuff
-PU_COUNT = tonumber(vim.fn.system({ 'nproc' }))
+PU_COUNT = tonumber(fn.system({ 'nproc' }))
 
--- Basic option configurations and similar settings
-require('settings')
+local InstallConfigDeps
+local LoadPlugins
 
--- Basic keybinds
-require('keybinds')
+local function BootstrapConfig()
+    -- Basic option configurations and similar settings
+    require('settings')
+    -- Basic keybinds
+    require('keybinds')
 
--- Boostrap lazy.nvim if needed
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+    -- Use Ansible to install dependencies for the Neovim configuration if needed
+    if not vim.loop.fs_stat(lazypath) then
+        InstallConfigDeps()
 
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        'git',
-        'clone',
-        '--filter=blob:none',
-        'https://github.com/folke/lazy.nvim.git',
-        '--branch=stable',
-        lazypath,
+        api.nvim_create_autocmd('User', {
+            once = true,
+            pattern = 'AnsibleDone',
+            desc = 'Load plugins after installing config dependencies',
+            callback = function(_)
+                -- Clone lazy.nvim
+                fn.system({
+                    'git',
+                    'clone',
+                    '--filter=blob:none',
+                    'https://github.com/folke/lazy.nvim.git',
+                    '--branch=stable',
+                    lazypath,
+                })
+
+                LoadPlugins()
+            end
+        })
+    else
+        LoadPlugins()
+    end
+end
+
+InstallConfigDeps = function()
+    if fn.executable('ansible-playbook') == 0 then
+        api.nvim_err_writeln('ansible-playbook not found. Cannot install config dependencies')
+	return
+    end
+
+    vim.notify('Installing config dependencies using Ansible', vim.log.levels.INFO)
+
+    -- Make sure current window is the only window
+    if #api.nvim_list_wins() > 1 then
+	cmd.wincmd('o')
+    end
+
+    -- Open Ansible in current window
+    cmd.terminal(
+        string.format('/usr/bin/env ansible-playbook -K %s/deps.yml', fn.stdpath('config'))
+    )
+
+    api.nvim_create_autocmd('TermClose', {
+        once = true,
+        desc = 'Automatically close Ansible terminal',
+        callback = function(opts)
+            if vim.v.event.status ~= 0 then
+                api.nvim_err_writeln("Error while installing config dependencies")
+                return
+            end
+
+            api.nvim_buf_delete(opts.buf, { force = true })
+            api.nvim_exec_autocmds('User', { pattern = 'AnsibleDone' })
+        end
     })
 end
 
-vim.opt.rtp:prepend(lazypath)
+LoadPlugins = function()
+    vim.opt.rtp:prepend(lazypath)
 
--- Load plugins
-require('lazy').setup({ import = 'plugins' }, {
-    dev = {
-        path = '~/Workspace/neovim'
-    },
-    concurrency = PU_COUNT,
-})
+    require('lazy').setup({ import = 'plugins' }, {
+        dev = {
+            path = '~/Workspace/neovim'
+        },
+        concurrency = PU_COUNT,
+    })
 
--- LSP
-require('lsp')
+    -- LSP
+    require('lsp')
+    -- Other utilities
+    require('utilities')
+end
 
--- Other utilities
-require('utilities')
+BootstrapConfig()
+-- Command to update config dependencies
+api.nvim_create_user_command('UpdateConfigDeps', InstallConfigDeps, {})

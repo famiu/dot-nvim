@@ -1,0 +1,73 @@
+# Ansible playbook to install Neovim config dependencies.
+# Run automatically by the Neovim configuration if ansible-playbook is found.
+# Currently only works for Fedora.
+- name: Install all Neovim config dependencies
+  hosts: localhost
+  tasks:
+    - name: Install ripgrep (for 'grepprg' and Telescope)
+      become: yes
+      ansible.builtin.dnf:
+        name: ripgrep
+    - name: Install libsqlite (for Telescope smart history)
+      become: yes
+      ansible.builtin.dnf:
+        name: sqlite-devel
+    - name: Install package managers (pip, npm)
+      become: yes
+      ansible.builtin.dnf:
+        name:
+          - nodejs-npm
+          - python3-pip
+    - name: Install compilers, LSP servers and debug adapters
+      block:
+        - name: Install clang and clangd
+          become: yes
+          ansible.builtin.dnf:
+            name:
+              - clang
+              - clang-tools-extra
+        - name: Install bash language server
+          become: yes
+          ansible.builtin.dnf:
+            name: nodejs-bash-language-server
+        - name: Install pyright language server
+          ansible.builtin.pip:
+            name: pyright
+            extra_args: --user
+        - name: Install CMake language server
+          ansible.builtin.pip:
+            name: cmake-language-server
+            extra_args: --user
+        - name: Install Vim language server
+          become: yes
+          community.general.npm:
+            global: true
+            name: vim-language-server
+    - name: Install lua-language-server
+      vars:
+        luals_path: ~/Workspace/neovim/lua-language-server
+      block:
+        - name: Clone lua-language-server
+          ansible.builtin.git:
+            repo: https://github.com/sumneko/lua-language-server
+            dest: "{{ luals_path }}"
+            recursive: true
+            force: true
+        - name: Cleanup source directory
+          block:
+            - ansible.builtin.command: git clean -fdx
+              args:
+                chdir: "{{ luals_path }}"
+            - ansible.builtin.command: git submodule foreach git clean -fdx
+              args:
+                chdir: "{{ luals_path }}"
+        - name: Get dependencies for lua-language-server
+          become: yes
+          ansible.builtin.dnf:
+            name:
+              - ninja-build
+              - libstdc++-static
+        - name: Build lua-language-server
+          ansible.builtin.command: "{{ luals_path }}/make.sh"
+          args:
+            chdir: "{{ luals_path }}"

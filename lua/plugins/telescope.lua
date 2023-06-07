@@ -67,21 +67,6 @@ return {
     {
         'nvim-telescope/telescope-smart-history.nvim',
         dependencies = { 'nvim-telescope/telescope.nvim', 'kkharji/sqlite.lua' },
-
-        cond = function()
-            -- Notify if libsqlite is not installed
-            if vim.fn.system('/usr/bin/env ldconfig -p | grep libsqlite3.so') == "" then
-                vim.notify_once(
-                    "libsqlite not found in system. Telescope smart history needs libsqlite to work",
-                    vim.log.levels.INFO
-                )
-
-                return false
-            end
-
-            return true
-        end,
-
         config = function() require('telescope').load_extension('smart_history') end
     },
 

@@ -5,15 +5,6 @@ local fn = vim.fn
 vim.g.mapleader = ' '
 
 -- Default grep command
-if fn.executable('rg') == 0 then
-    vim.notify_once(
-        'Ripgrep not found in PATH. Please install ripgrep in order to use this configuration.',
-        vim.log.levels.ERROR
-    )
-
-    return
-end
-
 vim.o.grepprg = 'rg --vimgrep --smart-case'
 
 --- Wildmenu
