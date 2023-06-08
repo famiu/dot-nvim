@@ -18,8 +18,13 @@ local function BootstrapConfig()
 
     -- Use Ansible to install dependencies for the Neovim configuration if needed
     if not loop.fs_stat(lazypath) then
-        -- Don't bootstrap the config if a file argument is passed
+        -- Don't prompt to bootstrap the config if a file argument is passed
         if #fn.argv() ~= 0 then
+            return
+        end
+
+        local choice = vim.fn.confirm('Bootstrap config?', '&Yes\n&No', 2, 'Q')
+        if choice == 2 then
             return
         end
 
