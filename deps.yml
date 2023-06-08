@@ -43,12 +43,6 @@
       ansible.builtin.pip:
         name: cmake-language-server
 
-    - name: Install Vim language server
-      become: yes
-      community.general.npm:
-        global: true
-        name: vim-language-server
-
     - block:
         - name: Clone lua-language-server
           ansible.builtin.git:
