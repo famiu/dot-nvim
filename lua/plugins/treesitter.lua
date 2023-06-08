@@ -18,7 +18,6 @@ function M.config()
             'python',
             'rust',
             'bash',
-            'lua',
             'toml',
             'latex',
             'regex'
