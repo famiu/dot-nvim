@@ -208,9 +208,6 @@ configure_lsp {
     cmd = { os.getenv('HOME') .. '/Workspace/neovim/lua-language-server/bin/lua-language-server' },
     root_pattern = '.git',
     before_init = require('neodev.lsp').before_init,
-    on_attach = function(client, _)
-        client.server_capabilities.completionProvider.triggerCharacters = { '.', ':', ' ' }
-    end,
     settings = {
         Lua = {
             workspace = {
