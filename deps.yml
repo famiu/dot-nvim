@@ -34,14 +34,14 @@
         name: nodejs-bash-language-server
 
     - name: Install pyright language server
+      become: yes
       ansible.builtin.pip:
         name: pyright
-        extra_args: --user
 
     - name: Install CMake language server
+      become: yes
       ansible.builtin.pip:
         name: cmake-language-server
-        extra_args: --user
 
     - name: Install Vim language server
       become: yes
