@@ -66,7 +66,7 @@ InstallConfigDeps = function()
 
     -- Open float window for Ansible
     local float_scale = 0.6
-    local float_win = api.nvim_open_win(0, true, {
+    local float_win = api.nvim_open_win(vim.api.nvim_create_buf(true, false), true, {
         relative = 'editor',
         height = math.floor(vim.o.lines * float_scale + 0.5),
         width = math.floor(vim.o.columns * float_scale + 0.5),
@@ -92,9 +92,7 @@ InstallConfigDeps = function()
     end
 
     -- Open Ansible in float window
-    cmd.terminal(
-        string.format('/usr/bin/env ansible-playbook -K %s/deps.yml', fn.stdpath('config'))
-    )
+    fn.termopen(string.format('/usr/bin/env ansible-playbook -K %s/deps.yml', fn.stdpath('config')))
     cmd.startinsert()
 
     api.nvim_create_autocmd('TermClose', {
