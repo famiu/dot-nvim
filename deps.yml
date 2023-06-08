@@ -56,28 +56,33 @@
             dest: "{{ luals_path }}"
             recursive: true
             force: true
+          register: clone_luals
 
         - block:
             - name: Cleanup source directory
               ansible.builtin.command: git clean -fdx
               args:
                 chdir: "{{ luals_path }}"
+
             - name: Cleanup submodules
               ansible.builtin.command: git submodule foreach git clean -fdx
               args:
                 chdir: "{{ luals_path }}"
 
-        - name: Get dependencies for lua-language-server
-          become: yes
-          ansible.builtin.dnf:
-            name:
-              - ninja-build
-              - libstdc++-static
+            - name: Get dependencies for lua-language-server
+              become: yes
+              ansible.builtin.dnf:
+                name:
+                  - ninja-build
+                  - libstdc++-static
 
-        - name: Build lua-language-server
-          ansible.builtin.command: "{{ luals_path }}/make.sh"
-          args:
-            chdir: "{{ luals_path }}"
-            creates: "{{ luals_path }}/bin/lua-language-server"
+            - name: Build lua-language-server
+              ansible.builtin.command: "{{ luals_path }}/make.sh"
+              args:
+                chdir: "{{ luals_path }}"
+                creates: "{{ luals_path }}/bin/lua-language-server"
+
+          when: clone_luals.changed
+
       vars:
         luals_path: ~/Workspace/neovim/lua-language-server

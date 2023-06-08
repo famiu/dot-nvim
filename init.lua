@@ -18,6 +18,11 @@ local function BootstrapConfig()
 
     -- Use Ansible to install dependencies for the Neovim configuration if needed
     if not loop.fs_stat(lazypath) then
+        -- Don't bootstrap the config if a file argument is passed
+        if #fn.argv() ~= 0 then
+            return
+        end
+
         InstallConfigDeps()
 
         api.nvim_create_autocmd('User', {
@@ -45,28 +50,54 @@ end
 
 InstallConfigDeps = function()
     if fn.executable('ansible-playbook') == 0 then
-        api.nvim_err_writeln('ansible-playbook not found. Cannot install config dependencies')
+        vim.notify(
+            'ansible-playbook not found. Cannot install config dependencies',
+            vim.log.levels.ERROR
+        )
         return
     end
 
     vim.notify('Installing config dependencies using Ansible', vim.log.levels.INFO)
 
-    -- Make sure current window is the only window
-    if #api.nvim_list_wins() > 1 then
-        cmd.wincmd('o')
+    -- Open float window for Ansible
+    local float_scale = 0.6
+    local float_win = api.nvim_open_win(0, true, {
+        relative = 'editor',
+        height = math.floor(vim.o.lines * float_scale + 0.5),
+        width = math.floor(vim.o.columns * float_scale + 0.5),
+        row = math.floor(vim.o.lines * (1 - float_scale) / 2 + 0.5),
+        col = math.floor(vim.o.columns * (1 - float_scale) / 2 + 0.5),
+        zindex = 1000,
+        style = 'minimal',
+        border = 'single',
+        title = 'Config dependency installer',
+        title_pos = 'center'
+    })
+
+    -- If this function is being run before VimEnter, then the float window is going to lose focus.
+    -- To prevent that, refocus the window on VimEnter.
+    if vim.v.vim_did_enter == 0 then
+        api.nvim_create_autocmd('VimEnter', {
+            once = true,
+            desc = 'Focus Ansible window',
+            callback = function(_)
+                api.nvim_set_current_win(float_win)
+            end
+        })
     end
 
-    -- Open Ansible in current window
+    -- Open Ansible in float window
     cmd.terminal(
         string.format('/usr/bin/env ansible-playbook -K %s/deps.yml', fn.stdpath('config'))
     )
+    cmd.startinsert()
 
     api.nvim_create_autocmd('TermClose', {
         once = true,
         desc = 'Automatically close Ansible terminal',
         callback = function(opts)
             if vim.v.event.status ~= 0 then
-                api.nvim_err_writeln("Error while installing config dependencies")
+                vim.notify('Error while installing config dependencies', vim.log.levels.ERROR)
                 return
             end
 
