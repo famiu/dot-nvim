@@ -6,17 +6,15 @@ return {
 
         init = function()
             local keymap = vim.keymap
-            local ts_builtin = require('telescope.builtin')
-            local ts_extensions = require('telescope').extensions
 
-            keymap.set('n', '<Leader>ff', function() ts_builtin.find_files() end, {})
-            keymap.set('n', '<Leader>fg', function() ts_extensions.live_grep_args.live_grep_args() end, {})
-            keymap.set('n', '<Leader>fb', function() ts_builtin.buffers() end, {})
-            keymap.set('n', '<Leader>fh', function() ts_builtin.help_tags() end, {})
-            keymap.set('n', '<Leader>ft', function() ts_builtin.treesitter() end, {})
-            keymap.set('n', '<Leader>fd', function() ts_builtin.diagnostics() end, {})
-            keymap.set('n', '<Leader>fo', function() ts_builtin.oldfiles() end, {})
-            keymap.set('n', '<Leader>qf', function() ts_builtin.quickfix() end, {})
+            keymap.set('n', '<Leader>ff', function() require('telescope.builtin').find_files() end, {})
+            keymap.set('n', '<Leader>fg', function() require('telescope').extensions.live_grep_args.live_grep_args() end, {})
+            keymap.set('n', '<Leader>fb', function() require('telescope.builtin').buffers() end, {})
+            keymap.set('n', '<Leader>fh', function() require('telescope.builtin').help_tags() end, {})
+            keymap.set('n', '<Leader>ft', function() require('telescope.builtin').treesitter() end, {})
+            keymap.set('n', '<Leader>fd', function() require('telescope.builtin').diagnostics() end, {})
+            keymap.set('n', '<Leader>fo', function() require('telescope.builtin').oldfiles() end, {})
+            keymap.set('n', '<Leader>qf', function() require('telescope.builtin').quickfix() end, {})
         end,
 
         -- `opts` is not used because telescope needs to be loaded prior to the config being evaluated.
@@ -55,6 +53,10 @@ return {
                     }
                 }
             }
+
+            pcall(require('telescope').load_extension, 'fzf')
+            require('telescope').load_extension('ui-select')
+            require('telescope').load_extension('smart_history')
         end,
     },
 
@@ -62,19 +64,16 @@ return {
         'nvim-telescope/telescope-fzf-native.nvim',
         build = 'make',
         dependencies = 'nvim-telescope/telescope.nvim',
-        config = function() pcall(require('telescope').load_extension, 'fzf') end
     },
 
     {
         'nvim-telescope/telescope-ui-select.nvim',
         dependencies = 'nvim-telescope/telescope.nvim',
-        config = function() require('telescope').load_extension('ui-select') end
     },
 
     {
         'nvim-telescope/telescope-smart-history.nvim',
         dependencies = { 'nvim-telescope/telescope.nvim', 'kkharji/sqlite.lua' },
-        config = function() require('telescope').load_extension('smart_history') end
     },
 
     {
