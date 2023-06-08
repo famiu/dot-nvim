@@ -6,7 +6,7 @@ return {
             vim.cmd.colorscheme('carbonfox')
         end
     },
-    { 'folke/neodev.nvim', lazy = true,  opts = { lspconfig = false } },
+    { 'folke/neodev.nvim', lazy = true, opts = { lspconfig = false } },
     {
         'famiu/bufdelete.nvim',
         lazy = true,
@@ -22,7 +22,7 @@ return {
     { 'echasnovski/mini.align', config = function() require('mini.align').setup() end },
     {
         'tpope/vim-surround',
-        init = function ()
+        init = function()
             -- Change surround mappings so that they don't conflict with leap.nvim.
             vim.g.surround_no_mappings = 1
             vim.keymap.set('n', 'ds', '<Plug>Dsurround')
@@ -40,10 +40,12 @@ return {
     'tpope/vim-sleuth',
     {
         'akinsho/toggleterm.nvim',
+        lazy = true,
+        keys = '<C-t>',
         opts = {
             size = 20,
             open_mapping = [[<C-t>]]
-        }
+        },
     },
     {
         'rmagatti/auto-session',
@@ -56,6 +58,6 @@ return {
             bypass_session_save_file_types = nil
         }
     },
-    'L3MON4D3/LuaSnip',
-    'mfussenegger/nvim-lsp-compl',
+    { 'L3MON4D3/LuaSnip', lazy = true },
+    { 'mfussenegger/nvim-lsp-compl', lazy = true }
 }

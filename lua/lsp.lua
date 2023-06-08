@@ -108,16 +108,18 @@ local function buf_find_root(bufnr, pattern)
     return fs.dirname(fs.find(pattern, { upward = true, path = buf_parent_dir(bufnr) })[1])
 end
 
-local capabilities = vim.tbl_deep_extend(
-    'force',
-    vim.lsp.protocol.make_client_capabilities(),
-    require('lsp_compl').capabilities()
-)
+local function default_capabilities()
+    return vim.tbl_deep_extend(
+        'force',
+        vim.lsp.protocol.make_client_capabilities(),
+        require('lsp_compl').capabilities()
+    )
+end
 
 -- Configure an LSP server.
 --
 -- Takes a single configuration dict. The following keys are required:
---   - name (string) : Name of the LSP server
+--   - name (string) : Name of the LSP serverlsp
 --   - ftpattern (string | array[string]) : Filetype pattern(s) that trigger the LSP server
 --   - cmd (array[string]) : Command used to launch the LSP server
 --   - root_pattern (string | array[string]) : Patterns used to find the root_dir
@@ -159,7 +161,7 @@ local function configure_lsp(config)
     local root_pattern = validate_config_key('root_pattern', { 'string', 'table' })
     local final_capabilities = vim.tbl_extend(
         'force',
-        capabilities,
+        default_capabilities(),
         validate_config_key('capabilities', { 'table' }, true, {})
     )
 
