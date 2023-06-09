@@ -108,7 +108,9 @@ local function dapconfig()
             program = os.getenv('HOME') .. '/Workspace/neovim/neovim/build/bin/nvim',
             cwd = '${workspaceFolder}',
             stopOnEntry = false,
-            args = { '--clean' },
+            args = function()
+                return vim.split(fn.input('Args: ', '--clean '), ' ')
+            end,
             runInTerminal = true,
         },
         {
