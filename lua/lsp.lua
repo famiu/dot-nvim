@@ -76,26 +76,6 @@ api.nvim_create_autocmd('LspAttach', {
         if client.server_capabilities.documentSymbolProvider then
             navic.attach(client, bufnr)
         end
-
-        -- Completion (using nvim-lsp-compl)
-        require('lsp_compl').attach(client, bufnr, {
-            server_side_fuzzy_completion = true,
-            trigger_on_delete = true,
-        })
-
-        keymap.set('i', '<CR>', function()
-            return require('lsp_compl').accept_pum() and '<c-y>' or '<CR>'
-        end, { expr = true })
-
-        -- Cycle through completion using Tab / Shift-Tab.
-        keymap.set('i', '<Tab>', function()
-            return vim.fn.pumvisible() and '<C-n>' or '<Tab>'
-        end, { expr = true })
-
-        -- Cycle through completion using Tab / Shift-Tab.
-        keymap.set('i', '<S-Tab>', function()
-            return vim.fn.pumvisible() and '<C-p>' or '<S-Tab>'
-        end, { expr = true })
     end
 })
 
@@ -109,11 +89,7 @@ local function buf_find_root(bufnr, pattern)
 end
 
 local function default_capabilities()
-    return vim.tbl_deep_extend(
-        'force',
-        vim.lsp.protocol.make_client_capabilities(),
-        require('lsp_compl').capabilities()
-    )
+    return require('cmp_nvim_lsp').default_capabilities()
 end
 
 -- Configure an LSP server.
