@@ -1,3 +1,5 @@
+local keymap = vim.keymap
+
 return {
     {
         'EdenEast/nightfox.nvim',
@@ -8,13 +10,11 @@ return {
     },
     {
         'famiu/bufdelete.nvim',
-        lazy = true,
         name = 'bufdelete',
         dev = true,
-        cmd = { 'Bdelete', 'Bwipeout' },
-        keys = {
-            { '<Leader>x', '<CMD>Bdelete<CR>', desc = 'Delete buffer' }
-        }
+        init = function()
+            keymap.set('n', '<Leader>x', '<CMD>Bdelete<CR>', { silent = true })
+        end
     },
     { 'numToStr/Comment.nvim', opts = {} },
     { 'windwp/nvim-autopairs', opts = {} },
@@ -24,16 +24,16 @@ return {
         init = function()
             -- Change surround mappings so that they don't conflict with leap.nvim.
             vim.g.surround_no_mappings = 1
-            vim.keymap.set('n', 'ds', '<Plug>Dsurround')
-            vim.keymap.set('n', 'cs', '<Plug>Csurround')
-            vim.keymap.set('n', 'cS', '<Plug>CSurround')
-            vim.keymap.set('n', 'ys', '<Plug>Ysurround')
-            vim.keymap.set('n', 'yS', '<Plug>YSurround')
-            vim.keymap.set('n', 'yss', '<Plug>Yssurround')
-            vim.keymap.set('n', 'ySs', '<Plug>YSsurround')
-            vim.keymap.set('n', 'ySS', '<Plug>YSsurround')
-            vim.keymap.set('x', 'gs', '<Plug>VSurround')
-            vim.keymap.set('x', 'gS', '<Plug>VgSurround')
+            keymap.set('n', 'ds', '<Plug>Dsurround')
+            keymap.set('n', 'cs', '<Plug>Csurround')
+            keymap.set('n', 'cS', '<Plug>CSurround')
+            keymap.set('n', 'ys', '<Plug>Ysurround')
+            keymap.set('n', 'yS', '<Plug>YSurround')
+            keymap.set('n', 'yss', '<Plug>Yssurround')
+            keymap.set('n', 'ySs', '<Plug>YSsurround')
+            keymap.set('n', 'ySS', '<Plug>YSsurround')
+            keymap.set('x', 'gs', '<Plug>VSurround')
+            keymap.set('x', 'gS', '<Plug>VgSurround')
         end
     },
     'tpope/vim-sleuth',
