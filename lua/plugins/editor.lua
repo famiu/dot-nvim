@@ -4,7 +4,7 @@ return {
     {
         'EdenEast/nightfox.nvim',
         config = function()
-            require('nightfox').setup({})
+            require('nightfox').setup {}
             vim.cmd.colorscheme('carbonfox')
         end
     },
@@ -36,6 +36,7 @@ return {
             keymap.set('x', 'gS', '<Plug>VgSurround')
         end
     },
+    'AndrewRadev/splitjoin.vim',
     'tpope/vim-sleuth',
     {
         'akinsho/toggleterm.nvim',
