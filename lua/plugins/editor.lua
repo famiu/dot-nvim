@@ -6,7 +6,6 @@ return {
             vim.cmd.colorscheme('carbonfox')
         end
     },
-    { 'folke/neodev.nvim', lazy = true, opts = { lspconfig = false } },
     {
         'famiu/bufdelete.nvim',
         lazy = true,
@@ -17,9 +16,9 @@ return {
             { '<Leader>x', '<CMD>Bdelete<CR>', desc = 'Delete buffer' }
         }
     },
-    { 'numToStr/Comment.nvim', config = true },
-    { 'windwp/nvim-autopairs', config = true },
-    { 'echasnovski/mini.align', config = function() require('mini.align').setup() end },
+    { 'numToStr/Comment.nvim', opts = {} },
+    { 'windwp/nvim-autopairs', opts = {} },
+    { 'echasnovski/mini.align', opts = {} },
     {
         'tpope/vim-surround',
         init = function()
@@ -58,6 +57,4 @@ return {
             bypass_session_save_file_types = nil
         }
     },
-    { 'L3MON4D3/LuaSnip', lazy = true },
-    { 'mfussenegger/nvim-lsp-compl', lazy = true }
 }
