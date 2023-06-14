@@ -37,37 +37,21 @@ function M.config()
         textobjects = {
             select = {
                 enable = true,
-
                 -- Automatically jump forward to textobj, similar to targets.vim
                 lookahead = true,
-
                 keymaps = {
+                    ['aa'] = '@parameter.outer',
+                    ['ia'] = '@parameter.inner',
                     ['af'] = '@function.outer',
                     ['if'] = '@function.inner',
                     ['ac'] = '@class.outer',
                     ['ic'] = '@class.inner',
-                    -- You can also use captures from other query groups like `locals.scm`
+                    ['ad'] = '@conditional.outer',
+                    ['id'] = '@conditional.inner',
+                    ['ao'] = '@loop.outer',
+                    ['io'] = '@loop.inner',
                     ['as'] = { query = '@scope', query_group = 'locals' },
                 },
-                -- You can choose the select mode (default is charwise 'v')
-                --
-                -- Can also be a function which gets passed a table with the keys
-                -- * query_string: eg '@function.inner'
-                -- * method: eg 'v' or 'o'
-                -- and should return the mode ('v', 'V', or '<c-v>') or a table
-                -- mapping query_strings to modes.
-                selection_modes = {
-                },
-                -- If you set this to `true` (default is `false`) then any textobject is
-                -- extended to include preceding or succeeding whitespace. Succeeding
-                -- whitespace has priority in order to act similarly to eg the built-in
-                -- `ap`.
-                --
-                -- Can also be a function which gets passed a table with the keys
-                -- * query_string: eg '@function.inner'
-                -- * selection_mode: eg 'v'
-                -- and should return true of false
-                include_surrounding_whitespace = true,
             },
             swap = {
                 enable = true,
@@ -86,7 +70,7 @@ function M.config()
                     [']m'] = '@function.outer',
                     [']]'] = '@class.outer',
                     [']d'] = '@conditional.outer',
-                    [']o'] = { query = { '@loop.outer', '@loop.inner' } },
+                    [']o'] = '@loop.outer',
                     [']s'] = { query = '@scope', query_group = 'locals' },
                     [']z'] = { query = '@fold', query_group = 'folds' },
                 },
@@ -94,13 +78,17 @@ function M.config()
                     [']A'] = '@parameter.inner',
                     [']M'] = '@function.outer',
                     [']['] = '@class.outer',
+                    [']D'] = '@conditional.outer',
+                    [']O'] = '@loop.outer',
+                    [']S'] = { query = '@scope', query_group = 'locals' },
+                    [']Z'] = { query = '@fold', query_group = 'folds' },
                 },
                 goto_previous_start = {
                     ['[a'] = '@parameter.inner',
                     ['[m'] = '@function.outer',
                     ['[['] = '@class.outer',
                     ['[d'] = '@conditional.outer',
-                    ['[o'] = { query = { '@loop.outer', '@loop.inner' } },
+                    ['[o'] = '@loop.outer',
                     ['[s'] = { query = '@scope', query_group = 'locals' },
                     ['[z'] = { query = '@fold', query_group = 'folds' },
                 },
@@ -108,10 +96,11 @@ function M.config()
                     ['[A'] = '@parameter.inner',
                     ['[M'] = '@function.outer',
                     ['[]'] = '@class.outer',
+                    ['[D'] = '@conditional.outer',
+                    ['[O'] = '@loop.outer',
+                    ['[S'] = { query = '@scope', query_group = 'locals' },
+                    ['[Z'] = { query = '@fold', query_group = 'folds' },
                 },
-                -- Below will go to either the start or the end, whichever is closer.
-                -- Use if you want more granular movements
-                -- Make it even more gradual by adding multiple queries and regex.
                 goto_next = {
                 },
                 goto_previous = {
