@@ -4,12 +4,25 @@ local keymap = vim.keymap
 keymap.set('n', 'H', '^')
 keymap.set('n', 'L', '$')
 
+-- Make J and K move selected lines up and down
+keymap.set('v', 'J', ":move '>+1<CR>gv=gv", { silent = true })
+keymap.set('v', 'K', ":move '<-2<CR>gv=gv", { silent = true })
+
+-- Don't move cursor when using J to join lines
+keymap.set('n', 'J', 'mzJ`z')
+
+-- Make certain motions keep cursor in the middle
+keymap.set('n', '<C-u>', '<C-u>zz')
+keymap.set('n', '<C-d>', '<C-d>zz')
+keymap.set('n', 'n', 'nzz')
+keymap.set('n', 'N', 'Nzz')
+
 -- Don't leave visual mode after indenting
 keymap.set('v', '>', '>gv^')
 keymap.set('v', '<', '<gv^')
 
 -- Apply the . command to all selected lines in visual mode
-keymap.set('v', '.', ':normal .<CR>')
+keymap.set('v', '.', ':normal .<CR>', { silent = true })
 
 -- Previous/next buffer
 keymap.set('n', '[b', '<CMD>bprevious<CR>')
@@ -58,5 +71,5 @@ keymap.set({'n', 'i'}, '<Down>', '<Nop>')
 keymap.set('n', '<Leader>qq', '<CMD>quitall<CR>')
 keymap.set('n', '<Leader>QQ', '<CMD>quitall!<CR>')
 
--- Selected pasted text
-keymap.set('n', '<Leader>p', [=['[v']]=])
+-- Indent pasted text
+keymap.set('n', '<Leader>p=', "'[v']=")
