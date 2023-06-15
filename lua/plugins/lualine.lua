@@ -1,7 +1,7 @@
 return {
     'nvim-lualine/lualine.nvim',
     dependencies = {
-        'kyazdani42/nvim-web-devicons',
+        'nvim-tree/nvim-web-devicons',
         'SmiteshP/nvim-navic',
         'EdenEast/nightfox.nvim', -- Colorscheme is needed for Lualine theme
         'folke/noice.nvim',       -- For mode
