@@ -38,6 +38,7 @@ return {
     },
     'AndrewRadev/splitjoin.vim',
     'tpope/vim-sleuth',
+    { 'mbbill/undotree', keys = {{ '<Leader>u', '<CMD>UndotreeToggle<CR>' }} },
     {
         'akinsho/toggleterm.nvim',
         lazy = true,
