@@ -4,10 +4,12 @@
 - name: Install all Neovim config dependencies
   hosts: localhost
   tasks:
-    - name: Install ripgrep (for 'grepprg' and Telescope)
+    - name: Install ripgrep and fd (for 'grepprg' and Telescope)
       become: yes
       ansible.builtin.dnf:
-        name: ripgrep
+        name:
+          - ripgrep
+          - fd-find
 
     - name: Install libsqlite (for Telescope smart history)
       become: yes
