@@ -8,6 +8,7 @@ return {
             local keymap = vim.keymap
 
             keymap.set('n', '<Leader>ff', function() require('telescope.builtin').find_files() end)
+            keymap.set('n', '<Leader>fF', function() require('telescope.builtin').git_files() end)
             keymap.set('n', '<Leader>fg', function()
                 require('telescope').extensions.live_grep_args.live_grep_args()
             end)
