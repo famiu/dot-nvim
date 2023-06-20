@@ -24,6 +24,9 @@ keymap.set('v', '<', '<gv^')
 -- Apply the . command to all selected lines in visual mode
 keymap.set('v', '.', ':normal .<CR>', { silent = true })
 
+-- Treat <Leader>w like <C-w> so it can be used for window mappings
+keymap.set('n', '<Leader>w', function() return '<C-w>' end, { expr = true, silent = true })
+
 -- Previous/next buffer
 keymap.set('n', '[b', '<CMD>bprevious<CR>')
 keymap.set('n', ']b', '<CMD>bnext<CR>')
