@@ -80,7 +80,6 @@ api.nvim_create_autocmd('LspAttach', {
         -- Enable inlay hints only in normal mode
         if client.server_capabilities.inlayHintProvider then
             api.nvim_create_autocmd({ "InsertEnter" }, {
-                buffer = bufnr,
                 group = augroup,
                 callback = function(_)
                     lsp.buf.inlay_hint(bufnr, false)
@@ -88,7 +87,6 @@ api.nvim_create_autocmd('LspAttach', {
             })
 
             api.nvim_create_autocmd({ "InsertLeave " }, {
-                buffer = bufnr,
                 group = augroup,
                 callback = function(_)
                     lsp.buf.inlay_hint(bufnr, true)
