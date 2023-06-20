@@ -162,7 +162,7 @@ end
 configure_lsp {
     name = 'clangd',
     ftpattern = { 'c', 'cpp' },
-    cmd = { 'clangd', '--background-index' },
+    cmd = { 'clangd', '--background-index', '--clang-tidy' },
     root_pattern = { 'compile_commands.json', '.git' },
 }
 
