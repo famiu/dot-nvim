@@ -1,5 +1,4 @@
 local g = vim.g
-local fn = vim.fn
 
 -- Set mapleader to space
 vim.g.mapleader = ' '
