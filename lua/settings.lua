@@ -47,7 +47,7 @@ vim.o.foldnestmax = 3
 vim.o.foldminlines = 4
 
 -- Session options
-vim.o.sessionoptions = "blank,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = 'blank,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
 -- Search
 vim.o.ignorecase = true
@@ -65,7 +65,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 -- Diff options
-vim.o.diffopt = "internal,filler,closeoff,vertical,linematch:60"
+vim.o.diffopt = 'internal,filler,closeoff,vertical,linematch:60'
 
 -- Faster update time
 vim.o.updatetime = 100

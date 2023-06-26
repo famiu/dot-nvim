@@ -81,15 +81,15 @@ api.nvim_create_autocmd('LspAttach', {
         if client.server_capabilities.inlayHintProvider then
             lsp.buf.inlay_hint(bufnr, api.nvim_get_mode().mode:sub(1,1) ~= 'i')
 
-            api.nvim_create_autocmd({ "InsertEnter", "InsertLeave", "BufEnter" }, {
+            api.nvim_create_autocmd({ 'InsertEnter', 'InsertLeave', 'BufEnter' }, {
                 group = augroup,
                 buffer = bufnr,
                 callback = function(au_opts)
                     local enable
 
-                    if au_opts.event == "InsertEnter" then
+                    if au_opts.event == 'InsertEnter' then
                         enable = false
-                    elseif au_opts.event == "InsertLeave" then
+                    elseif au_opts.event == 'InsertLeave' then
                         enable = true
                     else
                         enable = vim.api.nvim_get_mode().mode:sub(1,1) ~= 'i'

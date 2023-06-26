@@ -5,8 +5,8 @@ keymap.set('n', 'H', '^')
 keymap.set('n', 'L', '$')
 
 -- Make J and K move selected lines up and down
-keymap.set('v', 'J', ":move '>+1<CR>gv=gv", { silent = true })
-keymap.set('v', 'K', ":move '<-2<CR>gv=gv", { silent = true })
+keymap.set('v', 'J', [[:move '>+1<CR>gv=gv]], { silent = true })
+keymap.set('v', 'K', [[:move '<-2<CR>gv=gv]], { silent = true })
 
 -- Don't move cursor when using J to join lines
 keymap.set('n', 'J', 'mzJ`z')
@@ -75,4 +75,4 @@ keymap.set('n', '<Leader>qq', '<CMD>quitall<CR>')
 keymap.set('n', '<Leader>QQ', '<CMD>quitall!<CR>')
 
 -- Indent pasted text
-keymap.set('n', '<Leader>p=', "'[v']=")
+keymap.set('n', '<Leader>p=', [['[v']=]])
