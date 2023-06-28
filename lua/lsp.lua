@@ -79,7 +79,7 @@ api.nvim_create_autocmd('LspAttach', {
 
         -- Auto-enable inlay hints only in normal mode
         if client.server_capabilities.inlayHintProvider then
-            lsp.buf.inlay_hint(bufnr, api.nvim_get_mode().mode:sub(1,1) ~= 'i')
+            lsp.buf.inlay_hint(bufnr, api.nvim_get_mode().mode:sub(1, 1) ~= 'i')
 
             api.nvim_create_autocmd({ 'InsertEnter', 'InsertLeave', 'BufEnter' }, {
                 group = augroup,
@@ -92,7 +92,7 @@ api.nvim_create_autocmd('LspAttach', {
                     elseif au_opts.event == 'InsertLeave' then
                         enable = true
                     else
-                        enable = vim.api.nvim_get_mode().mode:sub(1,1) ~= 'i'
+                        enable = vim.api.nvim_get_mode().mode:sub(1, 1) ~= 'i'
                     end
 
                     lsp.buf.inlay_hint(bufnr, enable)
@@ -194,6 +194,13 @@ configure_lsp {
     ftpattern = 'rust',
     cmd = { 'rust-analyzer' },
     root_pattern = { 'Cargo.toml', '.git' },
+    settings = {
+        ['rust-analyzer'] = {
+            check = {
+                command = "clippy",
+            },
+        },
+    },
 }
 
 configure_lsp {
