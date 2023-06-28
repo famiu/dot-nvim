@@ -80,7 +80,8 @@ vim.o.sidescrolloff = 5
 -- Allow project specific configuration
 vim.o.exrc = true
 
--- Allow mouse move events
+-- Mouse
+vim.o.mouse = "nv"
 vim.o.mousemoveevent = true
 
 -- Disable using netrw for 'gx' and set it manually
