@@ -10,6 +10,11 @@ return {
                 uppercase = false,
             },
         },
+        modes = {
+            search = {
+                enabled = false
+            },
+        },
     },
     keys = {
         {
