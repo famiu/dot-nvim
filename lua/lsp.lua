@@ -199,6 +199,9 @@ configure_lsp {
             check = {
                 command = "clippy",
             },
+            rustfmt = {
+                extraArgs = { '+nightly' },
+            },
         },
     },
 }
