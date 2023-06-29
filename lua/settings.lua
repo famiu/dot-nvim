@@ -35,6 +35,9 @@ vim.o.termguicolors = true
 vim.o.number = true
 vim.o.relativenumber = true
 
+-- Inccommand
+vim.o.inccommand = 'split'
+
 -- Folding configuration
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
