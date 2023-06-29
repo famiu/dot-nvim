@@ -12,6 +12,11 @@ return {
             search = {
                 enabled = true
             },
+            char = {
+                jump_labels = function(motion)
+                    return vim.v.count == 0 and motion:find("[ftFT]")
+                end,
+            }
         },
     },
     keys = {
