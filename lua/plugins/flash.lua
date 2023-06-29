@@ -5,10 +5,8 @@ return {
         jump = {
             autojump = true,
         },
-        highlight = {
-            label = {
-                uppercase = false,
-            },
+        label = {
+            uppercase = false,
         },
         modes = {
             search = {
