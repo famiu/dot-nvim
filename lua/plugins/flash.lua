@@ -13,8 +13,8 @@ return {
                 enabled = true
             },
             char = {
-                jump_labels = function(motion)
-                    return vim.v.count == 0 and motion:find("[ftFT]")
+                jump_labels = function(_)
+                    return vim.v.count == 0
                 end,
             }
         },
