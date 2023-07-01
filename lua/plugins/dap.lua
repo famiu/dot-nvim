@@ -151,6 +151,7 @@ local function dapconfig()
                         return tonumber(vim.fn.system('ps -o pid= --ppid ' .. tostring(ppid))) ~= nil
                     end)
                     local pid = tonumber(vim.fn.system('ps -o pid= --ppid ' .. tostring(ppid)))
+                    local home = os.getenv('HOME')
 
                     -- If we found it, spawn another debug session that attaches to the pid.
                     if pid then
@@ -160,8 +161,9 @@ local function dapconfig()
                             request = 'attach',
                             pid = pid,
                             -- ⬇️ Change paths as needed
-                            program = os.getenv('HOME') .. '/Workspace/neovim/neovim/build/bin/nvim',
-                            cwd = os.getenv('HOME') .. '/Workspace/neovim/neovim/',
+                            program = home .. '/Workspace/neovim/neovim/build/bin/nvim',
+                            env = { 'VIMRUNTIME=' .. home .. '/Workspace/neovim/neovim/runtime' },
+                            cwd = home .. '/Workspace/neovim/neovim/',
                             externalConsole = false,
                         })
                     end
