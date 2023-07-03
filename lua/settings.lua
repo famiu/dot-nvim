@@ -45,7 +45,7 @@ vim.o.foldtext = [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'
     [[' ... '.trim(getline(v:foldend)).]] ..
     [[' ('.(v:foldend-v:foldstart).' lines folded...)']]
 vim.o.foldenable = false
-vim.o.fillchars = 'fold: '
+vim.o.fillchars = 'fold: ,diff: '
 vim.o.foldnestmax = 3
 vim.o.foldminlines = 4
 
@@ -68,7 +68,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 -- Diff options
-vim.o.diffopt = 'internal,filler,closeoff,vertical,linematch:60'
+vim.o.diffopt = 'internal,filler,closeoff,hiddenoff,vertical,iwhite,indent-heuristic,linematch:60,algorithm:histogram'
 
 -- Faster update time
 vim.o.updatetime = 100
