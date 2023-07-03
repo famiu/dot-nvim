@@ -76,9 +76,10 @@ vim.o.updatetime = 100
 -- Highlight current line
 vim.o.cursorline = true
 
--- Scroll offsets
+-- Scroll
 vim.o.scrolloff = 10
 vim.o.sidescrolloff = 5
+vim.o.smoothscroll = true
 
 -- Allow project specific configuration
 vim.o.exrc = true
