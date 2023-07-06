@@ -88,9 +88,5 @@ vim.o.exrc = true
 vim.o.mouse = "nv"
 vim.o.mousemoveevent = true
 
--- Disable using netrw for 'gx' and set it manually
-g.netrw_nogx = 1
-vim.keymap.set('n', 'gx', '<cmd>!xdg-open <cfile><CR>', {})
-
 -- Use LaTeX as default tex flavor
 g.tex_flavor = 'latex'
