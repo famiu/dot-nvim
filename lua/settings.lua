@@ -1,7 +1,10 @@
 local g = vim.g
 
 -- Set mapleader to space
-vim.g.mapleader = ' '
+g.mapleader = ' '
+
+-- Use LaTeX as default tex flavor
+g.tex_flavor = 'latex'
 
 -- Default grep command
 vim.o.grepprg = 'rg --vimgrep --smart-case'
@@ -87,6 +90,3 @@ vim.o.exrc = true
 -- Mouse
 vim.o.mouse = "nv"
 vim.o.mousemoveevent = true
-
--- Use LaTeX as default tex flavor
-g.tex_flavor = 'latex'
