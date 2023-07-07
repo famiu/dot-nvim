@@ -36,6 +36,7 @@ fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignOk'
 -- LSP configuration
 api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP configuration',
+    group = augroup,
     callback = function(args)
         local bufnr = args.buf
         local client = lsp.get_client_by_id(args.data.client_id)
@@ -60,14 +61,6 @@ api.nvim_create_autocmd('LspAttach', {
         keymap.set('n', ']g', function() diagnostic.goto_next() end, opts)
         keymap.set('n', '[g', function() diagnostic.goto_prev() end, opts)
         keymap.set('n', '<Leader>ca', lsp.buf.code_action, opts)
-
-        -- Telescope mappings (lazy-loaded)
-        keymap.set('n', '<Leader>fS',
-            function() require('telescope.builtin').lsp_document_symbols() end,
-            opts)
-        keymap.set('n', '<Leader>fs',
-            function() require('telescope.builtin').lsp_workspace_symbols() end,
-            opts)
 
         if client.supports_method('textDocument/formatting') then
             keymap.set({ 'n', 'v' }, '<space>lf', function() lsp.buf.format() end, opts)

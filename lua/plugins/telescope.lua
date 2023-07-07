@@ -58,6 +58,25 @@ return {
             pcall(require('telescope').load_extension, 'fzf')
             require('telescope').load_extension('ui-select')
             require('telescope').load_extension('smart_history')
+
+            -- Telescope LSP mappings
+            local augroup = vim.api.nvim_create_augroup('telescope-lsp', {})
+            vim.api.nvim_create_autocmd('LspAttach', {
+                desc = 'Telescope LSP keybindings',
+                group = augroup,
+                callback = function(args)
+                    vim.keymap.set(
+                        'n', '<Leader>fS',
+                        function() require('telescope.builtin').lsp_document_symbols() end,
+                        { buffer = args.buf }
+                    )
+                    vim.keymap.set(
+                        'n', '<Leader>fs',
+                        function() require('telescope.builtin').lsp_workspace_symbols() end,
+                        { buffer = args.buf }
+                    )
+                end
+            })
         end,
     },
 
