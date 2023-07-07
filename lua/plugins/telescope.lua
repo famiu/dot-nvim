@@ -4,20 +4,16 @@ return {
         lazy = true,
         dependencies = 'nvim-lua/plenary.nvim',
 
-        init = function()
-            local keymap = vim.keymap
-
-            keymap.set('n', '<Leader>ff', function() require('telescope.builtin').find_files() end)
-            keymap.set('n', '<Leader>fF', function() require('telescope.builtin').git_files() end)
-            keymap.set('n', '<Leader>fg', function()
-                require('telescope').extensions.live_grep_args.live_grep_args()
-            end)
-            keymap.set('n', '<Leader>fh', function() require('telescope.builtin').help_tags() end)
-            keymap.set('n', '<Leader>ft', function() require('telescope.builtin').treesitter() end)
-            keymap.set('n', '<Leader>fd', function() require('telescope.builtin').diagnostics() end)
-            keymap.set('n', '<Leader>fo', function() require('telescope.builtin').oldfiles() end)
-            keymap.set('n', '<Leader>qf', function() require('telescope.builtin').quickfix() end)
-        end,
+        keys = {
+            { '<Leader>ff', function() require('telescope.builtin').find_files() end },
+            { '<Leader>fF', function() require('telescope.builtin').git_files() end },
+            { '<Leader>fg', function() require('telescope').extensions.live_grep_args.live_grep_args() end },
+            { '<Leader>fh', function() require('telescope.builtin').help_tags() end },
+            { '<Leader>ft', function() require('telescope.builtin').treesitter() end },
+            { '<Leader>fd', function() require('telescope.builtin').diagnostics() end },
+            { '<Leader>fo', function() require('telescope.builtin').oldfiles() end },
+            { '<Leader>qf', function() require('telescope.builtin').quickfix() end },
+        },
 
         -- `opts` is not used because telescope needs to be loaded prior to the config being evaluated.
         config = function()
@@ -83,21 +79,25 @@ return {
     {
         'nvim-telescope/telescope-fzf-native.nvim',
         build = 'make',
+        lazy = true,
         dependencies = 'nvim-telescope/telescope.nvim',
     },
 
     {
         'nvim-telescope/telescope-ui-select.nvim',
+        lazy = true,
         dependencies = 'nvim-telescope/telescope.nvim',
     },
 
     {
         'nvim-telescope/telescope-smart-history.nvim',
+        lazy = true,
         dependencies = { 'nvim-telescope/telescope.nvim', 'kkharji/sqlite.lua' },
     },
 
     {
         'nvim-telescope/telescope-live-grep-args.nvim',
+        lazy = true,
         dependencies = { 'nvim-telescope/telescope.nvim' }
     },
 }

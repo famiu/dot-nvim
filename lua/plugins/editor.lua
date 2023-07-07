@@ -14,35 +14,37 @@ return {
         dev = true,
         init = function()
             keymap.set('n', '<Leader>x', '<CMD>Bdelete<CR>', { silent = true })
-        end
+        end,
+        cmd = { 'Bdelete', 'Bwipeout' }
     },
-    { 'numToStr/Comment.nvim', opts = {} },
-    { 'windwp/nvim-autopairs', opts = {} },
-    { 'echasnovski/mini.align', opts = {} },
+    { 'numToStr/Comment.nvim', event = 'VeryLazy', opts = {} },
+    { 'windwp/nvim-autopairs', event = 'VeryLazy', opts = {} },
+    { 'echasnovski/mini.align', event = 'VeryLazy', opts = {} },
     {
         'tpope/vim-surround',
         init = function()
-            -- Change surround mappings so that they don't conflict with leap.nvim.
+            -- Disable surround mappings to prevent conflict with flash.nvim
             vim.g.surround_no_mappings = 1
-            keymap.set('n', 'ds', '<Plug>Dsurround')
-            keymap.set('n', 'cs', '<Plug>Csurround')
-            keymap.set('n', 'cS', '<Plug>CSurround')
-            keymap.set('n', 'ys', '<Plug>Ysurround')
-            keymap.set('n', 'yS', '<Plug>YSurround')
-            keymap.set('n', 'yss', '<Plug>Yssurround')
-            keymap.set('n', 'ySs', '<Plug>YSsurround')
-            keymap.set('n', 'ySS', '<Plug>YSsurround')
-            keymap.set('x', 'gs', '<Plug>VSurround')
-            keymap.set('x', 'gS', '<Plug>VgSurround')
-        end
+        end,
+        keys = {
+            { 'ds',  '<Plug>Dsurround' },
+            { 'cs',  '<Plug>Csurround' },
+            { 'cS',  '<Plug>CSurround' },
+            { 'ys',  '<Plug>Ysurround' },
+            { 'yS',  '<Plug>YSurround' },
+            { 'yss', '<Plug>Yssurround' },
+            { 'ySs', '<Plug>YSsurround' },
+            { 'ySS', '<Plug>YSsurround' },
+            { 'gs',  '<Plug>VSurround',  mode = 'x' },
+            { 'gS',  '<Plug>VgSurround', mode = 'x' },
+        }
     },
-    'AndrewRadev/splitjoin.vim',
+    { 'AndrewRadev/splitjoin.vim', keys = { 'gS', 'gJ' } },
     'tpope/vim-sleuth',
-    'tpope/vim-eunuch',
+    { 'tpope/vim-eunuch', event = 'VeryLazy' },
     { 'mbbill/undotree', keys = {{ '<Leader>u', '<CMD>UndotreeToggle<CR>' }} },
     {
         'akinsho/toggleterm.nvim',
-        lazy = true,
         keys = '<C-t>',
         opts = {
             size = 20,

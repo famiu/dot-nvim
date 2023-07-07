@@ -1,7 +1,6 @@
 return {
     {
         'tpope/vim-fugitive',
-        lazy = true,
         event = 'VeryLazy',
         cmd = { 'Git', 'Gdiffsplit', 'Gvdiffsplit', 'Ghdiffsplit' },
         init = function()
