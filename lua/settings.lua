@@ -6,6 +6,10 @@ g.mapleader = ' '
 -- Use LaTeX as default tex flavor
 g.tex_flavor = 'latex'
 
+-- Don't load netrw
+g.loaded_netrw = 1
+g.loaded_netrwPlugin = 1
+
 -- Default grep command
 vim.o.grepprg = 'rg --vimgrep --smart-case'
 
