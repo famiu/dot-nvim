@@ -197,7 +197,7 @@ configure_lsp {
     settings = {
         ['rust-analyzer'] = {
             check = {
-                command = "clippy",
+                command = 'clippy',
             },
             rustfmt = {
                 extraArgs = { '+nightly' },

@@ -92,5 +92,5 @@ vim.o.smoothscroll = true
 vim.o.exrc = true
 
 -- Mouse
-vim.o.mouse = "nv"
+vim.o.mouse = 'nv'
 vim.o.mousemoveevent = true

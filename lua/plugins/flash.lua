@@ -46,12 +46,12 @@ return {
             desc = 'Remote Flash',
         },
         {
-            "<C-s>",
-            mode = { "c" },
+            '<C-s>',
+            mode = { 'c' },
             function()
-                require("flash").toggle()
+                require('flash').toggle()
             end,
-            desc = "Toggle Flash Search",
+            desc = 'Toggle Flash Search',
         },
     },
     config = function(_, opts)
@@ -59,7 +59,7 @@ return {
 
         -- Always toggle flash search jump labels on after entering cmdline
         -- So that the <C-s> keybind only applies for the current search
-        vim.api.nvim_create_autocmd("CmdlineEnter", {
+        vim.api.nvim_create_autocmd('CmdlineEnter', {
             callback = function(_)
                 if vim.v.event.cmdtype:match('[/?]') then
                     require('flash').toggle(true)
