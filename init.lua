@@ -11,46 +11,36 @@ local InstallConfigDeps
 local LoadPlugins
 
 local function BootstrapConfig()
-    -- Basic option configurations and similar settings
-    require('settings')
-    -- Basic keybinds
-    require('keybinds')
-
-    -- Use Ansible to install dependencies for the Neovim configuration if needed
-    if not loop.fs_stat(lazypath) then
-        -- Don't prompt to bootstrap the config if a file argument is passed
-        if #fn.argv() ~= 0 then
-            return
-        end
-
-        local choice = vim.fn.confirm('Bootstrap config?', '&Yes\n&No', 2, 'Q')
-        if choice == 2 then
-            return
-        end
-
-        InstallConfigDeps()
-
-        api.nvim_create_autocmd('User', {
-            once = true,
-            pattern = 'AnsibleDone',
-            desc = 'Load plugins after installing config dependencies',
-            callback = function(_)
-                -- Clone lazy.nvim
-                fn.system({
-                    'git',
-                    'clone',
-                    '--filter=blob:none',
-                    'https://github.com/folke/lazy.nvim.git',
-                    '--branch=stable',
-                    lazypath,
-                })
-
-                LoadPlugins()
-            end
-        })
-    else
-        LoadPlugins()
+    -- Don't prompt to bootstrap the config if a file argument is passed
+    if #fn.argv() ~= 0 then
+        return
     end
+
+    local choice = vim.fn.confirm('Bootstrap config?', '&Yes\n&No', 2, 'Q')
+    if choice == 2 then
+        return
+    end
+
+    InstallConfigDeps()
+
+    api.nvim_create_autocmd('User', {
+        once = true,
+        pattern = 'AnsibleDone',
+        desc = 'Load plugins after installing config dependencies',
+        callback = function(_)
+            -- Clone lazy.nvim
+            fn.system({
+                'git',
+                'clone',
+                '--filter=blob:none',
+                'https://github.com/folke/lazy.nvim.git',
+                '--branch=stable',
+                lazypath,
+            })
+
+            LoadPlugins()
+        end
+    })
 end
 
 InstallConfigDeps = function()
@@ -126,6 +116,18 @@ LoadPlugins = function()
     require('utilities')
 end
 
-BootstrapConfig()
+-- Basic option configurations and similar settings
+require('settings')
+-- Basic keybinds
+require('keybinds')
+
+-- Use Ansible to install dependencies for the Neovim configuration if needed
+-- Otherwise, just load plugins
+if not loop.fs_stat(lazypath) then
+    BootstrapConfig()
+else
+    LoadPlugins()
+end
+
 -- Command to update config dependencies
 api.nvim_create_user_command('UpdateConfigDeps', InstallConfigDeps, {})
