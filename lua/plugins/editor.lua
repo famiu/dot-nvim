@@ -48,7 +48,7 @@ return {
         keys = '<C-t>',
         opts = {
             size = 20,
-            open_mapping = [[<C-t>]]
+            open_mapping = [[<C-t>]],
         },
     },
     {
@@ -59,7 +59,10 @@ return {
             auto_session_suppress_dirs = { '~/' },
             auto_session_use_git_branch = true,
             -- the configs below are lua only
-            bypass_session_save_file_types = nil
-        }
+            bypass_session_save_file_types = nil,
+            session_lens = {
+                load_on_setup = false
+            },
+        },
     },
 }
