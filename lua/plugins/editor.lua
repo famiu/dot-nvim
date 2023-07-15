@@ -17,9 +17,9 @@ return {
         end,
         cmd = { 'Bdelete', 'Bwipeout' }
     },
-    { 'numToStr/Comment.nvim', event = 'VeryLazy', opts = {} },
-    { 'windwp/nvim-autopairs', event = 'VeryLazy', opts = {} },
-    { 'echasnovski/mini.align', event = 'VeryLazy', opts = {} },
+    { 'numToStr/Comment.nvim', opts = {} },
+    { 'windwp/nvim-autopairs', opts = {} },
+    { 'echasnovski/mini.align', opts = {} },
     {
         'tpope/vim-surround',
         init = function()
@@ -41,7 +41,7 @@ return {
     },
     { 'AndrewRadev/splitjoin.vim', keys = { 'gS', 'gJ' } },
     'tpope/vim-sleuth',
-    { 'tpope/vim-eunuch', event = 'VeryLazy' },
+    'tpope/vim-eunuch',
     { 'mbbill/undotree', keys = {{ '<Leader>u', '<CMD>UndotreeToggle<CR>' }} },
     {
         'akinsho/toggleterm.nvim',

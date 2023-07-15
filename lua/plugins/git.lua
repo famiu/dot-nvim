@@ -1,7 +1,6 @@
 return {
     {
         'tpope/vim-fugitive',
-        event = 'VeryLazy',
         cmd = { 'Git', 'Gdiffsplit', 'Gvdiffsplit', 'Ghdiffsplit' },
         init = function()
             local keymap = vim.keymap

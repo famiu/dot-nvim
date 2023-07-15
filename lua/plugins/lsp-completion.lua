@@ -37,7 +37,6 @@ return {
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-buffer',
         },
-        event = 'VeryLazy',
         config = function()
             -- Set up nvim-cmp.
             local cmp = require('cmp')
