@@ -40,6 +40,7 @@ api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         local bufnr = args.buf
         local client = lsp.get_client_by_id(args.data.client_id)
+        assert(client ~= nil)
 
         -- Mappings.
         local opts = { buffer = bufnr }
@@ -68,29 +69,6 @@ api.nvim_create_autocmd('LspAttach', {
 
         if client.server_capabilities.documentSymbolProvider then
             navic.attach(client, bufnr)
-        end
-
-        -- Auto-enable inlay hints only in normal mode
-        if client.server_capabilities.inlayHintProvider then
-            lsp.inlay_hint(bufnr, api.nvim_get_mode().mode:sub(1, 1) ~= 'i')
-
-            api.nvim_create_autocmd({ 'InsertEnter', 'InsertLeave', 'BufEnter' }, {
-                group = augroup,
-                buffer = bufnr,
-                callback = function(au_opts)
-                    local enable
-
-                    if au_opts.event == 'InsertEnter' then
-                        enable = false
-                    elseif au_opts.event == 'InsertLeave' then
-                        enable = true
-                    else
-                        enable = vim.api.nvim_get_mode().mode:sub(1, 1) ~= 'i'
-                    end
-
-                    lsp.inlay_hint(bufnr, enable)
-                end,
-            })
         end
     end
 })
