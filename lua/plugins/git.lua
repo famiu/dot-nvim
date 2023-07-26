@@ -2,15 +2,31 @@ return {
     {
         'tpope/vim-fugitive',
         cmd = { 'Git', 'Gdiffsplit', 'Gvdiffsplit', 'Ghdiffsplit' },
-        init = function()
-            local keymap = vim.keymap
-            local opts = { silent = true }
-
-            keymap.set('n', '<Leader>gb', ':Git blame<CR>', opts)
-            keymap.set('n', '<Leader>gs', ':silent! Git<CR>', opts)
-            keymap.set('n', '<Leader>gl', ':Git log --oneline<CR>', opts)
-            keymap.set('n', '<Leader>gh', ':Git log --oneline -- %<CR>', opts)
-        end
+        keys = {
+            { '<Leader>gb', '<CMD>Git blame<CR>', silent = true, desc = 'Git blame' },
+            { '<Leader>gc', '<CMD>Git commit<CR>', silent = true, desc = 'Git commit' },
+            { '<Leader>gs', '<CMD>silent! Git<CR>', silent = true, desc = 'Git status' },
+            { '<Leader>gl', '<CMD>Git log --oneline<CR>', silent = true, desc = 'Git log' },
+            { '<Leader>gh', '<CMD>Git log --oneline -- %<CR>', silent = true, desc = 'Git log for current file' },
+        },
+    },
+    {
+        'sindrets/diffview.nvim',
+        opts = {
+            enhanced_diff_hl = true,
+        },
+        cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
+        keys = {
+            { '<Leader>gd', '<CMD>DiffviewOpen<CR>', desc = 'Open Diffview for worktree' },
+            { '<Leader>gf', '<CMD>DiffviewFileHistory<CR>', desc = 'Open Diffview file history' },
+            {
+                '<Leader>gD',
+                function()
+                    vim.cmd.DiffviewOpen(vim.fn.input('Diff rev: '))
+                end,
+                desc = 'Open Diffview for rev'
+            }
+        }
     },
     {
         'lewis6991/gitsigns.nvim',
