@@ -55,8 +55,8 @@ keymap.set('n', '<Leader>tn', '<CMD>tabnew<CR>')
 keymap.set('n', '<Leader>tx', '<CMD>tabclose<CR>')
 keymap.set('n', '<Leader>tX', '<CMD>tabclose!<CR>')
 
--- Open config
-keymap.set('n', '<Leader>vc', '<CMD>edit $MYVIMRC<CR>')
+-- Open config in a new tab
+keymap.set('n', '<Leader>vc', '<CMD>tabnew | edit $MYVIMRC<CR>')
 
 -- Trim trailing whitespace in file
 keymap.set('n', '<Leader>t<Space>', [[<CMD>%s/\s\+$//e<CR>]])
