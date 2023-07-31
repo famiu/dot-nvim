@@ -16,7 +16,7 @@ local function BootstrapConfig()
         return
     end
 
-    local choice = vim.fn.confirm('Bootstrap config?', '&Yes\n&No', 2, 'Q')
+    local choice = fn.confirm('Bootstrap config?', '&Yes\n&No', 2, 'Q')
     if choice == 2 then
         return
     end
@@ -56,7 +56,7 @@ InstallConfigDeps = function()
 
     -- Open float window for Ansible
     local float_scale = 0.6
-    local float_win = api.nvim_open_win(vim.api.nvim_create_buf(true, false), true, {
+    local float_win = api.nvim_open_win(api.nvim_create_buf(true, false), true, {
         relative = 'editor',
         height = math.floor(vim.o.lines * float_scale + 0.5),
         width = math.floor(vim.o.columns * float_scale + 0.5),
