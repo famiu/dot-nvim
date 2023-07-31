@@ -17,14 +17,37 @@ return {
         },
         cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
         keys = {
-            { '<Leader>gd', '<CMD>DiffviewOpen<CR>', desc = 'Open Diffview for worktree' },
-            { '<Leader>gf', '<CMD>DiffviewFileHistory<CR>', desc = 'Open Diffview file history' },
+            { '<Leader>gd', '<CMD>DiffviewOpen<CR>', desc = 'Diff worktree' },
+            { '<Leader>gf', '<CMD>DiffviewFileHistory<CR>', desc = 'Diffview file history' },
             {
                 '<Leader>gD',
                 function()
+                    local target = vim.fn.input('Target branch name: ')
+                    local status = vim.system(
+                        { '/usr/bin/env', 'git', 'merge-base', 'HEAD', target },
+                        { text = true }
+                    ):wait()
+
+                    if status.code ~= 0 then
+                        vim.api.nvim_err_writeln(
+                            string.format(
+                                "Error code %d while running git merge-base. STDERR: %s",
+                                status.code, status.stderr
+                            )
+                        )
+                        return
+                    end
+
+                    vim.cmd.DiffviewOpen(status.stdout)
+                end,
+                desc = 'Diff from common ancestor of target branch and current branch'
+            },
+            {
+                '<Leader>g<C-d>',
+                function()
                     vim.cmd.DiffviewOpen(vim.fn.input('Diff rev: '))
                 end,
-                desc = 'Open Diffview for rev'
+                desc = 'Diff rev'
             }
         }
     },
