@@ -4,6 +4,13 @@
 - name: Install all Neovim config dependencies
   hosts: localhost
   tasks:
+    - name: Install clipboard handlers
+      become: yes
+      ansible.builtin.dnf:
+        name:
+          - xclip
+          - wl-clipboard
+
     - name: Install ripgrep and fd (for 'grepprg' and Telescope)
       become: yes
       ansible.builtin.dnf:
