@@ -39,7 +39,6 @@ return {
             { 'gS',  '<Plug>VgSurround', mode = 'x' },
         }
     },
-    { 'AndrewRadev/splitjoin.vim', keys = { 'gS', 'gJ' } },
     'tpope/vim-sleuth',
     'tpope/vim-eunuch',
     { 'mbbill/undotree', keys = {{ '<Leader>u', '<CMD>UndotreeToggle<CR>' }} },

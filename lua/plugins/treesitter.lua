@@ -98,8 +98,12 @@ return {
     },
     {
         'nvim-treesitter/nvim-treesitter-textobjects',
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter'
-        },
-    }
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    },
+    {
+        'Wansmer/treesj',
+        keys = { '<Leader>m', '<Leader>j', '<Leader>s' },
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        opts = {},
+    },
 }
