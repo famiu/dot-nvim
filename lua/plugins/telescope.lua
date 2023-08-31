@@ -3,16 +3,43 @@ return {
         'nvim-telescope/telescope.nvim',
         lazy = true,
         dependencies = 'nvim-lua/plenary.nvim',
-
+        cmds = { 'Telescope' },
         keys = {
-            { '<Leader>ff', function() require('telescope.builtin').find_files() end },
-            { '<Leader>fF', function() require('telescope.builtin').git_files() end },
-            { '<Leader>fg', function() require('telescope').extensions.live_grep_args.live_grep_args() end },
-            { '<Leader>fh', function() require('telescope.builtin').help_tags() end },
-            { '<Leader>ft', function() require('telescope.builtin').treesitter() end },
-            { '<Leader>fd', function() require('telescope.builtin').diagnostics() end },
-            { '<Leader>fo', function() require('telescope.builtin').oldfiles() end },
-            { '<Leader>qf', function() require('telescope.builtin').quickfix() end },
+            {
+                '<Leader>ff',
+                function() require('telescope.builtin').find_files() end,
+                desc = 'Telescope find files',
+            },
+            {
+                '<Leader>fF',
+                function() require('telescope.builtin').git_files() end,
+                desc = 'Telescope find Git files',
+            },
+            {
+                '<Leader>fg',
+                function() require('telescope').extensions.live_grep_args.live_grep_args() end,
+                desc = 'Telescope live grep with args',
+            },
+            {
+                '<Leader>fh',
+                function() require('telescope.builtin').help_tags() end,
+                desc = 'Telescope find help tags',
+            },
+            {
+                '<Leader>fd',
+                function() require('telescope.builtin').diagnostics() end,
+                desc = 'Telescope diagnostics',
+            },
+            {
+                '<Leader>fo',
+                function() require('telescope.builtin').oldfiles() end,
+                desc = 'Telescope find oldfiles',
+            },
+            {
+                '<Leader>qf',
+                function() require('telescope.builtin').quickfix() end,
+                desc = 'Telescope quickfix',
+            },
         },
 
         -- `opts` is not used because telescope needs to be loaded prior to the config being evaluated.
@@ -98,6 +125,6 @@ return {
     {
         'nvim-telescope/telescope-live-grep-args.nvim',
         lazy = true,
-        dependencies = { 'nvim-telescope/telescope.nvim' }
+        dependencies = 'nvim-telescope/telescope.nvim'
     },
 }
