@@ -91,12 +91,18 @@ return {
                     vim.keymap.set(
                         'n', '<Leader>fS',
                         function() require('telescope.builtin').lsp_document_symbols() end,
-                        { buffer = args.buf }
+                        {
+                            buffer = args.buf,
+                            desc = 'Telescope find document symbols',
+                        }
                     )
                     vim.keymap.set(
                         'n', '<Leader>fs',
-                        function() require('telescope.builtin').lsp_workspace_symbols() end,
-                        { buffer = args.buf }
+                        function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end,
+                        {
+                            buffer = args.buf,
+                            desc = 'Telescope find workspace symbols',
+                        }
                     )
                 end
             })
