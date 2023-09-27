@@ -45,10 +45,7 @@ api.nvim_create_autocmd('LspAttach', {
         -- Mappings.
         local opts = { buffer = bufnr }
         keymap.set('n', 'gD', function() lsp.buf.declaration() end, opts)
-        keymap.set('n', 'gd', function() lsp.buf.definition() end, opts)
         keymap.set('n', 'K', function() lsp.buf.hover() end, opts)
-        keymap.set('n', 'gi', function() lsp.buf.implementation() end, opts)
-        keymap.set('n', 'gr', function() lsp.buf.references() end, opts)
         keymap.set('n', '<Leader>wa', function() lsp.buf.add_workspace_folder() end, opts)
         keymap.set('n', '<Leader>wr', function() lsp.buf.remove_workspace_folder() end, opts)
         keymap.set(
@@ -56,12 +53,43 @@ api.nvim_create_autocmd('LspAttach', {
             function() print(vim.inspect(lsp.buf.list_workspace_folders())) end,
             opts
         )
-        keymap.set('n', '<Leader>lt', function() lsp.buf.type_definition() end, opts)
         keymap.set('n', '<Leader>r', function() lsp.buf.rename() end, opts)
         keymap.set('n', '<C-Space>', function() diagnostic.open_float() end, opts)
         keymap.set('n', ']g', function() diagnostic.goto_next() end, opts)
         keymap.set('n', '[g', function() diagnostic.goto_prev() end, opts)
         keymap.set('n', '<Leader>ca', lsp.buf.code_action, opts)
+
+        -- Telescope mappings
+        keymap.set(
+            'n', 'gd',
+            function() require('telescope.builtin').lsp_definitions() end,
+            opts
+        )
+        keymap.set(
+            'n', 'gi',
+            function() require('telescope.builtin').lsp_implementations() end,
+            opts
+        )
+        keymap.set(
+            'n', 'gr',
+            function() require('telescope.builtin').lsp_references() end,
+            opts
+        )
+        keymap.set(
+            'n', '<Leader>lt',
+            function() require('telescope.builtin').lsp_type_definitions() end,
+            opts
+        )
+        keymap.set(
+            'n', '<Leader>fS',
+            function() require('telescope.builtin').lsp_document_symbols() end,
+            opts
+        )
+        keymap.set(
+            'n', '<Leader>fs',
+            function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end,
+            opts
+        )
 
         if client.supports_method('textDocument/formatting') then
             keymap.set({ 'n', 'v' }, '<space>lf', function() lsp.buf.format() end, opts)
