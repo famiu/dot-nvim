@@ -71,5 +71,5 @@ keymap.set({'n', 'i'}, '<Down>', '<Nop>')
 keymap.set('n', '<Leader>qq', '<CMD>quitall<CR>')
 keymap.set('n', '<Leader>QQ', '<CMD>quitall!<CR>')
 
--- Indent pasted text
-keymap.set('n', '<Leader>p=', [['[v']=]])
+-- Select pasted text
+keymap.set('n', '<Leader>pv', "'[v']")
