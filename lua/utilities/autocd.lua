@@ -6,7 +6,7 @@ local fs = vim.fs
 local root_patterns = { '.git', 'Makefile', 'CMakeLists.txt' }
 
 local function autocd()
-    local clients = lsp.get_active_clients({ bufnr = 0 })
+    local clients = lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
         if client.config.root_dir then
