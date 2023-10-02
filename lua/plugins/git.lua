@@ -14,6 +14,17 @@ return {
         'sindrets/diffview.nvim',
         opts = {
             enhanced_diff_hl = true,
+            view = {
+                diff_view = {
+                    layout = 'diff2_horizontal',
+                },
+                file_history_view = {
+                    layout = 'diff2_horizontal',
+                },
+                merge_tool = {
+                    layout = 'diff3_mixed',
+                },
+            },
         },
         cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
         keys = {
