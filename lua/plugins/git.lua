@@ -59,6 +59,21 @@ return {
                     vim.cmd.DiffviewOpen(vim.fn.input('Diff rev: '))
                 end,
                 desc = 'Diff rev'
+            },
+            { '<Leader>gt', '<CMD>DiffviewToggleFiles<CR>', desc = 'Toggle diffview files panel' },
+            {
+                ']C',
+                function()
+                    require('diffview.config').actions.next_conflict()
+                end,
+                desc = 'Jump to next conflict marker'
+            },
+            {
+                '[C',
+                function()
+                    require('diffview.config').actions.prev_conflict()
+                end,
+                desc = 'Jump to previous conflict marker'
             }
         }
     },
