@@ -45,7 +45,6 @@ api.nvim_create_autocmd('LspAttach', {
         -- Mappings.
         local opts = { buffer = bufnr }
         keymap.set('n', 'gD', function() lsp.buf.declaration() end, opts)
-        keymap.set('n', 'K', function() lsp.buf.hover() end, opts)
         keymap.set('n', '<Leader>wa', function() lsp.buf.add_workspace_folder() end, opts)
         keymap.set('n', '<Leader>wr', function() lsp.buf.remove_workspace_folder() end, opts)
         keymap.set(
