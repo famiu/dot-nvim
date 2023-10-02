@@ -24,7 +24,7 @@ local function autocd()
         return
     end
 
-    pcall(api.nvim_set_current_dir, fs.dirname(root_pattern_match))
+    pcall(vim.cmd.lcd, fs.dirname(root_pattern_match))
 end
 
 local augroup = api.nvim_create_augroup('AutoCD', {})
