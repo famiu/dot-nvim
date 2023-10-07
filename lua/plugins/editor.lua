@@ -17,7 +17,7 @@ return {
         end,
         cmd = { 'Bdelete', 'Bwipeout' }
     },
-    { 'numToStr/Comment.nvim', opts = {} },
+    { 'echasnovski/mini.comment', opts = {} },
     { 'windwp/nvim-autopairs', opts = {} },
     { 'echasnovski/mini.align', opts = {} },
     {
