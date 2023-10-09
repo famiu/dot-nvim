@@ -7,5 +7,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('utilities.mkdir_on_save')
 require('utilities.restore_cursor')
 require('utilities.autocd')
-require('utilities.statuscolumn')
 require('utilities.tabline')
