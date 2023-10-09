@@ -24,6 +24,7 @@ diagnostic.config {
         spacing = 4,
         prefix = '~',
     },
+    signs = false
 }
 
 -- Diagnostic Signs
