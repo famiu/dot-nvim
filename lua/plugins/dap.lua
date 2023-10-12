@@ -19,6 +19,10 @@ local function dapinit()
     'n', '<Leader>lp',
     function() require('dap').set_breakpoint(nil, nil, fn.input('Log point message: ')) end
     )
+    keymap.set(
+    'n', '<Leader>cb',
+    function() require('dap').clear_breakpoints() end
+    )
     keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
     keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
 end
