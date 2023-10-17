@@ -75,7 +75,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 -- Diff options
-vim.o.diffopt = 'internal,filler,closeoff,hiddenoff,vertical,iwhite,indent-heuristic,linematch:60,algorithm:histogram'
+vim.o.diffopt = 'internal,filler,closeoff,hiddenoff,vertical,iwhite,indent-heuristic,linematch:60'
 
 -- Faster update time
 vim.o.updatetime = 100
