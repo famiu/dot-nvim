@@ -55,6 +55,10 @@ keymap.set('n', '<Leader>tn', '<CMD>tabnew<CR>')
 keymap.set('n', '<Leader>tx', '<CMD>tabclose<CR>')
 keymap.set('n', '<Leader>tX', '<CMD>tabclose!<CR>')
 
+-- Previous/next quickfix item
+keymap.set('n', ']q', '<CMD>cnext<CR>')
+keymap.set('n', '[q', '<CMD>cprevious<CR>')
+
 -- Open config in a new tab
 keymap.set('n', '<Leader>vc', '<CMD>tabnew | edit $MYVIMRC<CR>')
 
