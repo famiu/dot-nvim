@@ -79,4 +79,5 @@ return {
         'echasnovski/mini.ai',
         opts = {},
     },
+    { 'yorickpeterse/nvim-pqf', opts = {} }
 }
