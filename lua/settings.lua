@@ -1,7 +1,8 @@
 local g = vim.g
 
--- Set mapleader to space
+-- Set mapleader and maplocalloader
 g.mapleader = ' '
+g.maplocalleader = ','
 
 -- Use LaTeX as default tex flavor
 g.tex_flavor = 'latex'

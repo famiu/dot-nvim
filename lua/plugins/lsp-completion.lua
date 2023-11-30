@@ -98,6 +98,13 @@ return {
                     end
                 }
             })
+
+            cmp.setup.filetype('tex', {
+                sources = {
+                    { name = 'vimtex' },
+                    { name = 'buffer' },
+                }
+            })
         end
     }
 }
