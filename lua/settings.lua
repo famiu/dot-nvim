@@ -99,3 +99,6 @@ vim.o.mousemoveevent = true
 -- Statuscolumn
 vim.o.signcolumn = 'auto:2'
 vim.o.statuscolumn = "%{%v:relnum?'%='.v:relnum:v:lnum.'%='%} %s"
+
+-- Conceal
+vim.o.conceallevel = 1

@@ -20,6 +20,7 @@ return {
             },
             highlight = {
                 enable = true,
+                disable = { 'latex' },
             },
             textobjects = {
                 select = {
