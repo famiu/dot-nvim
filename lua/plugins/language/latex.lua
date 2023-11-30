@@ -32,7 +32,6 @@ return {
                 sections = 0,
                 styles = 1,
             }
-
         end,
     },
     { 'micangl/cmp-vimtex', dependencies = { 'lervag/vimtex', 'hrsh7th/nvim-cmp' } },
