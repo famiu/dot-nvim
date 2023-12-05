@@ -1,7 +1,7 @@
 local api = vim.api
 local fs = vim.fs
 local lsp = vim.lsp
-local augroup = api.nvim_create_augroup('lsp-settings', {})
+local augroup = api.nvim_create_augroup('lsp-settings', { clear = false })
 local M = {}
 
 local function buf_parent_dir(bufnr)
