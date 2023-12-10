@@ -9,7 +9,7 @@ return {
         },
         modes = {
             search = {
-                enabled = true
+                enabled = false,
             },
             char = {
                 jump_labels = function(_)
