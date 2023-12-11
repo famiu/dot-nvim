@@ -57,12 +57,12 @@ return {
     config = function(_, opts)
         require('flash').setup(opts)
 
-        -- Always toggle flash search jump labels on after entering cmdline
+        -- Always toggle flash search jump labels off after entering cmdline
         -- So that the <C-s> keybind only applies for the current search
         vim.api.nvim_create_autocmd('CmdlineEnter', {
             callback = function(_)
                 if vim.v.event.cmdtype:match('[/?]') then
-                    require('flash').toggle(true)
+                    require('flash').toggle(false)
                 end
             end
         })
