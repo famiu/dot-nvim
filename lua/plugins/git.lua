@@ -1,7 +1,7 @@
 return {
     {
         'tpope/vim-fugitive',
-        cmd = { 'Git', 'Gdiffsplit', 'Gvdiffsplit', 'Ghdiffsplit' },
+        cmd = { 'Git', 'Gedit', 'Gdiffsplit', 'Gvdiffsplit', 'Ghdiffsplit' },
         keys = {
             { '<Leader>gb', '<CMD>Git blame<CR>', silent = true, desc = 'Git blame' },
             { '<Leader>gc', '<CMD>Git commit<CR>', silent = true, desc = 'Git commit' },
