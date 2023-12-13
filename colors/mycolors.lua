@@ -5,4 +5,6 @@ require('mini.hues').setup({
     accent = 'blue',
 })
 
+vim.api.nvim_set_hl(0, 'Type', { link = 'Identifier' })
+
 vim.g.colors_name = 'mycolors'
