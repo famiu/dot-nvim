@@ -2,10 +2,10 @@ local keymap = vim.keymap
 
 return {
     {
-        'EdenEast/nightfox.nvim',
+        'echasnovski/mini.hues',
+        event = 'VeryLazy',
         config = function()
-            require('nightfox').setup {}
-            vim.cmd.colorscheme('carbonfox')
+            vim.cmd.colorscheme('mycolors')
         end
     },
     {

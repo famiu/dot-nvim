@@ -3,7 +3,6 @@ return {
     dependencies = {
         'nvim-tree/nvim-web-devicons',
         'SmiteshP/nvim-navic',
-        'EdenEast/nightfox.nvim', -- Colorscheme is needed for Lualine theme
         'folke/noice.nvim',       -- For mode
     },
     config = function()
