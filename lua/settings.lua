@@ -102,3 +102,7 @@ vim.o.statuscolumn = "%{%v:relnum?'%='.v:relnum:v:lnum.'%='%} %s"
 
 -- Conceal
 vim.o.conceallevel = 2
+
+-- Remove "How-to disable mouse" from right-click menu
+vim.cmd.aunmenu([[PopUp.How-to\ disable\ mouse]])
+vim.cmd.aunmenu([[PopUp.-1-]])
