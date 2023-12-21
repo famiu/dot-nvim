@@ -105,7 +105,7 @@ LoadPlugins = function()
 
     require('lazy').setup({ import = 'plugins' }, {
         dev = {
-            path = '~/Workspace/neovim'
+            path = '~/dev/neovim'
         },
         concurrency = PU_COUNT,
     })

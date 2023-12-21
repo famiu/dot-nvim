@@ -41,12 +41,18 @@ return {
                 function() require('telescope.builtin').quickfix() end,
                 desc = 'Telescope quickfix',
             },
+            {
+                '<C-p>',
+                function() require('telescope').extensions.project.project() end,
+                desc = 'Telescope project',
+            },
         },
 
         -- `opts` is not used because telescope needs to be loaded prior to the config being evaluated.
         config = function()
             local ts_actions = require('telescope.actions')
             local lga_actions = require('telescope-live-grep-args.actions')
+            local project_actions = require("telescope._extensions.project.actions")
 
             require('telescope').setup {
                 defaults = {
@@ -76,12 +82,24 @@ return {
                             },
                         },
                     },
-                }
+                    project = {
+                        base_dirs = {
+                            '~/dev',
+                        },
+                        theme = 'dropdown',
+                        on_project_selected = function(prompt_bufnr)
+                            -- Do anything you want in here. For example:
+                            project_actions.change_working_directory(prompt_bufnr, false)
+                            require('telescope.builtin').find_files()
+                        end,
+                    }
+                },
             }
 
             pcall(require('telescope').load_extension, 'fzf')
             require('telescope').load_extension('ui-select')
             require('telescope').load_extension('smart_history')
+            require('telescope').load_extension('project')
         end,
     },
 
@@ -107,6 +125,12 @@ return {
     {
         'nvim-telescope/telescope-live-grep-args.nvim',
         lazy = true,
-        dependencies = 'nvim-telescope/telescope.nvim'
+        dependencies = 'nvim-telescope/telescope.nvim',
+    },
+
+    {
+        'nvim-telescope/telescope-project.nvim',
+        lazy = true,
+        dependencies = 'nvim-telescope/telescope.nvim',
     },
 }
