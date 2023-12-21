@@ -2,7 +2,7 @@ local function RemoveQuickFixEntry()
     local line = vim.api.nvim_win_get_cursor(0)[1]
     local qflist = vim.fn.getqflist()
 
-    -- Remove line from qflist
+    -- Remove line from qflist.
     table.remove(qflist, line)
     vim.fn.setqflist(qflist, 'r')
 
