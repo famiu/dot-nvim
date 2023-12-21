@@ -79,5 +79,16 @@ return {
         'echasnovski/mini.ai',
         opts = {},
     },
-    { 'yorickpeterse/nvim-pqf', opts = {} }
+    { 'yorickpeterse/nvim-pqf', opts = {} },
+    {
+        'simeji/winresizer',
+        init = function()
+            vim.g.winresizer_enable = 1
+            vim.g.winresizer_gui_enable = 0
+            vim.g.winresizer_finish_with_escape = 1
+            vim.g.winresizer_vert_resize = 10
+            vim.g.winresizer_horiz_resize = 3
+            vim.g.winresizer_start_key = '<Leader>wr'
+        end
+    },
 }
