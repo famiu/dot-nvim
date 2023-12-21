@@ -7,9 +7,9 @@ local function dapinit()
     -- Keybindings
     keymap.set('n', '<F5>', function() require('dap').continue() end)
     keymap.set('n', '<F6>', function() require('dap').step_back() end)
-    keymap.set('n', '<F10>', function() require('dap').step_over() end)
-    keymap.set('n', '<F11>', function() require('dap').step_into() end)
-    keymap.set('n', '<F12>', function() require('dap').step_out() end)
+    keymap.set('n', '<S-F10>', function() require('dap').step_over() end)
+    keymap.set('n', '<S-F11>', function() require('dap').step_into() end)
+    keymap.set('n', '<S-F12>', function() require('dap').step_out() end)
     keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
     keymap.set(
     'n', '<Leader>B',

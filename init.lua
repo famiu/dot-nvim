@@ -118,6 +118,12 @@ end
 
 -- Basic option configurations and similar settings
 require('settings')
+
+-- If using a GUI, load GUI settings.
+if vim.fn.has('gui_running') == 1 then
+    require('gui_settings')
+end
+
 -- Basic keybinds
 require('keybinds')
 
