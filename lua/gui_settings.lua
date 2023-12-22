@@ -7,7 +7,6 @@ vim.o.linespace = 1
 -- Neovide specific settings.
 if vim.g.neovide then
     vim.g.neovide_scale_factor = 1.0
-    vim.g.neovide_fullscreen = true  -- Start in fullscreen mode.
     vim.g.neovide_cursor_vfx_mode = 'railgun'
 
     -- Go fullscreen with F11.
