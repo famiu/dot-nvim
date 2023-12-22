@@ -36,7 +36,7 @@ return {
                 lualine_z = {}
             },
             winbar = {
-                lualine_c = { { 'filename', path = 1 } },
+                lualine_c = { { 'filename', path = 3 } },
                 lualine_x = {
                     function()
                         if navic.is_available() then
@@ -48,7 +48,7 @@ return {
                 }
             },
             inactive_winbar = {
-                lualine_c = { { 'filename', path = 1 } },
+                lualine_c = { { 'filename', path = 3 } },
             },
             extensions = {
                 'man',
