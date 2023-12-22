@@ -1,4 +1,5 @@
 local keymap = vim.keymap
+local tabline_buffer_advance = require('utilities.tabline').tabline_buffer_advance
 
 -- Map H and L to ^ and $
 keymap.set('n', 'H', '^')
@@ -25,8 +26,8 @@ keymap.set('v', '<', '<gv^')
 keymap.set('v', '.', ':normal .<CR>', { silent = true })
 
 -- Previous/next buffer
-keymap.set('n', '[b', '<CMD>bprevious<CR>')
-keymap.set('n', ']b', '<CMD>bnext<CR>')
+keymap.set('n', '[b', function() tabline_buffer_advance(-vim.v.count1) end)
+keymap.set('n', ']b', function() tabline_buffer_advance(vim.v.count1) end)
 
 -- Tab keybinds
 -- Go to tab number
