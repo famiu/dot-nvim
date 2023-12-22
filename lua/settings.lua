@@ -1,4 +1,5 @@
 local g = vim.g
+local augroup = vim.api.nvim_create_augroup('MyConfig', {})
 
 -- Set mapleader and maplocalloader
 g.mapleader = ' '
@@ -102,6 +103,15 @@ vim.o.statuscolumn = "%{%v:relnum?'%='.v:relnum:v:lnum.'%='%} %s"
 
 -- Conceal
 vim.o.conceallevel = 2
+
+vim.api.nvim_create_autocmd('FileType', {
+    desc = "Use 'linebreak' instead of 'wrap' for text-based filetypes",
+    group = augroup,
+    callback = function()
+        vim.o.wrap = false
+        vim.o.linebreak = true
+    end
+})
 
 -- Remove "How-to disable mouse" from right-click menu
 vim.cmd.aunmenu([[PopUp.How-to\ disable\ mouse]])
