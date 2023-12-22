@@ -86,6 +86,7 @@ return {
                         base_dirs = {
                             '~/dev',
                         },
+                        cd_scope = { 'window' },
                         theme = 'dropdown',
                         on_project_selected = function(prompt_bufnr)
                             -- Do anything you want in here. For example:
