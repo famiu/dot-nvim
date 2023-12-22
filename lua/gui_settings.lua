@@ -36,7 +36,7 @@ if vim.g.neovide then
     end
 
     -- Add keymaps for scaling UI.
-    vim.keymap.set('n', '<C-=>', function() change_scale_factor(0.25) end)
-    vim.keymap.set('n', '<C-->', function() change_scale_factor(-0.25) end)
+    vim.keymap.set('n', '<C-=>', function() change_scale_factor(0.25 * vim.v.count1) end)
+    vim.keymap.set('n', '<C-->', function() change_scale_factor(-0.25 * vim.v.count1) end)
     vim.keymap.set('n', '<C-A-=>', function() set_scale_factor(1.0) end)
 end
