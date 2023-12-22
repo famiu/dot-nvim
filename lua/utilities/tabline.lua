@@ -2,12 +2,14 @@ local api = vim.api
 local fn = vim.fn
 local M = {}
 
+--- @type buffer[]
 local last_buffers_list = {}
+--- @type string
 local close_icon = ''
 
 --- Function used to switch buffer from tabline.
 ---
---- @param minwid integer
+--- @param minwid buffer
 --- @param button string
 function M.switch_buffer(minwid, _, button, _)
     if button == 'l' then
@@ -17,7 +19,7 @@ end
 
 --- Function used to switch delete from tabline.
 ---
---- @param minwid integer
+--- @param minwid buffer
 --- @param button string
 --- @param mods string
 function M.delete_buffer(minwid, _, button, mods)
@@ -25,6 +27,13 @@ function M.delete_buffer(minwid, _, button, mods)
         local shift_pressed = mods:find('s') ~= nil
         require('bufdelete').bufdelete(minwid, shift_pressed)
     end
+end
+
+--- Get list of buffers in the tabline's buffer list, in order.
+---
+--- @return buffer[]
+function M.get_buffer_list()
+    return last_buffers_list
 end
 
 --- Go to n-th buffer after current one as shown in the tabline's buffer list.
@@ -57,8 +66,8 @@ end
 
 --- Create tabline component for a single buffer.
 ---
---- @param buf number
---- @param tp_nr? number
+--- @param buf buffer
+--- @param tp_nr? tabpage
 --- @return string
 local function tabline_buf_component(buf, tp_nr)
     local bufname = api.nvim_buf_get_name(buf)
@@ -107,7 +116,7 @@ end
 
 --- Check if buffer is contained within the tab's current directory (or any of its subdirectories).
 ---
---- @param buf number
+--- @param buf buffer
 --- @return boolean
 local function buf_in_current_directory(buf)
     local tab_cwd = vim.fn.getcwd(-1, 0) .. '/'
@@ -132,7 +141,7 @@ function M.generate_tabline()
         tp_elems[#tp_elems+1] = tabline_buf_component(buf, tp_nr)
     end
 
-    --- @type integer[]
+    --- @type buffer[]
     last_buffers_list = vim.tbl_filter(function(buf)
         return api.nvim_buf_is_valid(buf) and api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted
             and buf_in_current_directory(buf)

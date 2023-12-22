@@ -13,6 +13,7 @@ return {
         name = 'bufdelete',
         dev = true,
         init = function()
+            vim.g.bufdelete_buf_filter = require('utilities.tabline').get_buffer_list
             keymap.set('n', '<Leader>x', '<CMD>Bdelete<CR>', { silent = true })
         end,
         cmd = { 'Bdelete', 'Bwipeout' }
