@@ -1,28 +1,33 @@
 local api = vim.api
 local fn = vim.fn
+
 local M = {}
 
+--- @class MyTabLineConfig
+--- @field close_icon string
+M.config = { close_icon = '' }
+
+--- Last used list of buffers. Updated every time generate_tabline() is called.
+---
 --- @type buffer[]
 local last_buffers_list = {}
---- @type string
-local close_icon = ''
 
---- Function used to switch buffer from tabline.
+--- Function used to switch buffer from tabline through mouse clicks.
 ---
 --- @param minwid buffer
 --- @param button string
-function M.switch_buffer(minwid, _, button, _)
+function M.switch_click_handler(minwid, _, button, _)
     if button == 'l' then
         api.nvim_set_current_buf(minwid)
     end
 end
 
---- Function used to switch delete from tabline.
+--- Function used to switch delete from tabline through mouse clicks.
 ---
 --- @param minwid buffer
 --- @param button string
 --- @param mods string
-function M.delete_buffer(minwid, _, button, mods)
+function M.delete_click_handler(minwid, _, button, mods)
     if button == 'l' then
         local shift_pressed = mods:find('s') ~= nil
         require('bufdelete').bufdelete(minwid, shift_pressed)
@@ -34,6 +39,15 @@ end
 --- @return buffer[]
 function M.get_buffer_list()
     return last_buffers_list
+end
+
+--- Go to n-th buffer as shown in the tabline's buffer list.
+--- n is clamped if it's lower than 1 or higher than the buffer count.
+---
+--- @param n integer
+function M.tabline_buffer_set(n)
+    n = math.min(math.max(n, 1), #last_buffers_list)
+    api.nvim_set_current_buf(last_buffers_list[n])
 end
 
 --- Go to n-th buffer after current one as shown in the tabline's buffer list.
@@ -68,8 +82,9 @@ end
 ---
 --- @param buf buffer
 --- @param tp_nr? tabpage
+--- @param buf_idx? buffer
 --- @return string
-local function tabline_buf_component(buf, tp_nr)
+local function tabline_buf_component(buf, tp_nr, buf_idx)
     local bufname = api.nvim_buf_get_name(buf)
     local ok, devicons = pcall(require, 'nvim-web-devicons')
     local icon, hl, is_current_buf_or_tab
@@ -103,13 +118,14 @@ local function tabline_buf_component(buf, tp_nr)
     if tp_nr ~= nil then
         return string.format(
             [[%%#%s#%%%dT [%d] %s%s%%T%%%dX %s %%X]],
-            hl, tp_nr, tp_nr, icon, bufname, tp_nr, close_icon
+            hl, tp_nr, tp_nr, icon, bufname, tp_nr, M.config.close_icon
         )
     else
+        assert(buf_idx ~= nil)
         return string.format(
-            [[%%#%s#%%%d@v:lua.require'utilities.tabline'.switch_buffer@ %s%s%%T]] ..
-            [[%%%d@v:lua.require'utilities.tabline'.delete_buffer@ %s %%X]],
-            hl, buf, icon, bufname, buf, close_icon
+            [[%%#%s#%%%d@v:lua.require'utilities.tabline'.switch_click_handler@ [%d] %s%s%%T]] ..
+            [[%%%d@v:lua.require'utilities.tabline'.delete_click_handler@ %s %%X]],
+            hl, buf, buf_idx, icon, bufname, buf, M.config.close_icon
         )
     end
 end
@@ -119,7 +135,7 @@ end
 --- @param buf buffer
 --- @return boolean
 local function buf_in_current_directory(buf)
-    local tab_cwd = vim.fn.getcwd(-1, 0) .. '/'
+    local tab_cwd = fn.getcwd(-1, 0) .. '/'
     local filename = api.nvim_buf_get_name(buf)
 
     return vim.startswith(filename, tab_cwd)
@@ -148,7 +164,8 @@ function M.generate_tabline()
     end, api.nvim_list_bufs())
 
     for _, buf in ipairs(last_buffers_list) do
-        buf_elems[#buf_elems+1] = tabline_buf_component(buf)
+        local buf_idx = #buf_elems + 1
+        buf_elems[buf_idx] = tabline_buf_component(buf, nil, buf_idx)
     end
 
     return ('%s%%=%s%%#TabLineFill#'):format(table.concat(tp_elems), table.concat(buf_elems))

@@ -1,5 +1,5 @@
 local keymap = vim.keymap
-local tabline_buffer_advance = require('utilities.tabline').tabline_buffer_advance
+local tabline_utils = require('utilities.tabline')
 
 -- Map H and L to ^ and $
 keymap.set('n', 'H', '^')
@@ -25,26 +25,11 @@ keymap.set('v', '<', '<gv^')
 -- Apply the . command to all selected lines in visual mode
 keymap.set('v', '.', ':normal .<CR>', { silent = true })
 
--- Previous/next buffer
-keymap.set('n', '[b', function() tabline_buffer_advance(-vim.v.count1) end)
-keymap.set('n', ']b', function() tabline_buffer_advance(vim.v.count1) end)
-
 -- Cycle through windows
 keymap.set('n', '[w', '<CMD>wincmd W<CR>')
 keymap.set('n', ']w', '<CMD>wincmd w<CR>')
 
 -- Tab keybinds
--- Go to tab number
-keymap.set('n', '<Leader>t1', '<CMD>tabnext1<CR>')
-keymap.set('n', '<Leader>t2', '<CMD>tabnext2<CR>')
-keymap.set('n', '<Leader>t3', '<CMD>tabnext3<CR>')
-keymap.set('n', '<Leader>t4', '<CMD>tabnext4<CR>')
-keymap.set('n', '<Leader>t5', '<CMD>tabnext5<CR>')
-keymap.set('n', '<Leader>t6', '<CMD>tabnext6<CR>')
-keymap.set('n', '<Leader>t7', '<CMD>tabnext7<CR>')
-keymap.set('n', '<Leader>t8', '<CMD>tabnext8<CR>')
-keymap.set('n', '<Leader>t9', '<CMD>tabnext9<CR>')
-
 -- Previous/next tab
 keymap.set('n', '[t', '<CMD>tabprevious<CR>')
 keymap.set('n', ']t', '<CMD>tabnext<CR>')
@@ -60,15 +45,20 @@ keymap.set('n', '<Leader>tn', '<CMD>tabnew<CR>')
 keymap.set('n', '<Leader>tx', '<CMD>tabclose<CR>')
 keymap.set('n', '<Leader>tX', '<CMD>tabclose!<CR>')
 
+-- Buffer keybinds
+-- Previous/next buffer
+keymap.set('n', '[b', function() tabline_utils.tabline_buffer_advance(-vim.v.count1) end)
+keymap.set('n', ']b', function() tabline_utils.tabline_buffer_advance(vim.v.count1) end)
+
+-- Go to n-th buffer in tabline
+keymap.set('n', '<Leader>tt', function() tabline_utils.tabline_buffer_set(vim.v.count1) end)
+
 -- Previous/next quickfix item
 keymap.set('n', ']q', '<CMD>cnext<CR>')
 keymap.set('n', '[q', '<CMD>cprevious<CR>')
 
 -- Open config in a new tab
 keymap.set('n', '<Leader>vc', '<CMD>tabnew | edit $MYVIMRC<CR>')
-
--- Trim trailing whitespace in file
-keymap.set('n', '<Leader>t<Space>', [[<CMD>%s/\s\+$//e<CR>]])
 
 -- Disable arrow keys
 keymap.set({'n', 'i'}, '<Left>', '<Nop>')
