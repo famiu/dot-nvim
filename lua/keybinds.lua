@@ -29,6 +29,10 @@ keymap.set('v', '.', ':normal .<CR>', { silent = true })
 keymap.set('n', '[b', function() tabline_buffer_advance(-vim.v.count1) end)
 keymap.set('n', ']b', function() tabline_buffer_advance(vim.v.count1) end)
 
+-- Cycle through windows
+keymap.set('n', '[w', '<CMD>wincmd W<CR>')
+keymap.set('n', ']w', '<CMD>wincmd w<CR>')
+
 -- Tab keybinds
 -- Go to tab number
 keymap.set('n', '<Leader>t1', '<CMD>tabnext1<CR>')
