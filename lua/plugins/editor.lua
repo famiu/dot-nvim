@@ -3,7 +3,6 @@ local keymap = vim.keymap
 return {
     {
         'echasnovski/mini.hues',
-        event = 'VeryLazy',
         config = function()
             vim.cmd.colorscheme('mycolors')
         end
