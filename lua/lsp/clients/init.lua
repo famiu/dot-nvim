@@ -12,12 +12,17 @@ lsputils.configure_lsp {
 lsputils.configure_lsp {
     name = 'rust-analyzer',
     ftpattern = 'rust',
-    cmd = { 'rust-analyzer' },
+    cmd = { 'rust-analyzer', '+nightly' },
     root_pattern = { 'Cargo.toml', '.git' },
     settings = {
         ['rust-analyzer'] = {
             check = {
                 command = 'clippy',
+            },
+            diagnostics = {
+                experimental = {
+                    enable = true,
+                },
             },
             rustfmt = {
                 extraArgs = { '+nightly' },
