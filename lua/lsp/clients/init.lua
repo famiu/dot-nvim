@@ -26,6 +26,9 @@ lsputils.configure_lsp {
             },
             rustfmt = {
                 extraArgs = { '+nightly' },
+                rangeFormatting = {
+                    enable = true,
+                },
             },
         },
     },
