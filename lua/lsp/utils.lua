@@ -3,6 +3,7 @@ local fs = vim.fs
 local lsp = vim.lsp
 local augroup = api.nvim_create_augroup('lsp-settings', { clear = false })
 local M = {}
+M.filetype_lsp_configs = {}
 
 local function buf_parent_dir(bufnr)
     return fs.dirname(api.nvim_buf_get_name(bufnr))
@@ -14,6 +15,37 @@ end
 
 local function default_capabilities()
     return require('cmp_nvim_lsp').default_capabilities()
+end
+
+function M.lsp_start(buf)
+    local filetype = vim.bo[buf].filetype
+
+    for _, config_fn in ipairs(M.filetype_lsp_configs[filetype]) do
+        local config_dict = config_fn(buf)
+        lsp.start(config_dict, { bufnr = buf })
+    end
+end
+
+function M.lsp_stop(buf)
+    lsp.stop_client(lsp.get_clients({ bufnr = buf }), true)
+end
+
+function M.lsp_restart(buf)
+    M.lsp_stop(buf)
+
+    local autocmd
+    autocmd = api.nvim_create_autocmd('LspDetach', {
+        desc = 'Start LSP servers after all LSP servers are detached',
+        group = augroup,
+        buffer = buf,
+        callback = function()
+            -- If this is the last LSP server, delete the autocommand and restart LSP servers.
+            if #lsp.get_clients({ bufnr = buf }) == 1 then
+                api.nvim_del_autocmd(autocmd)
+                vim.schedule(function() M.lsp_start(buf) end)
+            end
+        end
+    })
 end
 
 -- Configure an LSP server.
@@ -67,20 +99,50 @@ function M.configure_lsp(config)
 
     if name == nil or ftpattern == nil or cmd == nil or root_pattern == nil then return end
 
-    api.nvim_create_autocmd('FileType', {
-        pattern = ftpattern,
-        group = augroup,
-        callback = function(opts)
-            local lsp_start_opts = {
+    -- Convert ftpattern to table.
+    if type(ftpattern) == 'string' then
+        ftpattern = { ftpattern }
+    end
+
+    -- Iterate over each filetype in the filetype pattern list, adding the current LSP configuration
+    -- to each filetype's LSP configuration list. Also add an autocommand for each filetype that
+    -- starts all LSP servers for that filetype, if needed.
+    for _, filetype in ipairs(ftpattern) do
+        if M.filetype_lsp_configs[filetype] == nil then
+            M.filetype_lsp_configs[filetype] = {}
+
+            -- Add autocommand to start all LSP servers associated with that filetype.
+            -- Only do it once when initializing the filetype's LSP server configuration list.
+            api.nvim_create_autocmd('FileType', {
+                pattern = filetype,
+                group = augroup,
+                callback = function(opts)
+                    M.lsp_start(opts.buf)
+                end
+            })
+        end
+
+        -- Add function to generate LSP configuration for the filetype to filetype_lsp_configs.
+        local filetype_configs = M.filetype_lsp_configs[filetype]
+        filetype_configs[#filetype_configs+1] = function(buf)
+            return vim.tbl_extend('keep', {
                 name = name,
                 cmd = cmd,
-                root_dir = buf_find_root(opts.buf, root_pattern),
+                root_dir = buf_find_root(buf, root_pattern),
                 capabilities = final_capabilities
-            }
-
-            lsp.start(vim.tbl_extend('keep', lsp_start_opts, config), { bufnr = opts.buf })
+            }, config)
         end
-    })
+    end
 end
+
+-- Add LspStart, LspStop and LspRestart commands.
+vim.api.nvim_create_user_command('LspStart', function() M.lsp_start(0) end,
+    { desc = 'Start LSP servers for buffer' })
+
+vim.api.nvim_create_user_command('LspStop', function() M.lsp_stop(0) end,
+    { desc = 'Stop running LSP servers for buffer' })
+
+vim.api.nvim_create_user_command('LspRestart', function() M.lsp_restart(0) end,
+    { desc = 'Restart running LSP servers for buffer' })
 
 return M
