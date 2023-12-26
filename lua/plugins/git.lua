@@ -40,13 +40,10 @@ return {
                     ):wait()
 
                     if status.code ~= 0 then
-                        vim.api.nvim_err_writeln(
-                            string.format(
-                                "Error code %d while running git merge-base. STDERR: %s",
-                                status.code, status.stderr
-                            )
-                        )
-                        return
+                        error(string.format(
+                            "Error code %d while running git merge-base. STDERR: %s",
+                            status.code, status.stderr
+                        ))
                     end
 
                     vim.cmd.DiffviewOpen(status.stdout)
