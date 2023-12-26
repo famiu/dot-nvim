@@ -82,7 +82,7 @@ InstallConfigDeps = function()
     end
 
     -- Open Ansible in float window
-    fn.termopen(string.format('/usr/bin/env ansible-playbook -K %s/deps.yml', fn.stdpath('config')))
+    fn.termopen(('/usr/bin/env ansible-playbook -K %s/deps.yml'):format(fn.stdpath('config')))
     cmd.startinsert()
 
     api.nvim_create_autocmd('TermClose', {
