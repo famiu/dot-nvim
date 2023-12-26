@@ -78,7 +78,17 @@ local function filter_configured_clients_by_name(buf, targets)
         return configs
     end
 
-    return vim.tbl_map(function(name) return configs[name] end, targets)
+    local target_configs = {}
+
+    for _, name in ipairs(targets) do
+        if configs[name] then
+            target_configs[#target_configs+1] = configs[name]
+        else
+            error(("Could not find configured client: '%s'"):format(name))
+        end
+    end
+
+    return target_configs
 end
 
 --- Filter active clients by their name or ID.
