@@ -28,7 +28,7 @@ end
 --- Find root directory with pattern in buffer.
 ---
 --- @param buf buffer
---- @param pattern string
+--- @param pattern string|string[]
 --- @return string
 local function buf_find_root(buf, pattern)
     local root = fs.dirname(fs.find(pattern, { upward = true, path = buf_parent_dir(buf) })[1])
@@ -193,48 +193,26 @@ end
 ---
 --- @param config LspConfig
 function M.configure_lsp(config)
-    local function validate_config_key(key, expected_type, is_optional, default)
-        local val = config[key]
-        config[key] = nil
+    vim.validate({
+        name = { config.name, 'string' },
+        ftpattern = { config.ftpattern, { 'string', 'table' } },
+        cmd = { config.cmd, 'table' },
+        root_pattern = { config.root_pattern, { 'string', 'table' } },
+        capabilities = { config.capabilities, 'table', true },
+    })
 
-        if val == nil then
-            if not is_optional then
-                vim.api.nvim_err_writeln(
-                    string.format([[Required key '%s' is not provided in LSP configuration]], key)
-                )
-            end
+    -- Set full config capabilities.
+    config.capabilities = vim.tbl_extend('force', default_capabilities(), config.capabilities or {})
 
-            return default
-        elseif not vim.tbl_contains(expected_type, type(val)) then
-            vim.api.nvim_err_writeln(
-                string.format(
-                    [[Invalid type '%s' for '%s'. Expected one of: %s]],
-                    type(val),
-                    key,
-                    table.concat(expected_type, ', ')
-                )
-            )
-
-            return default
-        else
-            return val
-        end
-    end
-
-    local name = validate_config_key('name', { 'string' })
-    local ftpattern = validate_config_key('ftpattern', { 'string', 'table' })
-    local cmd = validate_config_key('cmd', { 'table' })
-    local root_pattern = validate_config_key('root_pattern', { 'string', 'table' })
-    local final_capabilities = vim.tbl_extend(
-        'force',
-        default_capabilities(),
-        validate_config_key('capabilities', { 'table' }, true, {})
-    )
-
-    if name == nil or ftpattern == nil or cmd == nil or root_pattern == nil then return end
+    -- Unset the config keys that won't be used by vim.lsp.start() and save them as local values.
+    local ftpattern = config.ftpattern
+    local root_pattern = config.root_pattern
+    config.ftpattern = nil
+    config.root_pattern = nil
 
     -- Convert ftpattern to table.
     if type(ftpattern) == 'string' then
+        --- @cast ftpattern string[]
         ftpattern = { ftpattern }
     end
 
@@ -259,12 +237,9 @@ function M.configure_lsp(config)
 
         -- Add function to generate LSP configuration for the filetype to filetype_lsp_configs.
         local filetype_configs = M.filetype_lsp_configs[filetype]
-        filetype_configs[name] = function(buf)
-            return vim.tbl_extend('keep', {
-                name = name,
-                cmd = cmd,
+        filetype_configs[config.name] = function(buf)
+            return vim.tbl_extend('force', {
                 root_dir = buf_find_root(buf, root_pattern),
-                capabilities = final_capabilities
             }, config)
         end
     end
