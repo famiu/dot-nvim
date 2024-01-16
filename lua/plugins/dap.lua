@@ -109,7 +109,7 @@ local function dapconfig()
             name = 'Neovim',
             type = 'lldb',
             request = 'launch',
-            program = os.getenv('HOME') .. '/Workspace/neovim/neovim/build/bin/nvim',
+            program = vim.uv.os_homedir() .. '/Workspace/neovim/neovim/build/bin/nvim',
             cwd = '${workspaceFolder}',
             stopOnEntry = false,
             args = function()
@@ -155,7 +155,7 @@ local function dapconfig()
                         return tonumber(vim.fn.system('ps -o pid= --ppid ' .. tostring(ppid))) ~= nil
                     end)
                     local pid = tonumber(vim.fn.system('ps -o pid= --ppid ' .. tostring(ppid)))
-                    local home = os.getenv('HOME')
+                    local home = vim.uv.os_homedir()
 
                     -- If we found it, spawn another debug session that attaches to the pid.
                     if pid then

@@ -84,7 +84,7 @@ return {
                     },
                     project = {
                         base_dirs = {
-                            '~/dev',
+                            vim.uv.os_homedir() .. '/dev',
                         },
                         cd_scope = { 'window' },
                         theme = 'dropdown',
@@ -99,7 +99,6 @@ return {
 
             pcall(require('telescope').load_extension, 'fzf')
             require('telescope').load_extension('ui-select')
-            require('telescope').load_extension('smart_history')
             require('telescope').load_extension('project')
         end,
     },
@@ -115,12 +114,6 @@ return {
         'nvim-telescope/telescope-ui-select.nvim',
         lazy = true,
         dependencies = 'nvim-telescope/telescope.nvim',
-    },
-
-    {
-        'nvim-telescope/telescope-smart-history.nvim',
-        lazy = true,
-        dependencies = { 'nvim-telescope/telescope.nvim', 'kkharji/sqlite.lua' },
     },
 
     {
