@@ -32,7 +32,6 @@ end
 --- @return string
 local function buf_find_root(buf, pattern)
     local root = fs.dirname(fs.find(pattern, { upward = true, path = buf_parent_dir(buf) })[1])
-    assert(root ~= nil)
     return root
 end
 
