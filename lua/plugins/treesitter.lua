@@ -3,6 +3,10 @@ return {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
         main = 'nvim-treesitter.configs',
+        config = function(_, opts)
+            require('nvim-treesitter.install').compilers = { 'cl', 'clang', 'gcc' }
+            require('nvim-treesitter.configs').setup(opts)
+        end,
         opts = {
             ensure_installed = {
                 'c',
