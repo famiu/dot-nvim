@@ -37,6 +37,7 @@ LoadPlugins = function()
     require('lazy').setup({ import = 'plugins' }, {
         dev = {
             path = vim.uv.os_homedir() .. '/dev/neovim',
+            fallback = true,
         },
         concurrency = require('utilities.os').pu_count(),
     })
