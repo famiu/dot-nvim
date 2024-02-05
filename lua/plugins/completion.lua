@@ -23,15 +23,36 @@ local kind_icons = {
     Struct        = 'פּ',
     Event         = '',
     Operator      = '',
-    TypeParameter = ''
+    TypeParameter = '',
 }
 
 return {
     { 'folke/neodev.nvim', lazy = true, opts = { lspconfig = false } },
     { 'L3MON4D3/LuaSnip', lazy = true },
     {
+        'zbirenbaum/copilot.lua',
+        cmd = 'Copilot',
+        opts = {
+            suggestion = { enabled = false },
+            panel = { enabled = false },
+        },
+    },
+    {
+        'zbirenbaum/copilot-cmp',
+        dependencies = 'zbirenbaum/copilot.lua',
+        opts = {},
+        config = function(_, opts)
+            kind_icons.Copilot = ''
+            require('copilot_cmp').setup(opts)
+
+            -- Add highlight for Copilot items in nvim-cmp.
+            vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+        end
+    },
+    {
         'hrsh7th/nvim-cmp',
         dependencies = {
+            'zbirenbaum/copilot-cmp',
             'saadparwaiz1/cmp_luasnip',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-nvim-lsp',
@@ -86,6 +107,7 @@ return {
                     end, { 'i', 's' }),
                 }),
                 sources = cmp.config.sources({
+                    { name = 'copilot' },
                     { name = 'nvim_lsp' },
                     { name = 'luasnip' },
                 }, {
@@ -96,7 +118,25 @@ return {
                         vim_item.kind = kind_icons[vim_item.kind] .. ' ' .. vim_item.kind
                         return vim_item
                     end
-                }
+                },
+                sorting = {
+                    priority_weight = 2,
+                    comparators = {
+                        require("copilot_cmp.comparators").prioritize,
+
+                        -- Below is the default comparitor list and order for nvim-cmp
+                        cmp.config.compare.offset,
+                        -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+                        cmp.config.compare.exact,
+                        cmp.config.compare.score,
+                        cmp.config.compare.recently_used,
+                        cmp.config.compare.locality,
+                        cmp.config.compare.kind,
+                        cmp.config.compare.sort_text,
+                        cmp.config.compare.length,
+                        cmp.config.compare.order,
+                    },
+                },
             })
 
             cmp.setup.filetype('tex', {
