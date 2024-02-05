@@ -65,7 +65,7 @@ local function dapconfig()
     -- Adapters
     dap.adapters.lldb = {
         type = 'executable',
-        command = vim.trim(fn.system({ '/usr/bin/which', 'lldb-vscode' })),
+        command = 'lldb-vscode',
         name = 'lldb'
     }
 
@@ -94,7 +94,8 @@ local function dapconfig()
     -- External Terminal
     dap.defaults.fallback.force_external_terminal = true
     dap.defaults.fallback.external_terminal = {
-        command = vim.trim(fn.system({ '/usr/bin/which', 'gnome-terminal' })),
+        -- Use Windows Terminal for Windows, and GNOME Terminal for Linux.
+        command = require('utilities.os').is_windows() and 'wt' or 'gnome-terminal',
         args = { '--' };
     }
 

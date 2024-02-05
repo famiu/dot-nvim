@@ -35,7 +35,7 @@ return {
                 function()
                     local target = vim.fn.input('Target branch name: ')
                     local status = vim.system(
-                        { '/usr/bin/env', 'git', 'merge-base', 'HEAD', target },
+                        { 'git', 'merge-base', 'HEAD', target },
                         { text = true }
                     ):wait()
 
