@@ -7,24 +7,30 @@ local root_patterns = { '.git', 'Makefile', 'CMakeLists.txt' }
 
 local function autocd()
     local clients = lsp.get_clients({ bufnr = 0 })
+    local target_dir
 
     for _, client in ipairs(clients) do
-        if client.config.root_dir then
-            pcall(api.nvim_set_current_dir, client.config.root_dir)
-            return
+        -- Ignore copilot as it doesn't have a valid root directory.
+        if client.name ~= 'copilot' and client.config.root_dir then
+            target_dir = client.config.root_dir
+            break
         end
     end
 
-    local bufname = api.nvim_buf_get_name(0)
-    local path = fs.dirname(bufname)
+    if target_dir == nil then
+        local bufname = api.nvim_buf_get_name(0)
+        local path = fs.dirname(bufname)
 
-    local root_pattern_match = fs.find(root_patterns, { path = path, upward = true })[1]
+        local root_pattern_match = fs.find(root_patterns, { path = path, upward = true })[1]
 
-    if root_pattern_match == nil then
-        return
+        if root_pattern_match == nil then
+            return
+        end
+
+        target_dir = fs.dirname(root_pattern_match)
     end
 
-    pcall(vim.cmd.lcd, fs.dirname(root_pattern_match))
+    pcall(api.nvim_set_current_dir, target_dir)
 end
 
 local augroup = api.nvim_create_augroup('AutoCD', {})
