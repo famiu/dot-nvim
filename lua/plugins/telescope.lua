@@ -4,7 +4,7 @@ return {
         lazy = true,
         dependencies = 'nvim-lua/plenary.nvim',
         event = 'LspAttach',
-        cmds = { 'Telescope' },
+        cmd = { 'Telescope' },
         keys = {
             {
                 '<Leader>ff',
