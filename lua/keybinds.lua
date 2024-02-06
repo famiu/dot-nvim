@@ -69,12 +69,3 @@ keymap.set({'n', 'i'}, '<Down>', '<Nop>')
 -- Quitall shortcut
 keymap.set('n', '<Leader>qq', '<CMD>quitall<CR>')
 keymap.set('n', '<Leader>QQ', '<CMD>quitall!<CR>')
-
--- Cut/copy/paste from clipboard
-keymap.set('v', '<Leader>x', '"+d')
-keymap.set('v', '<Leader>c', '"+y')
-keymap.set({ 'n', 'v' }, '<Leader>p', '"+p')
-keymap.set('i', '<C-V>', '<C-R>+')
-
--- Select pasted text
-keymap.set('n', '<Leader>vp', "'[v']")
