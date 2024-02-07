@@ -104,4 +104,21 @@ return {
             vim.g.winresizer_start_key = '<Leader>wr'
         end
     },
+    {
+        'jackMort/ChatGPT.nvim',
+        event = 'VeryLazy',
+        opts = {},
+        dependencies = {
+            'MunifTanjim/nui.nvim',
+            'nvim-lua/plenary.nvim',
+            'folke/trouble.nvim',
+            'nvim-telescope/telescope.nvim',
+        },
+        cmd = {
+            'ChatGPT',
+            'ChatGPTActAs',
+            'ChatGPTEditWithInstructions',
+            'ChatGPTRun',
+        },
+    },
 }
