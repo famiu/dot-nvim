@@ -96,7 +96,14 @@ end
 --- @param targets? LspClientTarget[]
 local function filter_active_clients_by_name_or_id(buf, targets)
     local clients = lsp.get_clients({ bufnr = buf })
+    local configs = get_config_dicts(buf)
 
+    -- Filter out clients that aren't configured through LSP utils.
+    clients = vim.tbl_filter(function(client)
+        return configs[client.name] ~= nil
+    end, clients)
+
+    -- If no targets are provided, return all clients.
     if targets == nil or next(targets) == nil then
         return clients
     end
