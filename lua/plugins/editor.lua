@@ -31,7 +31,6 @@ return {
         cmd = { 'Bdelete', 'Bwipeout' }
     },
     { 'numToStr/Comment.nvim', opts = {} },
-    { 'windwp/nvim-autopairs', opts = {} },
     { 'echasnovski/mini.align', opts = {} },
     {
         'tpope/vim-surround',
