@@ -87,10 +87,7 @@ return {
             })
         end
     },
-    {
-        'echasnovski/mini.ai',
-        opts = {},
-    },
+    { 'echasnovski/mini.ai', opts = {}, },
     { 'yorickpeterse/nvim-pqf', opts = {} },
     {
         'simeji/winresizer',

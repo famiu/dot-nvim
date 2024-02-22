@@ -36,6 +36,7 @@ return {
             suggestion = { enabled = false },
             panel = { enabled = false },
         },
+        dependencies = { 'rafamadriz/friendly-snippets' },
     },
     {
         'zbirenbaum/copilot-cmp',
@@ -63,12 +64,6 @@ return {
             local cmp = require('cmp')
             local luasnip = require('luasnip')
 
-            local has_words_before = function()
-                local linenr, colnr = unpack(vim.api.nvim_win_get_cursor(0))
-                local line = vim.api.nvim_buf_get_lines(0, linenr - 1, linenr, true)[1]
-                return colnr ~= 0 and line:sub(colnr, colnr):match('%s') == nil
-            end
-
             cmp.setup({
                 snippet = {
                     expand = function(args)
@@ -80,29 +75,21 @@ return {
                     documentation = cmp.config.window.bordered(),
                 },
                 mapping = cmp.mapping.preset.insert({
+                    ['<C-p>'] = cmp.mapping.select_prev_item(),
+                    ['<C-n>'] = cmp.mapping.select_next_item(),
+                    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
                     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
                     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                    ['<C-Space>'] = cmp.mapping.complete(),
                     ['<C-e>'] = cmp.mapping.abort(),
-                    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-                    ['<Tab>'] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_next_item()
-                        elseif luasnip.expand_or_jumpable() then
+                    -- <C-l> for accepting snippets and jumping forward, <C-h> for jumping backwards.
+                    ['<C-l>'] = cmp.mapping(function()
+                        if luasnip.expand_or_locally_jumpable() then
                             luasnip.expand_or_jump()
-                        elseif has_words_before() then
-                            cmp.complete()
-                        else
-                            fallback()
                         end
                     end, { 'i', 's' }),
-                    ['<S-Tab>'] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_prev_item()
-                        elseif luasnip.jumpable(-1) then
+                    ['<C-h>'] = cmp.mapping(function()
+                        if luasnip.jumpable(-1) then
                             luasnip.jump(-1)
-                        else
-                            fallback()
                         end
                     end, { 'i', 's' }),
                 }),
