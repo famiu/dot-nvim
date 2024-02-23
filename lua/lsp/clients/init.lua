@@ -51,18 +51,32 @@ lsputils.configure_lsp {
             workspace = {
                 checkThirdParty = false
             }
-        }
+        },
     },
     before_init = function(_, config)
         -- Automatically add Lua runtime to workspace library for Neovim config.
-        local nvim_config_dir = vim.fn.stdpath('config') --[[ @as string ]]
+        local root_dir = config.root_dir or ''
+        local runtime_dirs = vim.api.nvim_get_runtime_file('', true)
+        local is_nvim_lua = false
 
-        if config.root_dir and config.root_dir:find(nvim_config_dir) then
-            config.settings.Lua.workspace.library = {
-                vim.env.VIMRUNTIME,
-                '${3rd}/busted/library',
-                '${3rd}/luv/library',
+        for _, dir in ipairs(runtime_dirs) do
+            if vim.startswith(root_dir, dir) then
+                is_nvim_lua = true
+                break
+            end
+        end
+
+        if is_nvim_lua then
+            config.settings.Lua.runtime = {
+                version = 'LuaJIT'
             }
+
+            local workspace_libraries = runtime_dirs
+            -- Add busted and luv to the workspace library.
+            workspace_libraries[#workspace_libraries + 1] = '${3rd}/luv/library'
+            workspace_libraries[#workspace_libraries + 1] = '${3rd}/busted/library'
+
+            config.settings.Lua.workspace.library = workspace_libraries
         end
     end,
 }
