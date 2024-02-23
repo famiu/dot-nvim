@@ -27,7 +27,6 @@ local kind_icons = {
 }
 
 return {
-    { 'folke/neodev.nvim', lazy = true, opts = { lspconfig = false } },
     { 'L3MON4D3/LuaSnip', lazy = true },
     {
         'zbirenbaum/copilot.lua',
