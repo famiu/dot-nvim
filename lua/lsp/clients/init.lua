@@ -59,6 +59,13 @@ lsputils.configure_lsp {
         local runtime_dirs = vim.api.nvim_get_runtime_file('', true)
         local is_nvim_lua = false
 
+        if require('utilities.os').is_windows() then
+            -- Use forward slashes for Windows paths in runtime_dirs since root_dir uses forward slashes.
+            for i, dir in ipairs(runtime_dirs) do
+                runtime_dirs[i] = dir:gsub('\\', '/')
+            end
+        end
+
         for _, dir in ipairs(runtime_dirs) do
             if vim.startswith(root_dir, dir) then
                 is_nvim_lua = true
