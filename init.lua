@@ -19,7 +19,7 @@ CheckConfigDeps = function()
 
     if os_utils.is_linux() then
         local is_wayland = os.getenv('WAYLAND_DISPLAY') ~= nil
-        local clipboard_handler = is_wayland and 'wl-clipboard' or 'xclip'
+        local clipboard_handler = is_wayland and 'wl-copy' or 'xclip'
 
         table.insert(deps, { exe = clipboard_handler, reason = 'handling clipboard' })
     end
