@@ -42,6 +42,14 @@ return {
                 desc = 'Telescope quickfix',
             },
             {
+                '<Leader>/',
+                function ()
+                    local dropdown = require('telescope.themes').get_dropdown({ previewer = false })
+                    require('telescope.builtin').current_buffer_fuzzy_find(dropdown)
+                end,
+                desc = 'Telescope current buffer',
+            },
+            {
                 '<C-p>',
                 function() require('telescope').extensions.project.project() end,
                 desc = 'Telescope project',
