@@ -25,10 +25,17 @@ CheckConfigDeps = function()
         table.insert(deps, { exe = 'fswatch', reason = 'LSP watcher backend' })
     end
 
+    local missing_deps = false
+
     for _, dep in ipairs(deps) do
         if fn.executable(dep.exe) == 0 then
-            error(('%s required for %s'):format(dep.exe, dep.reason))
+            vim.notify('Missing ' .. dep.exe .. ' required for ' .. dep.reason, vim.log.levels.ERROR)
+            missing_deps = true
         end
+    end
+
+    if missing_deps then
+        error('Missing dependencies')
     end
 end
 
