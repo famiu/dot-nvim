@@ -22,6 +22,7 @@ CheckConfigDeps = function()
         local clipboard_handler = is_wayland and 'wl-copy' or 'xclip'
 
         table.insert(deps, { exe = clipboard_handler, reason = 'handling clipboard' })
+        table.insert(deps, { exe = 'fswatch', reason = 'LSP watcher backend' })
     end
 
     for _, dep in ipairs(deps) do
