@@ -37,6 +37,17 @@ return {
                 desc = 'Telescope find oldfiles',
             },
             {
+                '<Leader>fv',
+
+                function()
+                    require('telescope.builtin').find_files({
+                        cwd = vim.fn.stdpath('config')
+                    })
+                end,
+
+                desc = 'Find Neovim config file',
+            },
+            {
                 '<Leader>qf',
                 function() require('telescope.builtin').quickfix() end,
                 desc = 'Telescope quickfix',

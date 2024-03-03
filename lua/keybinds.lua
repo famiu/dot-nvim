@@ -57,9 +57,6 @@ keymap.set('n', '<Leader>tt', function() tabline_utils.tabline_buffer_set(vim.v.
 keymap.set('n', ']q', '<CMD>cnext<CR>')
 keymap.set('n', '[q', '<CMD>cprevious<CR>')
 
--- Open config in a new tab
-keymap.set('n', '<Leader>vc', '<CMD>tabnew | edit $MYVIMRC<CR>')
-
 -- Disable arrow keys
 keymap.set({'n', 'i'}, '<Left>', '<Nop>')
 keymap.set({'n', 'i'}, '<Right>', '<Nop>')
