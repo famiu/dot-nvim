@@ -21,21 +21,7 @@ return {
         name = 'bufdelete',
         dev = true,
         init = function()
-            vim.g.bufdelete_buf_filter = require('utilities.tabline').get_buffer_list
-            keymap.set('n', '<Leader>x', function()
-                local target_buffer
-
-                -- Delete current buffer is no count is provided.
-                -- If count is provided, then delete the buffer corresponding to the count in the
-                -- buffer list in the tabline.
-                if vim.v.count == 0 then
-                    target_buffer = vim.api.nvim_get_current_buf()
-                else
-                    target_buffer = require('utilities.tabline').get_buffer_list()[vim.v.count]
-                end
-
-                require('bufdelete').bufdelete(target_buffer)
-            end , { silent = true })
+            keymap.set('n', '<Leader>x', 'Bdelete', { silent = true })
         end,
         cmd = { 'Bdelete', 'Bwipeout' }
     },

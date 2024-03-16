@@ -45,14 +45,6 @@ keymap.set('n', '<Leader>tn', '<CMD>tabnew<CR>')
 keymap.set('n', '<Leader>tx', '<CMD>tabclose<CR>')
 keymap.set('n', '<Leader>tX', '<CMD>tabclose!<CR>')
 
--- Buffer keybinds
--- Previous/next buffer
-keymap.set('n', '[b', function() tabline_utils.tabline_buffer_advance(-vim.v.count1) end)
-keymap.set('n', ']b', function() tabline_utils.tabline_buffer_advance(vim.v.count1) end)
-
--- Go to n-th buffer in tabline
-keymap.set('n', '<Leader>tt', function() tabline_utils.tabline_buffer_set(vim.v.count1) end)
-
 -- Previous/next quickfix item
 keymap.set('n', ']q', '<CMD>cnext<CR>')
 keymap.set('n', '[q', '<CMD>cprevious<CR>')
