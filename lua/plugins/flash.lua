@@ -18,7 +18,6 @@ return {
             }
         },
     },
-    lazy = false,
     keys = {
         {
             's',
