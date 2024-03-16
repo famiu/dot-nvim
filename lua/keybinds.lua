@@ -1,13 +1,13 @@
 local keymap = vim.keymap
 local tabline_utils = require('utilities.tabline')
 
+-- Insert new line above/below current line in inset mode
+keymap.set('i', '<C-j>', '<C-o>o')
+keymap.set('i', '<C-k>', '<C-o>O')
+
 -- Map H and L to ^ and $
 keymap.set('n', 'H', '^')
 keymap.set('n', 'L', '$')
-
--- Make J and K move selected lines up and down
-keymap.set('v', 'J', [[:move '>+1<CR>gv=gv]], { silent = true })
-keymap.set('v', 'K', [[:move '<-2<CR>gv=gv]], { silent = true })
 
 -- Don't move cursor when using J to join lines
 keymap.set('n', 'J', 'mzJ`z')
