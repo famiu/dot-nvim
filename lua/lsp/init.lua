@@ -45,17 +45,10 @@ api.nvim_create_autocmd('LspAttach', {
         -- Mappings.
         local opts = { buffer = bufnr }
         keymap.set('n', 'gD', function() lsp.buf.declaration() end, opts)
-        keymap.set('n', '<Leader>wsa', function() lsp.buf.add_workspace_folder() end, opts)
-        keymap.set('n', '<Leader>wsr', function() lsp.buf.remove_workspace_folder() end, opts)
-        keymap.set(
-            'n', '<Leader>wsl',
-            function() print(vim.inspect(lsp.buf.list_workspace_folders())) end,
-            opts
-        )
         keymap.set('n', '<Leader>r', function() lsp.buf.rename() end, opts)
         keymap.set('n', '<C-Space>', function() diagnostic.open_float() end, opts)
-        keymap.set('n', ']g', function() diagnostic.goto_next() end, opts)
-        keymap.set('n', '[g', function() diagnostic.goto_prev() end, opts)
+        keymap.set('n', ']e', function() diagnostic.goto_next() end, opts)
+        keymap.set('n', '[e', function() diagnostic.goto_prev() end, opts)
         keymap.set('n', '<Leader>ca', lsp.buf.code_action, opts)
 
         -- Telescope mappings
@@ -75,7 +68,7 @@ api.nvim_create_autocmd('LspAttach', {
             opts
         )
         keymap.set(
-            'n', '<Leader>lt',
+            'n', 'gT',
             function() require('telescope.builtin').lsp_type_definitions() end,
             opts
         )
