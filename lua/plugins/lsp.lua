@@ -171,8 +171,8 @@ return {
 
                 local workspace_libraries = nvim_runtime_dirs
                 -- Add busted and luv to the workspace library.
-                workspace_libraries[#workspace_libraries + 1] = '${3rd}/luv/library'
-                workspace_libraries[#workspace_libraries + 1] = '${3rd}/busted/library'
+                table.insert(workspace_libraries, '${3rd}/luv/library')
+                table.insert(workspace_libraries, '${3rd}/busted/library')
 
                 client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
                     runtime = {

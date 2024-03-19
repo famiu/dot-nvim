@@ -59,7 +59,7 @@ function M.generate_tabline()
         local buf = api.nvim_win_get_buf(api.nvim_tabpage_get_win(tp))
         local tp_nr = api.nvim_tabpage_get_number(tp)
 
-        tp_elems[#tp_elems+1] = tabline_buf_component(buf, tp_nr)
+        table.insert(tp_elems, tabline_buf_component(buf, tp_nr))
     end
 
     return table.concat(tp_elems) .. '%#TabLineFill#'
