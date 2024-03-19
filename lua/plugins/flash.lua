@@ -52,6 +52,10 @@ return {
             end,
             desc = 'Toggle Flash Search',
         },
+        { 'f', mode = { 'n', 'x', 'o' } },
+        { 'F', mode = { 'n', 'x', 'o' } },
+        { 't', mode = { 'n', 'x', 'o' } },
+        { 'T', mode = { 'n', 'x', 'o' } },
     },
     config = function(_, opts)
         require('flash').setup(opts)
