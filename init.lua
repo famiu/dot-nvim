@@ -50,8 +50,6 @@ LoadPlugins = function()
         concurrency = require('utilities.os').pu_count(),
     })
 
-    -- LSP
-    require('lsp')
     -- Other utilities
     require('utilities')
 end
