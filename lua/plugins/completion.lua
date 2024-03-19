@@ -38,6 +38,49 @@ return {
         dependencies = { 'rafamadriz/friendly-snippets' },
     },
     {
+        'CopilotC-Nvim/CopilotChat.nvim',
+        branch = 'canary',
+        dependencies = {
+            'zbirenbaum/copilot.lua',
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope.nvim',
+        },
+        keys = {
+            {
+                '<Leader>cpc',
+                '<CMD>CopilotChat<CR>',
+                desc = 'Copilot Chat',
+                mode = { 'n', 'x' },
+            },
+            {
+                '<leader>cph',
+                function()
+                    local actions = require('CopilotChat.actions')
+                    actions.pick(actions.help_actions())
+                end,
+                desc = 'Copilot Chat - Help actions',
+            },
+            {
+                '<leader>cpp',
+                function()
+                    local actions = require('CopilotChat.actions')
+                    actions.pick(actions.prompt_actions())
+                end,
+                desc = 'Copilot Chat - Prompt actions',
+                mode = { 'n', 'x' },
+            },
+        },
+        opts = {
+            debug = true,
+            window = {
+                layout = 'float',
+                border = 'rounded',
+                height = 0.8,
+                width = 0.8,
+            },
+        },
+    },
+    {
         'zbirenbaum/copilot-cmp',
         dependencies = { 'zbirenbaum/copilot.lua' },
         opts = {},
