@@ -181,8 +181,8 @@ end
 
 local M = {
     { 'mfussenegger/nvim-dap', lazy = true, init = dapinit, config = dapconfig },
-    { 'rcarriga/nvim-dap-ui', lazy = true, dependencies = 'mfussenegger/nvim-dap' },
-    { 'theHamsta/nvim-dap-virtual-text', lazy = true, dependencies = 'mfussenegger/nvim-dap' },
+    { 'rcarriga/nvim-dap-ui', lazy = true, dependencies = { 'mfussenegger/nvim-dap' } },
+    { 'theHamsta/nvim-dap-virtual-text', lazy = true, dependencies = { 'mfussenegger/nvim-dap' } },
 }
 
 return M

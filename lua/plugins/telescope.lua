@@ -2,7 +2,7 @@ return {
     {
         'nvim-telescope/telescope.nvim',
         lazy = true,
-        dependencies = 'nvim-lua/plenary.nvim',
+        dependencies = { 'nvim-lua/plenary.nvim' },
         event = 'LspAttach',
         cmd = { 'Telescope' },
         keys = {
@@ -126,24 +126,24 @@ return {
         'nvim-telescope/telescope-fzf-native.nvim',
         build = 'make',
         lazy = true,
-        dependencies = 'nvim-telescope/telescope.nvim',
+        dependencies = { 'nvim-telescope/telescope.nvim' },
     },
 
     {
         'nvim-telescope/telescope-ui-select.nvim',
         lazy = true,
-        dependencies = 'nvim-telescope/telescope.nvim',
+        dependencies = { 'nvim-telescope/telescope.nvim' },
     },
 
     {
         'nvim-telescope/telescope-live-grep-args.nvim',
         lazy = true,
-        dependencies = 'nvim-telescope/telescope.nvim',
+        dependencies = { 'nvim-telescope/telescope.nvim' },
     },
 
     {
         'nvim-telescope/telescope-project.nvim',
         lazy = true,
-        dependencies = 'nvim-telescope/telescope.nvim',
+        dependencies = { 'nvim-telescope/telescope.nvim' },
     },
 }

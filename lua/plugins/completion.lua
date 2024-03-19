@@ -39,7 +39,7 @@ return {
     },
     {
         'zbirenbaum/copilot-cmp',
-        dependencies = 'zbirenbaum/copilot.lua',
+        dependencies = { 'zbirenbaum/copilot.lua' },
         opts = {},
         config = function(_, opts)
             kind_icons.Copilot = ''
