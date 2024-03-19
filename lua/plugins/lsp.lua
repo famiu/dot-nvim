@@ -96,10 +96,6 @@ return {
                     opts
                 )
 
-                if client.supports_method('textDocument/formatting') then
-                    keymap.set({ 'n', 'v' }, '<space>lf', function() lsp.buf.format() end, opts)
-                end
-
                 if client.server_capabilities.documentSymbolProvider then
                     navic.attach(client, bufnr)
                 end
