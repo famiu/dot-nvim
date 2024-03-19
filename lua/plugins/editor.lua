@@ -96,7 +96,15 @@ return {
     },
     {
         'stevearc/oil.nvim',
-        opts = {},
+        opts = {
+            -- Make split mappings consistent with Telescope.
+            keymaps = {
+                ['<C-s>'] = false,
+                ['<C-h>'] = false,
+                ['<C-v>'] = 'actions.select_vsplit',
+                ['<C-x>'] = 'actions.select_split',
+            },
+        },
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     }
 }
