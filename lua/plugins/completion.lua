@@ -1,4 +1,4 @@
-local kind_icons = {
+local lsp_kind_icons = {
     Text          = '󰉿',
     Method        = '󰆧',
     Function      = '󰊕',
@@ -85,7 +85,7 @@ return {
         dependencies = { 'zbirenbaum/copilot.lua' },
         opts = {},
         config = function(_, opts)
-            kind_icons.Copilot = ''
+            lsp_kind_icons.Copilot = ''
             require('copilot_cmp').setup(opts)
 
             -- Add highlight for Copilot items in nvim-cmp.
@@ -144,7 +144,7 @@ return {
                 }),
                 formatting = {
                     format = function(_, vim_item)
-                        vim_item.kind = kind_icons[vim_item.kind] .. ' ' .. vim_item.kind
+                        vim_item.kind = lsp_kind_icons[vim_item.kind] .. ' ' .. vim_item.kind
                         return vim_item
                     end
                 },
