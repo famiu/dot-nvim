@@ -9,9 +9,8 @@ M.config = { close_icon = '' }
 
 --- Create tabline component for a single buffer.
 ---
---- @param buf buffer
---- @param tp_nr? tabpage
---- @param buf_idx? buffer
+--- @param buf integer
+--- @param tp_nr integer
 --- @return string
 local function tabline_buf_component(buf, tp_nr)
     local bufname = api.nvim_buf_get_name(buf)
@@ -38,8 +37,6 @@ local function tabline_buf_component(buf, tp_nr)
     else
         hl = 'TabLine'
     end
-
-    assert(tp_nr ~= nil)
 
     return string.format(
         [[%%#%s#%%%dT [%d] %s%s%%T%%%dX %s %%X]],
