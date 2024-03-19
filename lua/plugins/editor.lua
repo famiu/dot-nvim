@@ -47,7 +47,6 @@ return {
         }
     },
     'tpope/vim-sleuth',
-    'tpope/vim-eunuch',
     { 'mbbill/undotree', keys = {{ '<Leader>u', '<CMD>UndotreeToggle<CR>' }} },
     {
         'akinsho/toggleterm.nvim',
@@ -95,4 +94,9 @@ return {
             vim.g.winresizer_start_key = '<Leader>wr'
         end
     },
+    {
+        'stevearc/oil.nvim',
+        opts = {},
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+    }
 }
