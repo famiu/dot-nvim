@@ -1,11 +1,7 @@
 local api = vim.api
 local fn = vim.fn
 
-local M = {}
-
---- @class MyTabLineConfig
---- @field close_icon string
-M.config = { close_icon = '' }
+local close_icon = ''
 
 --- Create tabline component for a single buffer.
 ---
@@ -38,16 +34,7 @@ local function tabline_buf_component(buf, tp_nr)
         hl = 'TabLine'
     end
 
-    return string.format(
-        [[%%#%s#%%%dT [%d] %s%s%%T%%%dX %s %%X]],
-        hl,
-        tp_nr,
-        tp_nr,
-        icon,
-        bufname,
-        tp_nr,
-        M.config.close_icon
-    )
+    return string.format([[%%#%s#%%%dT [%d] %s%s%%T%%%dX %s %%X]], hl, tp_nr, tp_nr, icon, bufname, tp_nr, close_icon)
 end
 
 --- Generate tabline tabline to use for the 'tabline' option.
@@ -55,7 +42,7 @@ end
 --- current working directory of the current tab on the right.
 ---
 --- @return string
-function M.generate_tabline()
+function _G.mytabline()
     local tp_elems = {}
 
     for _, tp in ipairs(api.nvim_list_tabpages()) do
@@ -68,6 +55,4 @@ function M.generate_tabline()
     return table.concat(tp_elems) .. '%#TabLineFill#'
 end
 
-vim.o.tabline = [[%{%v:lua.require'utilities.tabline'.generate_tabline()%}]]
-
-return M
+vim.o.tabline = [[%{%v:lua.mytabline()%}]]

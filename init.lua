@@ -41,6 +41,9 @@ end
 
 LoadPlugins = function()
     vim.opt.rtp:prepend(lazypath)
+    -- Set mapleader and maplocalloader (this needs to be done before loading Lazy).
+    vim.g.mapleader = ' '
+    vim.g.maplocalleader = ','
 
     require('lazy').setup({ import = 'plugins' }, {
         dev = {
@@ -50,20 +53,8 @@ LoadPlugins = function()
         concurrency = require('utilities.os').pu_count(),
     })
 
-    -- Other utilities
-    require('utilities')
+    vim.keymap.set('n', '<Leader>z', '<CMD>Lazy<CR>')
 end
-
--- Basic option configurations and similar settings.
-require('settings')
-
--- If using a GUI, load GUI settings.
-if fn.has('gui_running') == 1 then
-    require('gui_settings')
-end
-
--- Basic keybinds
-require('keybinds')
 
 -- Check to see if config dependencies are found.
 CheckConfigDeps()

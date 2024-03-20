@@ -1,16 +1,9 @@
-local g = vim.g
-local augroup = vim.api.nvim_create_augroup('MyConfig', {})
-
--- Set mapleader and maplocalloader
-g.mapleader = ' '
-g.maplocalleader = ','
-
 -- Use LaTeX as default tex flavor
-g.tex_flavor = 'latex'
+vim.g.tex_flavor = 'latex'
 
 -- Don't load netrw
-g.loaded_netrw = 1
-g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- Default grep command
 vim.o.grepprg = 'rg --vimgrep --smart-case'
@@ -30,6 +23,7 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = true
 
 -- Linebreak and wrap behavior
+vim.o.wrap = true
 vim.o.linebreak = true
 vim.o.breakindent = true
 
@@ -103,15 +97,6 @@ vim.o.statuscolumn = "%{%v:relnum?'%='.v:relnum:v:lnum.'%='%} %s"
 
 -- Conceal
 vim.o.conceallevel = 2
-
-vim.api.nvim_create_autocmd('FileType', {
-    desc = "Use 'linebreak' instead of 'wrap' for text-based filetypes",
-    group = augroup,
-    callback = function()
-        vim.o.wrap = false
-        vim.o.linebreak = true
-    end,
-})
 
 -- Remove "How-to disable mouse" from right-click menu
 vim.cmd.aunmenu([[PopUp.How-to\ disable\ mouse]])
