@@ -27,6 +27,11 @@ return {
                 desc = 'Telescope live grep with args',
             },
             {
+                '<Leader>fk',
+                function() require('telescope.builtin').keymaps() end,
+                desc = 'Telescope find keymaps',
+            },
+            {
                 '<Leader>fh',
                 function() require('telescope.builtin').help_tags() end,
                 desc = 'Telescope find help tags',
