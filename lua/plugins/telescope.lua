@@ -46,7 +46,7 @@ return {
 
                 function()
                     require('telescope.builtin').find_files({
-                        cwd = vim.fn.stdpath('config')
+                        cwd = vim.fn.stdpath('config'),
                     })
                 end,
 
@@ -59,7 +59,7 @@ return {
             },
             {
                 '<Leader>/',
-                function ()
+                function()
                     local dropdown = require('telescope.themes').get_dropdown({ previewer = false })
                     require('telescope.builtin').current_buffer_fuzzy_find(dropdown)
                 end,
@@ -76,9 +76,9 @@ return {
         config = function()
             local ts_actions = require('telescope.actions')
             local lga_actions = require('telescope-live-grep-args.actions')
-            local project_actions = require("telescope._extensions.project.actions")
+            local project_actions = require('telescope._extensions.project.actions')
 
-            require('telescope').setup {
+            require('telescope').setup({
                 defaults = {
                     cache_picker = false,
                     mappings = {
@@ -86,17 +86,16 @@ return {
                             ['<C-Down>'] = ts_actions.cycle_history_next,
                             ['<C-Up>'] = ts_actions.cycle_history_prev,
                         },
-                    }
+                    },
                 },
                 pickers = {
                     buffers = {
-                        theme = 'ivy'
-                    }
+                        theme = 'ivy',
+                    },
                 },
                 extensions = {
                     ['ui-select'] = {
-                        require('telescope.themes').get_dropdown {
-                        }
+                        require('telescope.themes').get_dropdown({}),
                     },
                     live_grep_args = {
                         auto_quoting = true,
@@ -117,9 +116,9 @@ return {
                             project_actions.change_working_directory(prompt_bufnr, false)
                             require('telescope.builtin').find_files()
                         end,
-                    }
+                    },
                 },
-            }
+            })
 
             pcall(require('telescope').load_extension, 'fzf')
             require('telescope').load_extension('ui-select')

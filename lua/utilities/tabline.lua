@@ -40,7 +40,13 @@ local function tabline_buf_component(buf, tp_nr)
 
     return string.format(
         [[%%#%s#%%%dT [%d] %s%s%%T%%%dX %s %%X]],
-        hl, tp_nr, tp_nr, icon, bufname, tp_nr, M.config.close_icon
+        hl,
+        tp_nr,
+        tp_nr,
+        icon,
+        bufname,
+        tp_nr,
+        M.config.close_icon
     )
 end
 

@@ -1,15 +1,21 @@
 local fn = vim.fn
 
 local no_restore_cursor_buftypes = {
-    'quickfix', 'nofile', 'help', 'terminal'
+    'quickfix',
+    'nofile',
+    'help',
+    'terminal',
 }
 
 local no_restore_cursor_filetypes = {
-    'gitcommit', 'gitrebase'
+    'gitcommit',
+    'gitrebase',
 }
 
 local function restore_cursor()
-    if fn.line([['"]]) >= 1 and fn.line([['"]]) <= fn.line('$')
+    if
+        fn.line([['"]]) >= 1
+        and fn.line([['"]]) <= fn.line('$')
         and not vim.tbl_contains(no_restore_cursor_buftypes, vim.o.buftype)
         and not vim.tbl_contains(no_restore_cursor_filetypes, vim.o.filetype)
     then

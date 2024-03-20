@@ -93,13 +93,11 @@ return {
                         ['[S'] = { query = '@scope', query_group = 'locals' },
                         ['[Z'] = { query = '@fold', query_group = 'folds' },
                     },
-                    goto_next = {
-                    },
-                    goto_previous = {
-                    }
+                    goto_next = {},
+                    goto_previous = {},
                 },
             },
-        }
+        },
     },
     {
         'nvim-treesitter/nvim-treesitter-textobjects',

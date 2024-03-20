@@ -20,10 +20,8 @@ return {
         'famiu/bufdelete.nvim',
         name = 'bufdelete',
         dev = true,
-        init = function()
-            keymap.set('n', '<Leader>x', 'Bdelete', { silent = true })
-        end,
-        cmd = { 'Bdelete', 'Bwipeout' }
+        init = function() keymap.set('n', '<Leader>x', 'Bdelete', { silent = true }) end,
+        cmd = { 'Bdelete', 'Bwipeout' },
     },
     { 'numToStr/Comment.nvim', opts = {} },
     { 'echasnovski/mini.align', opts = {} },
@@ -34,20 +32,20 @@ return {
             vim.g.surround_no_mappings = 1
         end,
         keys = {
-            { 'ds',  '<Plug>Dsurround' },
-            { 'cs',  '<Plug>Csurround' },
-            { 'cS',  '<Plug>CSurround' },
-            { 'ys',  '<Plug>Ysurround' },
-            { 'yS',  '<Plug>YSurround' },
+            { 'ds', '<Plug>Dsurround' },
+            { 'cs', '<Plug>Csurround' },
+            { 'cS', '<Plug>CSurround' },
+            { 'ys', '<Plug>Ysurround' },
+            { 'yS', '<Plug>YSurround' },
             { 'yss', '<Plug>Yssurround' },
             { 'ySs', '<Plug>YSsurround' },
             { 'ySS', '<Plug>YSsurround' },
-            { 'gs',  '<Plug>VSurround',  mode = 'x' },
-            { 'gS',  '<Plug>VgSurround', mode = 'x' },
-        }
+            { 'gs', '<Plug>VSurround', mode = 'x' },
+            { 'gS', '<Plug>VgSurround', mode = 'x' },
+        },
     },
     'tpope/vim-sleuth',
-    { 'mbbill/undotree', keys = {{ '<Leader>u', '<CMD>UndotreeToggle<CR>' }} },
+    { 'mbbill/undotree', keys = { { '<Leader>u', '<CMD>UndotreeToggle<CR>' } } },
     {
         'akinsho/toggleterm.nvim',
         keys = '<C-t>',
@@ -60,9 +58,9 @@ return {
         'Wansmer/treesj',
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
         config = function()
-            require 'treesj'.setup {
+            require('treesj').setup({
                 use_default_keymaps = false,
-            }
+            })
 
             vim.api.nvim_create_autocmd({ 'FileType' }, {
                 pattern = '*',
@@ -75,7 +73,7 @@ return {
             })
         end,
     },
-    { 'echasnovski/mini.ai', opts = {}, },
+    { 'echasnovski/mini.ai', opts = {} },
     { 'yorickpeterse/nvim-pqf', opts = {} },
     {
         'simeji/winresizer',
@@ -86,7 +84,7 @@ return {
             vim.g.winresizer_vert_resize = 10
             vim.g.winresizer_horiz_resize = 3
             vim.g.winresizer_start_key = '<Leader>w'
-        end
+        end,
     },
     {
         'stevearc/oil.nvim',
@@ -111,9 +109,7 @@ return {
             { '<Leader>H', function() require('harpoon'):list():prepend() end },
             {
                 '<C-e>',
-                function()
-                    require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())
-                end,
+                function() require('harpoon').ui:toggle_quick_menu(require('harpoon'):list()) end,
             },
             { '<Leader>1', function() require('harpoon'):list():select(1) end },
             { '<Leader>2', function() require('harpoon'):list():select(2) end },

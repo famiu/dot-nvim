@@ -35,64 +35,58 @@ return {
                 '<Leader>gD',
                 function()
                     local target = vim.fn.input('Target branch name: ')
-                    local status = vim.system(
-                        { 'git', 'merge-base', 'HEAD', target },
-                        { text = true }
-                    ):wait()
+                    local status = vim.system({ 'git', 'merge-base', 'HEAD', target }, { text = true }):wait()
 
                     if status.code ~= 0 then
-                        error(string.format(
-                            "Error code %d while running git merge-base. STDERR: %s",
-                            status.code, status.stderr
-                        ))
+                        error(
+                            string.format(
+                                'Error code %d while running git merge-base. STDERR: %s',
+                                status.code,
+                                status.stderr
+                            )
+                        )
                     end
 
                     vim.cmd.DiffviewOpen(status.stdout)
                 end,
-                desc = 'Diff from common ancestor of target branch and current branch'
+                desc = 'Diff from common ancestor of target branch and current branch',
             },
             {
                 '<Leader>g<C-d>',
-                function()
-                    vim.cmd.DiffviewOpen(vim.fn.input('Diff rev: '))
-                end,
-                desc = 'Diff rev'
+                function() vim.cmd.DiffviewOpen(vim.fn.input('Diff rev: ')) end,
+                desc = 'Diff rev',
             },
             { '<Leader>gt', '<CMD>DiffviewToggleFiles<CR>', desc = 'Toggle diffview files panel' },
             {
                 ']C',
-                function()
-                    require('diffview.config').actions.next_conflict()
-                end,
-                desc = 'Jump to next conflict marker'
+                function() require('diffview.config').actions.next_conflict() end,
+                desc = 'Jump to next conflict marker',
             },
             {
                 '[C',
-                function()
-                    require('diffview.config').actions.prev_conflict()
-                end,
-                desc = 'Jump to previous conflict marker'
-            }
-        }
+                function() require('diffview.config').actions.prev_conflict() end,
+                desc = 'Jump to previous conflict marker',
+            },
+        },
     },
     {
         'lewis6991/gitsigns.nvim',
         opts = {
             signs = {
-                add          = { text = '│' },
-                change       = { text = '│' },
-                delete       = { text = '_' },
-                topdelete    = { text = '‾' },
+                add = { text = '│' },
+                change = { text = '│' },
+                delete = { text = '_' },
+                topdelete = { text = '‾' },
                 changedelete = { text = '~' },
-                untracked    = { text = '┆' },
+                untracked = { text = '┆' },
             },
-            signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-            numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
-            linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
-            word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
+            signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+            numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
+            linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
+            word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
             watch_gitdir = {
                 interval = 1000,
-                follow_files = true
+                follow_files = true,
             },
             attach_to_untracked = true,
             current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
@@ -113,10 +107,10 @@ return {
                 style = 'minimal',
                 relative = 'cursor',
                 row = 0,
-                col = 1
+                col = 1,
             },
             yadm = {
-                enable = false
+                enable = false,
             },
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns
@@ -129,13 +123,17 @@ return {
 
                 -- Navigation
                 map('n', ']h', function()
-                    if vim.wo.diff then return ']h' end
+                    if vim.wo.diff then
+                        return ']h'
+                    end
                     vim.schedule(function() gs.next_hunk() end)
                     return '<Ignore>'
                 end, { expr = true })
 
                 map('n', '[h', function()
-                    if vim.wo.diff then return '[h' end
+                    if vim.wo.diff then
+                        return '[h'
+                    end
                     vim.schedule(function() gs.prev_hunk() end)
                     return '<Ignore>'
                 end, { expr = true })
@@ -153,7 +151,7 @@ return {
 
                 -- Text object
                 map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-            end
-        }
-    }
+            end,
+        },
+    },
 }

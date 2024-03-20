@@ -50,9 +50,9 @@ vim.o.inccommand = 'split'
 -- Folding configuration
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
-vim.o.foldtext = [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').]] ..
-    [[' ... '.trim(getline(v:foldend)).]] ..
-    [[' ('.(v:foldend-v:foldstart).' lines folded...)']]
+vim.o.foldtext = [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').]]
+    .. [[' ... '.trim(getline(v:foldend)).]]
+    .. [[' ('.(v:foldend-v:foldstart).' lines folded...)']]
 vim.o.foldenable = false
 vim.o.fillchars = 'fold: ,diff: '
 vim.o.foldnestmax = 3
@@ -110,7 +110,7 @@ vim.api.nvim_create_autocmd('FileType', {
     callback = function()
         vim.o.wrap = false
         vim.o.linebreak = true
-    end
+    end,
 })
 
 -- Remove "How-to disable mouse" from right-click menu

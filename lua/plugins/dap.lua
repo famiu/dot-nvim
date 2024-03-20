@@ -11,18 +11,13 @@ local function dapinit()
     keymap.set('n', '<S-F11>', function() require('dap').step_into() end)
     keymap.set('n', '<S-F12>', function() require('dap').step_out() end)
     keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
+    keymap.set('n', '<Leader>B', function() require('dap').set_breakpoint(fn.input('Breakpoint condition: ')) end)
     keymap.set(
-    'n', '<Leader>B',
-    function() require('dap').set_breakpoint(fn.input('Breakpoint condition: ')) end
+        'n',
+        '<Leader>lp',
+        function() require('dap').set_breakpoint(nil, nil, fn.input('Log point message: ')) end
     )
-    keymap.set(
-    'n', '<Leader>lp',
-    function() require('dap').set_breakpoint(nil, nil, fn.input('Log point message: ')) end
-    )
-    keymap.set(
-    'n', '<Leader>cb',
-    function() require('dap').clear_breakpoints() end
-    )
+    keymap.set('n', '<Leader>cb', function() require('dap').clear_breakpoints() end)
     keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
     keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
 end
@@ -43,30 +38,24 @@ local function dapconfig()
         pattern = 'dap-repl',
         callback = function() require('dap.ext.autocompl').attach() end,
         desc = 'DAP Autocompletion',
-        group = augroup
+        group = augroup,
     })
 
     -- DAP UI
     dapui.setup()
 
-    dap.listeners.after.event_initialized['dapui_config'] = function()
-        dapui.open()
-    end
-    dap.listeners.before.event_terminated['dapui_config'] = function()
-        dapui.close()
-    end
-    dap.listeners.before.event_exited['dapui_config'] = function()
-        dapui.close()
-    end
+    dap.listeners.after.event_initialized['dapui_config'] = function() dapui.open() end
+    dap.listeners.before.event_terminated['dapui_config'] = function() dapui.close() end
+    dap.listeners.before.event_exited['dapui_config'] = function() dapui.close() end
 
     -- DAP Virtual Text
-    require('nvim-dap-virtual-text').setup {}
+    require('nvim-dap-virtual-text').setup({})
 
     -- Adapters
     dap.adapters.lldb = {
         type = 'executable',
         command = 'lldb-vscode',
-        name = 'lldb'
+        name = 'lldb',
     }
 
     local c_cpp_rust_base_config = {
@@ -74,9 +63,7 @@ local function dapconfig()
             name = 'Launch',
             type = 'lldb',
             request = 'launch',
-            program = function()
-                return fn.input('Path to executable: ', fn.getcwd() .. '/', 'file')
-            end,
+            program = function() return fn.input('Path to executable: ', fn.getcwd() .. '/', 'file') end,
             cwd = '${workspaceFolder}',
             stopOnEntry = false,
             args = {},
@@ -96,7 +83,7 @@ local function dapconfig()
     dap.defaults.fallback.external_terminal = {
         -- Use Windows Terminal for Windows, and GNOME Terminal for Linux.
         command = require('utilities.os').is_windows() and 'wt' or 'gnome-terminal',
-        args = { '--' };
+        args = { '--' },
     }
 
     -- Language configurations
@@ -105,20 +92,18 @@ local function dapconfig()
     dap.configurations.rust = c_cpp_rust_base_config
 
     -- Program specific configs
-    table.insert(dap.configurations.c, setmetatable(
-        {
+    table.insert(
+        dap.configurations.c,
+        setmetatable({
             name = 'Neovim',
             type = 'lldb',
             request = 'launch',
             program = vim.uv.os_homedir() .. '/Workspace/neovim/neovim/build/bin/nvim',
             cwd = '${workspaceFolder}',
             stopOnEntry = false,
-            args = function()
-                return vim.split(fn.input('Args: ', '--clean '), ' ')
-            end,
+            args = function() return vim.split(fn.input('Args: ', '--clean '), ' ') end,
             runInTerminal = true,
-        },
-        {
+        }, {
             __call = function(config)
                 -- Listeners are indexed by a key.
                 -- This is like a namespace and must not conflict with what plugins
@@ -152,9 +137,10 @@ local function dapconfig()
                     -- The pid is the parent pid, we need to attach to the child. This uses the `ps` tool to get it
                     -- It takes a bit for the child to arrive. This uses the `vim.wait` function to wait up to a second
                     -- to get the child pid.
-                    vim.wait(1000, function()
-                        return tonumber(vim.fn.system('ps -o pid= --ppid ' .. tostring(ppid))) ~= nil
-                    end)
+                    vim.wait(
+                        1000,
+                        function() return tonumber(vim.fn.system('ps -o pid= --ppid ' .. tostring(ppid))) ~= nil end
+                    )
                     local pid = tonumber(vim.fn.system('ps -o pid= --ppid ' .. tostring(ppid)))
                     local home = vim.uv.os_homedir()
 
@@ -174,9 +160,9 @@ local function dapconfig()
                     end
                 end
                 return config
-            end
-        }
-    ))
+            end,
+        })
+    )
 end
 
 local M = {

@@ -1,7 +1,7 @@
 -- Highlight text on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
     callback = function() vim.highlight.on_yank() end,
-    desc = 'Highlight on yank'
+    desc = 'Highlight on yank',
 })
 
 require('utilities.mkdir_on_save')

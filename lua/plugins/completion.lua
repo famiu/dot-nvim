@@ -1,28 +1,28 @@
 local lsp_kind_icons = {
-    Text          = '󰉿',
-    Method        = '󰆧',
-    Function      = '󰊕',
-    Constructor   = '',
-    Field         = '󰜢',
-    Variable      = '󰀫',
-    Class         = '󰠱',
-    Interface     = '',
-    Module        = '',
-    Property      = '󰜢',
-    Unit          = '󰑭',
-    Value         = '󰎠',
-    Enum          = '',
-    Keyword       = '󰌋',
-    Snippet       = '',
-    Color         = '󰏘',
-    File          = '󰈙',
-    Reference     = '󰈇',
-    Folder        = '󰉋',
-    EnumMember    = '',
-    Constant      = '󰏿',
-    Struct        = '󰙅',
-    Event         = '',
-    Operator      = '󰆕',
+    Text = '󰉿',
+    Method = '󰆧',
+    Function = '󰊕',
+    Constructor = '',
+    Field = '󰜢',
+    Variable = '󰀫',
+    Class = '󰠱',
+    Interface = '',
+    Module = '',
+    Property = '󰜢',
+    Unit = '󰑭',
+    Value = '󰎠',
+    Enum = '',
+    Keyword = '󰌋',
+    Snippet = '',
+    Color = '󰏘',
+    File = '󰈙',
+    Reference = '󰈇',
+    Folder = '󰉋',
+    EnumMember = '',
+    Constant = '󰏿',
+    Struct = '󰙅',
+    Event = '',
+    Operator = '󰆕',
     TypeParameter = '',
 }
 
@@ -89,8 +89,8 @@ return {
             require('copilot_cmp').setup(opts)
 
             -- Add highlight for Copilot items in nvim-cmp.
-            vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
-        end
+            vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#6CC644' })
+        end,
     },
     {
         'hrsh7th/nvim-cmp',
@@ -108,9 +108,7 @@ return {
 
             cmp.setup({
                 snippet = {
-                    expand = function(args)
-                        luasnip.lsp_expand(args.body)
-                    end,
+                    expand = function(args) luasnip.lsp_expand(args.body) end,
                 },
                 window = {
                     completion = cmp.config.window.bordered(),
@@ -146,12 +144,12 @@ return {
                     format = function(_, vim_item)
                         vim_item.kind = lsp_kind_icons[vim_item.kind] .. ' ' .. vim_item.kind
                         return vim_item
-                    end
+                    end,
                 },
                 sorting = {
                     priority_weight = 2,
                     comparators = {
-                        require("copilot_cmp.comparators").prioritize,
+                        require('copilot_cmp.comparators').prioritize,
 
                         -- Below is the default comparitor list and order for nvim-cmp
                         cmp.config.compare.offset,
@@ -175,8 +173,8 @@ return {
                 sources = {
                     { name = 'vimtex' },
                     { name = 'buffer' },
-                }
+                },
             })
-        end
-    }
+        end,
+    },
 }

@@ -20,24 +20,18 @@ return {
         local default_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
         -- Make LSP floating windows have borders.
-        lsp.handlers['textDocument/hover'] = lsp.with(
-            lsp.handlers.hover,
-            { border = 'single' }
-        )
+        lsp.handlers['textDocument/hover'] = lsp.with(lsp.handlers.hover, { border = 'single' })
 
-        lsp.handlers['textDocument/signatureHelp'] = lsp.with(
-            lsp.handlers.signature_help,
-            { border = 'single' }
-        )
+        lsp.handlers['textDocument/signatureHelp'] = lsp.with(lsp.handlers.signature_help, { border = 'single' })
 
         -- Diagnostics configuration.
-        diagnostic.config {
+        diagnostic.config({
             virtual_text = {
                 spacing = 4,
                 prefix = '~',
             },
-            signs = false
-        }
+            signs = false,
+        })
 
         -- Diagnostic Signs.
         fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
@@ -65,33 +59,14 @@ return {
                 keymap.set('n', '<Leader>ca', lsp.buf.code_action, opts)
 
                 -- Telescope mappings
+                keymap.set('n', 'gd', function() require('telescope.builtin').lsp_definitions() end, opts)
+                keymap.set('n', 'gi', function() require('telescope.builtin').lsp_implementations() end, opts)
+                keymap.set('n', 'gr', function() require('telescope.builtin').lsp_references() end, opts)
+                keymap.set('n', 'gT', function() require('telescope.builtin').lsp_type_definitions() end, opts)
+                keymap.set('n', '<Leader>fS', function() require('telescope.builtin').lsp_document_symbols() end, opts)
                 keymap.set(
-                    'n', 'gd',
-                    function() require('telescope.builtin').lsp_definitions() end,
-                    opts
-                )
-                keymap.set(
-                    'n', 'gi',
-                    function() require('telescope.builtin').lsp_implementations() end,
-                    opts
-                )
-                keymap.set(
-                    'n', 'gr',
-                    function() require('telescope.builtin').lsp_references() end,
-                    opts
-                )
-                keymap.set(
-                    'n', 'gT',
-                    function() require('telescope.builtin').lsp_type_definitions() end,
-                    opts
-                )
-                keymap.set(
-                    'n', '<Leader>fS',
-                    function() require('telescope.builtin').lsp_document_symbols() end,
-                    opts
-                )
-                keymap.set(
-                    'n', '<Leader>fs',
+                    'n',
+                    '<Leader>fs',
                     function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end,
                     opts
                 )
@@ -99,18 +74,18 @@ return {
                 if client.server_capabilities.documentSymbolProvider then
                     navic.attach(client, bufnr)
                 end
-            end
+            end,
         })
 
         -- Set default Lspconfig capabilities.
         lspconfig.util.default_config.capabilities = default_capabilities
 
         -- Load LSP client configurations.
-        lspconfig.clangd.setup {
+        lspconfig.clangd.setup({
             cmd = { 'clangd', '--background-index', '--clang-tidy' },
-        }
+        })
 
-        lspconfig.rust_analyzer.setup {
+        lspconfig.rust_analyzer.setup({
             settings = {
                 ['rust-analyzer'] = {
                     check = {
@@ -129,17 +104,17 @@ return {
                     },
                 },
             },
-        }
+        })
 
-        lspconfig.pyright.setup {}
+        lspconfig.pyright.setup({})
 
-        lspconfig.lua_ls.setup {
+        lspconfig.lua_ls.setup({
             cmd = { 'lua-language-server' },
             settings = {
                 Lua = {
                     workspace = {
-                        checkThirdParty = false
-                    }
+                        checkThirdParty = false,
+                    },
                 },
             },
             on_init = function(client)
@@ -172,22 +147,22 @@ return {
 
                 client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
                     runtime = {
-                        version = 'LuaJIT'
+                        version = 'LuaJIT',
                     },
                     -- Make the server aware of Neovim runtime files.
                     workspace = {
                         library = workspace_libraries,
-                    }
+                    },
                 })
             end,
-        }
+        })
 
-        lspconfig.bashls.setup {
+        lspconfig.bashls.setup({
             filetypes = { 'sh', 'bash', 'zsh' },
-        }
+        })
 
-        lspconfig.cmake.setup {
+        lspconfig.cmake.setup({
             cmd = { 'cmake-language-server' },
-        }
-    end
+        })
+    end,
 }

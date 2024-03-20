@@ -54,10 +54,10 @@ keymap.set('n', ']q', '<CMD>cnext<CR>')
 keymap.set('n', '[q', '<CMD>cprevious<CR>')
 
 -- Disable arrow keys
-keymap.set({'n', 'i'}, '<Left>', '<Nop>')
-keymap.set({'n', 'i'}, '<Right>', '<Nop>')
-keymap.set({'n', 'i'}, '<Up>', '<Nop>')
-keymap.set({'n', 'i'}, '<Down>', '<Nop>')
+keymap.set({ 'n', 'i' }, '<Left>', '<Nop>')
+keymap.set({ 'n', 'i' }, '<Right>', '<Nop>')
+keymap.set({ 'n', 'i' }, '<Up>', '<Nop>')
+keymap.set({ 'n', 'i' }, '<Down>', '<Nop>')
 
 -- Quitall shortcut
 keymap.set('n', '<Leader>qq', '<CMD>quitall<CR>')

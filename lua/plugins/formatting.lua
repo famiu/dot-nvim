@@ -15,7 +15,5 @@ return {
             mode = { 'n', 'v' },
         },
     },
-    init = function()
-        vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-    end,
+    init = function() vim.o.formatexpr = "v:lua.require'conform'.formatexpr()" end,
 }

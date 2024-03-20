@@ -3,13 +3,13 @@ return {
     dependencies = {
         'nvim-tree/nvim-web-devicons',
         'SmiteshP/nvim-navic',
-        'folke/noice.nvim',       -- For mode
+        'folke/noice.nvim', -- For mode
     },
     config = function()
         local noice = require('noice')
         local navic = require('nvim-navic')
 
-        require('lualine').setup {
+        require('lualine').setup({
             sections = {
                 lualine_a = { 'mode' },
                 lualine_b = { 'branch', 'diff', 'diagnostics' },
@@ -22,10 +22,10 @@ return {
                     },
                     'encoding',
                     'fileformat',
-                    'filetype'
+                    'filetype',
                 },
                 lualine_y = { 'progress' },
-                lualine_z = { 'location' }
+                lualine_z = { 'location' },
             },
             inactive_sections = {
                 lualine_a = {},
@@ -33,7 +33,7 @@ return {
                 lualine_c = { 'filename' },
                 lualine_x = { 'location' },
                 lualine_y = {},
-                lualine_z = {}
+                lualine_z = {},
             },
             winbar = {
                 lualine_c = { { 'filename', path = 3 } },
@@ -44,8 +44,8 @@ return {
                         else
                             return ''
                         end
-                    end
-                }
+                    end,
+                },
             },
             inactive_winbar = {
                 lualine_c = { { 'filename', path = 3 } },
@@ -57,7 +57,7 @@ return {
                 'lazy',
                 'nvim-dap-ui',
                 'toggleterm',
-            }
-        }
-    end
+            },
+        })
+    end,
 }

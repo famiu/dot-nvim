@@ -2,7 +2,7 @@ return {
     'folke/noice.nvim',
     dependencies = {
         'MunifTanjim/nui.nvim',
-        'rcarriga/nvim-notify'
+        'rcarriga/nvim-notify',
     },
     opts = {
         lsp = {
@@ -19,5 +19,5 @@ return {
             inc_rename = false, -- enables an input dialog for inc-rename.nvim
             lsp_doc_border = true, -- add a border to hover docs and signature help
         },
-    }
+    },
 }

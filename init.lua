@@ -8,7 +8,7 @@ local LoadPlugins
 --- Check if dependencies for Neovim config are installed before bootstrapping the config.
 CheckConfigDeps = function()
     -- Ensure that the OS is Windows, Mac or Linux.
-    if not os_utils.is_posix() and not os_utils.is_windows() then
+    if not os_utils.is_linux() and not os_utils.is_macos() and not os_utils.is_windows() then
         error('Neovim configuration does not support the OS ' .. vim.uv.os_uname().sysname)
     end
 
