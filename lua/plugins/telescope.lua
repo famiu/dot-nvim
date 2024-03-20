@@ -17,6 +17,11 @@ return {
                 desc = 'Telescope find Git files',
             },
             {
+                '<Leader>fb',
+                function() require('telescope.builtin').buffers() end,
+                desc = 'Telescope find buffer',
+            },
+            {
                 '<Leader>fg',
                 function() require('telescope').extensions.live_grep_args.live_grep_args() end,
                 desc = 'Telescope live grep with args',
