@@ -143,15 +143,13 @@ return {
                 -- Actions
                 map('n', '<leader>gb', function() gs.blame_line() end)
                 map('n', '<leader>gB', function() gs.toggle_current_line_blame() end)
-                map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-                map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-                map('n', '<leader>hS', gs.stage_buffer)
-                map('n', '<leader>hu', gs.undo_stage_hunk)
-                map('n', '<leader>hR', gs.reset_buffer)
-                map('n', '<leader>hp', gs.preview_hunk)
-                map('n', '<leader>hd', gs.diffthis)
-                map('n', '<leader>hD', function() gs.diffthis('~') end)
-                map('n', '<leader>ht', gs.toggle_deleted)
+                map({ 'n', 'v' }, '<leader>ghs', ':Gitsigns stage_hunk<CR>')
+                map({ 'n', 'v' }, '<leader>ghr', ':Gitsigns reset_hunk<CR>')
+                map('n', '<leader>ghu', gs.undo_stage_hunk)
+                map('n', '<leader>ghp', gs.preview_hunk)
+                map('n', '<leader>ghd', function() gs.diffthis('', { split = 'botright' }) end)
+                map('n', '<leader>ghD', function() gs.diffthis('~', { split = 'botright' }) end)
+                map('n', '<leader>ght', gs.toggle_deleted)
 
                 -- Text object
                 map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
