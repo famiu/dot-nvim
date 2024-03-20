@@ -1,22 +1,41 @@
 return {
-    { 'echasnovski/mini.align', opts = {} },
     {
-        'tpope/vim-surround',
-        init = function()
-            -- Disable surround mappings to prevent conflict with flash.nvim
-            vim.g.surround_no_mappings = 1
-        end,
+        'echasnovski/mini.align',
         keys = {
-            { 'ds', '<Plug>Dsurround' },
-            { 'cs', '<Plug>Csurround' },
-            { 'cS', '<Plug>CSurround' },
-            { 'ys', '<Plug>Ysurround' },
-            { 'yS', '<Plug>YSurround' },
-            { 'yss', '<Plug>Yssurround' },
-            { 'ySs', '<Plug>YSsurround' },
-            { 'ySS', '<Plug>YSsurround' },
-            { 'gs', '<Plug>VSurround', mode = 'x' },
-            { 'gS', '<Plug>VgSurround', mode = 'x' },
+            { 'ga', mode = { 'n', 'x' } },
+            { 'gA', mode = { 'n', 'x' } },
+        },
+        opts = {},
+    },
+    {
+        'kylechui/nvim-surround',
+        keys = {
+            'ys',
+            'yss',
+            'yS',
+            'ySS',
+            'ds',
+            'cs',
+            'cS',
+            { '<C-g>s', mode = 'i' },
+            { '<C-g>S', mode = 'i' },
+            { 'gs', mode = 'x' },
+            { 'gS', mode = 'x' },
+        },
+        opts = {
+            keymaps = {
+                normal = 'ys',
+                normal_cur = 'yss',
+                normal_line = 'yS',
+                normal_cur_line = 'ySS',
+                delete = 'ds',
+                change = 'cs',
+                change_line = 'cS',
+                insert = '<C-g>s',
+                insert_line = '<C-g>S',
+                visual = 'gs',
+                visual_line = 'gS',
+            },
         },
     },
     { 'echasnovski/mini.ai', opts = {} },
@@ -25,8 +44,8 @@ return {
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
         cmd = { 'TSJSplit', 'TSJJoin' },
         keys = {
-            { 'gS', '<CMD>TSJSplit<CR>' },
-            { 'gJ', '<CMD>TSJJoin<CR>' },
+            { '<Leader>s', function() require('treesj').split() end },
+            { '<Leader>j', function() require('treesj').join() end },
         },
         opts = {
             use_default_keymaps = false,
