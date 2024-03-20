@@ -57,29 +57,23 @@ return {
         },
     },
     {
-        'echasnovski/mini.splitjoin',
-        config = function ()
-            local splitjoin = require('mini.splitjoin')
-            local gen_hook = splitjoin.gen_hook
-            local curly = { brackets = { '%b{}' } }
-            local add_comma_curly = gen_hook.add_trailing_separator(curly)
-            local del_comma_curly = gen_hook.del_trailing_separator(curly)
-            local pad_curly = gen_hook.pad_brackets(curly)
+        'Wansmer/treesj',
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        config = function()
+            require 'treesj'.setup {
+                use_default_keymaps = false,
+            }
 
-            splitjoin.setup()
-
-            local group = vim.api.nvim_create_augroup('MiniSplitjoinConfig', {})
-            vim.api.nvim_create_autocmd('FileType', {
-                group = group,
-                pattern = 'lua',
-                callback = function(opts)
-                    vim.b[opts.buf].minisplitjoin_config = {
-                        split = { hooks_post = { add_comma_curly } },
-                        join  = { hooks_post = { del_comma_curly, pad_curly } },
-                    }
-                end
+            vim.api.nvim_create_autocmd({ 'FileType' }, {
+                pattern = '*',
+                callback = function()
+                    if require('treesj.langs').presets[vim.bo.filetype] then
+                        vim.keymap.set('n', 'gS', '<Cmd>TSJSplit<CR>', { buffer = true })
+                        vim.keymap.set('n', 'gJ', '<Cmd>TSJJoin<CR>', { buffer = true })
+                    end
+                end,
             })
-        end
+        end,
     },
     { 'echasnovski/mini.ai', opts = {}, },
     { 'yorickpeterse/nvim-pqf', opts = {} },
