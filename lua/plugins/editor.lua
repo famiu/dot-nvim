@@ -85,7 +85,7 @@ return {
             vim.g.winresizer_finish_with_escape = 1
             vim.g.winresizer_vert_resize = 10
             vim.g.winresizer_horiz_resize = 3
-            vim.g.winresizer_start_key = '<Leader>wr'
+            vim.g.winresizer_start_key = '<Leader>w'
         end
     },
     {
