@@ -1,6 +1,5 @@
 local api = vim.api
 local fn = vim.fn
-local keymap = vim.keymap
 
 local lsp_client_configs = {
     lua_ls = {
@@ -117,25 +116,54 @@ return {
                 assert(client ~= nil)
 
                 -- Mappings.
-                local opts = { buffer = bufnr }
-                keymap.set('n', 'gD', function() lsp.buf.declaration() end, opts)
-                keymap.set('n', '<Leader>r', function() lsp.buf.rename() end, opts)
-                keymap.set('n', '<C-Space>', function() diagnostic.open_float() end, opts)
-                keymap.set('n', ']e', function() diagnostic.goto_next() end, opts)
-                keymap.set('n', '[e', function() diagnostic.goto_prev() end, opts)
-                keymap.set('n', '<Leader>ca', lsp.buf.code_action, opts)
-
-                -- Telescope mappings
-                keymap.set('n', 'gd', function() require('telescope.builtin').lsp_definitions() end, opts)
-                keymap.set('n', 'gi', function() require('telescope.builtin').lsp_implementations() end, opts)
-                keymap.set('n', 'gr', function() require('telescope.builtin').lsp_references() end, opts)
-                keymap.set('n', 'gT', function() require('telescope.builtin').lsp_type_definitions() end, opts)
-                keymap.set('n', '<Leader>fS', function() require('telescope.builtin').lsp_document_symbols() end, opts)
-                keymap.set(
-                    'n',
-                    '<Leader>fs',
-                    function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end,
-                    opts
+                vim.tbl_map(
+                    function(mapping)
+                        vim.keymap.set(
+                            mapping.mode or 'n',
+                            mapping[1],
+                            mapping[2],
+                            { buffer = bufnr, desc = mapping.desc }
+                        )
+                    end,
+                    {
+                        { 'gD', function() lsp.buf.declaration() end, desc = '[g]o to [D]eclaration' },
+                        { '<Leader>r', function() lsp.buf.rename() end, desc = '[r]ename symbol' },
+                        { ']d', function() diagnostic.goto_next() end, desc = 'Go to next [d]iagnostic' },
+                        { '[d', function() diagnostic.goto_prev() end, desc = 'Go to previous [d]iagnostic' },
+                        { '<C-Space>', function() diagnostic.open_float() end, desc = 'Open diagnostic float' },
+                        { '<Leader>ca', function() lsp.buf.code_action() end, desc = 'Perform [c]ode [a]ction' },
+                        -- Telescope mappings
+                        {
+                            'gd',
+                            function() require('telescope.builtin').lsp_definitions() end,
+                            desc = '[g]oto [d]efinition',
+                        },
+                        {
+                            'gi',
+                            function() require('telescope.builtin').lsp_implementations() end,
+                            desc = '[g]oto [i]mplementation',
+                        },
+                        {
+                            'gr',
+                            function() require('telescope.builtin').lsp_references() end,
+                            desc = '[g]oto [r]eferences',
+                        },
+                        {
+                            'gT',
+                            function() require('telescope.builtin').lsp_type_definitions() end,
+                            desc = '[g]oto [T]ype definitions',
+                        },
+                        {
+                            '<Leader>fs',
+                            function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end,
+                            desc = '[f]ind dynamic workspace [s]ymbols',
+                        },
+                        {
+                            '<Leader>fS',
+                            function() require('telescope.builtin').lsp_document_symbols() end,
+                            desc = '[f]ind document [S]ymbols',
+                        },
+                    }
                 )
             end,
         })
