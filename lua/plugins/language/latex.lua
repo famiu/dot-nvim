@@ -34,5 +34,9 @@ return {
             }
         end,
     },
-    { 'micangl/cmp-vimtex', dependencies = { 'lervag/vimtex', 'hrsh7th/nvim-cmp' } },
+    {
+        'micangl/cmp-vimtex',
+        ft = 'tex',
+        dependencies = { 'lervag/vimtex', 'hrsh7th/nvim-cmp' },
+    },
 }

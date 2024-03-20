@@ -1,12 +1,11 @@
 local api = vim.api
-local lsp = vim.lsp
 local fs = vim.fs
 
 -- Automatically change to project root directory using either LSP or configured root patterns
 local root_patterns = { '.git', 'Makefile', 'CMakeLists.txt' }
 
 local function autocd()
-    local clients = lsp.get_clients({ bufnr = 0 })
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
     local target_dir
 
     for _, client in ipairs(clients) do

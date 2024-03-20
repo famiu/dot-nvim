@@ -1,28 +1,13 @@
 local api = vim.api
 local fn = vim.fn
-local lsp = vim.lsp
-local diagnostic = vim.diagnostic
 local keymap = vim.keymap
 
 return {
     'neovim/nvim-lspconfig',
-
-    dependencies = {
-        'hrsh7th/nvim-cmp',
-        'hrsh7th/cmp-nvim-lsp',
-        'SmiteshP/nvim-navic',
-    },
-
+    event = 'FileType',
     config = function()
-        local augroup = api.nvim_create_augroup('lsp-settings', {})
-        local navic = require('nvim-navic')
+        local diagnostic = vim.diagnostic
         local lspconfig = require('lspconfig')
-        local default_capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-        -- Make LSP floating windows have borders.
-        lsp.handlers['textDocument/hover'] = lsp.with(lsp.handlers.hover, { border = 'single' })
-
-        lsp.handlers['textDocument/signatureHelp'] = lsp.with(lsp.handlers.signature_help, { border = 'single' })
 
         -- Diagnostics configuration.
         diagnostic.config({
@@ -43,8 +28,9 @@ return {
         -- LSP configuration.
         api.nvim_create_autocmd('LspAttach', {
             desc = 'LSP configuration',
-            group = augroup,
+            group = api.nvim_create_augroup('lsp-settings', {}),
             callback = function(args)
+                local lsp = vim.lsp
                 local bufnr = args.buf
                 local client = lsp.get_client_by_id(args.data.client_id)
                 assert(client ~= nil)
@@ -70,15 +56,8 @@ return {
                     function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end,
                     opts
                 )
-
-                if client.server_capabilities.documentSymbolProvider then
-                    navic.attach(client, bufnr)
-                end
             end,
         })
-
-        -- Set default Lspconfig capabilities.
-        lspconfig.util.default_config.capabilities = default_capabilities
 
         -- Load LSP client configurations.
         lspconfig.clangd.setup({

@@ -81,30 +81,36 @@ return {
         },
     },
     {
-        'zbirenbaum/copilot-cmp',
-        dependencies = { 'zbirenbaum/copilot.lua' },
-        opts = {},
-        config = function(_, opts)
-            lsp_kind_icons.Copilot = ''
-            require('copilot_cmp').setup(opts)
-
-            -- Add highlight for Copilot items in nvim-cmp.
-            vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#6CC644' })
-        end,
-    },
-    {
         'hrsh7th/nvim-cmp',
         dependencies = {
-            'zbirenbaum/copilot-cmp',
+            'neovim/nvim-lspconfig',
             'saadparwaiz1/cmp_luasnip',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-buffer',
+            {
+                'zbirenbaum/copilot-cmp',
+                lazy = true,
+                dependencies = { 'zbirenbaum/copilot.lua' },
+                opts = {},
+                config = function(_, opts)
+                    lsp_kind_icons.Copilot = ''
+                    require('copilot_cmp').setup(opts)
+
+                    -- Add highlight for Copilot items in nvim-cmp.
+                    vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#6CC644' })
+                end,
+            },
         },
+        event = 'InsertEnter',
         config = function()
             -- Set up nvim-cmp.
             local cmp = require('cmp')
             local luasnip = require('luasnip')
+            local default_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+            -- Update default Lspconfig capabilities.
+            require('lspconfig').util.default_config.capabilities = default_capabilities
 
             cmp.setup({
                 snippet = {

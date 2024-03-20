@@ -1,13 +1,28 @@
+local api = vim.api
+
 return {
     'nvim-lualine/lualine.nvim',
     dependencies = {
         'nvim-tree/nvim-web-devicons',
+        'folke/noice.nvim',
         'SmiteshP/nvim-navic',
-        'folke/noice.nvim', -- For mode
     },
     config = function()
         local noice = require('noice')
         local navic = require('nvim-navic')
+
+        api.nvim_create_autocmd('LspAttach', {
+            desc = 'LSP configuration',
+            group = api.nvim_create_augroup('nvim-navic', {}),
+            callback = function(args)
+                local client = vim.lsp.get_client_by_id(args.data.client_id)
+                assert(client ~= nil)
+
+                if client.server_capabilities.documentSymbolProvider then
+                    navic.attach(client, args.buf)
+                end
+            end,
+        })
 
         require('lualine').setup({
             sections = {

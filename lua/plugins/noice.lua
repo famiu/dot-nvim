@@ -20,4 +20,12 @@ return {
             lsp_doc_border = true, -- add a border to hover docs and signature help
         },
     },
+    config = function(_, opts)
+        local lsp = vim.lsp
+
+        require('noice').setup(opts)
+        -- Make LSP floating windows have borders.
+        lsp.handlers['textDocument/hover'] = lsp.with(lsp.handlers.hover, { border = 'single' })
+        lsp.handlers['textDocument/signatureHelp'] = lsp.with(lsp.handlers.signature_help, { border = 'single' })
+    end
 }
