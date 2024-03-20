@@ -84,7 +84,7 @@ local lsp_client_configs = {
 
 return {
     'neovim/nvim-lspconfig',
-    event = 'FileType',
+    dependencies = { 'williamboman/mason.nvim' },
     config = function()
         local diagnostic = vim.diagnostic
         local lspconfig = require('lspconfig')
