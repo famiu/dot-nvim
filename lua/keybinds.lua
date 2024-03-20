@@ -30,8 +30,8 @@ keymap.set('n', '[w', '<CMD>wincmd W<CR>')
 keymap.set('n', ']w', '<CMD>wincmd w<CR>')
 
 -- Previous/next buffer
-keymap.set('n', '[b', '<CMD>bprevious<CR>')
-keymap.set('n', ']b', '<CMD>bnext<CR>')
+keymap.set('n', '[B', '<CMD>bprevious<CR>')
+keymap.set('n', ']B', '<CMD>bnext<CR>')
 
 -- Tab keybinds
 -- Previous/next tab
