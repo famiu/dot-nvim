@@ -1,26 +1,5 @@
 local api = vim.api
 local fn = vim.fn
-local keymap = vim.keymap
-local augroup = api.nvim_create_augroup('dap-settings', {})
-
-local function dapinit()
-    -- Keybindings
-    keymap.set('n', '<F5>', function() require('dap').continue() end)
-    keymap.set('n', '<F6>', function() require('dap').step_back() end)
-    keymap.set('n', '<S-F10>', function() require('dap').step_over() end)
-    keymap.set('n', '<S-F11>', function() require('dap').step_into() end)
-    keymap.set('n', '<S-F12>', function() require('dap').step_out() end)
-    keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
-    keymap.set('n', '<Leader>B', function() require('dap').set_breakpoint(fn.input('Breakpoint condition: ')) end)
-    keymap.set(
-        'n',
-        '<Leader>lp',
-        function() require('dap').set_breakpoint(nil, nil, fn.input('Log point message: ')) end
-    )
-    keymap.set('n', '<Leader>cb', function() require('dap').clear_breakpoints() end)
-    keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
-    keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
-end
 
 local function dapconfig()
     local dap = require('dap')
@@ -38,7 +17,7 @@ local function dapconfig()
         pattern = 'dap-repl',
         callback = function() require('dap.ext.autocompl').attach() end,
         desc = 'DAP Autocompletion',
-        group = augroup,
+        group = api.nvim_create_augroup('dap-settings', {}),
     })
 
     -- DAP UI
@@ -168,12 +147,23 @@ end
 local M = {
     {
         'mfussenegger/nvim-dap',
-        lazy = true,
         dependencies = { 'williamboman/mason.nvim' },
-        init = dapinit,
+        keys = {
+            { '<F5>', function() require('dap').continue() end },
+            { '<F6>', function() require('dap').step_back() end },
+            { '<S-F10>', function() require('dap').step_over() end },
+            { '<S-F11>', function() require('dap').step_into() end },
+            { '<S-F12>', function() require('dap').step_out() end },
+            { '<Leader>b', function() require('dap').toggle_breakpoint() end },
+            { '<Leader>B', function() require('dap').set_breakpoint(fn.input('Breakpoint condition: ')) end },
+            { '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, fn.input('Log point message: ')) end },
+            { '<Leader>cb', function() require('dap').clear_breakpoints() end },
+            { '<Leader>dr', function() require('dap').repl.open() end },
+            { '<Leader>dl', function() require('dap').run_last() end },
+        },
         config = dapconfig,
     },
-    { 'rcarriga/nvim-dap-ui', lazy = true, dependencies = { 'mfussenegger/nvim-dap' } },
+    { 'rcarriga/nvim-dap-ui', lazy = true, dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' } },
     { 'theHamsta/nvim-dap-virtual-text', lazy = true, dependencies = { 'mfussenegger/nvim-dap' } },
 }
 
