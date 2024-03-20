@@ -67,4 +67,4 @@ keymap.set('n', '<Leader>QQ', '<CMD>quitall!<CR>')
 keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { silent = true, desc = 'Exit Terminal mode' })
 
 -- Toggle spell checking
-keymap.set('n', '<Leader>s', '<CMD>setlocal spell!<CR>', { silent = true })
+keymap.set('n', '<C-s>', '<CMD>setlocal spell!<CR>', { silent = true })
