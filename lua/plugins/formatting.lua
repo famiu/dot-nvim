@@ -1,7 +1,7 @@
 return {
     'stevearc/conform.nvim',
     dependencies = { 'neovim/nvim-lspconfig' },
-    event = { 'BufWritePre' },
+    event = 'BufWritePre',
     cmd = { 'ConformInfo' },
     opts = {
         formatters_by_ft = {
