@@ -141,8 +141,8 @@ return {
                 -- Actions
                 map('n', '<leader>gb', function() gs.blame_line() end)
                 map('n', '<leader>gB', function() gs.toggle_current_line_blame() end)
-                map({ 'n', 'v' }, '<leader>ghs', ':Gitsigns stage_hunk<CR>')
-                map({ 'n', 'v' }, '<leader>ghr', ':Gitsigns reset_hunk<CR>')
+                map({ 'n', 'x' }, '<leader>ghs', ':Gitsigns stage_hunk<CR>')
+                map({ 'n', 'x' }, '<leader>ghr', ':Gitsigns reset_hunk<CR>')
                 map('n', '<leader>ghu', gs.undo_stage_hunk)
                 map('n', '<leader>ghp', gs.preview_hunk)
                 map('n', '<leader>ghd', function() gs.diffthis('', { split = 'botright' }) end)

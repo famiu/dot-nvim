@@ -19,11 +19,11 @@ keymap.set('n', 'n', 'nzz')
 keymap.set('n', 'N', 'Nzz')
 
 -- Don't leave visual mode after indenting
-keymap.set('v', '>', '>gv^')
-keymap.set('v', '<', '<gv^')
+keymap.set('x', '>', '>gv^')
+keymap.set('x', '<', '<gv^')
 
 -- Apply the . command to all selected lines in visual mode
-keymap.set('v', '.', ':normal .<CR>', { silent = true })
+keymap.set('x', '.', ':normal .<CR>', { silent = true })
 
 -- Cycle through windows
 keymap.set('n', '[w', '<CMD>wincmd W<CR>')
