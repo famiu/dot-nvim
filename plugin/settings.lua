@@ -26,9 +26,9 @@ vim.o.expandtab = true
 vim.o.wrap = true
 vim.o.linebreak = true
 vim.o.breakindent = true
+vim.o.showbreak = '↪ '
 
 -- Fill column
-vim.o.textwidth = 100
 vim.o.colorcolumn = '+1'
 
 -- Make Terminal use GUI colors
