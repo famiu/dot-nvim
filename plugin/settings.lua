@@ -31,9 +31,6 @@ vim.o.showbreak = '↪ '
 -- Fill column
 vim.o.colorcolumn = '+1'
 
--- Make Terminal use GUI colors
-vim.o.termguicolors = true
-
 -- Line numbers: Hybrid
 vim.o.number = true
 vim.o.relativenumber = true
