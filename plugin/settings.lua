@@ -1,11 +1,4 @@
--- Use LaTeX as default tex flavor
-vim.g.tex_flavor = 'latex'
-
--- Don't load netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
--- Default grep command
+-- Use ripgrep for grepprg
 vim.o.grepprg = 'rg --vimgrep --smart-case'
 
 --- Wildmenu
@@ -17,7 +10,7 @@ vim.o.undofile = true
 -- Use global statusline
 vim.o.laststatus = 3
 
--- Indent
+-- Spaces > Tabs
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
@@ -31,22 +24,21 @@ vim.o.showbreak = '↪ '
 -- Fill column
 vim.o.colorcolumn = '+1'
 
--- Line numbers: Hybrid
+-- Use hybrid line numbers
 vim.o.number = true
 vim.o.relativenumber = true
 
--- Inccommand
+-- Show inccommand preview with split
 vim.o.inccommand = 'split'
 
--- Folding configuration
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+-- Use space for fold and diff fillchars
+vim.o.fillchars = 'fold: ,diff: '
+
+-- Fold settings
 vim.o.foldtext = [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').]]
     .. [[' ... '.trim(getline(v:foldend)).]]
     .. [[' ('.(v:foldend-v:foldstart).' lines folded...)']]
 vim.o.foldenable = false
-vim.o.fillchars = 'fold: ,diff: '
-vim.o.foldnestmax = 3
 vim.o.foldminlines = 4
 
 -- Session options
@@ -56,14 +48,14 @@ vim.o.sessionoptions = 'blank,folds,help,tabpages,winsize,winpos,terminal,localo
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Substitution
+-- Make substitute global by default
 vim.o.gdefault = true
 
 -- Completion
 vim.o.completeopt = 'menuone,preview,noselect'
 vim.o.shortmess = vim.o.shortmess .. 'c'
 
--- Split options
+-- Split behavior
 vim.o.splitbelow = true
 vim.o.splitright = true
 
