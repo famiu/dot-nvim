@@ -48,7 +48,7 @@ return {
         keys = {
             {
                 '<Leader>cpc',
-                '<CMD>CopilotChat<CR>',
+                '<CMD>CopilotChatOpen<CR>',
                 desc = 'Copilot Chat',
                 mode = { 'n', 'x' },
             },
@@ -72,6 +72,8 @@ return {
         },
         opts = {
             debug = true,
+            context = 'buffer',
+            auto_insert_mode = true,
             window = {
                 layout = 'float',
                 border = 'rounded',
