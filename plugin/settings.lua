@@ -31,13 +31,11 @@ vim.o.relativenumber = true
 -- Show inccommand preview with split
 vim.o.inccommand = 'split'
 
--- Use space for fold and diff fillchars
-vim.o.fillchars = 'fold: ,diff: '
+-- Use space for diff fillchars
+vim.o.fillchars = 'diff: '
 
 -- Fold settings
-vim.o.foldtext = [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').]]
-    .. [[' ... '.trim(getline(v:foldend)).]]
-    .. [[' ('.(v:foldend-v:foldstart).' lines folded...)']]
+vim.o.foldtext = ''
 vim.o.foldenable = false
 vim.o.foldminlines = 4
 
