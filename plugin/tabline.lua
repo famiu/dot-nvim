@@ -34,7 +34,16 @@ local function tabline_buf_component(buf, tp_nr)
         hl = 'TabLine'
     end
 
-    return string.format([[%%#%s#%%%dT [%d] %s%s%%T%%%dX %s %%X]], hl, tp_nr, tp_nr, icon, bufname, tp_nr, close_icon)
+    return string.format(
+        [[%%#%s#%%%dT [%d] %s%s %%%%m%%T%%%dX %s %%X]],
+        hl,
+        tp_nr,
+        tp_nr,
+        icon,
+        bufname,
+        tp_nr,
+        close_icon
+    )
 end
 
 --- Generate tabline tabline to use for the 'tabline' option.
