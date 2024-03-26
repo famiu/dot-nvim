@@ -12,7 +12,7 @@ return {
         },
         keys = {
             {
-                '<Leader>f',
+                '<Leader>F',
                 function() require('conform').format({ async = true, lsp_fallback = true }) end,
                 mode = { 'n', 'x' },
             },
