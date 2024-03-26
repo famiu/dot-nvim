@@ -8,7 +8,7 @@ return {
         },
         opts = {},
         keys = {
-            { '<Leader>gg', '<CMD>Neogit<CR>', desc = 'Neogit' },
+            { '<Leader>gg', function() require('neogit').open() end, desc = 'Neogit' },
         },
     },
     {
