@@ -35,12 +35,13 @@ local function tabline_buf_component(buf, tp_nr)
     end
 
     return string.format(
-        [[%%#%s#%%%dT [%d] %s%s %%%%m%%T%%%dX %s %%X]],
+        [[%%#%s#%%%dT [%d] %s%s%s%%T%%%dX %s %%X]],
         hl,
         tp_nr,
         tp_nr,
         icon,
         bufname,
+        ' ' .. (vim.bo[buf].modified and '[+]' or '') .. (vim.bo[buf].readonly and '[-]' or ''),
         tp_nr,
         close_icon
     )
