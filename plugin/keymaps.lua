@@ -10,8 +10,8 @@ vim.keymap.set('i', '<C-S-BS>', '<C-o>dB')
 vim.keymap.set('i', '<C-S-Del>', '<C-o>dW')
 
 -- Map H and L to ^ and $
-vim.keymap.set('n', 'H', '^')
-vim.keymap.set('n', 'L', '$')
+vim.keymap.set({ 'n', 'x' }, 'H', '^')
+vim.keymap.set({ 'n', 'x' }, 'L', '$')
 
 -- Don't move cursor when using J to join lines
 vim.keymap.set('n', 'J', 'mzJ`z')
