@@ -4,8 +4,8 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {},
     keys = {
-        { '<Leader>h', function() require('harpoon'):list():append() end },
-        { '<Leader>H', function() require('harpoon'):list():prepend() end },
+        { '<Leader>m', function() require('harpoon'):list():append() end },
+        { '<Leader>M', function() require('harpoon'):list():prepend() end },
         {
             '<C-e>',
             function() require('harpoon').ui:toggle_quick_menu(require('harpoon'):list()) end,
