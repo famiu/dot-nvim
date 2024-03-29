@@ -57,12 +57,6 @@ vim.keymap.set('n', '<Leader>tX', '<CMD>tabclose!<CR>')
 vim.keymap.set('n', ']q', '<CMD>cnext<CR>')
 vim.keymap.set('n', '[q', '<CMD>cprevious<CR>')
 
--- Disable arrow keys
-vim.keymap.set({ 'n', 'i' }, '<Left>', '<Nop>')
-vim.keymap.set({ 'n', 'i' }, '<Right>', '<Nop>')
-vim.keymap.set({ 'n', 'i' }, '<Up>', '<Nop>')
-vim.keymap.set({ 'n', 'i' }, '<Down>', '<Nop>')
-
 -- Quitall shortcut
 vim.keymap.set('n', '<Leader>qq', '<CMD>quitall<CR>')
 vim.keymap.set('n', '<Leader>QQ', '<CMD>quitall!<CR>')
