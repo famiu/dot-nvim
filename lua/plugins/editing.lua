@@ -34,15 +34,7 @@ return {
         },
     },
     { 'echasnovski/mini.comment', opts = {} },
-    {
-        'echasnovski/mini.pairs',
-        opts = {
-            mappings = {
-                ['<'] = { action = 'open', pair = '<>', neigh_pattern = '[^\\].' },
-                ['>'] = { action = 'open', pair = '<>', neigh_pattern = '[^\\].' },
-            },
-        },
-    },
+    { 'echasnovski/mini.pairs', opts = {} },
     {
         'echasnovski/mini.trailspace',
         lazy = false,
