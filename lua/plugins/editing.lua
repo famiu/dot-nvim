@@ -7,7 +7,19 @@ return {
         },
         opts = {},
     },
-    { 'echasnovski/mini.surround', opts = {} },
+    {
+        'echasnovski/mini.surround',
+        keys = {
+            { 'sa', mode = { 'n', 'x' } },
+            'sd',
+            'sr',
+            'sf',
+            'sF',
+            'sh',
+            'sn',
+        },
+        opts = {},
+    },
     { 'echasnovski/mini.ai', opts = {} },
     {
         'Wansmer/treesj',
