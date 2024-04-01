@@ -13,7 +13,7 @@ local function autocd()
         return
     end
 
-    vim.cmd.lcd(vim.fs.dirname(root_pattern_match))
+    vim.api.nvim_set_current_dir(vim.fs.dirname(root_pattern_match))
 end
 
 -- Automatically change current directory to LSP root directory on LSP attach.
@@ -23,7 +23,7 @@ local function lsp_autocd(args)
     assert(client ~= nil)
 
     if client.name ~= 'copilot' and client.config.root_dir then
-        vim.cmd.lcd(client.config.root_dir)
+        vim.api.nvim_set_current_dir(client.config.root_dir)
     end
 end
 
