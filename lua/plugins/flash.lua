@@ -18,7 +18,7 @@ return {
     },
     keys = {
         {
-            's',
+            '<CR>',
             mode = { 'n', 'x', 'o' },
             function()
                 -- default options: exact mode, multi window, all directions, with a backdrop
@@ -27,7 +27,7 @@ return {
             desc = 'Flash',
         },
         {
-            'S',
+            '<S-CR>',
             mode = { 'n', 'x', 'o' },
             function() require('flash').treesitter() end,
             desc = 'Flash Treesitter',
