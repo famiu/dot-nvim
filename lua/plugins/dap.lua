@@ -16,8 +16,8 @@ local function dapconfig()
     api.nvim_create_autocmd('FileType', {
         pattern = 'dap-repl',
         callback = function() require('dap.ext.autocompl').attach() end,
-        desc = 'DAP Autocompletion',
         group = api.nvim_create_augroup('dap-settings', {}),
+        desc = 'DAP Autocompletion',
     })
 
     -- DAP UI

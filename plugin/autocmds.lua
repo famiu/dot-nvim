@@ -8,8 +8,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Automatically create missing directories before save
 vim.api.nvim_create_autocmd('BufWritePre', {
-    callback = function(opts)
-        local path = vim.fs.dirname(vim.api.nvim_buf_get_name(opts.buf))
+    callback = function(args)
+        local path = vim.fs.dirname(vim.api.nvim_buf_get_name(args.buf))
 
         if vim.fn.isdirectory(path) == 0 then
             vim.fn.mkdir(path, 'p')
