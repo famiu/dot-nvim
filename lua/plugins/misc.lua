@@ -1,5 +1,3 @@
-local keymap = vim.keymap
-
 return {
     {
         'famiu/bufdelete.nvim',
@@ -18,16 +16,6 @@ return {
             max_concurrent_installers = require('utilities.os').pu_count(),
         },
     },
-    { 'mbbill/undotree', keys = { { '<Leader>u', '<CMD>UndotreeToggle<CR>' } } },
-    {
-        'akinsho/toggleterm.nvim',
-        keys = '<C-t>',
-        opts = {
-            size = 20,
-            open_mapping = [[<C-t>]],
-        },
-    },
-    { 'yorickpeterse/nvim-pqf', opts = {} },
     {
         'simeji/winresizer',
         keys = { { '<Leader>w', '<CMD>WinResizerStartResize<CR>' } },
