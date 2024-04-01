@@ -14,4 +14,15 @@ return {
         },
     },
     { 'yorickpeterse/nvim-pqf', opts = {} },
+    {
+        'folke/todo-comments.nvim',
+        opts = {
+            highlight = {
+                pattern = { [[.*<(KEYWORDS)\s*:]], [[.*<(KEYWORDS)\s*\(\w+\)\s*:]] },
+            },
+            search = {
+                pattern = [[\b(KEYWORDS)\s*(\(\w+\))?\s*:]]
+            },
+        },
+    },
 }
