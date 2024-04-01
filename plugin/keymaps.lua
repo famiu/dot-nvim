@@ -4,7 +4,7 @@ vim.keymap.set('i', '<C-k>', '<C-o>O')
 
 -- Delete whole words in insert mode with Ctrl + Backspace and Ctrl + Delete
 -- If Shift is pressed, delete whole WORDs
-vim.keymap.set('i', '<C-BS>', '<C-o>dB')
+vim.keymap.set('i', '<C-BS>', '<C-o>db')
 vim.keymap.set('i', '<C-Del>', '<C-o>dw')
 vim.keymap.set('i', '<C-S-BS>', '<C-o>dB')
 vim.keymap.set('i', '<C-S-Del>', '<C-o>dW')
