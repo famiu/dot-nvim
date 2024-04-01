@@ -21,5 +21,5 @@ return {
             use_default_keymaps = false,
         },
     },
-    { 'numToStr/Comment.nvim', opts = {} },
+    { 'echasnovski/mini.comment', opts = {} },
 }
