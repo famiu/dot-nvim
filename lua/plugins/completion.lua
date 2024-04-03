@@ -90,7 +90,6 @@ return {
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-cmdline',
             {
                 'zbirenbaum/copilot-cmp',
                 lazy = true,
@@ -177,35 +176,11 @@ return {
                 },
             })
 
-            -- VimTeX setup
             cmp.setup.filetype('tex', {
                 sources = {
                     { name = 'vimtex' },
                     { name = 'buffer' },
                 },
-            })
-
-            -- `/` cmdline setup
-            cmp.setup.cmdline('/', {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = 'buffer' },
-                },
-            })
-
-            -- `:` cmdline setup
-            cmp.setup.cmdline(':', {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = 'path' },
-                }, {
-                    {
-                        name = 'cmdline',
-                        option = {
-                            ignore_cmds = { 'Man', '!' },
-                        },
-                    },
-                }),
             })
         end,
     },
