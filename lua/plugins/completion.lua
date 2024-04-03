@@ -159,12 +159,13 @@ return {
                     comparators = {
                         cmp.config.compare.offset,
                         cmp.config.compare.exact,
-                        require('copilot_cmp.comparators').prioritize,
-                        -- cmp.config.compare.scopes,
                         cmp.config.compare.score,
+                        require('copilot_cmp.comparators').prioritize,
                         cmp.config.compare.recently_used,
                         cmp.config.compare.locality,
                         cmp.config.compare.kind,
+                        -- The scopes comparator is disabled because it's too slow for large files
+                        -- cmp.config.compare.scopes,
                         cmp.config.compare.sort_text,
                         cmp.config.compare.length,
                         cmp.config.compare.order,
