@@ -33,7 +33,6 @@ return {
             use_default_keymaps = false,
         },
     },
-    { 'echasnovski/mini.pairs', opts = {} },
     {
         'echasnovski/mini.trailspace',
         lazy = false,
