@@ -18,11 +18,10 @@ end
 
 -- Automatically change current directory to LSP root directory on LSP attach.
 local function lsp_autocd(args)
-    -- Ignore copilot as it doesn't have a valid root directory.
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     assert(client ~= nil)
 
-    if client.name ~= 'copilot' and client.config.root_dir then
+    if client.config.root_dir then
         vim.api.nvim_set_current_dir(client.config.root_dir)
     end
 end

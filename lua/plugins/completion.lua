@@ -27,60 +27,10 @@ local lsp_kind_icons = {
 }
 
 return {
-    { 'L3MON4D3/LuaSnip', lazy = true },
     {
-        'zbirenbaum/copilot.lua',
-        cmd = 'Copilot',
-        opts = {
-            suggestion = { enabled = false },
-            panel = { enabled = false },
-        },
+        'L3MON4D3/LuaSnip',
+        lazy = true,
         dependencies = { 'rafamadriz/friendly-snippets' },
-    },
-    {
-        'CopilotC-Nvim/CopilotChat.nvim',
-        branch = 'canary',
-        dependencies = {
-            'zbirenbaum/copilot.lua',
-            'nvim-lua/plenary.nvim',
-            'nvim-telescope/telescope.nvim',
-        },
-        keys = {
-            {
-                '<Leader>cpc',
-                '<CMD>CopilotChatOpen<CR>',
-                desc = 'Copilot Chat',
-                mode = { 'n', 'x' },
-            },
-            {
-                '<leader>cph',
-                function()
-                    local actions = require('CopilotChat.actions')
-                    actions.pick(actions.help_actions())
-                end,
-                desc = 'Copilot Chat - Help actions',
-            },
-            {
-                '<leader>cpp',
-                function()
-                    local actions = require('CopilotChat.actions')
-                    actions.pick(actions.prompt_actions())
-                end,
-                desc = 'Copilot Chat - Prompt actions',
-                mode = { 'n', 'x' },
-            },
-        },
-        opts = {
-            debug = true,
-            context = 'buffer',
-            auto_insert_mode = true,
-            window = {
-                layout = 'float',
-                border = 'rounded',
-                height = 0.8,
-                width = 0.8,
-            },
-        },
     },
     {
         'hrsh7th/nvim-cmp',
@@ -90,19 +40,6 @@ return {
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-buffer',
-            {
-                'zbirenbaum/copilot-cmp',
-                lazy = true,
-                dependencies = { 'zbirenbaum/copilot.lua' },
-                opts = {},
-                config = function(_, opts)
-                    lsp_kind_icons.Copilot = ''
-                    require('copilot_cmp').setup(opts)
-
-                    -- Add highlight for Copilot items in nvim-cmp.
-                    vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#6CC644' })
-                end,
-            },
         },
         event = 'InsertEnter',
         config = function()
@@ -142,7 +79,6 @@ return {
                     end, { 'i', 's' }),
                 }),
                 sources = cmp.config.sources({
-                    { name = 'copilot' },
                     { name = 'nvim_lsp' },
                     { name = 'luasnip' },
                 }, {
@@ -160,7 +96,6 @@ return {
                         cmp.config.compare.offset,
                         cmp.config.compare.exact,
                         cmp.config.compare.score,
-                        require('copilot_cmp.comparators').prioritize,
                         cmp.config.compare.recently_used,
                         cmp.config.compare.locality,
                         cmp.config.compare.kind,
