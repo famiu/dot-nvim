@@ -6,7 +6,12 @@ return {
             {
                 'nvim-treesitter/nvim-treesitter-context',
                 lazy = false,
-                opts = {},
+                opts = {
+                    max_lines = 20,
+                    multiline_threshold = 3,
+                    trim_scope = 'outer',
+                    mode = 'cursor',
+                },
                 keys = {
                     {
                         '[l',
@@ -16,6 +21,7 @@ return {
                     },
                 },
                 config = function(_, opts)
+                    vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { sp = 'Grey', underline = true })
                     vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { link = 'NormalFloat' })
                     require('treesitter-context').setup(opts)
                 end,
