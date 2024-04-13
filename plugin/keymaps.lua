@@ -1,3 +1,7 @@
+-- Unmap ZZ and ZQ, they're redundant and useless
+vim.keymap.set('n', 'ZQ', '<Nop>')
+vim.keymap.set('n', 'ZZ', '<Nop>')
+
 -- Insert new line above/below current line in inset mode
 vim.keymap.set('i', '<C-j>', '<C-o>o')
 vim.keymap.set('i', '<C-k>', '<C-o>O')
