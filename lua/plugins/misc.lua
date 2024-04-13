@@ -41,6 +41,7 @@ return {
         keys = {
             { '<Leader>o', '<CMD>Oil<CR>' },
         },
+        cmd = 'Oil',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
 }
