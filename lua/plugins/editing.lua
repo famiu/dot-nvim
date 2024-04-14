@@ -20,7 +20,6 @@ return {
         },
         opts = {},
     },
-    { 'echasnovski/mini.ai', opts = {} },
     {
         'Wansmer/treesj',
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
