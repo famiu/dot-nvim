@@ -17,17 +17,6 @@ return {
         },
     },
     {
-        'simeji/winresizer',
-        keys = { { '<Leader>w', '<CMD>WinResizerStartResize<CR>' } },
-        init = function()
-            vim.g.winresizer_enable = 1
-            vim.g.winresizer_gui_enable = 0
-            vim.g.winresizer_finish_with_escape = 1
-            vim.g.winresizer_vert_resize = 10
-            vim.g.winresizer_horiz_resize = 3
-        end,
-    },
-    {
         'stevearc/oil.nvim',
         opts = {
             -- Make split mappings consistent with Telescope.
