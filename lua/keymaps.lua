@@ -1,7 +1,3 @@
--- Unmap ZZ and ZQ, they're redundant and useless
-vim.keymap.set('n', 'ZQ', '<Nop>')
-vim.keymap.set('n', 'ZZ', '<Nop>')
-
 -- Insert new line above/below current line in inset mode
 vim.keymap.set('i', '<C-j>', '<C-o>o')
 vim.keymap.set('i', '<C-k>', '<C-o>O')
@@ -23,10 +19,6 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', 'n', 'nzz')
 vim.keymap.set('n', 'N', 'Nzz')
-
--- Don't leave visual mode after indenting
-vim.keymap.set('x', '>', '>gv^')
-vim.keymap.set('x', '<', '<gv^')
 
 -- Apply the . command to all selected lines in visual mode
 vim.keymap.set('x', '.', ':normal .<CR>', { silent = true })
