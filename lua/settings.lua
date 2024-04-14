@@ -15,7 +15,7 @@ vim.o.undofile = true
 vim.o.laststatus = 3
 
 -- Allow virtual editing in visual block mode and after the end of the line
-vim.o.virtualedit = 'block,onemore'
+vim.o.virtualedit = 'onemore'
 
 -- Spaces > Tabs
 vim.o.softtabstop = 4
@@ -37,9 +37,6 @@ vim.o.relativenumber = true
 
 -- Show inccommand preview with split
 vim.o.inccommand = 'split'
-
--- Use space for diff fillchars
-vim.o.fillchars = 'diff: '
 
 -- Use transparent fold and disable folding by default
 vim.o.foldtext = ''
