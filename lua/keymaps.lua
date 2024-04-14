@@ -68,3 +68,7 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { silent = true, desc = 'Exit T
 
 -- Toggle spell checking
 vim.keymap.set('n', '<C-s>', '<CMD>setlocal spell!<CR>', { silent = true })
+
+-- Yank/paste to clipboard
+vim.keymap.set({ 'n', 'v' }, '<Leader>y', '"+y')
+vim.keymap.set({ 'n', 'v' }, '<Leader>p', '"+p')
