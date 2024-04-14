@@ -6,15 +6,6 @@ return {
         },
     },
     {
-        'akinsho/toggleterm.nvim',
-        keys = '<C-t>',
-        opts = {
-            size = 20,
-            open_mapping = [[<C-t>]],
-        },
-    },
-    { 'yorickpeterse/nvim-pqf', opts = {} },
-    {
         'folke/todo-comments.nvim',
         opts = {
             highlight = {
