@@ -5,6 +5,10 @@ local os_utils = require('utilities.os')
 local CheckConfigDeps
 local LoadPlugins
 
+-- Load settings and keybinds
+require('settings')
+require('keymaps')
+
 --- Check if dependencies for Neovim config are installed before bootstrapping the config.
 CheckConfigDeps = function()
     -- Ensure that the OS is Windows, Mac or Linux.
@@ -41,9 +45,6 @@ end
 
 LoadPlugins = function()
     vim.opt.rtp:prepend(lazypath)
-    -- Set mapleader and maplocalloader (this needs to be done before loading Lazy).
-    vim.g.mapleader = ' '
-    vim.g.maplocalleader = ' '
 
     require('lazy').setup({ import = 'plugins' }, {
         dev = {
