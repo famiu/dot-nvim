@@ -18,6 +18,7 @@ return {
     },
     {
         'stevearc/oil.nvim',
+        lazy = false,
         opts = {
             -- Make split mappings consistent with Telescope.
             keymaps = {
@@ -27,10 +28,7 @@ return {
                 ['<C-x>'] = 'actions.select_split',
             },
         },
-        keys = {
-            { '<Leader>o', '<CMD>Oil<CR>' },
-        },
-        cmd = 'Oil',
+        keys = { { '<Leader>o', '<CMD>Oil<CR>' } },
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
 }
