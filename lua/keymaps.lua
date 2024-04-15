@@ -8,17 +8,17 @@ vim.keymap.set('i', '<C-BS>', '<C-o>db')
 vim.keymap.set('i', '<C-Del>', '<C-o>dw')
 
 -- Map H and L to ^ and $
-vim.keymap.set({ 'n', 'x' }, 'H', '^')
-vim.keymap.set({ 'n', 'x' }, 'L', '$')
+vim.keymap.set({ 'n', 'x', 'o' }, 'H', '^')
+vim.keymap.set({ 'n', 'x', 'o' }, 'L', '$')
 
 -- Don't move cursor when using J to join lines
-vim.keymap.set('n', 'J', 'mzJ`z')
+vim.keymap.set({ 'n', 'x' }, 'J', 'mzJ`z')
 
 -- Make certain motions keep cursor in the middle
-vim.keymap.set('n', '<C-u>', '<C-u>zz')
-vim.keymap.set('n', '<C-d>', '<C-d>zz')
-vim.keymap.set('n', 'n', 'nzz')
-vim.keymap.set('n', 'N', 'Nzz')
+vim.keymap.set({ 'n', 'x' }, '<C-u>', '<C-u>zz')
+vim.keymap.set({ 'n', 'x' }, '<C-d>', '<C-d>zz')
+vim.keymap.set({ 'n', 'x' }, 'n', 'nzz')
+vim.keymap.set({ 'n', 'x' }, 'N', 'Nzz')
 
 -- Apply the . command to all selected lines in visual mode
 vim.keymap.set('x', '.', ':normal .<CR>', { silent = true })
@@ -62,5 +62,5 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { silent = true, desc = 'Exit T
 vim.keymap.set('n', '<C-s>', '<CMD>setlocal spell!<CR>', { silent = true })
 
 -- Yank/paste to clipboard
-vim.keymap.set({ 'n', 'v' }, '<Leader>y', '"+y')
-vim.keymap.set({ 'n', 'v' }, '<Leader>p', '"+p')
+vim.keymap.set({ 'n', 'x' }, '<Leader>y', '"+y')
+vim.keymap.set({ 'n', 'x' }, '<Leader>p', '"+p')
