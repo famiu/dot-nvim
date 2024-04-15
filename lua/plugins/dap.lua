@@ -33,7 +33,7 @@ local function dapconfig()
     -- Adapters
     dap.adapters.lldb = {
         type = 'executable',
-        command = 'lldb-vscode',
+        command = vim.fn.exepath('lldb-vscode'),
         name = 'lldb',
     }
 
@@ -60,8 +60,8 @@ local function dapconfig()
     -- External Terminal
     dap.defaults.fallback.force_external_terminal = true
     dap.defaults.fallback.external_terminal = {
-        -- Use Windows Terminal for Windows, and GNOME Terminal for Linux.
-        command = require('utilities.os').is_windows() and 'wt' or 'gnome-terminal',
+        -- Use Windows Terminal for Windows, and Kitty for Linux.
+        command = require('utilities.os').is_windows() and 'wt' or 'kitty',
         args = { '--' },
     }
 
@@ -77,7 +77,7 @@ local function dapconfig()
             name = 'Neovim',
             type = 'lldb',
             request = 'launch',
-            program = vim.uv.os_homedir() .. '/Workspace/neovim/neovim/build/bin/nvim',
+            program = vim.uv.os_homedir() .. '/dev/neovim/neovim/build/bin/nvim',
             cwd = '${workspaceFolder}',
             stopOnEntry = false,
             args = function() return vim.split(fn.input('Args: ', '--clean '), ' ') end,
@@ -131,9 +131,9 @@ local function dapconfig()
                             request = 'attach',
                             pid = pid,
                             -- ⬇️ Change paths as needed
-                            program = home .. '/Workspace/neovim/neovim/build/bin/nvim',
-                            env = { 'VIMRUNTIME=' .. home .. '/Workspace/neovim/neovim/runtime' },
-                            cwd = home .. '/Workspace/neovim/neovim/',
+                            program = home .. '/dev/neovim/neovim/build/bin/nvim',
+                            env = { 'VIMRUNTIME=' .. home .. '/dev/neovim/neovim/runtime' },
+                            cwd = home .. '/dev/neovim/neovim/',
                             externalConsole = false,
                         })
                     end
