@@ -14,11 +14,12 @@ vim.keymap.set({ 'n', 'x', 'o' }, 'L', '$')
 -- Don't move cursor when using J to join lines
 vim.keymap.set({ 'n', 'x' }, 'J', 'mzJ`z')
 
--- Make certain motions keep cursor in the middle
-vim.keymap.set({ 'n', 'x' }, '<C-u>', '<C-u>zz')
-vim.keymap.set({ 'n', 'x' }, '<C-d>', '<C-d>zz')
-vim.keymap.set({ 'n', 'x' }, 'n', 'nzz')
-vim.keymap.set({ 'n', 'x' }, 'N', 'Nzz')
+-- Make scroll motions keep cursor in the middle
+local scroll_motions = { '<C-u>', '<C-d>', '<C-f>', '<C-b>', 'n', 'N', 'j', 'k' }
+
+for _, motion in ipairs(scroll_motions) do
+    vim.keymap.set({ 'n', 'x' }, motion, motion .. 'zz', { silent = true })
+end
 
 -- Apply the . command to all selected lines in visual mode
 vim.keymap.set('x', '.', ':normal .<CR>', { silent = true })
