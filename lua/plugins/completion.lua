@@ -51,6 +51,7 @@ return {
             -- Update default Lspconfig capabilities.
             require('lspconfig').util.default_config.capabilities = default_capabilities
 
+            --- @diagnostic disable-next-line: redundant-parameter
             cmp.setup({
                 snippet = {
                     expand = function(args) luasnip.lsp_expand(args.body) end,
@@ -111,6 +112,7 @@ return {
                 },
             })
 
+            --- @diagnostic disable-next-line:undefined-field
             cmp.setup.filetype('tex', {
                 sources = {
                     { name = 'vimtex' },
