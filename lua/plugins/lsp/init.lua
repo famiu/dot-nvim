@@ -47,12 +47,12 @@ return {
                         )
                     end,
                     {
-                        { 'gD', function() lsp.buf.declaration() end, desc = '[g]o to [D]eclaration' },
-                        { '<Leader>r', function() lsp.buf.rename() end, desc = '[r]ename symbol' },
-                        { ']d', function() diagnostic.goto_next() end, desc = 'Go to next [d]iagnostic' },
-                        { '[d', function() diagnostic.goto_prev() end, desc = 'Go to previous [d]iagnostic' },
-                        { '<C-Space>', function() diagnostic.open_float() end, desc = 'Open diagnostic float' },
-                        { '<Leader>ca', function() lsp.buf.code_action() end, desc = 'Perform [c]ode [a]ction' },
+                        { 'gD',         function() lsp.buf.declaration() end,   desc = '[g]o to [D]eclaration' },
+                        { '<Leader>r',  function() lsp.buf.rename() end,        desc = '[r]ename symbol' },
+                        { ']d',         function() diagnostic.goto_next() end,  desc = 'Go to next [d]iagnostic' },
+                        { '[d',         function() diagnostic.goto_prev() end,  desc = 'Go to previous [d]iagnostic' },
+                        { '<C-Space>',  function() diagnostic.open_float() end, desc = 'Open diagnostic float' },
+                        { '<Leader>ca', function() lsp.buf.code_action() end,   desc = 'Perform [c]ode [a]ction' },
                         -- Telescope mappings
                         {
                             'gd',

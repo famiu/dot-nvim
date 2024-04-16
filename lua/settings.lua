@@ -89,7 +89,7 @@ vim.o.conceallevel = 2
 
 -- Better listchars
 vim.o.list = true
-vim.o.listchars='tab:» ,extends:›,precedes:‹,nbsp:␣'
+vim.o.listchars = 'tab:» ,extends:›,precedes:‹,nbsp:␣'
 
 -- Remove "How-to disable mouse" from right-click menu
 pcall(vim.cmd.aunmenu, [[PopUp.How-to\ disable\ mouse]])
