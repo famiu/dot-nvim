@@ -7,8 +7,11 @@ vim.o.linespace = 1
 -- Neovide specific settings.
 if vim.g.neovide then
     vim.g.neovide_scale_factor = 1.0
-    vim.g.neovide_cursor_vfx_mode = 'railgun'
-    vim.g.neovide_hide_mouse_when_typing = true
+    -- Disable animations
+    vim.g.cursor_animation_length = 0
+    vim.g.neovide_scroll_animation_length = 0
+    vim.g.neovide_cursor_trail_size = 0
+    vim.g.neovide_cursor_animate_command_line = false
 
     -- Go fullscreen with F11.
     vim.keymap.set('n', '<F11>', function()
