@@ -8,8 +8,7 @@ return {
         'nvim-telescope/telescope-project.nvim',
         {
             'nvim-telescope/telescope-fzf-native.nvim',
-            build =
-            'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+            build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
         },
     },
     event = 'LspAttach',
@@ -17,42 +16,58 @@ return {
     keys = {
         {
             '<Leader>ff',
-            function() require('telescope.builtin').find_files() end,
+            function()
+                require('telescope.builtin').find_files()
+            end,
             desc = 'Telescope find files',
         },
         {
             '<Leader>fF',
-            function() require('telescope.builtin').git_files() end,
+            function()
+                require('telescope.builtin').git_files()
+            end,
             desc = 'Telescope find Git files',
         },
         {
             '<Leader>fb',
-            function() require('telescope.builtin').buffers() end,
+            function()
+                require('telescope.builtin').buffers()
+            end,
             desc = 'Telescope find buffer',
         },
         {
             '<Leader>fg',
-            function() require('telescope').extensions.live_grep_args.live_grep_args() end,
+            function()
+                require('telescope').extensions.live_grep_args.live_grep_args()
+            end,
             desc = 'Telescope live grep with args',
         },
         {
             '<Leader>fk',
-            function() require('telescope.builtin').keymaps() end,
+            function()
+                require('telescope.builtin').keymaps()
+            end,
             desc = 'Telescope find keymaps',
         },
         {
             '<Leader>fh',
-            function() require('telescope.builtin').help_tags() end,
+            function()
+                require('telescope.builtin').help_tags()
+            end,
             desc = 'Telescope find help tags',
         },
         {
             '<Leader>fd',
-            function() require('telescope.builtin').diagnostics() end,
+            function()
+                require('telescope.builtin').diagnostics()
+            end,
             desc = 'Telescope diagnostics',
         },
         {
             '<Leader>fo',
-            function() require('telescope.builtin').oldfiles() end,
+            function()
+                require('telescope.builtin').oldfiles()
+            end,
             desc = 'Telescope find oldfiles',
         },
         {
@@ -68,7 +83,9 @@ return {
         },
         {
             '<Leader>qf',
-            function() require('telescope.builtin').quickfix() end,
+            function()
+                require('telescope.builtin').quickfix()
+            end,
             desc = 'Telescope quickfix',
         },
         {
@@ -81,7 +98,9 @@ return {
         },
         {
             '<C-p>',
-            function() require('telescope').extensions.project.project() end,
+            function()
+                require('telescope').extensions.project.project()
+            end,
             desc = 'Telescope project',
         },
     },

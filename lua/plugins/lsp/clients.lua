@@ -11,10 +11,9 @@ return {
 
             local path = vim.fs.normalize(client.config.root_dir)
 
-            local nvim_runtime_dirs = vim.tbl_map(
-                function(dir) return vim.fs.normalize(dir) end,
-                vim.api.nvim_list_runtime_paths()
-            )
+            local nvim_runtime_dirs = vim.tbl_map(function(dir)
+                return vim.fs.normalize(dir)
+            end, vim.api.nvim_list_runtime_paths())
 
             local in_nvim_runtime = false
 

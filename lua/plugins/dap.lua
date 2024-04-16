@@ -15,7 +15,9 @@ local function dapconfig()
     -- DAP autocompletion
     api.nvim_create_autocmd('FileType', {
         pattern = 'dap-repl',
-        callback = function() require('dap.ext.autocompl').attach() end,
+        callback = function()
+            require('dap.ext.autocompl').attach()
+        end,
         group = api.nvim_create_augroup('dap-settings', {}),
         desc = 'DAP Autocompletion',
     })
@@ -23,9 +25,15 @@ local function dapconfig()
     -- DAP UI
     dapui.setup()
 
-    dap.listeners.after.event_initialized['dapui_config'] = function() dapui.open() end
-    dap.listeners.before.event_terminated['dapui_config'] = function() dapui.close() end
-    dap.listeners.before.event_exited['dapui_config'] = function() dapui.close() end
+    dap.listeners.after.event_initialized['dapui_config'] = function()
+        dapui.open()
+    end
+    dap.listeners.before.event_terminated['dapui_config'] = function()
+        dapui.close()
+    end
+    dap.listeners.before.event_exited['dapui_config'] = function()
+        dapui.close()
+    end
 
     -- DAP Virtual Text
     require('nvim-dap-virtual-text').setup({})
@@ -42,7 +50,9 @@ local function dapconfig()
             name = 'Launch',
             type = 'lldb',
             request = 'launch',
-            program = function() return fn.input('Path to executable: ', fn.getcwd() .. '/', 'file') end,
+            program = function()
+                return fn.input('Path to executable: ', fn.getcwd() .. '/', 'file')
+            end,
             cwd = '${workspaceFolder}',
             stopOnEntry = false,
             args = {},
@@ -80,7 +90,9 @@ local function dapconfig()
             program = vim.uv.os_homedir() .. '/dev/neovim/neovim/build/bin/nvim',
             cwd = '${workspaceFolder}',
             stopOnEntry = false,
-            args = function() return vim.split(fn.input('Args: ', '--clean '), ' ') end,
+            args = function()
+                return vim.split(fn.input('Args: ', '--clean '), ' ')
+            end,
             runInTerminal = true,
         }, {
             __call = function(config)
@@ -116,10 +128,9 @@ local function dapconfig()
                     -- The pid is the parent pid, we need to attach to the child. This uses the `ps` tool to get it
                     -- It takes a bit for the child to arrive. This uses the `vim.wait` function to wait up to a second
                     -- to get the child pid.
-                    vim.wait(
-                        1000,
-                        function() return tonumber(vim.fn.system('ps -o pid= --ppid ' .. tostring(ppid))) ~= nil end
-                    )
+                    vim.wait(1000, function()
+                        return tonumber(vim.fn.system('ps -o pid= --ppid ' .. tostring(ppid))) ~= nil
+                    end)
                     local pid = tonumber(vim.fn.system('ps -o pid= --ppid ' .. tostring(ppid)))
                     local home = vim.uv.os_homedir()
 
@@ -149,21 +160,80 @@ local M = {
         'mfussenegger/nvim-dap',
         dependencies = { 'williamboman/mason.nvim' },
         keys = {
-            { '<F5>',       function() require('dap').continue() end },
-            { '<F6>',       function() require('dap').step_back() end },
-            { '<S-F10>',    function() require('dap').step_over() end },
-            { '<S-F11>',    function() require('dap').step_into() end },
-            { '<S-F12>',    function() require('dap').step_out() end },
-            { '<Leader>b',  function() require('dap').toggle_breakpoint() end },
-            { '<Leader>B',  function() require('dap').set_breakpoint(fn.input('Breakpoint condition: ')) end },
-            { '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, fn.input('Log point message: ')) end },
-            { '<Leader>cb', function() require('dap').clear_breakpoints() end },
-            { '<Leader>dr', function() require('dap').repl.open() end },
-            { '<Leader>dl', function() require('dap').run_last() end },
+            {
+                '<F5>',
+                function()
+                    require('dap').continue()
+                end,
+            },
+            {
+                '<F6>',
+                function()
+                    require('dap').step_back()
+                end,
+            },
+            {
+                '<S-F10>',
+                function()
+                    require('dap').step_over()
+                end,
+            },
+            {
+                '<S-F11>',
+                function()
+                    require('dap').step_into()
+                end,
+            },
+            {
+                '<S-F12>',
+                function()
+                    require('dap').step_out()
+                end,
+            },
+            {
+                '<Leader>b',
+                function()
+                    require('dap').toggle_breakpoint()
+                end,
+            },
+            {
+                '<Leader>B',
+                function()
+                    require('dap').set_breakpoint(fn.input('Breakpoint condition: '))
+                end,
+            },
+            {
+                '<Leader>lp',
+                function()
+                    require('dap').set_breakpoint(nil, nil, fn.input('Log point message: '))
+                end,
+            },
+            {
+                '<Leader>cb',
+                function()
+                    require('dap').clear_breakpoints()
+                end,
+            },
+            {
+                '<Leader>dr',
+                function()
+                    require('dap').repl.open()
+                end,
+            },
+            {
+                '<Leader>dl',
+                function()
+                    require('dap').run_last()
+                end,
+            },
         },
         config = dapconfig,
     },
-    { 'rcarriga/nvim-dap-ui',            lazy = true, dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' } },
+    {
+        'rcarriga/nvim-dap-ui',
+        lazy = true,
+        dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
+    },
     { 'theHamsta/nvim-dap-virtual-text', lazy = true, dependencies = { 'mfussenegger/nvim-dap' } },
 }
 

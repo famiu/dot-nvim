@@ -19,8 +19,12 @@ return {
             lualine_c = { 'filename' },
             lualine_x = {
                 {
-                    function(...) require('noice').api.status.mode.get(...) end,
-                    cond = function(...) require('noice').api.status.mode.has(...) end,
+                    function(...)
+                        require('noice').api.status.mode.get(...)
+                    end,
+                    cond = function(...)
+                        require('noice').api.status.mode.has(...)
+                    end,
                     color = { fg = '#ff9e64' },
                 },
                 'encoding',

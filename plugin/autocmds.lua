@@ -3,7 +3,9 @@ local augroup = vim.api.nvim_create_augroup('MyConfig', {})
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight on yank',
     group = augroup,
-    callback = function() vim.highlight.on_yank() end,
+    callback = function()
+        vim.highlight.on_yank()
+    end,
 })
 
 -- Automatically create missing directories before save

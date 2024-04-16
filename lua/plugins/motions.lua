@@ -13,7 +13,9 @@ return {
                     enabled = false,
                 },
                 char = {
-                    jump_labels = function(_) return vim.v.count == 0 end,
+                    jump_labels = function(_)
+                        return vim.v.count == 0
+                    end,
                 },
             },
         },
@@ -30,19 +32,25 @@ return {
             {
                 '<S-CR>',
                 mode = { 'n', 'x', 'o' },
-                function() require('flash').treesitter() end,
+                function()
+                    require('flash').treesitter()
+                end,
                 desc = 'Flash Treesitter',
             },
             {
                 'r',
                 mode = 'o',
-                function() require('flash').remote() end,
+                function()
+                    require('flash').remote()
+                end,
                 desc = 'Remote Flash',
             },
             {
                 '<C-s>',
                 mode = 'c',
-                function() require('flash').toggle() end,
+                function()
+                    require('flash').toggle()
+                end,
                 desc = 'Toggle Flash Search',
             },
             { 'f', mode = { 'n', 'x', 'o' } },

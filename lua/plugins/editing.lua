@@ -25,8 +25,18 @@ return {
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
         cmd = { 'TSJSplit', 'TSJJoin' },
         keys = {
-            { 'gS', function() require('treesj').split() end },
-            { 'gJ', function() require('treesj').join() end },
+            {
+                'gS',
+                function()
+                    require('treesj').split()
+                end,
+            },
+            {
+                'gJ',
+                function()
+                    require('treesj').join()
+                end,
+            },
         },
         opts = {
             use_default_keymaps = false,
