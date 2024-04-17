@@ -70,8 +70,8 @@ local function dapconfig()
     -- External Terminal
     dap.defaults.fallback.force_external_terminal = true
     dap.defaults.fallback.external_terminal = {
-        -- Use Windows Terminal for Windows, and Kitty for Linux.
-        command = require('utilities.os').is_windows() and 'wt' or 'kitty',
+        -- Use Windows Terminal for Windows, and GNOME Terminal for Linux.
+        command = require('utilities.os').is_windows() and 'wt' or 'gnome-terminal',
         args = { '--' },
     }
 
