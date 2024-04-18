@@ -2,9 +2,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Use ripgrep for grepprg
-vim.o.grepprg = 'rg --vimgrep --smart-case'
-
 -- Better command line completion
 vim.o.wildmode = 'longest:list,full'
 
