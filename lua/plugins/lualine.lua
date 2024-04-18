@@ -12,6 +12,16 @@ return {
             theme = 'ayu_dark',
             component_separators = { left = '╱', right = '╲' },
             section_separators = { left = '', right = '' },
+            disabled_filetypes = {
+                winbar = {
+                    'dapui_watches',
+                    'dapui_breakpoints',
+                    'dapui_scopes',
+                    'dapui_console',
+                    'dapui_stacks',
+                    'dap-repl',
+                },
+            },
         },
         sections = {
             lualine_a = { 'mode' },
