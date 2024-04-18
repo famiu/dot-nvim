@@ -22,9 +22,6 @@ local function dapconfig()
         desc = 'DAP Autocompletion',
     })
 
-    -- DAP UI
-    dapui.setup()
-
     dap.listeners.after.event_initialized['dapui_config'] = function()
         dapui.open()
     end
@@ -34,9 +31,6 @@ local function dapconfig()
     dap.listeners.before.event_exited['dapui_config'] = function()
         dapui.close()
     end
-
-    -- DAP Virtual Text
-    require('nvim-dap-virtual-text').setup({})
 
     -- Adapters
     dap.adapters.lldb = {
@@ -155,86 +149,104 @@ local function dapconfig()
     )
 end
 
-local M = {
+return {
     {
         'mfussenegger/nvim-dap',
-        dependencies = { 'williamboman/mason.nvim' },
+        dependencies = {
+            'williamboman/mason.nvim',
+            { 'theHamsta/nvim-dap-virtual-text', opts = {} },
+            {
+                'rcarriga/nvim-dap-ui',
+                dependencies = { 'nvim-neotest/nvim-nio' },
+                opts = {},
+            },
+        },
         keys = {
             {
                 '<F5>',
                 function()
                     require('dap').continue()
                 end,
+                desc = 'DAP: Continue',
             },
             {
                 '<F6>',
                 function()
                     require('dap').step_back()
                 end,
+                desc = 'DAP: Step back',
             },
             {
-                '<S-F10>',
+                '<F10>',
                 function()
                     require('dap').step_over()
                 end,
+                desc = 'DAP: Step Over',
             },
             {
-                '<S-F11>',
+                '<F11>',
                 function()
                     require('dap').step_into()
                 end,
+                desc = 'DAP: Step Into',
             },
             {
-                '<S-F12>',
+                '<F12>',
                 function()
                     require('dap').step_out()
                 end,
+                desc = 'DAP: Step Out',
+            },
+            {
+                '<S-F5>',
+                function()
+                    require('dap').terminate()
+                end,
+                desc = 'DAP: Terminate',
             },
             {
                 '<Leader>b',
                 function()
                     require('dap').toggle_breakpoint()
                 end,
+                desc = 'DAP: Toggle Breakpoint',
             },
             {
                 '<Leader>B',
                 function()
                     require('dap').set_breakpoint(fn.input('Breakpoint condition: '))
                 end,
+                desc = 'DAP: Conditional breakpoint',
             },
             {
-                '<Leader>lp',
+                '<Leader>dp',
                 function()
                     require('dap').set_breakpoint(nil, nil, fn.input('Log point message: '))
                 end,
+                desc = 'DAP: Log point',
             },
             {
-                '<Leader>cb',
+                '<Leader>dc',
                 function()
                     require('dap').clear_breakpoints()
                 end,
+                desc = 'DAP: Clear breakpoints',
             },
             {
                 '<Leader>dr',
                 function()
-                    require('dap').repl.open()
+                    require('dap').repl.toggle()
                 end,
+                desc = 'DAP: Toggle REPL',
             },
             {
                 '<Leader>dl',
                 function()
                     require('dap').run_last()
                 end,
+                desc = 'DAP: Run last',
             },
         },
         config = dapconfig,
     },
-    {
-        'rcarriga/nvim-dap-ui',
-        lazy = true,
-        dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
-    },
-    { 'theHamsta/nvim-dap-virtual-text', lazy = true, dependencies = { 'mfussenegger/nvim-dap' } },
 }
-
-return M
