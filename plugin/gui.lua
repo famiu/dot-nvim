@@ -1,7 +1,7 @@
 local augroup = vim.api.nvim_create_augroup('MyGUIConfig', {})
 
 -- GUI settings.
-vim.o.guifont = 'FiraCode Nerd Font:h16'
+vim.o.guifont = 'FiraCode Nerd Font:h14'
 vim.o.linespace = 1
 
 -- Neovide specific settings.
