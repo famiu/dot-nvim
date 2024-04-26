@@ -48,20 +48,6 @@ return {
                         desc = '[g]o to [D]eclaration',
                     },
                     {
-                        ']d',
-                        function()
-                            diagnostic.goto_next()
-                        end,
-                        desc = 'Go to next [d]iagnostic',
-                    },
-                    {
-                        '[d',
-                        function()
-                            diagnostic.goto_prev()
-                        end,
-                        desc = 'Go to previous [d]iagnostic',
-                    },
-                    {
                         '<C-Space>',
                         function()
                             diagnostic.open_float()
