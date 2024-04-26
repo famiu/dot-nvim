@@ -48,13 +48,6 @@ return {
                         desc = '[g]o to [D]eclaration',
                     },
                     {
-                        '<Leader>r',
-                        function()
-                            lsp.buf.rename()
-                        end,
-                        desc = '[r]ename symbol',
-                    },
-                    {
                         ']d',
                         function()
                             diagnostic.goto_next()
@@ -75,13 +68,6 @@ return {
                         end,
                         desc = 'Open diagnostic float',
                     },
-                    {
-                        '<Leader>ca',
-                        function()
-                            lsp.buf.code_action()
-                        end,
-                        desc = 'Perform [c]ode [a]ction',
-                    },
                     -- Telescope mappings
                     {
                         'gd',
@@ -96,13 +82,6 @@ return {
                             require('telescope.builtin').lsp_implementations()
                         end,
                         desc = '[g]oto [i]mplementation',
-                    },
-                    {
-                        'gr',
-                        function()
-                            require('telescope.builtin').lsp_references()
-                        end,
-                        desc = '[g]oto [r]eferences',
                     },
                     {
                         'gT',
