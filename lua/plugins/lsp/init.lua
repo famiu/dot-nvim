@@ -47,13 +47,6 @@ return {
                         end,
                         desc = '[g]o to [D]eclaration',
                     },
-                    {
-                        '<C-Space>',
-                        function()
-                            diagnostic.open_float()
-                        end,
-                        desc = 'Open diagnostic float',
-                    },
                     -- Telescope mappings
                     {
                         'gd',
