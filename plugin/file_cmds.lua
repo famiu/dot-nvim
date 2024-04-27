@@ -3,7 +3,7 @@ vim.api.nvim_create_user_command('Delete', function(opts)
     local bufname = vim.api.nvim_buf_get_name(bufnr)
 
     if bufname == '' then
-        vim.api.nvim_err_writeln('Cannot delete buffer with no name')
+        error('Cannot delete buffer with no name')
     end
 
     -- Find all buffers with the same name and delete them
@@ -69,7 +69,7 @@ vim.api.nvim_create_user_command('Rename', function(opts)
     local bufdir = vim.fs.dirname(bufname)
 
     if bufname == '' then
-        vim.api.nvim_err_writeln('Cannot rename buffer with no name')
+        error('Cannot rename buffer with no name')
     end
 
     local file_modified = vim.bo[bufnr].modified
