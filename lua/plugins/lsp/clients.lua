@@ -5,26 +5,9 @@ return {
             Lua = {},
         },
         on_init = function(client)
-            if client.config.root_dir == nil then
-                return
-            end
+            local path = vim.fs.normalize(client.workspace_folders[1].name)
 
-            local path = vim.fs.normalize(client.config.root_dir)
-
-            local nvim_runtime_dirs = vim.tbl_map(function(dir)
-                return vim.fs.normalize(dir)
-            end, vim.api.nvim_list_runtime_paths())
-
-            local in_nvim_runtime = false
-
-            for _, dir in ipairs(nvim_runtime_dirs) do
-                if vim.startswith(path, dir) then
-                    in_nvim_runtime = true
-                    break
-                end
-            end
-
-            if not in_nvim_runtime then
+            if path == nil or vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc') then
                 return
             end
 
@@ -39,7 +22,7 @@ return {
                     library = {
                         '${3rd}/luv/library',
                         '${3rd}/busted/library',
-                        unpack(nvim_runtime_dirs),
+                        unpack(vim.api.nvim_list_runtime_paths()),
                     },
                 },
             })
