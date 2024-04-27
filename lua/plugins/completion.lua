@@ -27,87 +27,43 @@ local lsp_kind_icons = {
 }
 
 return {
-    'rafamadriz/friendly-snippets',
     {
-        'hrsh7th/nvim-cmp',
-        dependencies = {
-            'neovim/nvim-lspconfig',
-            'hrsh7th/cmp-path',
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-buffer',
-        },
-        event = 'InsertEnter',
+        'mfussenegger/nvim-lsp-compl',
         config = function()
-            -- Set up nvim-cmp.
-            local cmp = require('cmp')
-            local default_capabilities = require('cmp_nvim_lsp').default_capabilities()
-
             -- Update default Lspconfig capabilities.
-            require('lspconfig').util.default_config.capabilities = default_capabilities
+            require('lspconfig').util.default_config.capabilities = vim.tbl_deep_extend(
+                'force',
+                vim.lsp.protocol.make_client_capabilities(),
+                require('lsp_compl').capabilities()
+            )
 
-            --- @diagnostic disable-next-line: redundant-parameter
-            cmp.setup({
-                window = {
-                    completion = cmp.config.window.bordered(),
-                    documentation = cmp.config.window.bordered(),
-                },
-                mapping = cmp.mapping.preset.insert({
-                    ['<C-p>'] = cmp.mapping.select_prev_item(),
-                    ['<C-n>'] = cmp.mapping.select_next_item(),
-                    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-                    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                    ['<C-e>'] = cmp.mapping.abort(),
-                    -- <C-l> and <C-h> for jumping forward / backward between snippet items.
-                    ['<C-l>'] = cmp.mapping(function()
-                        if vim.snippet.jumpable(1) then
-                            vim.snippet.jump(1)
-                        end
-                    end, { 'i', 's' }),
-                    ['<C-h>'] = cmp.mapping(function()
-                        if vim.snippet.jumpable(-1) then
-                            vim.snippet.jump(-1)
-                        end
-                    end, { 'i', 's' }),
-                }),
-                sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
-                }, {
-                    { name = 'buffer' },
-                }),
-                formatting = {
-                    format = function(_, vim_item)
-                        vim_item.kind = lsp_kind_icons[vim_item.kind] .. ' ' .. vim_item.kind
-                        return vim_item
-                    end,
-                },
-                sorting = {
-                    priority_weight = 2,
-                    comparators = {
-                        cmp.config.compare.offset,
-                        cmp.config.compare.exact,
-                        cmp.config.compare.score,
-                        cmp.config.compare.recently_used,
-                        cmp.config.compare.locality,
-                        cmp.config.compare.kind,
-                        -- The scopes comparator is disabled because it's too slow for large files
-                        -- cmp.config.compare.scopes,
-                        cmp.config.compare.sort_text,
-                        cmp.config.compare.length,
-                        cmp.config.compare.order,
-                    },
-                },
-                experimental = {
-                    ghost_text = true,
-                },
-            })
+            vim.api.nvim_create_autocmd('LspAttach', {
+                desc = 'Enable nvim-lsp-compl',
+                group = vim.api.nvim_create_augroup('ConfigCompletion', {}),
+                callback = function(args)
+                    local buf = args.buf
+                    local client = vim.lsp.get_client_by_id(args.data.client_id)
+                    assert(client ~= nil)
 
-            --- @diagnostic disable-next-line:undefined-field
-            cmp.setup.filetype('tex', {
-                sources = {
-                    { name = 'vimtex' },
-                    { name = 'buffer' },
-                },
+                    require('lsp_compl').attach(client, buf, {
+                        trigger_on_delete = true,
+                        server_side_fuzzy_completion = true,
+                    })
+
+                    -- Snippet keymaps
+                    vim.keymap.set('i', '<C-y>', function()
+                        if vim.fn.pumvisible() == 1 then
+                            require('lsp_compl').accept_pum()
+                        end
+                        return '<C-y>'
+                    end, { buffer = buf, expr = true })
+                    vim.keymap.set({ 'i', 's' }, '<C-l>', function()
+                        vim.snippet.jump(1)
+                    end, { buffer = buf, silent = true })
+                    vim.keymap.set({ 'i', 's' }, '<C-h>', function()
+                        vim.snippet.jump(-1)
+                    end, { buffer = buf, silent = true })
+                end,
             })
         end,
     },

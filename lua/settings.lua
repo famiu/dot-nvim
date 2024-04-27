@@ -51,7 +51,7 @@ vim.o.smartcase = true
 vim.o.gdefault = true
 
 -- Settings for insert mode completion
-vim.o.completeopt = 'menuone,preview,noselect'
+vim.o.completeopt = 'menuone,popup,noinsert'
 vim.o.shortmess = vim.o.shortmess .. 'c'
 
 -- Split behavior

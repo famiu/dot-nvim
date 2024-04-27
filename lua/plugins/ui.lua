@@ -17,4 +17,11 @@ return {
         },
     },
     { 'brenoprata10/nvim-highlight-colors', opts = {} },
+    { 'j-hui/fidget.nvim', opts = {} },
+    {
+        'rcarriga/nvim-notify',
+        config = function()
+            vim.notify = require('notify')
+        end
+    },
 }

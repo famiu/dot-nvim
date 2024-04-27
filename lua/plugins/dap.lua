@@ -35,7 +35,7 @@ local function dapconfig()
     -- Adapters
     dap.adapters.lldb = {
         type = 'executable',
-        command = vim.fn.exepath('lldb-vscode'),
+        command = vim.fn.exepath('lldb-dap'),
         name = 'lldb',
     }
 
@@ -61,13 +61,26 @@ local function dapconfig()
         },
     }
 
-    -- External Terminal
-    dap.defaults.fallback.force_external_terminal = true
-    dap.defaults.fallback.external_terminal = {
-        -- Use Windows Terminal for Windows, and GNOME Terminal for Linux.
-        command = require('utilities.os').is_windows() and 'wt' or 'gnome-terminal',
-        args = { '--' },
+    local terminals = {
+        { 'konsole', '-e' },
+        { 'gnome-terminal', '--' },
+        { 'wt', '--' },
     }
+
+    -- Check if an external terminal is available, and use it if it is.
+    for _, terminal_info in ipairs(terminals) do
+        if vim.fn.executable(terminal_info[1]) then
+            -- External Terminal
+            dap.defaults.fallback.force_external_terminal = true
+            dap.defaults.fallback.external_terminal = {
+                -- Use Windows Terminal for Windows, and GNOME Terminal for Linux.
+                command = terminal_info[1],
+                args = { terminal_info[2] },
+            }
+
+            break
+        end
+    end
 
     -- Language configurations
     dap.configurations.cpp = c_cpp_rust_base_config
