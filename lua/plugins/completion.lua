@@ -27,16 +27,11 @@ local lsp_kind_icons = {
 }
 
 return {
-    {
-        'L3MON4D3/LuaSnip',
-        lazy = true,
-        dependencies = { 'rafamadriz/friendly-snippets' },
-    },
+    'rafamadriz/friendly-snippets',
     {
         'hrsh7th/nvim-cmp',
         dependencies = {
             'neovim/nvim-lspconfig',
-            'saadparwaiz1/cmp_luasnip',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-buffer',
@@ -45,7 +40,6 @@ return {
         config = function()
             -- Set up nvim-cmp.
             local cmp = require('cmp')
-            local luasnip = require('luasnip')
             local default_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
             -- Update default Lspconfig capabilities.
@@ -53,11 +47,6 @@ return {
 
             --- @diagnostic disable-next-line: redundant-parameter
             cmp.setup({
-                snippet = {
-                    expand = function(args)
-                        luasnip.lsp_expand(args.body)
-                    end,
-                },
                 window = {
                     completion = cmp.config.window.bordered(),
                     documentation = cmp.config.window.bordered(),
@@ -69,21 +58,20 @@ return {
                     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
                     ['<C-f>'] = cmp.mapping.scroll_docs(4),
                     ['<C-e>'] = cmp.mapping.abort(),
-                    -- <C-l> for accepting snippets and jumping forward, <C-h> for jumping backwards.
+                    -- <C-l> and <C-h> for jumping forward / backward between snippet items.
                     ['<C-l>'] = cmp.mapping(function()
-                        if luasnip.expand_or_locally_jumpable() then
-                            luasnip.expand_or_jump()
+                        if vim.snippet.jumpable(1) then
+                            vim.snippet.jump(1)
                         end
                     end, { 'i', 's' }),
                     ['<C-h>'] = cmp.mapping(function()
-                        if luasnip.jumpable(-1) then
-                            luasnip.jump(-1)
+                        if vim.snippet.jumpable(-1) then
+                            vim.snippet.jump(-1)
                         end
                     end, { 'i', 's' }),
                 }),
                 sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
-                    { name = 'luasnip' },
                 }, {
                     { name = 'buffer' },
                 }),
