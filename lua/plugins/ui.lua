@@ -1,4 +1,5 @@
 return {
+    { 'yorickpeterse/nvim-pqf', opts = {} },
     {
         'mbbill/undotree',
         keys = {
