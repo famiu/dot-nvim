@@ -50,7 +50,14 @@ return {
                         server_side_fuzzy_completion = true,
                     })
 
-                    -- Snippet keymaps
+                    -- Manually trigger completion (replaces ins-completion mappings).
+                    vim.keymap.set({ 'i', 's' }, '<C-x>', function()
+                        if vim.fn.pumvisible() == 0 then
+                            require('lsp_compl').trigger_completion()
+                        end
+                    end, { buffer = buf })
+
+                    -- Snippet keymaps.
                     vim.keymap.set('i', '<C-y>', function()
                         if vim.fn.pumvisible() == 1 then
                             require('lsp_compl').accept_pum()
