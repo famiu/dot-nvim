@@ -1,5 +1,6 @@
 return {
     { 'yorickpeterse/nvim-pqf', opts = {} },
+    { 'stevearc/dressing.nvim', opts = {} },
     {
         'mbbill/undotree',
         keys = {
@@ -23,6 +24,6 @@ return {
         'rcarriga/nvim-notify',
         config = function()
             vim.notify = require('notify')
-        end
+        end,
     },
 }

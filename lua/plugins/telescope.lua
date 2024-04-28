@@ -3,7 +3,6 @@ return {
     lazy = true,
     dependencies = {
         'nvim-lua/plenary.nvim',
-        'nvim-telescope/telescope-ui-select.nvim',
         'nvim-telescope/telescope-live-grep-args.nvim',
         'nvim-telescope/telescope-project.nvim',
         {
@@ -127,9 +126,6 @@ return {
                 },
             },
             extensions = {
-                ['ui-select'] = {
-                    require('telescope.themes').get_dropdown({}),
-                },
                 live_grep_args = {
                     auto_quoting = true,
                     mappings = {
@@ -154,7 +150,6 @@ return {
         })
 
         pcall(require('telescope').load_extension, 'fzf')
-        require('telescope').load_extension('ui-select')
         require('telescope').load_extension('project')
     end,
 }
