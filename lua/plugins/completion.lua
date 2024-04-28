@@ -47,7 +47,8 @@ return {
 
                     require('lsp_compl').attach(client, buf, {
                         trigger_on_delete = true,
-                        server_side_fuzzy_completion = true,
+                        --- Disable fuzzy completion for LuaLS.
+                        server_side_fuzzy_completion = client.name ~= 'lua_ls',
                     })
 
                     -- Manually trigger completion (replaces ins-completion mappings).
