@@ -11,6 +11,9 @@ vim.o.undofile = true
 -- Use global statusline, not because I made it or anything
 vim.o.laststatus = 3
 
+-- Use statusline area for cmdline
+vim.o.cmdheight = 0
+
 -- Allow virtual editing in visual block mode and after the end of the line
 vim.o.virtualedit = 'onemore'
 
