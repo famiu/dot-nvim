@@ -34,6 +34,7 @@ local function toggle_term_buffer()
         height = winheight,
     })
 
+    vim.wo[win].statuscolumn = ""
     vim.cmd.startinsert()
 end
 

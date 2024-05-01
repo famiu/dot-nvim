@@ -31,10 +31,6 @@ vim.o.showbreak = '↪ '
 -- Fill column indicator
 vim.o.colorcolumn = '+1'
 
--- Use hybrid line numbers
-vim.o.number = true
-vim.o.relativenumber = true
-
 -- Show inccommand preview with split
 vim.o.inccommand = 'split'
 
