@@ -1,39 +1,27 @@
-local api = vim.api
-
 local root_patterns = { '.git' }
+local augroup = vim.api.nvim_create_augroup('AutoCD', {})
 
--- Automatically change to project root directory using configured root patterns.
-local function autocd()
-    local bufname = api.nvim_buf_get_name(0)
-    local path = vim.fs.dirname(bufname)
+vim.api.nvim_create_autocmd({ 'VimEnter', 'BufEnter', 'BufReadPost' }, {
+    desc = 'Automatically change current directory by matching root pattern',
+    group = augroup,
+    callback = function(args)
+        local root = vim.fs.root(vim.api.nvim_buf_get_name(args.buf), root_patterns)
 
-    local root_pattern_match = vim.fs.find(root_patterns, { path = path, stop = vim.uv.os_homedir(), upward = true })[1]
+        if root ~= nil then
+            vim.api.nvim_set_current_dir(root)
+        end
+    end,
+})
 
-    if root_pattern_match == nil then
-        return
-    end
+vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'Automatically change current directory to LSP root',
+    group = augroup,
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        assert(client ~= nil)
 
-    vim.api.nvim_set_current_dir(vim.fs.dirname(root_pattern_match))
-end
-
--- Automatically change current directory to LSP root directory on LSP attach.
-local function lsp_autocd(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    assert(client ~= nil)
-
-    if client.config.root_dir then
-        vim.api.nvim_set_current_dir(client.config.root_dir)
-    end
-end
-
-local augroup = api.nvim_create_augroup('AutoCD', {})
-
-api.nvim_create_autocmd(
-    { 'VimEnter', 'BufEnter', 'BufReadPost' },
-    { group = augroup, callback = autocd, desc = 'Automatically change current directory by matching root pattern' }
-)
-
-api.nvim_create_autocmd(
-    { 'LspAttach' },
-    { group = augroup, callback = lsp_autocd, desc = 'Automatically change current directory to LSP root' }
-)
+        if client.config.root_dir then
+            vim.api.nvim_set_current_dir(client.config.root_dir)
+        end
+    end,
+})
