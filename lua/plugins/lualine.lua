@@ -4,7 +4,6 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = {
         'nvim-tree/nvim-web-devicons',
-        'folke/noice.nvim',
         'SmiteshP/nvim-navic',
     },
     opts = {
@@ -28,15 +27,6 @@ return {
             lualine_b = { 'branch', 'diff', 'diagnostics' },
             lualine_c = { 'filename' },
             lualine_x = {
-                {
-                    function(...)
-                        require('noice').api.status.mode.get(...)
-                    end,
-                    cond = function(...)
-                        require('noice').api.status.mode.has(...)
-                    end,
-                    color = { fg = '#ff9e64' },
-                },
                 'encoding',
                 'fileformat',
                 'filetype',
