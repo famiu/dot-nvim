@@ -43,18 +43,4 @@ return {
             use_default_keymaps = false,
         },
     },
-    {
-        'echasnovski/mini.trailspace',
-        lazy = false,
-        opts = {},
-        keys = {
-            {
-                '<Leader>T',
-                function()
-                    require('mini.trailspace').trim()
-                    require('mini.trailspace').trim_last_lines()
-                end,
-            },
-        },
-    },
 }

@@ -8,17 +8,22 @@ return {
         },
     },
     {
-        'folke/todo-comments.nvim',
-        opts = {
-            highlight = {
-                pattern = { [[.*<(KEYWORDS)\s*:]], [[.*<(KEYWORDS)\s*\(\w+\)\s*:]] },
-            },
-            search = {
-                pattern = [[\b(KEYWORDS)\s*(\(\w+\))?\s*:]],
-            },
-        },
+        'echasnovski/mini.hipatterns',
+        config = function()
+            local hipatterns = require('mini.hipatterns')
+
+            hipatterns.setup({
+                highlighters = {
+                    fixme = { pattern = 'FIXME%(%w+%)?:', group = 'MiniHipatternsFixme' },
+                    hack = { pattern = 'HACK%(%w+%)?:', group = 'MiniHipatternsHack' },
+                    todo = { pattern = 'TODO%(%w+%)?:', group = 'MiniHipatternsTodo' },
+                    note = { pattern = 'NOTE%(%w+%)?:', group = 'MiniHipatternsNote' },
+                    trailing_space = { pattern = '%s+$', group = 'Error' },
+                    hex_color = hipatterns.gen_highlighter.hex_color(),
+                },
+            })
+        end,
     },
-    { 'brenoprata10/nvim-highlight-colors', opts = {} },
     { 'j-hui/fidget.nvim', opts = {} },
     {
         'rcarriga/nvim-notify',
