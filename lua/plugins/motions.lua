@@ -1,19 +1,6 @@
 return {
-    {
-        'echasnovski/mini.jump',
-        opts = {},
-        keys = {
-            { 'f', mode = { 'n', 'x' } },
-            { 'F', mode = { 'n', 'x' } },
-            { 'f', mode = { 'n', 'x' } },
-            { 'T', mode = { 'n', 'x' } },
-        }
-    },
-    {
-        'echasnovski/mini.jump2d',
-        opts = {},
-        keys = { { '<CR>', mode = {'n', 'x' } } },
-    },
+    { 'echasnovski/mini.jump', opts = {} },
+    { 'echasnovski/mini.jump2d', opts = {} },
     {
         'mfussenegger/nvim-treehopper',
         keys = {
