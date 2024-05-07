@@ -1,17 +1,13 @@
-local api = vim.api
-local fn = vim.fn
-
 local lsp_client_configs = require('plugins.lsp.clients')
 
 return {
     'neovim/nvim-lspconfig',
     dependencies = { 'williamboman/mason.nvim' },
     config = function()
-        local diagnostic = vim.diagnostic
         local lspconfig = require('lspconfig')
 
         -- Diagnostics configuration.
-        diagnostic.config({
+        vim.diagnostic.config({
             virtual_text = {
                 spacing = 4,
                 prefix = '~',
@@ -20,20 +16,19 @@ return {
         })
 
         -- Diagnostic Signs.
-        fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
-        fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
-        fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
-        fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
-        fn.sign_define('DiagnosticSignOk', { text = '', texthl = 'DiagnosticSignOk' })
+        vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
+        vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
+        vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
+        vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
+        vim.fn.sign_define('DiagnosticSignOk', { text = '', texthl = 'DiagnosticSignOk' })
 
         -- LSP configuration.
-        api.nvim_create_autocmd('LspAttach', {
+        vim.api.nvim_create_autocmd('LspAttach', {
             desc = 'LSP configuration',
-            group = api.nvim_create_augroup('lsp-settings', {}),
+            group = vim.api.nvim_create_augroup('lsp-settings', {}),
             callback = function(args)
-                local lsp = vim.lsp
                 local bufnr = args.buf
-                local client = lsp.get_client_by_id(args.data.client_id)
+                local client = vim.lsp.get_client_by_id(args.data.client_id)
                 assert(client ~= nil)
 
                 -- Mappings.
@@ -41,46 +36,49 @@ return {
                     vim.keymap.set(mapping.mode or 'n', mapping[1], mapping[2], { buffer = bufnr, desc = mapping.desc })
                 end, {
                     {
-                        'gD',
-                        function()
-                            lsp.buf.declaration()
-                        end,
-                        desc = '[g]o to [D]eclaration',
-                    },
-                    -- Telescope mappings
-                    {
                         'gd',
-                        function()
-                            require('telescope.builtin').lsp_definitions()
-                        end,
+                        vim.lsp.buf.definition,
                         desc = '[g]oto [d]efinition',
                     },
                     {
+                        'gD',
+                        vim.lsp.buf.declaration,
+                        desc = '[g]o to [D]eclaration',
+                    },
+                    {
                         'gi',
-                        function()
-                            require('telescope.builtin').lsp_implementations()
-                        end,
+                        vim.lsp.buf.implementation,
                         desc = '[g]oto [i]mplementation',
                     },
                     {
+                        'gr',
+                        vim.lsp.buf.references,
+                        desc = '[g]oto [r]eferences',
+                    },
+                    {
                         'gT',
-                        function()
-                            require('telescope.builtin').lsp_type_definitions()
-                        end,
+                        vim.lsp.buf.type_definition,
                         desc = '[g]oto [T]ype definitions',
                     },
                     {
+                        '<Leader>r',
+                        vim.lsp.buf.rename,
+                        desc = '[r]ename symbol',
+                    },
+                    {
+                        '<Leader>ca',
+                        vim.lsp.buf.code_action,
+                        desc = 'Perform [c]ode [a]ction',
+                    },
+                    -- Telescope mappings
+                    {
                         '<Leader>fs',
-                        function()
-                            require('telescope.builtin').lsp_dynamic_workspace_symbols()
-                        end,
+                        require('telescope.builtin').lsp_dynamic_workspace_symbols,
                         desc = '[f]ind dynamic workspace [s]ymbols',
                     },
                     {
                         '<Leader>fS',
-                        function()
-                            require('telescope.builtin').lsp_document_symbols()
-                        end,
+                        require('telescope.builtin').lsp_document_symbols,
                         desc = '[f]ind document [S]ymbols',
                     },
                 })
