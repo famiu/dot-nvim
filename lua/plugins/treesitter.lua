@@ -31,10 +31,6 @@ return {
         },
         build = ':TSUpdate',
         main = 'nvim-treesitter.configs',
-        init = function()
-            vim.o.foldmethod = 'expr'
-            vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
-        end,
         config = function(_, opts)
             require('nvim-treesitter.install').compilers = { 'cl', 'clang', 'gcc' }
             require('nvim-treesitter.configs').setup(opts)

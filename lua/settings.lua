@@ -14,7 +14,7 @@ vim.o.laststatus = 3
 -- Use statusline area for cmdline
 vim.o.cmdheight = 0
 
--- Allow virtual editing in visual block mode and after the end of the line
+-- Allow virtual editing after the end of the line
 vim.o.virtualedit = 'onemore'
 
 -- Spaces > Tabs
@@ -34,10 +34,11 @@ vim.o.colorcolumn = '+1'
 -- Show inccommand preview with split
 vim.o.inccommand = 'split'
 
--- Use transparent fold and disable folding by default
+-- Use transparent fold and use treesitter for folding
 vim.o.foldtext = ''
-vim.o.foldenable = false
-vim.o.foldminlines = 4
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.o.foldlevelstart = 20
 
 -- Session options
 vim.o.sessionoptions = 'blank,folds,help,tabpages,winsize,winpos,terminal,localoptions'
