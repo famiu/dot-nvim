@@ -1,7 +1,6 @@
 return {
     {
         'NeogitOrg/neogit',
-        branch = 'nightly',
         dependencies = {
             'nvim-lua/plenary.nvim',
             'sindrets/diffview.nvim',
@@ -121,9 +120,6 @@ return {
                 relative = 'cursor',
                 row = 0,
                 col = 1,
-            },
-            yadm = {
-                enable = false,
             },
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns
