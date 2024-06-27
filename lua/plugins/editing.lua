@@ -1,4 +1,5 @@
 return {
+    { 'ray-x/lsp_signature.nvim', lazy = true, opts = {} },
     { 'echasnovski/mini.pairs', opts = {} },
     {
         'echasnovski/mini.align',

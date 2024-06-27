@@ -6,7 +6,7 @@ return {
     config = function()
         local lspconfig = require('lspconfig')
 
-        -- Diagnostics configuration.
+        -- Diagnostics configuration
         vim.diagnostic.config({
             virtual_text = {
                 spacing = 4,
@@ -15,23 +15,30 @@ return {
             signs = false,
         })
 
-        -- Diagnostic Signs.
+        -- Diagnostic Signs
         vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
         vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
         vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
         vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
         vim.fn.sign_define('DiagnosticSignOk', { text = '', texthl = 'DiagnosticSignOk' })
 
-        -- LSP configuration.
+        -- LSP configuration
         vim.api.nvim_create_autocmd('LspAttach', {
             desc = 'LSP configuration',
             group = vim.api.nvim_create_augroup('lsp-settings', {}),
             callback = function(args)
                 local bufnr = args.buf
-                local client = vim.lsp.get_client_by_id(args.data.client_id)
+                local client_id = args.data.client_id
+                local client = vim.lsp.get_client_by_id(client_id)
                 assert(client ~= nil)
 
-                -- Mappings.
+                -- Auto-complete
+                vim.lsp.completion.enable(true, client_id, bufnr, { autotrigger = true })
+
+                -- Signature help
+                require('lsp_signature').on_attach({}, bufnr)
+
+                -- Mappings
                 vim.tbl_map(function(mapping)
                     vim.keymap.set(mapping.mode or 'n', mapping[1], mapping[2], { buffer = bufnr, desc = mapping.desc })
                 end, {
