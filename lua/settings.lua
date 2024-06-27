@@ -79,6 +79,8 @@ vim.o.exrc = true
 
 -- Statuscolumn, show (hybrid) line number before signcolumn
 vim.o.signcolumn = 'auto:2'
+vim.o.number = true
+vim.o.relativenumber = true
 vim.o.statuscolumn = "%{%v:relnum?'%='.v:relnum:v:lnum.'%='%} %s"
 
 -- Allow conceal to use replacement characters to hide text
