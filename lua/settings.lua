@@ -97,3 +97,6 @@ vim.o.listchars = 'tab:» ,extends:›,precedes:‹,nbsp:␣'
 -- Remove "How-to disable mouse" from right-click menu
 pcall(vim.cmd.aunmenu, [[PopUp.How-to\ disable\ mouse]])
 pcall(vim.cmd.aunmenu, [[PopUp.-1-]])
+
+-- Use custom colorscheme
+vim.cmd.colorscheme('lullaby')
