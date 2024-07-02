@@ -77,11 +77,15 @@ vim.o.smoothscroll = true
 -- Allow project specific configuration
 vim.o.exrc = true
 
--- Statuscolumn, show (hybrid) line number before signcolumn
-vim.o.signcolumn = 'auto:2'
+-- Show hybrid line numbers
 vim.o.number = true
 vim.o.relativenumber = true
-vim.o.statuscolumn = "%{%v:relnum?'%='.v:relnum:v:lnum.'%='%} %s"
+
+-- Allow signcolumn to show up to 2 signs
+vim.o.signcolumn = 'auto:2'
+
+-- Show signs after line number
+vim.o.statuscolumn = '%l %s'
 
 -- Allow conceal to use replacement characters to hide text
 vim.o.conceallevel = 2
