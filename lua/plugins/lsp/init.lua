@@ -12,7 +12,7 @@ return {
                 spacing = 4,
                 prefix = '~',
             },
-            signs = false,
+            severity_sort = true,
         })
 
         -- Diagnostic Signs
