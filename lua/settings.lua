@@ -84,8 +84,8 @@ vim.o.relativenumber = true
 -- Allow signcolumn to show up to 2 signs
 vim.o.signcolumn = 'auto:2'
 
--- Show signs after line number
-vim.o.statuscolumn = '%l %s'
+-- Enable foldcolumn
+vim.o.foldcolumn = '1'
 
 -- Allow conceal to use replacement characters to hide text
 vim.o.conceallevel = 2
