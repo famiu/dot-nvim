@@ -41,6 +41,9 @@ local function toggle_term_buffer()
         })
 
         vim.wo[term_win].statuscolumn = ''
+        vim.wo[term_win].number = false
+        vim.wo[term_win].relativenumber = false
+        vim.wo[term_win].signcolumn = 'no'
     end
 
     vim.cmd.startinsert()
