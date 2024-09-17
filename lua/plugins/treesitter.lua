@@ -49,6 +49,8 @@ return {
                 'toml',
                 'latex',
                 'regex',
+                'markdown',
+                'html',
             },
             highlight = {
                 enable = true,
