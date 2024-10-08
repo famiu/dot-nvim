@@ -22,7 +22,8 @@ return {
                 snippet_backward = '<S-Tab>',
             },
             accept = { auto_brackets = { enabled = true } },
-            trigger = { signature_help = { enabled = true } },
+            -- TODO: Re-enable this when https://github.com/Saghen/blink.cmp/issues/21#issuecomment-2400428665 is fixed.
+            -- trigger = { signature_help = { enabled = true } },
         },
     },
     {
