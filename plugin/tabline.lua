@@ -35,7 +35,7 @@ local function tabline_buf_component(buf, tp_nr)
     end
 
     return string.format(
-        [[%%#%s#%%%dT [%d] %s%s%s%%T%%%dX %s %%X]],
+        [[%%#%s#%%%dT [%d] %s%s%s%%T%%%dX%s %%X]],
         hl,
         tp_nr,
         tp_nr,
