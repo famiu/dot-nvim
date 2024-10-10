@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         assert(client ~= nil)
 
-        if client.config.root_dir then
+        if client.name ~= 'copilot' and client.config.root_dir then
             vim.api.nvim_set_current_dir(client.config.root_dir)
         end
     end,
