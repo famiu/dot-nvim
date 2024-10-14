@@ -1,34 +1,36 @@
 return {
     {
-        'zbirenbaum/copilot.lua',
-        cmd = 'Copilot',
-        event = 'InsertEnter',
-        opts = {
-            suggestion = {
-                enabled = true,
-                auto_trigger = true,
-                hide_during_completion = true,
-                debounce = 75,
-                keymap = {
-                    accept = '<M-l>',
-                    accept_word = false,
-                    accept_line = false,
-                    next = '<M-]>',
-                    prev = '<M-[>',
-                    dismiss = '<C-]>',
-                },
-            },
-            server_opts_overrides = {},
-        },
-    },
-    {
         'yetone/avante.nvim',
         opts = {
-            provider = 'copilot',
-            -- auto_suggestions_provider = 'copilot',
-            -- behaviour = {
-            --     auto_suggestions = true,
-            -- },
+            provider = 'ollama',
+            vendors = {
+                ollama = {
+                    ['local'] = true,
+                    endpoint = '127.0.0.1:11434/v1',
+                    model = 'qwen2.5-coder:7b-instruct',
+                    parse_curl_args = function(opts, code_opts)
+                        local messages = require('avante.providers').copilot.parse_message(code_opts)
+                        _G.testvar = messages
+
+                        return {
+                            url = opts.endpoint .. '/chat/completions',
+                            headers = {
+                                ['Accept'] = 'application/json',
+                                ['Content-Type'] = 'application/json',
+                            },
+                            body = {
+                                model = opts.model,
+                                messages = messages,
+                                max_tokens = 8192,
+                                stream = true,
+                            },
+                        }
+                    end,
+                    parse_response_data = function(data_stream, event_state, opts)
+                        require('avante.providers').openai.parse_response(data_stream, event_state, opts)
+                    end,
+                },
+            },
         },
         build = require('utilities.os').is_windows()
                 and 'powershell -ExecutionPolicy Bypass -File Build -BuildFromSource false'
