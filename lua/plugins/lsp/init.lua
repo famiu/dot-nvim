@@ -7,7 +7,7 @@ return {
         build = 'cargo +nightly build --release',
         opts = {
             keymap = {
-                show = '<C-x><C-o>',
+                show = '<C-x><C-u>',
                 hide = '<C-e>',
                 accept = '<C-y>',
                 select_prev = { '<Up>', '<C-p>' },
