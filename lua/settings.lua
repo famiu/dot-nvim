@@ -15,7 +15,7 @@ vim.o.laststatus = 3
 vim.o.cmdheight = 0
 
 -- Allow virtual editing after the end of the line
-vim.o.virtualedit = 'onemore'
+vim.o.virtualedit = 'block,onemore'
 
 -- Spaces > Tabs
 vim.o.tabstop = 4
