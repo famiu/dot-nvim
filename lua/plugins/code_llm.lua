@@ -36,9 +36,6 @@ return {
                     endpoint = '127.0.0.1:11434/v1',
                     model = 'qwen2.5-coder:7b-instruct',
                     parse_curl_args = function(opts, code_opts)
-                        local messages = require('avante.providers').copilot.parse_message(code_opts)
-                        _G.testvar = messages
-
                         return {
                             url = opts.endpoint .. '/chat/completions',
                             headers = {
@@ -47,8 +44,8 @@ return {
                             },
                             body = {
                                 model = opts.model,
-                                messages = messages,
-                                max_tokens = 8192,
+                                messages = require('avante.providers').copilot.parse_message(code_opts),
+                                max_tokens = 2048,
                                 stream = true,
                             },
                         }
@@ -68,7 +65,6 @@ return {
             'nvim-lua/plenary.nvim',
             'MunifTanjim/nui.nvim',
             'nvim-tree/nvim-web-devicons',
-            'zbirenbaum/copilot.lua', -- for providers='copilot'
         },
     },
 }

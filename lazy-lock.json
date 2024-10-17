@@ -4,7 +4,6 @@
   "bropilot.nvim": { "branch": "main", "commit": "f6bf9fde01a6804110e7de31b5ae7d4a8fbddadb" },
   "bufdelete": { "branch": "master", "commit": "f6bcea78afb3060b198125256f897040538bcb81" },
   "conform.nvim": { "branch": "master", "commit": "f5bd8419f8a29451e20bdb1061a54fe13d5c8de3" },
-  "copilot.lua": { "branch": "master", "commit": "1a237cf50372830a61d92b0adf00d3b23882e0e1" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "dressing.nvim": { "branch": "master", "commit": "1b7921eecc65af1baf8ac1dc06f0794934cbcfb2" },
   "dropbar.nvim": { "branch": "master", "commit": "35988affc74c0cebb1484bcdfccfed523c0e7267" },
