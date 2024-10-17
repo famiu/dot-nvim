@@ -4,7 +4,7 @@ return {
     {
         'saghen/blink.cmp',
         dependencies = { 'rafamadriz/friendly-snippets' },
-        build = 'cargo +nightly build --release',
+        build = 'cargo build --release',
         opts = {
             keymap = {
                 show = '<C-x><C-u>',
