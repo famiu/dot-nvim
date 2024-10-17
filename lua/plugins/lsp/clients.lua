@@ -62,4 +62,5 @@ return {
         cmd = { 'cmake-language-server' },
     },
     basedpyright = {},
+    gopls = {},
 }
