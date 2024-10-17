@@ -1,5 +1,32 @@
 return {
     {
+        'meeehdi-dev/bropilot.nvim',
+        opts = {
+            auto_suggest = true,
+            model = 'qwen2.5-coder:1.5b-base',
+            model_params = {
+                num_ctx = 16384,
+                num_predict = -2,
+                temperature = 0.2,
+                top_p = 0.95,
+                stop = { '<|fim_pad|>', '<|endoftext|>' },
+            },
+            prompt = {
+                prefix = '<|fim_prefix|>',
+                suffix = '<|fim_suffix|>',
+                middle = '<|fim_middle|>',
+            },
+            debounce = 500,
+            keymap = {
+                accept_word = '<C-Right>',
+                accept_line = '<S-Right>',
+                accept_block = '<M-l>',
+                suggest = '<M-x>',
+            },
+            ollama_url = 'http://localhost:11434/api',
+        },
+    },
+    {
         'yetone/avante.nvim',
         opts = {
             provider = 'ollama',
