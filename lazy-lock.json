@@ -1,7 +1,6 @@
 {
   "avante.nvim": { "branch": "main", "commit": "26bf8d67e8c6510de4e04b8cee3e41cbe2d8a47e" },
   "blink.cmp": { "branch": "main", "commit": "db635f201f5ac5f48e7e33cc268f23e7646fd946" },
-  "bropilot.nvim": { "branch": "main", "commit": "f6bf9fde01a6804110e7de31b5ae7d4a8fbddadb" },
   "bufdelete": { "branch": "master", "commit": "f6bcea78afb3060b198125256f897040538bcb81" },
   "conform.nvim": { "branch": "master", "commit": "f5bd8419f8a29451e20bdb1061a54fe13d5c8de3" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
