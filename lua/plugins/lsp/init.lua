@@ -67,41 +67,6 @@ return {
                             { buffer = bufnr, desc = mapping.desc }
                         )
                     end, {
-                        {
-                            'gd',
-                            vim.lsp.buf.definition,
-                            desc = '[g]oto [d]efinition',
-                        },
-                        {
-                            'gD',
-                            vim.lsp.buf.declaration,
-                            desc = '[g]o to [D]eclaration',
-                        },
-                        {
-                            'gi',
-                            vim.lsp.buf.implementation,
-                            desc = '[g]oto [i]mplementation',
-                        },
-                        {
-                            'gr',
-                            vim.lsp.buf.references,
-                            desc = '[g]oto [r]eferences',
-                        },
-                        {
-                            'gT',
-                            vim.lsp.buf.type_definition,
-                            desc = '[g]oto [T]ype definitions',
-                        },
-                        {
-                            '<Leader>r',
-                            vim.lsp.buf.rename,
-                            desc = '[r]ename symbol',
-                        },
-                        {
-                            '<Leader>ca',
-                            vim.lsp.buf.code_action,
-                            desc = 'Perform [c]ode [a]ction',
-                        },
                         -- Telescope mappings
                         {
                             '<Leader>fs',
