@@ -3,31 +3,6 @@ return {
         'nvim-treesitter/nvim-treesitter',
         dependencies = {
             'nvim-treesitter/nvim-treesitter-textobjects',
-            {
-                'nvim-treesitter/nvim-treesitter-context',
-                lazy = false,
-                opts = {
-                    max_lines = 20,
-                    multiline_threshold = 3,
-                    trim_scope = 'outer',
-                    mode = 'cursor',
-                },
-                keys = {
-                    {
-                        '[l',
-                        function()
-                            require('treesitter-context').go_to_context(vim.v.count1)
-                        end,
-                        desc = 'Go up a context [l]evel',
-                        silent = true,
-                    },
-                },
-                config = function(_, opts)
-                    vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { sp = 'Grey', underline = true })
-                    vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { link = 'NormalFloat' })
-                    require('treesitter-context').setup(opts)
-                end,
-            },
         },
         build = ':TSUpdate',
         main = 'nvim-treesitter.configs',
