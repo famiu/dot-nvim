@@ -136,7 +136,7 @@ return {
                 },
                 project = {
                     base_dirs = {
-                        vim.uv.os_homedir() .. '/dev',
+                        vim.uv.os_homedir() .. '/Documents/Dev',
                     },
                     cd_scope = { 'window' },
                     theme = 'dropdown',
