@@ -81,7 +81,7 @@ return {
             desc = 'Find Neovim config file',
         },
         {
-            '<Leader>qf',
+            '<Leader>fq',
             function()
                 require('telescope.builtin').quickfix()
             end,

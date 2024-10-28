@@ -65,3 +65,21 @@ vim.keymap.set('n', '<C-s>', '<CMD>setlocal spell!<CR>', { silent = true })
 -- Yank/paste to clipboard
 vim.keymap.set({ 'n', 'x' }, '<Leader>y', '"+y')
 vim.keymap.set({ 'n', 'x' }, '<Leader>p', '"+p')
+
+local function toggle_quickfix(loclist)
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        local wininfo = vim.fn.getwininfo(win)[1]
+        if (loclist and wininfo.loclist or wininfo.quickfix) == 1 then
+            -- Quickfix/Loclist window already open, close it
+            vim.cmd(loclist and 'lclose' or 'cclose')
+            return
+        end
+    end
+
+    -- Quickfix/Loclist window not open, open it
+    vim.cmd(loclist and 'lopen' or 'copen')
+end
+
+-- Open quickifx/loclist
+vim.keymap.set('n', '<Leader>q', function() toggle_quickfix(false) end)
+vim.keymap.set('n', '<Leader>l', function() toggle_quickfix(true) end)
