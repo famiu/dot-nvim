@@ -6,23 +6,10 @@ return {
         dependencies = { 'rafamadriz/friendly-snippets' },
         build = 'cargo build --release',
         opts = {
-            keymap = {
-                show = '<C-x><C-u>',
-                hide = '<C-e>',
-                accept = '<C-y>',
-                select_prev = { '<Up>', '<C-p>' },
-                select_next = { '<Down>', '<C-n>' },
-
-                show_documentation = {},
-                hide_documentation = {},
-                scroll_documentation_up = '<C-b>',
-                scroll_documentation_down = '<C-f>',
-
-                snippet_forward = '<Tab>',
-                snippet_backward = '<S-Tab>',
-            },
+            keymap = 'default',
             accept = { auto_brackets = { enabled = true } },
             trigger = { signature_help = { enabled = true } },
+            nerd_font_variant = 'normal',
         },
     },
     {
