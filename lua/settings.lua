@@ -14,8 +14,8 @@ vim.o.laststatus = 3
 -- Use statusline area for cmdline
 vim.o.cmdheight = 0
 
--- Allow virtual editing after the end of the line
-vim.o.virtualedit = 'block,onemore'
+-- Allow virtual editing
+vim.o.virtualedit = 'all'
 
 -- Spaces > Tabs
 vim.o.tabstop = 4
