@@ -96,7 +96,7 @@ return {
             desc = 'Telescope current buffer',
         },
         {
-            '<C-p>',
+            '<Leader>w',
             function()
                 require('telescope').extensions.project.project()
             end,
