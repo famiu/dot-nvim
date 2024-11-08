@@ -1,3 +1,6 @@
+-- Enable the experimental Lua module loader
+vim.loader.enable()
+
 local fn = vim.fn
 local lazypath = fn.stdpath('data') .. '/lazy/lazy.nvim'
 local os_utils = require('utilities.os')
