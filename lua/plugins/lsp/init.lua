@@ -46,26 +46,18 @@ return {
                     assert(client ~= nil)
 
                     -- Mappings
-                    vim.tbl_map(function(mapping)
-                        vim.keymap.set(
-                            mapping.mode or 'n',
-                            mapping[1],
-                            mapping[2],
-                            { buffer = bufnr, desc = mapping.desc }
-                        )
-                    end, {
-                        -- Telescope mappings
-                        {
-                            '<Leader>fs',
-                            require('telescope.builtin').lsp_dynamic_workspace_symbols,
-                            desc = '[f]ind dynamic workspace [s]ymbols',
-                        },
-                        {
-                            '<Leader>fS',
-                            require('telescope.builtin').lsp_document_symbols,
-                            desc = '[f]ind document [S]ymbols',
-                        },
-                    })
+                    vim.keymap.set(
+                        'n',
+                        '<Leader>fs',
+                        require('telescope.builtin').lsp_dynamic_workspace_symbols,
+                        { buffer = bufnr, desc = '[f]ind dynamic workspace [s]ymbols' }
+                    )
+                    vim.keymap.set(
+                        'n',
+                        '<Leader>fS',
+                        require('telescope.builtin').lsp_document_symbols,
+                        { buffer = bufnr, desc = '[f]ind document [S]ymbols' }
+                    )
                 end,
             })
 
