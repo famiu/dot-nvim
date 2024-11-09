@@ -55,6 +55,42 @@ return {
             },
         },
     },
+    texlab = {
+        settings = {
+            texlab = {
+                bibtexFormatter = 'texlab',
+                build = {
+                    args = {
+                        '-pdf',
+                        '-pdflatex=lualatex',
+                        '-aux-directory=aux',
+                        '-interaction=nonstopmode',
+                        '-synctex=1',
+                        '%f',
+                    },
+                    executable = 'latexmk',
+                    forwardSearchAfter = true,
+                    onSave = true,
+                },
+                chktex = {
+                    onEdit = false,
+                    onOpenAndSave = false,
+                },
+                diagnosticsDelay = 300,
+                formatterLineLength = 80,
+                forwardSearch = {
+                    executable = 'zathura',
+                    args = { '--synctex-forward', '%l:1:%f', '%p' },
+                    onSave = true,
+                },
+                forwardSearchAfter = true,
+                latexFormatter = 'latexindent',
+                latexindent = {
+                    modifyLineBreaks = false,
+                },
+            },
+        },
+    },
     bashls = {
         filetypes = { 'sh', 'bash', 'zsh' },
     },
