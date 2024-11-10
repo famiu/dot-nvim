@@ -171,7 +171,7 @@ local highlights = {
     ['@keyword.repeat'] = { link = '@keyword' },
     ['@keyword.return'] = { bold = true, fg = palette.CoralPeach },
     ['@keyword.storage'] = { bold = true, fg = palette.PearlGray },
-    ['@keyword.type'] = { link = '@type' },
+    ['@keyword.type'] = { link = '@keyword' },
     ['@macro'] = { link = 'Macro' },
     ['@markup.environment'] = { link = '@module' },
     ['@markup.heading'] = { link = '@text.title' },
