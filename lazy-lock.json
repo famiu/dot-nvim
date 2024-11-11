@@ -1,6 +1,6 @@
 {
-  "avante.nvim": { "branch": "main", "commit": "deb96e6b0005322ecbeb35b861aba27c82decf5c" },
-  "blink.cmp": { "branch": "main", "commit": "db3d1ad8d6420ce29d548991468cc0107fe9d04b" },
+  "avante.nvim": { "branch": "main", "commit": "deb3b03826119399610e23384ec75a29529437f6" },
+  "blink.cmp": { "branch": "main", "commit": "c33c7e69bb035fa92e1028adc4f6f0ea522f86fd" },
   "bufdelete": { "branch": "master", "commit": "f6bcea78afb3060b198125256f897040538bcb81" },
   "conform.nvim": { "branch": "master", "commit": "8c354323201d04530727d8bdcc4669791ee082ef" },
   "copilot.lua": { "branch": "master", "commit": "f8d8d872bb319f640d5177dad5fbf01f7a16d7d0" },
