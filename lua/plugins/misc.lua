@@ -55,8 +55,8 @@ return {
                 -- to a :h preview-window when pressing the hover keymap.
                 preview_window = true,
                 title = true,
-                mouse_providers = { 'LSP', 'Diagnostic' },
-                mouse_delay = 1000,
+                -- mouse_providers = { 'LSP', 'Diagnostic' },
+                -- mouse_delay = 1000,
             })
 
             -- Setup keymaps
