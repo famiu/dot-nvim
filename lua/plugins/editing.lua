@@ -8,6 +8,7 @@ return {
         },
         opts = {},
     },
+    { 'echasnovski/mini.ai', opts = {} },
     {
         'echasnovski/mini.surround',
         keys = {
