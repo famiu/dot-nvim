@@ -99,4 +99,5 @@ return {
     },
     basedpyright = {},
     gopls = {},
+    asm_lsp = {},
 }
