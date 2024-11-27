@@ -50,6 +50,9 @@ LoadPlugins = function()
     vim.opt.rtp:prepend(lazypath)
 
     require('lazy').setup({ import = 'plugins' }, {
+        git = {
+            timeout = -1, -- Disable timeout.
+        },
         dev = {
             path = vim.uv.os_homedir() .. '/Documents/Dev/neovim',
             fallback = true,
