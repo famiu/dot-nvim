@@ -45,7 +45,12 @@ return {
                     local client = vim.lsp.get_client_by_id(client_id)
                     assert(client ~= nil)
 
-                    -- Mappings
+                    -- If client supports folding, use the client for folding.
+                    if client.server_capabilities.foldingRangeProvider then
+                        vim.wo.foldmethod = 'expr'
+                        vim.wo.foldexpr = 'v:lua.vim.lsp.foldexpr()'
+                    end
+
                     vim.keymap.set(
                         'n',
                         '<Leader>fs',
