@@ -6,10 +6,12 @@ return {
         dependencies = { 'rafamadriz/friendly-snippets' },
         build = 'cargo build --release',
         opts = {
-            keymap = 'default',
-            accept = { auto_brackets = { enabled = true } },
-            trigger = { signature_help = { enabled = true } },
-            nerd_font_variant = 'normal',
+            keymap = { preset = 'default' },
+            appearance = {
+                nerd_font_variant = 'normal',
+            },
+            completion = { accept = { auto_brackets = { enabled = true } } },
+            signature = { enabled = true },
         },
     },
     {
