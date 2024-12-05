@@ -21,7 +21,7 @@ local function highlight_range(buf, range)
     local line2 = range[2] ~= nil and range[2] or line1
 
     if vim.api.nvim_buf_is_loaded(buf) then
-        vim.highlight.range(buf, hl_ns, 'Visual', { line1 - 1, 0 }, { line2 - 1, 0 }, { regtype = 'V' })
+        vim.hl.range(buf, hl_ns, 'Visual', { line1 - 1, 0 }, { line2 - 1, 0 }, { regtype = 'V' })
     end
 end
 
