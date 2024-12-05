@@ -81,5 +81,9 @@ local function toggle_quickfix(loclist)
 end
 
 -- Open quickifx/loclist
-vim.keymap.set('n', '<Leader>q', function() toggle_quickfix(false) end)
-vim.keymap.set('n', '<Leader>l', function() toggle_quickfix(true) end)
+vim.keymap.set('n', '<Leader>q', function()
+    toggle_quickfix(false)
+end)
+vim.keymap.set('n', '<Leader>l', function()
+    toggle_quickfix(true)
+end)
