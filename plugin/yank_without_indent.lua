@@ -45,16 +45,25 @@ local function yank_without_leading_indent()
             local lnum = start_line + i - 1
             local line_indent = vim.fn.indent(lnum)
 
-            -- Remove tabs if they are present, only remove spaces if all tabs are removed or if tab width is greater
-            -- than the remaining indent width.
             if line_indent >= min_indent then
+                -- Start by removing tabs, then remove spaces if more indentation needs to be removed.
                 local tab_count = line:match('^[\t]*'):len()
-                local tabs_to_remove = math.min(tab_count, math.floor(min_indent / tab_width))
+                local tabs_to_remove = math.min(tab_count, math.ceil(min_indent / tab_width))
                 line = line:sub(tabs_to_remove + 1)
 
-                -- Remove spaces if there are any left.
-                local spaces_to_remove = math.min(line:match('^ *'):len(), min_indent - tabs_to_remove * tab_width)
-                lines[i] = line:sub(spaces_to_remove + 1)
+                if tabs_to_remove * tab_width > min_indent then
+                    -- Removing tabs removed more indentation than necessary, add spaces to compensate.
+                    -- Make sure to add the spaces after the tabs.
+                    local tabs = line:sub(1, line:match('^[\t]*'):len())
+                    local spaces = string.rep(' ', tabs_to_remove * tab_width - min_indent)
+                    line = tabs .. spaces .. line:sub(tabs:len() + 1)
+                elseif tabs_to_remove * tab_width < min_indent then
+                    -- Removing tabs did not remove enough indentation, remove spaces if there are any left.
+                    local spaces_to_remove = math.min(line:match('^ *'):len(), min_indent - tabs_to_remove * tab_width)
+                    line = line:sub(spaces_to_remove + 1)
+                end
+
+                lines[i] = line
             end
         end
     end
