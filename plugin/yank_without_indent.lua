@@ -82,10 +82,18 @@ end
 
 vim.keymap.set({ 'n', 'x' }, 'gy', function()
     vim.o.operatorfunc = 'v:lua.my_yank_without_leading_indent'
-    vim.api.nvim_feedkeys('g@', 'n', false)
+    return 'g@'
 end, {
-    silent = true,
     desc = 'Yank selection without leading indent',
+    expr = true,
+    silent = true,
 })
 
-vim.keymap.set('n', 'gyy', 'Vgy', { remap = true, silent = true, desc = 'Yank line without leading indent' })
+vim.keymap.set('n', 'gyy', function()
+    vim.o.operatorfunc = 'v:lua.my_yank_without_leading_indent'
+    return 'g@_'
+end, {
+    desc = 'Yank line without leading indent',
+    expr = true,
+    silent = true,
+})
