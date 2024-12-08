@@ -1,18 +1,12 @@
 -- Yank selection without leading indent.
-local function yank_without_leading_indent()
+function _G.my_yank_without_leading_indent(type)
     local tab_width = vim.o.tabstop
-
-    local visual = vim.api.nvim_get_mode().mode:sub(1, 1):lower() == 'v'
     local start_line, end_line
 
-    if visual then
-        start_line, end_line = vim.fn.line('v'), vim.fn.line('.')
-
-        if start_line > end_line then
-            start_line, end_line = end_line, start_line
-        end
+    if type == 'char' or type == 'line' then
+        start_line, end_line = vim.fn.line("'["), vim.fn.line("']")
     else
-        start_line, end_line = vim.fn.line('.'), vim.fn.line('.')
+        start_line, end_line = vim.fn.line("'<"), vim.fn.line("'>")
     end
 
     -- NOTE: vim.fn.line() is 1-indexed, but vim.api.nvim_buf_get_lines() is 0-indexed and end-exclusive.
@@ -75,13 +69,6 @@ local function yank_without_leading_indent()
     vim.api.nvim_buf_set_mark(0, '[', start_line, 0, {})
     vim.api.nvim_buf_set_mark(0, ']', end_line, 0, {})
 
-    if visual then
-        -- Unselect the text
-        vim.api.nvim_feedkeys(vim.keycode('<Esc>'), 'n', true)
-        -- Jump to the beginning of the yanked text
-        vim.api.nvim_feedkeys(vim.keycode('`['), 'n', true)
-    end
-
     vim.api.nvim_exec_autocmds('TextYankPost', {
         modeline = false,
         data = {
@@ -93,7 +80,12 @@ local function yank_without_leading_indent()
     })
 end
 
-vim.keymap.set({ 'n', 'x' }, '<Leader>_y', yank_without_leading_indent, {
+vim.keymap.set({ 'n', 'x' }, 'gy', function()
+    vim.o.operatorfunc = 'v:lua.my_yank_without_leading_indent'
+    vim.api.nvim_feedkeys('g@', 'n', false)
+end, {
     silent = true,
     desc = 'Yank selection without leading indent',
 })
+
+vim.keymap.set('n', 'gyy', 'Vgy', { remap = true, silent = true, desc = 'Yank line without leading indent' })
