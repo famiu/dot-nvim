@@ -87,3 +87,7 @@ end)
 vim.keymap.set('n', '<Leader>l', function()
     toggle_quickfix(true)
 end)
+
+-- Move selected lines up or down with fixed indent
+vim.keymap.set('x', '<C-j>', function() return ":move '>+" .. vim.v.count1 .. "<CR>gv=gv" end, { expr = true })
+vim.keymap.set('x', '<C-k>', function() return ":move '<-" .. -vim.v.count1 .. "<CR>gv=gv" end, { expr = true })
