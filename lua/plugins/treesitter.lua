@@ -25,7 +25,11 @@ return {
                 'latex',
                 'regex',
                 'markdown',
+                'json',
+                'javascript',
+                'typescript',
                 'html',
+                'css',
             },
             highlight = {
                 enable = true,

@@ -100,4 +100,7 @@ return {
     basedpyright = {},
     gopls = {},
     asm_lsp = {},
+    ts_ls = {},
+    cssls = {},
+    html = {},
 }

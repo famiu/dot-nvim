@@ -9,6 +9,13 @@ return {
             formatters_by_ft = {
                 lua = { 'stylua' },
                 python = { 'black' },
+                css = { 'prettier' },
+                html = { 'prettier' },
+                javascript = { 'prettier' },
+                typescript = { 'prettier' },
+                json = { 'prettier' },
+                jsonc = { 'prettier' },
+                markdown = { 'prettier' },
             },
         },
         keys = {
