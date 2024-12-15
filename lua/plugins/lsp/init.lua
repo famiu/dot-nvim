@@ -12,6 +12,7 @@ return {
             },
             completion = { accept = { auto_brackets = { enabled = true } } },
             signature = { enabled = true },
+            sources = { cmdline = {} },
         },
     },
     {
