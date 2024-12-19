@@ -3,7 +3,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Better command line completion
-vim.o.wildmode = 'longest:list,full'
+vim.o.wildmode = 'longest,full'
 
 -- Persistent undo, prevent Neovim from having Alzheimer's
 vim.o.undofile = true
