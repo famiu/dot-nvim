@@ -28,7 +28,7 @@ return {
                 ['<C-x>'] = 'actions.select_split',
             },
         },
-        keys = { { '<Leader>o', '<CMD>Oil<CR>' } },
+        keys = { { '-', '<CMD>Oil<CR>' } },
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
     'tpope/vim-eunuch',
