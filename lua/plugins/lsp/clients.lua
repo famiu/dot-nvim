@@ -103,4 +103,5 @@ return {
     ts_ls = {},
     cssls = {},
     html = {},
+    svelte = {},
 }

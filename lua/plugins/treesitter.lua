@@ -30,6 +30,7 @@ return {
                 'typescript',
                 'html',
                 'css',
+                'svelte',
             },
             highlight = {
                 enable = true,
