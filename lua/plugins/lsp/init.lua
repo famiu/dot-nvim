@@ -53,19 +53,6 @@ return {
                         vim.wo.foldmethod = 'expr'
                         vim.wo.foldexpr = 'v:lua.vim.lsp.foldexpr()'
                     end
-
-                    vim.keymap.set(
-                        'n',
-                        '<Leader>fs',
-                        require('telescope.builtin').lsp_dynamic_workspace_symbols,
-                        { buffer = bufnr, desc = '[f]ind dynamic workspace [s]ymbols' }
-                    )
-                    vim.keymap.set(
-                        'n',
-                        '<Leader>fS',
-                        require('telescope.builtin').lsp_document_symbols,
-                        { buffer = bufnr, desc = '[f]ind document [S]ymbols' }
-                    )
                 end,
             })
 

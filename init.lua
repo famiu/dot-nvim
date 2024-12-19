@@ -20,8 +20,9 @@ CheckConfigDeps = function()
     end
 
     local deps = {
-        { exe = 'rg', reason = 'Telescope live grep' },
-        { exe = 'fd', reason = 'Telescope find' },
+        { exe = 'rg', reason = 'Live grep' },
+        { exe = 'fd', reason = 'File search' },
+        { exe = 'fzf', reason = 'Fuzzy finder' },
     }
 
     if os_utils.is_linux() then
