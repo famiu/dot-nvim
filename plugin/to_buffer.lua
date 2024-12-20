@@ -45,3 +45,12 @@ vim.api.nvim_create_user_command('ToBuffer', to_buffer, {
     complete = to_buffer_complete,
     force = true,
 })
+
+-- `:Messages` command.
+-- Display messages in a new buffer.
+-- Uses `:ToBuffer messages` internally.
+vim.api.nvim_create_user_command('Messages', function()
+    vim.api.nvim_command('ToBuffer messages')
+end, {
+    desc = 'Display messages in a new buffer',
+})
