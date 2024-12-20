@@ -28,7 +28,7 @@ return {
         {
             '<Leader>fg',
             function()
-                require('fzf-lua').live_grep()
+                require('fzf-lua').live_grep_glob()
             end,
             desc = 'FzfLua live grep',
         },
@@ -112,6 +112,8 @@ return {
                 },
             },
             grep = {
+                rg_opts = '--sort-files --hidden --column --line-number --no-heading '
+                    .. "--color=always --smart-case -g '!{.git,node_modules}/*'",
                 fzf_opts = {
                     ['--history'] = vim.fn.stdpath('data') .. '/fzf-lua-grep-history',
                 },
