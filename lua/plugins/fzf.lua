@@ -84,13 +84,6 @@ return {
             desc = 'FzfLua current buffer',
         },
         {
-            '<Leader>w',
-            function()
-                require('fzf-lua').projects()
-            end,
-            desc = 'FzfLua project',
-        },
-        {
             '<Leader>fs',
             function()
                 require('fzf-lua').lsp_workspace_symbols()
