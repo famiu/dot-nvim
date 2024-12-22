@@ -10,9 +10,7 @@ return {
             appearance = {
                 nerd_font_variant = 'normal',
             },
-            completion = { accept = { auto_brackets = { enabled = true } } },
             signature = { enabled = true },
-            sources = { cmdline = {} },
         },
     },
     {
@@ -43,7 +41,6 @@ return {
                 desc = 'LSP configuration',
                 group = vim.api.nvim_create_augroup('lsp-settings', {}),
                 callback = function(args)
-                    local bufnr = args.buf
                     local client_id = args.data.client_id
                     local client = vim.lsp.get_client_by_id(client_id)
                     assert(client ~= nil)
