@@ -1,9 +1,4 @@
 local config = {
-    root_dirs = {
-        '~/Documents/Dev/',
-    },
-    root_markers = { '.git' },
-    max_depth = 3,
     storage_file = vim.fn.stdpath('data') .. '/projects.json',
 }
 
@@ -59,8 +54,7 @@ end
 
 -- Add a project to the list.
 local function add_project(path, manual)
-    path = path or vim.fn.getcwd()
-    path = vim.fs.normalize(path)
+    path = vim.fs.normalize(path or vim.fn.getcwd())
 
     -- Check if project already exists.
     for _, project in ipairs(M.projects) do
@@ -82,8 +76,7 @@ end
 
 -- Delete a project from the list.
 local function delete_project(path, manual)
-    assert(path, 'No project path provided')
-    path = vim.fs.normalize(path)
+    path = vim.fs.normalize(path or vim.fn.getcwd())
 
     for i, project_path in ipairs(M.projects) do
         if project_path.path == path then
@@ -211,59 +204,9 @@ local function show_projects()
     end)
 end
 
--- Recursively scan root directories for projects.
-local function scan_for_projects_in_root(root, depth)
-    if depth <= 0 then
-        return
-    end
-
-    local normalized_root = vim.fs.normalize(root)
-    local handle = vim.uv.fs_scandir(normalized_root)
-
-    if not handle then
-        vim.notify('Failed to scan directory: ' .. normalized_root, vim.log.levels.ERROR)
-        return
-    end
-
-    while true do
-        local name, t = vim.uv.fs_scandir_next(handle)
-        if not name then
-            break
-        end
-
-        if t == 'directory' then
-            local path = normalized_root .. '/' .. name
-            local is_project_root = false
-
-            for _, root_marker in ipairs(config.root_markers) do
-                if vim.uv.fs_stat(path .. '/' .. root_marker) then
-                    is_project_root = true
-                    break
-                end
-            end
-
-            if is_project_root then
-                add_project(path, false)
-            else
-                scan_for_projects_in_root(path, depth - 1)
-            end
-        end
-    end
-end
-
--- Scan for projects in root directories.
-local function scan_for_projects()
-    for _, root in ipairs(config.root_dirs) do
-        scan_for_projects_in_root(root, config.max_depth)
-    end
-
-    save_projects()
-end
-
 -- Initialize the plugin.
 local function init()
     load_projects()
-    scan_for_projects()
 
     vim.api.nvim_create_user_command('ProjectList', show_projects, {
         desc = 'List all projects',
@@ -278,10 +221,10 @@ local function init()
     })
 
     vim.api.nvim_create_user_command('ProjectDelete', function(opts)
-        delete_project(opts.args, true)
+        delete_project(opts.args ~= '' and opts.args or nil, true)
     end, {
         desc = 'Delete a project',
-        nargs = 1,
+        nargs = '?',
         complete = function(_, _, _)
             return vim.tbl_map(function(p)
                 return p.path
@@ -295,13 +238,6 @@ local function init()
         vim.notify('Cleared all projects')
     end, {
         desc = 'Clear all projects',
-    })
-
-    vim.api.nvim_create_user_command('ProjectScan', function()
-        scan_for_projects()
-        vim.notify('Projects rescanned')
-    end, {
-        desc = 'Rescan for projects',
     })
 end
 
