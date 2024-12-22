@@ -137,44 +137,45 @@ local function show_projects()
     end)
 end
 
--- Initialize the plugin.
-local function init()
-    load_projects()
+-- Load project list on startup.
+load_projects()
 
-    vim.api.nvim_create_user_command('ProjectList', show_projects, {
-        desc = 'List all projects',
-    })
+-- Define commands for managing projects.
+vim.api.nvim_create_user_command('ProjectList', show_projects, {
+    desc = 'List all projects',
+    force = true,
+})
 
-    vim.api.nvim_create_user_command('ProjectAdd', function(opts)
-        add_project(opts.args ~= '' and opts.args or nil, true)
-    end, {
-        desc = 'Add a project (defaults to current directory)',
-        nargs = '?',
-        complete = 'dir',
-    })
+vim.api.nvim_create_user_command('ProjectAdd', function(opts)
+    add_project(opts.args ~= '' and opts.args or nil, true)
+end, {
+    desc = 'Add a project (defaults to current directory)',
+    nargs = '?',
+    complete = 'dir',
+    force = true,
+})
 
-    vim.api.nvim_create_user_command('ProjectDelete', function(opts)
-        delete_project(opts.args ~= '' and opts.args or nil, true)
-    end, {
-        desc = 'Delete a project',
-        nargs = '?',
-        complete = function(_, _, _)
-            return vim.tbl_map(function(p)
-                return p.path
-            end, M.projects)
-        end,
-    })
+vim.api.nvim_create_user_command('ProjectDelete', function(opts)
+    delete_project(opts.args ~= '' and opts.args or nil, true)
+end, {
+    desc = 'Delete a project',
+    nargs = '?',
+    complete = function(_, _, _)
+        return vim.tbl_map(function(p)
+            return p.path
+        end, M.projects)
+    end,
+    force = true,
+})
 
-    vim.api.nvim_create_user_command('ProjectClear', function()
-        M.projects = {}
-        save_projects()
-        vim.notify('Cleared all projects')
-    end, {
-        desc = 'Clear all projects',
-    })
-end
-
-init()
+vim.api.nvim_create_user_command('ProjectClear', function()
+    M.projects = {}
+    save_projects()
+    vim.notify('Cleared all projects')
+end, {
+    desc = 'Clear all projects',
+    force = true,
+})
 
 -- Default keybinding for listing projects.
 vim.keymap.set('n', '<Leader>w', '<CMD>ProjectList<CR>', {
