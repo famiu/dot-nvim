@@ -7,7 +7,8 @@ local function toggle_term_buffer()
     if not term_buffer or not vim.api.nvim_buf_is_valid(term_buffer) then
         term_buffer = vim.api.nvim_create_buf(true, false)
         vim.api.nvim_buf_call(term_buffer, function()
-            vim.fn.termopen(vim.o.shell, {
+            vim.fn.jobstart(vim.o.shell, {
+                term = true,
                 on_exit = function()
                     vim.api.nvim_buf_delete(term_buffer, { force = true })
                 end,
