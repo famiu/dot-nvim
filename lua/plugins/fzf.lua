@@ -49,9 +49,16 @@ return {
         {
             '<Leader>fd',
             function()
-                require('fzf-lua').diagnostics()
+                require('fzf-lua').diagnostics_document()
             end,
-            desc = 'FzfLua diagnostics',
+            desc = 'FzfLua document diagnostics',
+        },
+        {
+            '<Leader>fD',
+            function()
+                require('fzf-lua').diagnostics_workspace()
+            end,
+            desc = 'FzfLua workspace diagnostics',
         },
         {
             '<Leader>fo',
