@@ -2,6 +2,7 @@ local config = {
     root_dirs = {
         '~/Documents/Dev/',
     },
+    root_markers = { '.git' },
     max_depth = 3,
     storage_file = vim.fn.stdpath('data') .. '/projects.json',
 }
@@ -232,7 +233,16 @@ local function scan_for_projects_in_root(root, depth)
 
         if t == 'directory' then
             local path = normalized_root .. '/' .. name
-            if vim.uv.fs_stat(path .. '/.git') then
+            local is_project_root = false
+
+            for _, root_marker in ipairs(config.root_markers) do
+                if vim.uv.fs_stat(path .. '/' .. root_marker) then
+                    is_project_root = true
+                    break
+                end
+            end
+
+            if is_project_root then
                 add_project(path, false)
             else
                 scan_for_projects_in_root(path, depth - 1)
