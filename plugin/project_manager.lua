@@ -106,71 +106,6 @@ local function access_project(path)
     end
 end
 
----  @brief Get unique names for project paths.
----
----  @details Generates a unique name for each project path by comparing it with other project paths.
----  It ensures that the generated name is unique by including parent directory names if necessary.
----
----  @note All paths must be normalized before calling this function.
----
----  @param project_paths string[]: A list of project paths to compare with.
----  @return string[]: A list of unique project names, corresponding to the input project paths.
-local function get_unique_project_names(project_paths)
-    local project_names = {}
-
-    --- Parse a path into its parts.
-    ---
-    --- @param path string: The path to parse.
-    --- @return string[]: The parts of the path.
-    local function get_path_parts(path)
-        local parents = vim.tbl_map(function(p)
-            return vim.fs.basename(p)
-        end, vim.iter(vim.fs.parents(path)):totable())
-
-        -- The last parent is the root directory, the basename of the root directory is empty. So remove it.
-        assert(parents[#parents] == '', 'The last parent should be the root directory')
-        parents[#parents] = nil
-
-        -- Reverse the parent list to ensure that the topmost directory comes first,
-        -- this makes it easier to concatenate the list back into a path.
-        parents = vim.iter(parents):rev():totable()
-        -- Add the path itself to the list of parents, so that joining each element gives back the full path.
-        parents[#parents + 1] = vim.fs.basename(path)
-
-        return parents
-    end
-
-    for i, project_path in ipairs(project_paths) do
-        local project_paths_excluding_current = vim.tbl_filter(function(p)
-            return p ~= project_path
-        end, project_paths)
-
-        local project_path_parts = get_path_parts(project_path)
-
-        -- Find the amount of parent directories to include for the name to be unique.
-        local depth = math.max(unpack(vim.tbl_map(function(p)
-            local p_parts = get_path_parts(p)
-
-            -- Iterate parts in reverse when trying to find a differing directory
-            for j = #p_parts, 1, -1 do
-                if p_parts[j] ~= project_path_parts[j] then
-                    return #p_parts - j
-                end
-            end
-        end, project_paths_excluding_current)))
-
-        if #project_path_parts - depth <= 1 then
-            project_names[i] = project_path
-        else
-            project_names[i] = vim.fs.normalize(
-                table.concat(project_path_parts, '/', #project_path_parts - depth, #project_path_parts)
-            )
-        end
-    end
-
-    return project_names
-end
-
 -- Show the list of projects, sorted by frecency.
 local function show_projects()
     sort_by_frecency()
@@ -179,26 +114,24 @@ local function show_projects()
         return p.path
     end, M.projects)
 
-    local project_names = get_unique_project_names(project_paths)
-    local project_name_path = {}
+    local project_name_maxlen = math.max(unpack(vim.tbl_map(function(p)
+        return #vim.fs.basename(p)
+    end, project_paths)))
 
-    for i, project_name in ipairs(project_names) do
-        project_name_path[project_name] = project_paths[i]
-    end
-
-    vim.ui.select(project_names, {
+    vim.ui.select(project_paths, {
         prompt = 'Select a project:',
+        format_item = function(item)
+            return ('%%-%ds\t%%s'):format(project_name_maxlen):format(vim.fs.basename(item), item)
+        end,
     }, function(selected_project)
         if selected_project then
-            local selected_project_path = project_name_path[selected_project]
-
-            access_project(selected_project_path)
-            vim.api.nvim_set_current_dir(selected_project_path)
+            access_project(selected_project)
+            vim.api.nvim_set_current_dir(selected_project)
 
             local ok, fzflua = pcall(require, 'fzf-lua')
 
             if ok then
-                fzflua.files({ cwd = selected_project_path })
+                fzflua.files({ cwd = selected_project })
             end
         end
     end)
