@@ -13,7 +13,7 @@ local M = {
 -- Get the current time in seconds since some point in time.
 -- Do not rely on the exact epoch time, only on the relative values.
 local function get_time()
-    return vim.uv.now() / 1000
+    return math.floor(vim.uv.now() / 1000)
 end
 
 -- Load projects from storage.
@@ -71,7 +71,7 @@ local function add_project(path, manual)
         end
     end
 
-    table.insert(M.projects, { path = path, frequency = 0, last_access = get_time() })
+    table.insert(M.projects, { path = path, frequency = 0, last_access = 0 })
     save_projects()
 
     if manual then
