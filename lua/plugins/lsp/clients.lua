@@ -91,12 +91,15 @@ return {
             },
         },
     },
-    bashls = {
-        filetypes = { 'sh', 'bash', 'zsh' },
+    sourcekit = {
+        settings = {
+            sourcekit = {
+                backgroundIndexing = true,
+                backgroundPreparationMode = 'enabled',
+            },
+        },
     },
-    cmake = {
-        cmd = { 'cmake-language-server' },
-    },
+    cmake = {},
     basedpyright = {},
     gopls = {},
     asm_lsp = {},
