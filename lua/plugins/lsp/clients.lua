@@ -92,6 +92,7 @@ return {
         },
     },
     sourcekit = {
+        filetypes = { 'swift' },
         settings = {
             sourcekit = {
                 backgroundIndexing = true,
