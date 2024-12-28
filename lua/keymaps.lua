@@ -15,7 +15,7 @@ vim.keymap.set({ 'n', 'x', 'o' }, 'L', '$')
 vim.keymap.set({ 'n', 'x' }, 'J', 'mzJ`z')
 
 -- Make scroll motions keep cursor in the middle
-local scroll_motions = { '<C-u>', '<C-d>', '<C-f>', '<C-b>', 'n', 'N', 'j', 'k' }
+local scroll_motions = { '<C-u>', '<C-d>', '<C-f>', '<C-b>', 'n', 'N' }
 
 for _, motion in ipairs(scroll_motions) do
     vim.keymap.set({ 'n', 'x' }, motion, motion .. 'zz', { silent = true })
@@ -89,5 +89,9 @@ vim.keymap.set('n', '<Leader>l', function()
 end)
 
 -- Move selected lines up or down with fixed indent
-vim.keymap.set('x', '<C-j>', function() return ":move '>+" .. vim.v.count1 .. "<CR>gv=gv" end, { expr = true })
-vim.keymap.set('x', '<C-k>', function() return ":move '<-" .. -vim.v.count1 .. "<CR>gv=gv" end, { expr = true })
+vim.keymap.set('x', '<C-j>', function()
+    return ":move '>+" .. vim.v.count1 .. '<CR>gv=gv'
+end, { expr = true })
+vim.keymap.set('x', '<C-k>', function()
+    return ":move '<-" .. -vim.v.count1 .. '<CR>gv=gv'
+end, { expr = true })
