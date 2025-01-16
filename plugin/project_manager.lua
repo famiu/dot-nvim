@@ -54,7 +54,7 @@ end
 
 -- Add a project to the list.
 local function add_project(path, manual)
-    path = vim.fs.normalize(path or vim.fn.getcwd())
+    path = vim.fs.normalize(vim.fs.abspath(path or vim.fn.getcwd()))
 
     -- Check if project already exists.
     for _, project in ipairs(M.projects) do
@@ -76,7 +76,7 @@ end
 
 -- Delete a project from the list.
 local function delete_project(path, manual)
-    path = vim.fs.normalize(path or vim.fn.getcwd())
+    path = vim.fs.normalize(vim.fs.abspath(path or vim.fn.getcwd()))
 
     for i, project_path in ipairs(M.projects) do
         if project_path.path == path then
