@@ -50,4 +50,4 @@ local function toggle_term_buffer()
     vim.cmd.startinsert()
 end
 
-vim.keymap.set({ 'n', 't' }, '<C-t>', toggle_term_buffer)
+vim.keymap.set({ 'n', 't' }, '<M-t>', toggle_term_buffer)
