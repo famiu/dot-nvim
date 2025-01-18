@@ -28,10 +28,6 @@ vim.keymap.set('x', '.', ':normal .<CR>', { silent = true })
 vim.keymap.set('n', '[w', '<CMD>wincmd W<CR>')
 vim.keymap.set('n', ']w', '<CMD>wincmd w<CR>')
 
--- Previous/next buffer
-vim.keymap.set('n', '[B', '<CMD>bprevious<CR>')
-vim.keymap.set('n', ']B', '<CMD>bnext<CR>')
-
 -- Tab keybinds
 -- Previous/next tab
 vim.keymap.set('n', '[t', '<CMD>tabprevious<CR>')
