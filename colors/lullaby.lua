@@ -63,6 +63,7 @@ local highlights = {
     MsgSeparator = { bg = palette.StoneGray, fg = palette.AshGray },
     NonText = { fg = palette.StoneGray },
     Pmenu = { bg = palette.Gunmetal, fg = palette.PearlGray },
+    PmenuKind = { bg = palette.Gunmetal, fg = palette.IceBlue },
     PmenuMatch = { bg = palette.Gunmetal, bold = true, fg = palette.PearlGray },
     PmenuMatchSel = { blend = 0, bold = true, reverse = true },
     PmenuThumb = { bg = palette.StoneGray },
