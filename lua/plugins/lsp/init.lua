@@ -21,7 +21,10 @@ return {
 
             -- Diagnostics configuration
             vim.diagnostic.config({
-                virtual_lines = true,
+                virtual_text = {
+                    spacing = 4,
+                    prefix = '~',
+                },
                 severity_sort = true,
                 signs = {
                     text = {
