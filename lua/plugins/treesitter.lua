@@ -28,6 +28,7 @@ return {
                 'bash',
                 'json',
                 'toml',
+                'yaml',
                 'markdown',
                 'latex',
                 'vimdoc',
