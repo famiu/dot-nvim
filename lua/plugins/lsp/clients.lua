@@ -102,6 +102,7 @@ return {
     },
     cmake = {},
     basedpyright = {},
+    ruff = {},
     gopls = {},
     asm_lsp = {},
     ts_ls = {},
