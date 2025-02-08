@@ -59,4 +59,20 @@ return {
             end
         end,
     },
+    {
+        'mfussenegger/nvim-lint',
+        init = function()
+            require('lint').linters_by_ft = {
+                python = { 'mypy' },
+            }
+
+            vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
+                desc = 'Lint configuration',
+                group = vim.api.nvim_create_augroup('NvimLint', {}),
+                callback = function()
+                    require('lint').try_lint()
+                end,
+            })
+        end
+    },
 }
