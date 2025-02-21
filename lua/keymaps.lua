@@ -55,9 +55,6 @@ vim.keymap.set('n', '<Leader>QQ', '<CMD>quitall!<CR>')
 -- Get out of Terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { silent = true, desc = 'Exit Terminal mode' })
 
--- Toggle spell checking
-vim.keymap.set('n', '<C-s>', '<CMD>setlocal spell!<CR>', { silent = true })
-
 -- Yank/paste to clipboard
 vim.keymap.set({ 'n', 'x' }, '<Leader>y', '"+y')
 vim.keymap.set({ 'n', 'x' }, '<Leader>p', '"+p')

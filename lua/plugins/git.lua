@@ -37,7 +37,7 @@ return {
         cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
         keys = {
             { '<Leader>gd', '<CMD>DiffviewOpen<CR>', desc = 'Diff worktree' },
-            { '<Leader>gf', '<CMD>DiffviewFileHistory<CR>', desc = 'Diffview file history' },
+            { '<Leader>g.', '<CMD>DiffviewFileHistory<CR>', desc = 'Diffview file history' },
             {
                 '<Leader>gD',
                 function()

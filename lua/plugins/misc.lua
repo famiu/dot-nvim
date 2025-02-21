@@ -1,15 +1,5 @@
 return {
     {
-        'famiu/bufdelete.nvim',
-        name = 'bufdelete',
-        dev = true,
-        keys = {
-            { '<Leader>x', '<CMD>Bdelete<CR>' },
-            { '<Leader>X', '<CMD>Bwipeout<CR>' },
-        },
-        cmd = { 'Bdelete', 'Bwipeout' },
-    },
-    {
         'williamboman/mason.nvim',
         opts = {
             PATH = 'append',

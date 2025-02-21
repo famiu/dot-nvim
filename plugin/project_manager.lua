@@ -128,11 +128,7 @@ local function show_projects()
             access_project(selected_project)
             vim.api.nvim_set_current_dir(selected_project)
 
-            local ok, fzflua = pcall(require, 'fzf-lua')
-
-            if ok then
-                fzflua.files({ cwd = selected_project })
-            end
+            Snacks.picker.smart()
         end
     end)
 end

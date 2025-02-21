@@ -1,25 +1,5 @@
 return {
     {
-        '3rd/image.nvim',
-        build = false,
-        opts = {
-            backend = 'kitty',
-            processor = 'magick_cli',
-            integrations = {
-                markdown = {
-                    enabled = true,
-                    clear_in_insert_mode = true,
-                    download_remote_images = true,
-                    only_render_image_at_cursor = false,
-                    floating_windows = false, -- if true, images will be rendered in floating markdown windows
-                    filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (ie. quarto) can go here
-                },
-                html = { enabled = false },
-                css = { enabled = false },
-            },
-        },
-    },
-    {
         'luukvbaal/statuscol.nvim',
         config = function()
             local builtin = require('statuscol.builtin')
@@ -65,7 +45,6 @@ return {
         end,
     },
     { 'yorickpeterse/nvim-pqf', opts = {} },
-    { 'stevearc/dressing.nvim', opts = {} },
     {
         'mbbill/undotree',
         keys = {
@@ -85,16 +64,6 @@ return {
     },
     { 'brenoprata10/nvim-highlight-colors', opts = {} },
     { 'j-hui/fidget.nvim', opts = {} },
-    {
-        'rcarriga/nvim-notify',
-        config = function()
-            require('notify').setup({
-                background_colour = '#000000',
-            })
-
-            vim.notify = require('notify')
-        end,
-    },
     {
         'lewis6991/hover.nvim',
         config = function()
