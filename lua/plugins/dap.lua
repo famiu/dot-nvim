@@ -94,7 +94,7 @@ local function dapconfig()
             name = 'Neovim',
             type = 'lldb',
             request = 'launch',
-            program = vim.uv.os_homedir() .. '/Documents/Dev/neovim/neovim/build/bin/nvim',
+            program = vim.uv.os_homedir() .. '/Dev/neovim/neovim/build/bin/nvim',
             cwd = '${workspaceFolder}',
             stopOnEntry = false,
             args = function()
@@ -149,9 +149,9 @@ local function dapconfig()
                             request = 'attach',
                             pid = pid,
                             -- ⬇️ Change paths as needed
-                            program = home .. '/Documents/Dev/neovim/neovim/build/bin/nvim',
-                            env = { 'VIMRUNTIME=' .. home .. '/Documents/Dev/neovim/neovim/runtime' },
-                            cwd = home .. '/Documents/Dev/neovim/neovim/',
+                            program = home .. '/Dev/neovim/neovim/build/bin/nvim',
+                            env = { 'VIMRUNTIME=' .. home .. '/Dev/neovim/neovim/runtime' },
+                            cwd = home .. '/Dev/neovim/neovim/',
                             externalConsole = false,
                         })
                     end
