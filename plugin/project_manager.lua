@@ -108,6 +108,10 @@ end
 
 -- Show the list of projects, sorted by frecency.
 local function show_projects()
+    if #M.projects == 0 then
+        error("No projects to show")
+    end
+
     sort_by_frecency()
 
     local project_paths = vim.tbl_map(function(p)
