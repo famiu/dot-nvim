@@ -23,15 +23,8 @@ CheckConfigDeps = function()
         { exe = 'rg', reason = 'Live grep' },
         { exe = 'fd', reason = 'File search' },
         { exe = 'fzf', reason = 'Fuzzy finder' },
+        { exe = 'node', reason = 'Tree-sitter and LSP' }
     }
-
-    if os_utils.is_linux() then
-        local is_wayland = os.getenv('WAYLAND_DISPLAY') ~= nil
-        local clipboard_handler = is_wayland and 'wl-copy' or 'xclip'
-
-        table.insert(deps, { exe = clipboard_handler, reason = 'handling clipboard' })
-        table.insert(deps, { exe = 'fswatch', reason = 'LSP watcher backend' })
-    end
 
     local missing_deps = false
 
