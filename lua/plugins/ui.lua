@@ -1,4 +1,20 @@
 return {
+    -- Colorscheme
+    {
+        'EdenEast/nightfox.nvim',
+        config = function()
+            require('nightfox').setup({
+                options = {
+                    styles = {
+                        comments = 'italic',
+                        keywords = 'bold',
+                    },
+                },
+            })
+
+            vim.cmd('colorscheme carbonfox')
+        end,
+    },
     {
         'luukvbaal/statuscol.nvim',
         config = function()
