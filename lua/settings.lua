@@ -8,9 +8,6 @@ vim.o.wildmode = 'longest,full'
 -- Persistent undo, prevent Neovim from having Alzheimer's
 vim.o.undofile = true
 
--- Disable "Hit ENTER to continue" messages
-vim.o.messagesopt = 'wait:500,history:500'
-
 -- Use global statusline, not because I made it or anything
 vim.o.laststatus = 3
 
