@@ -59,9 +59,6 @@ vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.o.splitbelow = true
 vim.o.splitright = true
 
--- Better diff behavior
-vim.o.diffopt = 'internal,filler,closeoff,hiddenoff,vertical,indent-heuristic,linematch:60'
-
 -- Faster update time
 vim.o.updatetime = 100
 
