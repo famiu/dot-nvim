@@ -4,12 +4,12 @@ function _G.my_yank_without_leading_indent(type)
     local start_line, end_line
 
     if type == 'char' or type == 'line' then
-        start_line, end_line = vim.fn.line("'["), vim.fn.line("']")
+        start_line, end_line = vim.api.nvim_buf_get_mark(0, '[')[1], vim.api.nvim_buf_get_mark(0, ']')[1]
     else
-        start_line, end_line = vim.fn.line("'<"), vim.fn.line("'>")
+        start_line, end_line = vim.api.nvim_buf_get_mark(0, '<')[1], vim.api.nvim_buf_get_mark(0, '>')[1]
     end
 
-    -- NOTE: vim.fn.line() is 1-indexed, but vim.api.nvim_buf_get_lines() is 0-indexed and end-exclusive.
+    -- NOTE: `nvim_buf_get_mark()` is 1-indexed, but `nvim_buf_get_lines()` is 0-indexed. Adjust accordingly.
     local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
 
     -- Nothing to yank, return early.
