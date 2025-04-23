@@ -14,6 +14,9 @@ vim.keymap.set({ 'n', 'x', 'o' }, 'L', '$')
 -- Don't move cursor when using J to join lines
 vim.keymap.set({ 'n', 'x' }, 'J', 'mzJ`z')
 
+-- Search only visual area in Visual mode
+vim.keymap.set('x', '/', '<Esc>/\\%V')
+
 -- Make scroll motions keep cursor in the middle
 local scroll_motions = { '<C-u>', '<C-d>', '<C-f>', '<C-b>', 'n', 'N' }
 
