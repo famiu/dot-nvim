@@ -78,7 +78,6 @@ return {
             },
         },
     },
-    { 'brenoprata10/nvim-highlight-colors', opts = {} },
     { 'j-hui/fidget.nvim', opts = {} },
     {
         'lewis6991/hover.nvim',

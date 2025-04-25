@@ -41,14 +41,18 @@ return {
                 desc = 'LSP configuration',
                 group = vim.api.nvim_create_augroup('lsp-settings', {}),
                 callback = function(args)
-                    local client_id = args.data.client_id
-                    local client = vim.lsp.get_client_by_id(client_id)
+                    local client = vim.lsp.get_client_by_id(args.data.client_id)
                     assert(client ~= nil)
 
                     -- If client supports folding, use the client for folding.
                     if client.server_capabilities.foldingRangeProvider then
                         vim.wo.foldmethod = 'expr'
                         vim.wo.foldexpr = 'v:lua.vim.lsp.foldexpr()'
+                    end
+
+                    -- Enable document color for supported clients.
+                    if client:supports_method('textDocument/documentColor') then
+                        vim.lsp.document_color.enable(true, args.buf)
                     end
                 end,
             })
@@ -73,6 +77,6 @@ return {
                     require('lint').try_lint()
                 end,
             })
-        end
+        end,
     },
 }
