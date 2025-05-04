@@ -95,3 +95,6 @@ vim.o.listchars = 'tab:» ,extends:›,precedes:‹,nbsp:␣'
 -- Remove "How-to disable mouse" from right-click menu
 pcall(vim.cmd.aunmenu, [[PopUp.How-to\ disable\ mouse]])
 pcall(vim.cmd.aunmenu, [[PopUp.-2-]])
+
+-- Enable experimental ext_cmdline/messages for the TUI
+require('vim._extui').enable({})
