@@ -1,18 +1,15 @@
 return {
     -- Colorscheme
     {
-        'EdenEast/nightfox.nvim',
-        config = function()
-            require('nightfox').setup({
-                options = {
-                    styles = {
-                        comments = 'italic',
-                        keywords = 'bold',
-                    },
-                },
-            })
-
-            vim.cmd('colorscheme carbonfox')
+        'catppuccin/nvim',
+        name = 'catppuccin',
+        priority = 1000,
+        opts = {
+            transparent_background = true,
+        },
+        config = function(_, opts)
+            require('catppuccin').setup(opts)
+            vim.cmd.colorscheme('catppuccin')
         end,
     },
     {

@@ -6,7 +6,7 @@ return {
         },
         opts = {
             options = {
-                theme = 'ayu_dark',
+                theme = 'catppuccin',
                 component_separators = { left = '╱', right = '╲' },
                 section_separators = { left = '', right = '' },
             },
