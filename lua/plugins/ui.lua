@@ -6,6 +6,18 @@ return {
         priority = 1000,
         opts = {
             transparent_background = true,
+            integrations = {
+                blink_cmp = true,
+                diffview = true,
+                dropbar = true,
+                fidget = true,
+                harpoon = true,
+                mason = true,
+                noice = true,
+                snacks = {
+                    enabled = true,
+                },
+            },
         },
         config = function(_, opts)
             require('catppuccin').setup(opts)
