@@ -1,6 +1,6 @@
 return {
     {
-        'williamboman/mason.nvim',
+        'mason-org/mason.nvim',
         opts = {
             PATH = 'append',
             max_concurrent_installers = require('utilities.os').pu_count(),
