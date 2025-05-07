@@ -94,4 +94,90 @@ return {
             })
         end,
     },
+    {
+        'ThePrimeagen/harpoon',
+        branch = 'harpoon2',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        opts = {},
+        config = function(_, opts)
+            local harpoon = require('harpoon')
+            local extensions = require('harpoon.extensions')
+            harpoon:setup(opts)
+
+            harpoon:extend(extensions.builtins.highlight_current_file())
+            harpoon:extend(extensions.builtins.navigate_with_number())
+
+            harpoon:extend({
+                UI_CREATE = function(cx)
+                    vim.keymap.set('n', '<C-v>', function()
+                        harpoon.ui:select_menu_item({ vsplit = true })
+                    end, { buffer = cx.bufnr })
+
+                    vim.keymap.set('n', '<C-x>', function()
+                        harpoon.ui:select_menu_item({ split = true })
+                    end, { buffer = cx.bufnr })
+
+                    vim.keymap.set('n', '<C-t>', function()
+                        harpoon.ui:select_menu_item({ tabedit = true })
+                    end, { buffer = cx.bufnr })
+                end,
+            })
+        end,
+        keys = {
+            {
+                '<Leader>za',
+                function()
+                    require('harpoon'):list():add()
+                end,
+            },
+            {
+                '<Leader>zc',
+                function()
+                    require('harpoon'):list():clear()
+                end,
+            },
+            {
+                '<Leader>zz',
+                function()
+                    require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())
+                end,
+            },
+            {
+                '<Leader>]',
+                function()
+                    require('harpoon'):list():next()
+                end,
+            },
+            {
+                '<Leader>[',
+                function()
+                    require('harpoon'):list():prev()
+                end,
+            },
+            {
+                '<Leader>1',
+                function()
+                    require('harpoon'):list():select(1)
+                end,
+            },
+            {
+                '<Leader>2',
+                function()
+                    require('harpoon'):list():select(2)
+                end,
+            },
+            {
+                '<Leader>3',
+                function()
+                    require('harpoon'):list():select(3)
+                end,
+            },
+            {
+                '<Leader>4',
+                function()
+                    require('harpoon'):list():select(4)
+                end,
+            },
+        },
+    },
 }
