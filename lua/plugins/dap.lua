@@ -166,7 +166,6 @@ return {
     {
         'mfussenegger/nvim-dap',
         dependencies = {
-            'mason-org/mason.nvim',
             { 'theHamsta/nvim-dap-virtual-text', opts = {} },
             {
                 'rcarriga/nvim-dap-ui',

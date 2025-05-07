@@ -53,8 +53,6 @@ LoadPlugins = function()
         },
         concurrency = require('utilities.os').pu_count(),
     })
-
-    vim.keymap.set('n', '<Leader>z', '<CMD>Lazy<CR>')
 end
 
 -- Check to see if config dependencies are found.
