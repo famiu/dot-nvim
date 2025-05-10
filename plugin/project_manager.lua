@@ -132,7 +132,7 @@ local function show_projects()
             access_project(selected_project)
             vim.api.nvim_set_current_dir(selected_project)
 
-            Snacks.picker.smart()
+            Snacks.picker.files()
         end
     end)
 end
