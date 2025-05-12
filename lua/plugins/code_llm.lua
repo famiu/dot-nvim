@@ -27,7 +27,7 @@ return {
             provider = 'copilot',
         },
         build = require('utilities.os').is_windows()
-                and 'powershell -ExecutionPolicy Bypass -File Build -BuildFromSource false'
+                and 'powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false'
             or 'make',
         dependencies = {
             'nvim-treesitter/nvim-treesitter',
