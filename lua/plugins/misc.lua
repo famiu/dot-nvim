@@ -22,5 +22,4 @@ return {
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
     'tpope/vim-eunuch',
-    'OXY2DEV/helpview.nvim',
 }
