@@ -3,7 +3,6 @@ local lsp_client_configs = require('plugins.lsp.clients')
 return {
     {
         'saghen/blink.cmp',
-        dependencies = { 'rafamadriz/friendly-snippets' },
         build = 'cargo build --release',
         opts = {
             keymap = { preset = 'default' },
