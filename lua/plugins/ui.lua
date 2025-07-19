@@ -68,7 +68,7 @@ return {
             })
         end,
     },
-    { 'yorickpeterse/nvim-pqf', opts = {} },
+    { 'kevinhwang91/nvim-bqf', ft = 'qf' },
     {
         'mbbill/undotree',
         keys = {
