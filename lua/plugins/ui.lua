@@ -10,7 +10,6 @@ return {
                 blink_cmp = true,
                 diffview = true,
                 dropbar = true,
-                fidget = true,
                 harpoon = true,
                 mason = true,
                 noice = true,
@@ -87,7 +86,6 @@ return {
             },
         },
     },
-    { 'j-hui/fidget.nvim', opts = {} },
     {
         'lewis6991/hover.nvim',
         config = function()
