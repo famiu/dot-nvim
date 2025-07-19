@@ -76,17 +76,6 @@ return {
         },
     },
     {
-        'folke/todo-comments.nvim',
-        opts = {
-            highlight = {
-                pattern = { [[.*<(KEYWORDS)\s*:]], [[.*<(KEYWORDS)\s*\(\w+\)\s*:]] },
-            },
-            search = {
-                pattern = [[\b(KEYWORDS)\s*(\(\w+\))?\s*:]],
-            },
-        },
-    },
-    {
         'lewis6991/hover.nvim',
         config = function()
             require('hover').setup({
