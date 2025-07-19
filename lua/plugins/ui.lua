@@ -23,51 +23,6 @@ return {
             vim.cmd.colorscheme('catppuccin')
         end,
     },
-    {
-        'luukvbaal/statuscol.nvim',
-        config = function()
-            local builtin = require('statuscol.builtin')
-
-            require('statuscol').setup({
-                segments = {
-                    { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
-                    {
-                        sign = {
-                            namespace = { 'diagnostic' },
-                            maxwidth = 1,
-                            colwidth = 2,
-                            auto = true,
-                            foldclosed = true,
-                        },
-                        click = 'v:lua.ScSa',
-                    },
-                    { text = { builtin.lnumfunc }, click = 'v:lua.ScLa' },
-                    {
-                        sign = {
-                            name = { '.*' },
-                            text = { '.*' },
-                            maxwidth = 2,
-                            colwidth = 1,
-                            auto = true,
-                            foldclosed = true,
-                        },
-                        click = 'v:lua.ScSa',
-                    },
-                    {
-                        sign = {
-                            namespace = { 'gitsigns' },
-                            fillchar = '│',
-                            maxwidth = 1,
-                            colwidth = 1,
-                            wrap = true,
-                            foldclosed = true,
-                        },
-                        click = 'v:lua.ScSa',
-                    },
-                },
-            })
-        end,
-    },
     { 'kevinhwang91/nvim-bqf', ft = 'qf' },
     {
         'mbbill/undotree',

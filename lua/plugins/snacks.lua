@@ -19,6 +19,18 @@ return {
                 wo = { wrap = true }, -- Wrap notifications
             },
         },
+        statuscolumn = {
+            left = { 'fold', 'sign', 'mark' },
+            right = { 'git' },
+            folds = {
+                open = false,
+                git_hl = false,
+            },
+            git = {
+                patterns = { 'GitSign', 'MiniDiffSign' },
+            },
+            refresh = 50,
+        },
     },
     keys = {
         -- Top Pickers & Explorer
