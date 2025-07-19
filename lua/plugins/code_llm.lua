@@ -20,21 +20,5 @@ return {
             },
             server_opts_overrides = {},
         },
-    },
-    {
-        'yetone/avante.nvim',
-        opts = {
-            provider = 'copilot',
-        },
-        build = require('utilities.os').is_windows()
-                and 'powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false'
-            or 'make',
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter',
-            'nvim-lua/plenary.nvim',
-            'MunifTanjim/nui.nvim',
-            'nvim-tree/nvim-web-devicons',
-            'zbirenbaum/copilot.lua',
-        },
-    },
+    }
 }
