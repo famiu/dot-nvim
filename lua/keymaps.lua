@@ -1,28 +1,9 @@
--- Insert new line above/below current line in inset mode
-vim.keymap.set('i', '<C-j>', '<C-o>o')
-vim.keymap.set('i', '<C-k>', '<C-o>O')
-
--- Delete whole words in insert mode with Ctrl + Backspace and Ctrl + Delete
--- If Shift is pressed, delete whole WORDs
-vim.keymap.set('i', '<C-BS>', '<C-o>db')
-vim.keymap.set('i', '<C-Del>', '<C-o>dw')
-
 -- Map H and L to ^ and $
 vim.keymap.set({ 'n', 'x', 'o' }, 'H', '^')
 vim.keymap.set({ 'n', 'x', 'o' }, 'L', '$')
 
--- Don't move cursor when using J to join lines
-vim.keymap.set({ 'n', 'x' }, 'J', 'mzJ`z')
-
 -- Search only visual area in Visual mode
 vim.keymap.set('x', '/', '<Esc>/\\%V')
-
--- Make scroll motions keep cursor in the middle
-local scroll_motions = { '<C-u>', '<C-d>', '<C-f>', '<C-b>', 'n', 'N' }
-
-for _, motion in ipairs(scroll_motions) do
-    vim.keymap.set({ 'n', 'x' }, motion, motion .. 'zz', { silent = true })
-end
 
 -- Apply the . command to all selected lines in visual mode
 vim.keymap.set('x', '.', ':normal .<CR>', { silent = true })
@@ -47,14 +28,6 @@ vim.keymap.set('n', '<Leader>tn', '<CMD>tabnew<CR>')
 vim.keymap.set('n', '<Leader>tx', '<CMD>tabclose<CR>')
 vim.keymap.set('n', '<Leader>tX', '<CMD>tabclose!<CR>')
 
--- Previous/next quickfix item
-vim.keymap.set('n', ']q', '<CMD>cnext<CR>')
-vim.keymap.set('n', '[q', '<CMD>cprevious<CR>')
-
--- Quitall shortcut
-vim.keymap.set('n', '<Leader>qq', '<CMD>quitall<CR>')
-vim.keymap.set('n', '<Leader>QQ', '<CMD>quitall!<CR>')
-
 -- Get out of Terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { silent = true, desc = 'Exit Terminal mode' })
 
@@ -65,10 +38,14 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>p', '"+p')
 local function toggle_quickfix(loclist)
     for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
         local wininfo = vim.fn.getwininfo(win)[1]
-        if (loclist and wininfo.loclist or wininfo.quickfix) == 1 then
+        if wininfo.quickfix == 1 then
             -- Quickfix/Loclist window already open, close it
-            vim.cmd(loclist and 'lclose' or 'cclose')
-            return
+            vim.cmd(wininfo.loclist == 1 and 'lclose' or 'cclose')
+
+            -- If the closed window is the same type as requested, return
+            if wininfo.loclist == (loclist and 1 or 0) then
+                return
+            end
         end
     end
 
@@ -86,8 +63,8 @@ end)
 
 -- Move selected lines up or down with fixed indent
 vim.keymap.set('x', '<C-j>', function()
-    return ":move '>+" .. vim.v.count1 .. '<CR>gv=gv'
-end, { expr = true })
+    return ":<C-u>silent! '<,'>move '>+" .. vim.v.count1 .. '<CR>:silent! normal gv=gv<CR>'
+end, { expr = true, silent = true, desc = 'Move selected lines down and re-indent' })
 vim.keymap.set('x', '<C-k>', function()
-    return ":move '<-" .. -vim.v.count1 .. '<CR>gv=gv'
-end, { expr = true })
+    return ":<C-u>silent! '<,'>move '<-" .. -vim.v.count1 .. '<CR>:silent normal! gv=gv<CR>'
+end, { expr = true, silent = true, desc = 'Move selected lines up and re-indent' })
