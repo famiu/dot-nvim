@@ -79,8 +79,8 @@ return {
                 diagnosticsDelay = 300,
                 formatterLineLength = 80,
                 forwardSearch = {
-                    executable = 'zathura',
-                    args = { '--synctex-forward', '%l:1:%f', '%p' },
+                    executable = 'okular',
+                    args = { '--unique', 'file:%p#src:%l%f' },
                     onSave = true,
                 },
                 forwardSearchAfter = true,
