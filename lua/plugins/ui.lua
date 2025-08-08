@@ -6,6 +6,9 @@ return {
         priority = 1000,
         opts = {
             transparent_background = true,
+            float = {
+                transparent = true,
+            },
             integrations = {
                 blink_cmp = true,
                 diffview = true,
