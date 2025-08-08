@@ -1,4 +1,4 @@
-local lsp_client_configs = require('plugins.lsp.clients')
+local client_configs = require('plugins.lsp.clients')
 
 return {
     {
@@ -56,8 +56,12 @@ return {
             })
 
             -- Load LSP client configurations.
-            for client, config in pairs(lsp_client_configs) do
-                lspconfig[client].setup(config)
+            for server, config in pairs(client_configs) do
+                if next(config) ~= nil then
+                    vim.lsp.config(server, config)
+                end
+
+                vim.lsp.enable(server)
             end
         end,
     },
