@@ -23,7 +23,7 @@ CheckConfigDeps = function()
         { exe = 'rg', reason = 'Live grep' },
         { exe = 'fd', reason = 'File search' },
         { exe = 'fzf', reason = 'Fuzzy finder' },
-        { exe = 'node', reason = 'Tree-sitter and LSP' }
+        { exe = 'node', reason = 'Tree-sitter and LSP' },
     }
 
     local missing_deps = false
@@ -44,6 +44,7 @@ LoadPlugins = function()
     vim.opt.rtp:prepend(lazypath)
 
     require('lazy').setup({ import = 'plugins' }, {
+        ui = { border = 'rounded' },
         git = {
             timeout = -1, -- Disable timeout.
         },
