@@ -15,8 +15,6 @@ return {
     {
         'neovim/nvim-lspconfig',
         config = function()
-            local lspconfig = require('lspconfig')
-
             -- Diagnostics configuration
             vim.diagnostic.config({
                 virtual_text = {
