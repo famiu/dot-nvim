@@ -66,9 +66,26 @@ return {
     {
         'mfussenegger/nvim-lint',
         init = function()
-            require('lint').linters_by_ft = {
-                python = { 'mypy' },
+            local linters_by_ft = {
+                lua = {},
+                python = { 'ruff' },
+                markdown = { 'vale' },
             }
+
+            -- Check if linters are installed, if not, show a warning and remove them from the table.
+            for _, linters in pairs(linters_by_ft) do
+                for i, linter in ipairs(linters) do
+                    if not require('lint').linters[linter] then
+                        vim.notify(
+                            string.format('Linter "%s" is not installed. Please install it.', linter),
+                            vim.log.levels.WARN
+                        )
+                        linters[i] = nil
+                    end
+                end
+            end
+
+            require('lint').linters_by_ft = linters_by_ft
 
             vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
                 desc = 'Lint configuration',
