@@ -109,4 +109,6 @@ return {
     cssls = {},
     html = {},
     svelte = {},
+    gdscript = {},
+    omnisharp = {},
 }
