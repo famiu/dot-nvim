@@ -27,10 +27,4 @@ return {
         end,
     },
     { 'kevinhwang91/nvim-bqf', ft = 'qf' },
-    {
-        'mbbill/undotree',
-        keys = {
-            { '<Leader>u', '<CMD>UndotreeToggle<CR>' },
-        },
-    },
 }
