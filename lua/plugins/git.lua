@@ -1,24 +1,5 @@
 return {
     {
-        'NeogitOrg/neogit',
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            'sindrets/diffview.nvim',
-        },
-        opts = {
-            remember_settings = false,
-        },
-        keys = {
-            {
-                '<Leader>gg',
-                function()
-                    require('neogit').open()
-                end,
-                desc = 'Neogit',
-            },
-        },
-    },
-    {
         'sindrets/diffview.nvim',
         opts = {
             enhanced_diff_hl = true,
