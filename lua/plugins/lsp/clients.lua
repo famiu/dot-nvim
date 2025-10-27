@@ -111,4 +111,5 @@ return {
     svelte = {},
     gdscript = {},
     omnisharp = {},
+    nushell = {},
 }
