@@ -1,15 +1,15 @@
 return {
     {
-        'echasnovski/mini.align',
+        'nvim-mini/mini.align',
         keys = {
             { 'ga', mode = { 'n', 'x' } },
             { 'gA', mode = { 'n', 'x' } },
         },
         opts = {},
     },
-    { 'echasnovski/mini.ai', opts = {} },
+    { 'nvim-mini/mini.ai', opts = {} },
     {
-        'echasnovski/mini.surround',
+        'nvim-mini/mini.surround',
         keys = {
             { 'sa', mode = { 'n', 'x' } },
             'sd',
