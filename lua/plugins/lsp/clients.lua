@@ -112,4 +112,7 @@ return {
     gdscript = {},
     omnisharp = {},
     nushell = {},
+    jsonls = {},
+    yamlls = {},
+    tombi = {},
 }
