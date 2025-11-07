@@ -31,7 +31,7 @@ return {
             },
             refresh = 50,
         },
-        lazygit = {},
+        indent = { enabled = true },
     },
     keys = {
         -- Top Pickers & Explorer
