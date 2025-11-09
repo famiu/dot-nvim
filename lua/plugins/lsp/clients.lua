@@ -115,4 +115,7 @@ return {
     jsonls = {},
     yamlls = {},
     tombi = {},
+    qmlls = {
+        cmd = { vim.fn.executable('qmlls') ~= 0 and 'qmlls' or 'qmlls6' }
+    },
 }
