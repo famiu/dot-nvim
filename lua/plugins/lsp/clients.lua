@@ -118,4 +118,5 @@ return {
     qmlls = {
         cmd = { vim.fn.executable('qmlls') ~= 0 and 'qmlls' or 'qmlls6' }
     },
+    tinymist = {},
 }

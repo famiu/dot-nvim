@@ -29,5 +29,6 @@
   "snacks.nvim": { "branch": "main", "commit": "fe7cfe9800a182274d0f868a74b7263b8c0c020b" },
   "spaceless.nvim": { "branch": "main", "commit": "927fb0afb416ea39306af5842c247d810dfd5938" },
   "treesj": { "branch": "main", "commit": "4770492244ccecdc9b01e0e81fa8f2f6b4a23841" },
+  "typst-preview.nvim": { "branch": "master", "commit": "291972a39db85c5d2e76249748aba4206dfd3bc2" },
   "vim-sleuth": { "branch": "master", "commit": "be69bff86754b1aa5adcbb527d7fcd1635a84080" }
 }
