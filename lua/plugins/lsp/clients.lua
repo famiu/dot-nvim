@@ -116,7 +116,11 @@ return {
     yamlls = {},
     tombi = {},
     qmlls = {
-        cmd = { vim.fn.executable('qmlls') ~= 0 and 'qmlls' or 'qmlls6' }
+        cmd = { vim.fn.executable('qmlls') ~= 0 and 'qmlls' or 'qmlls6' },
     },
-    tinymist = {},
+    tinymist = {
+        settings = {
+            formatterMode = 'typstyle',
+        },
+    },
 }
