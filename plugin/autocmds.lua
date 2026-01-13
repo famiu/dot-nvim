@@ -9,20 +9,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
         })
     end,
 })
-
--- Automatically create missing directories before save
-vim.api.nvim_create_autocmd('BufWritePre', {
-    callback = function(args)
-        -- Skip for Oil buffers or unnamed buffers
-        if vim.bo.filetype == 'oil' or vim.api.nvim_buf_get_name(0) == '' then
-            return
-        end
-
-        local path = vim.fs.dirname(vim.api.nvim_buf_get_name(args.buf))
-
-        if vim.fn.isdirectory(path) == 0 then
-            vim.fn.mkdir(path, 'p')
-        end
-    end,
-    desc = 'Mkdir on save',
-})
