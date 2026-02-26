@@ -9,3 +9,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
         })
     end,
 })
+
+vim.api.nvim_create_autocmd('TermOpen', {
+    desc = 'Enter insert mode in Terminal automatically',
+    group = augroup,
+    callback = function()
+        vim.cmd.startinsert()
+    end,
+})
