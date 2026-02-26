@@ -92,9 +92,20 @@ vim.o.conceallevel = 2
 vim.o.list = true
 vim.o.listchars = 'tab:» ,extends:›,precedes:‹,nbsp:␣'
 
+-- Add border to floating windows
+vim.o.winborder = 'single'
+
 -- Remove "How-to disable mouse" from right-click menu
 pcall(vim.cmd.aunmenu, [[PopUp.How-to\ disable\ mouse]])
 pcall(vim.cmd.aunmenu, [[PopUp.-2-]])
 
--- Enable experimental ext_cmdline/messages for the TUI
-require('vim._extui').enable({})
+-- Enable experimental UI
+require('vim._core.ui2').enable({
+    enable = true, -- Whether to enable or disable the UI.
+    msg = { -- Options related to the message module.
+        ---@type 'cmd'|'msg' Where to place regular messages, either in the
+        ---cmdline or in a separate ephemeral message window.
+        target = 'msg',
+        timeout = 4000, -- Time a message is visible in the message window.
+    },
+})
