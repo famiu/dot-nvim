@@ -6,10 +6,12 @@ return {
         build = 'cargo build --release',
         opts = {
             keymap = { preset = 'default' },
-            appearance = {
-                nerd_font_variant = 'normal',
-            },
+            appearance = { nerd_font_variant = 'normal' },
             signature = { enabled = true },
+            cmdline = {
+                keymap = { preset = 'inherit' },
+                completion = { menu = { auto_show = true } },
+            },
         },
     },
     {
