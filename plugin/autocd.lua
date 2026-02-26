@@ -5,6 +5,13 @@ vim.api.nvim_create_autocmd({ 'VimEnter', 'BufEnter', 'BufReadPost' }, {
     desc = 'Automatically change current directory by matching root pattern',
     group = augroup,
     callback = function(args)
+        -- LSP gets precedence
+        for _, client in ipairs (vim.lsp.get_clients({ bufnr = 0 })) do
+            if client.name ~= 'copilot' and client.config.root_dir then
+                return
+            end
+        end
+
         local root = vim.fs.root(vim.api.nvim_buf_get_name(args.buf), root_patterns)
 
         if root ~= nil then
