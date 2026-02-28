@@ -21,4 +21,5 @@ return {
         keys = { { '-', '<CMD>Oil<CR>' } },
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
+    'tpope/vim-eunuch',
 }
