@@ -18,7 +18,7 @@ function _G.duplicate_and_comment_lines()
     vim.api.nvim_win_set_cursor(0, { end_line + 1, cursor[2] })
 end
 
-vim.keymap.set({ 'n', 'x' }, 'yc', function()
+vim.keymap.set({ 'n', 'x' }, 'gC', function()
     vim.opt.operatorfunc = 'v:lua.duplicate_and_comment_lines'
     return 'g@'
 end, {
@@ -27,7 +27,7 @@ end, {
     silent = true,
 })
 
-vim.keymap.set('n', 'ycc', function()
+vim.keymap.set('n', 'gCc', function()
     vim.opt.operatorfunc = 'v:lua.duplicate_and_comment_lines'
     return 'g@_'
 end, {
