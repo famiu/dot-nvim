@@ -3,7 +3,8 @@ local client_configs = require('plugins.lsp.clients')
 return {
     {
         'saghen/blink.cmp',
-        build = 'cargo build --release',
+        build = function() require('blink.cmp').build():wait(60000) end,
+        dependencies = { 'saghen/blink.lib' },
         opts = {
             keymap = { preset = 'default' },
             appearance = { nerd_font_variant = 'normal' },
@@ -50,7 +51,7 @@ return {
 
                     -- Enable document color for supported clients.
                     if client:supports_method('textDocument/documentColor') then
-                        vim.lsp.document_color.enable(true, args.buf)
+                        vim.lsp.document_color.enable(true, { bufnr = args.buf })
                     end
                 end,
             })

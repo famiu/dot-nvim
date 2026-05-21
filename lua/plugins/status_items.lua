@@ -40,5 +40,4 @@ return {
             },
         },
     },
-    { 'Bekaboo/dropbar.nvim' },
 }
