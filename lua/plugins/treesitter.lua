@@ -29,6 +29,7 @@ return {
                 'markdown_inline',
                 'vimdoc',
                 'regex',
+                'java',
             }
             ts.install(parsers)
 
@@ -43,15 +44,16 @@ return {
                 callback = function(args)
                     local ft = vim.bo[args.buf].filetype
                     -- Disable Treesitter indent for (La)TeX.
-                    if ft == 'latex' or ft == 'tex' then return end
+                    if ft == 'latex' or ft == 'tex' then
+                        return
+                    end
 
                     vim.treesitter.start(args.buf)
+                    vim.wo.foldmethod = 'expr'
+                    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
                     vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
                 end,
             })
-
-            vim.wo.foldmethod = 'expr'
-            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
         end,
     },
 
@@ -65,7 +67,7 @@ return {
             vim.g.no_plugin_maps = true
         end,
         config = function()
-            require('nvim-treesitter-textobjects').setup {
+            require('nvim-treesitter-textobjects').setup({
                 select = {
                     lookahead = true,
                     include_surrounding_whitespace = false,
@@ -73,13 +75,17 @@ return {
                 move = {
                     set_jumps = true, -- whether to set jumps in the jumplist
                 },
-            }
+            })
 
             local select = require('nvim-treesitter-textobjects.select')
-            local move   = require('nvim-treesitter-textobjects.move')
-            local swap   = require('nvim-treesitter-textobjects.swap')
+            local move = require('nvim-treesitter-textobjects.move')
+            local swap = require('nvim-treesitter-textobjects.swap')
 
-            local sel = function(query) return function() select.select_textobject(query, 'textobjects') end end
+            local sel = function(query)
+                return function()
+                    select.select_textobject(query, 'textobjects')
+                end
+            end
             vim.keymap.set({ 'x', 'o' }, 'aa', sel('@parameter.outer'))
             vim.keymap.set({ 'x', 'o' }, 'ia', sel('@parameter.inner'))
             vim.keymap.set({ 'x', 'o' }, 'af', sel('@function.outer'))
@@ -102,37 +108,93 @@ return {
             end)
 
             -- Automatically jump forward to textobj, similar to targets.vim
-            vim.keymap.set({ 'n', 'x', 'o' }, ']a', function() move.goto_next_start('@parameter.inner', 'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, ']m', function() move.goto_next_start('@function.outer',  'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, ']]', function() move.goto_next_start('@class.outer',     'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, ']i', function() move.goto_next_start('@conditional.outer','textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, ']o', function() move.goto_next_start('@loop.outer',      'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, ']s', function() move.goto_next_start('@local.scope',     'locals') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, ']z', function() move.goto_next_start('@fold',            'folds') end)
+            vim.keymap.set({ 'n', 'x', 'o' }, ']a', function()
+                move.goto_next_start('@parameter.inner', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, ']m', function()
+                move.goto_next_start('@function.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, ']]', function()
+                move.goto_next_start('@class.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, ']i', function()
+                move.goto_next_start('@conditional.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, ']o', function()
+                move.goto_next_start('@loop.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, ']s', function()
+                move.goto_next_start('@local.scope', 'locals')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, ']z', function()
+                move.goto_next_start('@fold', 'folds')
+            end)
 
-            vim.keymap.set({ 'n', 'x', 'o' }, ']A', function() move.goto_next_end('@parameter.inner',   'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, ']M', function() move.goto_next_end('@function.outer',    'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, '][', function() move.goto_next_end('@class.outer',       'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, ']I', function() move.goto_next_end('@conditional.outer', 'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, ']O', function() move.goto_next_end('@loop.outer',        'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, ']S', function() move.goto_next_end('@local.scope',       'locals') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, ']Z', function() move.goto_next_end('@fold',              'folds') end)
+            vim.keymap.set({ 'n', 'x', 'o' }, ']A', function()
+                move.goto_next_end('@parameter.inner', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, ']M', function()
+                move.goto_next_end('@function.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '][', function()
+                move.goto_next_end('@class.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, ']I', function()
+                move.goto_next_end('@conditional.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, ']O', function()
+                move.goto_next_end('@loop.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, ']S', function()
+                move.goto_next_end('@local.scope', 'locals')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, ']Z', function()
+                move.goto_next_end('@fold', 'folds')
+            end)
 
-            vim.keymap.set({ 'n', 'x', 'o' }, '[a', function() move.goto_previous_start('@parameter.inner',   'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, '[m', function() move.goto_previous_start('@function.outer',    'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, '[[', function() move.goto_previous_start('@class.outer',       'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, '[i', function() move.goto_previous_start('@conditional.outer', 'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, '[o', function() move.goto_previous_start('@loop.outer',        'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, '[s', function() move.goto_previous_start('@local.scope',       'locals') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, '[z', function() move.goto_previous_start('@fold',              'folds') end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '[a', function()
+                move.goto_previous_start('@parameter.inner', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '[m', function()
+                move.goto_previous_start('@function.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '[[', function()
+                move.goto_previous_start('@class.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '[i', function()
+                move.goto_previous_start('@conditional.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '[o', function()
+                move.goto_previous_start('@loop.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '[s', function()
+                move.goto_previous_start('@local.scope', 'locals')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '[z', function()
+                move.goto_previous_start('@fold', 'folds')
+            end)
 
-            vim.keymap.set({ 'n', 'x', 'o' }, '[A', function() move.goto_previous_end('@parameter.inner',   'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, '[M', function() move.goto_previous_end('@function.outer',    'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, '[]', function() move.goto_previous_end('@class.outer',       'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, '[I', function() move.goto_previous_end('@conditional.outer', 'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, '[O', function() move.goto_previous_end('@loop.outer',        'textobjects') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, '[S', function() move.goto_previous_end('@local.scope',       'locals') end)
-            vim.keymap.set({ 'n', 'x', 'o' }, '[Z', function() move.goto_previous_end('@fold',              'folds') end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '[A', function()
+                move.goto_previous_end('@parameter.inner', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '[M', function()
+                move.goto_previous_end('@function.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '[]', function()
+                move.goto_previous_end('@class.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '[I', function()
+                move.goto_previous_end('@conditional.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '[O', function()
+                move.goto_previous_end('@loop.outer', 'textobjects')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '[S', function()
+                move.goto_previous_end('@local.scope', 'locals')
+            end)
+            vim.keymap.set({ 'n', 'x', 'o' }, '[Z', function()
+                move.goto_previous_end('@fold', 'folds')
+            end)
 
             local repeat_move = require('nvim-treesitter-textobjects.repeatable_move')
             vim.keymap.set({ 'n', 'x', 'o' }, ';', repeat_move.repeat_last_move_next)
