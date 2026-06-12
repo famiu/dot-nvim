@@ -72,7 +72,6 @@ return {
             local linters_by_ft = {
                 lua = {},
                 python = { 'ruff' },
-                markdown = { 'vale' },
             }
 
             -- Check if linters are installed, if not, show a warning and remove them from the table.
