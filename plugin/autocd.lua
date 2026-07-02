@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd({ 'VimEnter', 'BufEnter', 'BufReadPost' }, {
     group = augroup,
     callback = function(args)
         -- LSP gets precedence
-        for _, client in ipairs (vim.lsp.get_clients({ bufnr = 0 })) do
+        for _, client in ipairs(vim.lsp.get_clients({ bufnr = args.buf })) do
             if client.name ~= 'copilot' and client.config.root_dir then
                 return
             end
