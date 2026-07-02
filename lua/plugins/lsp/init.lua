@@ -8,7 +8,19 @@ return {
         end,
         dependencies = { 'saghen/blink.lib' },
         opts = {
-            keymap = { preset = 'default' },
+            keymap = {
+                preset = 'default',
+                ['<Tab>'] = {
+                    'snippet_forward',
+                    function() -- sidekick next edit suggestion
+                        return require('sidekick').nes_jump_or_apply()
+                    end,
+                    function() -- if you are using Neovim's native inline completions
+                        return vim.lsp.inline_completion.get()
+                    end,
+                    'fallback',
+                },
+            },
             appearance = { nerd_font_variant = 'normal' },
             signature = { enabled = true },
             cmdline = {
@@ -54,6 +66,11 @@ return {
                     -- Enable document color for supported clients.
                     if client:supports_method('textDocument/documentColor') then
                         vim.lsp.document_color.enable(true, { bufnr = args.buf })
+                    end
+
+                    -- Enable inline completion for supported clients.
+                    if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion, args.buf) then
+                        vim.lsp.inline_completion.enable(true, { bufnr = args.buf })
                     end
                 end,
             })

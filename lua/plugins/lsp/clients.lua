@@ -123,4 +123,5 @@ return {
             formatterMode = 'typstyle',
         },
     },
+    copilot = {},
 }
