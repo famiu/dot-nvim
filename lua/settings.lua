@@ -35,10 +35,8 @@ vim.o.colorcolumn = '+1'
 -- Show inccommand preview with split
 vim.o.inccommand = 'split'
 
--- Use transparent fold and use treesitter for folding
+-- Use transparent fold
 vim.o.foldtext = ''
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.o.foldlevelstart = 20
 
 -- Session options
