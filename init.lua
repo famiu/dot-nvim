@@ -49,7 +49,7 @@ LoadPlugins = function()
             timeout = -1, -- Disable timeout.
         },
         dev = {
-            path = vim.uv.os_homedir() .. '/Dev/neovim',
+            path = vim.uv.os_homedir() .. '/Dev/nvim-plugins',
             fallback = true,
         },
         concurrency = require('utilities.os').pu_count(),
