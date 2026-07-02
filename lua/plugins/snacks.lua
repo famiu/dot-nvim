@@ -2,7 +2,7 @@ return {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
-    ---@type snacks.Config
+    --- @type snacks.Config
     opts = {
         bigfile = { enabled = true },
         input = { enabled = true },
@@ -315,13 +315,6 @@ return {
             desc = 'Lazygit',
         },
         {
-            '<Leader>n',
-            function()
-                Snacks.notifier.show_history()
-            end,
-            desc = 'Notification History',
-        },
-        {
             '<Leader>bd',
             function()
                 Snacks.bufdelete()
@@ -430,7 +423,7 @@ return {
         require('snacks').setup(opts)
 
         vim.api.nvim_create_autocmd('LspProgress', {
-            ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
+            --- @param ev {data: {client_id: integer, params: lsp.ProgressParams}}
             callback = function(ev)
                 local spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
                 vim.notify(vim.lsp.status(), 'info', {
