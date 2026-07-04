@@ -1,22 +1,31 @@
 local root_patterns = { '.git' }
 local augroup = vim.api.nvim_create_augroup('AutoCD', {})
 
-vim.api.nvim_create_autocmd({ 'VimEnter', 'BufEnter', 'BufReadPost' }, {
+local function set_root(root)
+    if root and root ~= vim.fn.getcwd(0) then
+        vim.cmd.tcd(root)
+    end
+end
+
+local function lsp_root(bufnr)
+    for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+        if client.name ~= 'copilot' and client.config.root_dir then
+            return client.config.root_dir
+        end
+    end
+    return nil
+end
+
+vim.api.nvim_create_autocmd({ 'VimEnter', 'BufEnter' }, {
     desc = 'Automatically change current directory by matching root pattern',
     group = augroup,
     callback = function(args)
-        -- LSP gets precedence
-        for _, client in ipairs(vim.lsp.get_clients({ bufnr = args.buf })) do
-            if client.name ~= 'copilot' and client.config.root_dir then
-                return
-            end
-        end
+        if vim.bo[args.buf].buftype ~= '' then return end
 
-        local root = vim.fs.root(vim.api.nvim_buf_get_name(args.buf), root_patterns)
+        local name = vim.api.nvim_buf_get_name(args.buf)
+        if name == '' then return end
 
-        if root ~= nil then
-            vim.api.nvim_set_current_dir(root)
-        end
+        set_root(lsp_root(args.buf) or vim.fs.root(name, root_patterns))
     end,
 })
 
@@ -24,11 +33,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'Automatically change current directory to LSP root',
     group = augroup,
     callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        assert(client ~= nil)
-
-        if client.name ~= 'copilot' and client.config.root_dir then
-            vim.api.nvim_set_current_dir(client.config.root_dir)
+        local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+        if client.name ~= 'copilot' then
+            set_root(client.config.root_dir)
         end
     end,
 })
