@@ -20,6 +20,9 @@ vim.api.nvim_create_autocmd({ 'VimEnter', 'BufEnter' }, {
     desc = 'Automatically change current directory by matching root pattern',
     group = augroup,
     callback = function(args)
+        -- Buffer may no longer be valid when this callback is triggered.
+        if vim.api.nvim_buf_is_valid(args.buf) == false then return end
+
         if vim.bo[args.buf].buftype ~= '' then return end
 
         local name = vim.api.nvim_buf_get_name(args.buf)

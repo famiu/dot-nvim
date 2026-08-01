@@ -1,4 +1,5 @@
 {
+  "auto-session": { "branch": "main", "commit": "6cde3874a9283c2db55627acca5f28e4fa402320" },
   "blink.cmp": { "branch": "main", "commit": "bda905a4bf1b3edfa708b0be193b8c63d8620c96" },
   "blink.lib": { "branch": "main", "commit": "5876dd95deeb70aadbe9f1c0b7117a135061cdac" },
   "catppuccin": { "branch": "main", "commit": "e068ab5f8261f23f6f71ffd8791ae40315b77b9c" },
