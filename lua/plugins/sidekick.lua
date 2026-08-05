@@ -2,12 +2,9 @@ return {
     'folke/sidekick.nvim',
     --- @class sidekick.config
     opts = {
-        -- add any options here
         cli = {
             mux = {
-                backend = 'tmux',
-                enabled = true,
-                create = 'split',
+                enabled = false,
             },
         },
     },
