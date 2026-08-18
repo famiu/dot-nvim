@@ -1,5 +1,5 @@
 -- Duplicate selection and comment out the first instance.
-function _G.duplicate_and_comment_lines()
+local function duplicate_and_comment_lines()
     local start_line, end_line = vim.api.nvim_buf_get_mark(0, '[')[1], vim.api.nvim_buf_get_mark(0, ']')[1]
 
     -- NOTE: `nvim_buf_get_mark()` is 1-indexed, but `nvim_buf_get_lines()` is 0-indexed. Adjust accordingly.
@@ -19,7 +19,7 @@ function _G.duplicate_and_comment_lines()
 end
 
 vim.keymap.set({ 'n', 'x' }, 'gC', function()
-    vim.opt.operatorfunc = 'v:lua.duplicate_and_comment_lines'
+    vim.o.operatorfunc = duplicate_and_comment_lines
     return 'g@'
 end, {
     desc = 'Duplicate selection and comment out the first instance',
@@ -28,7 +28,7 @@ end, {
 })
 
 vim.keymap.set('n', 'gCc', function()
-    vim.opt.operatorfunc = 'v:lua.duplicate_and_comment_lines'
+    vim.o.operatorfunc = duplicate_and_comment_lines
     return 'g@_'
 end, {
     desc = 'Duplicate [count] lines and comment out the first instance',

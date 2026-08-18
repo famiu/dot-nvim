@@ -57,7 +57,7 @@ return {
                     -- If client supports folding, use the client for folding.
                     if client.server_capabilities.foldingRangeProvider then
                         vim.wo.foldmethod = 'expr'
-                        vim.wo.foldexpr = 'v:lua.vim.lsp.foldexpr()'
+                        vim.wo.foldexpr = vim.lsp.foldexpr
                     end
 
                     -- Enable document color for supported clients.

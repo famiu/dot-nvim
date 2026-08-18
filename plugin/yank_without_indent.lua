@@ -1,5 +1,5 @@
 -- Yank selection without leading indent.
-function _G.my_yank_without_leading_indent(type)
+local function my_yank_without_leading_indent(type)
     local tab_width = vim.o.tabstop
     local start_line, end_line
 
@@ -81,7 +81,7 @@ function _G.my_yank_without_leading_indent(type)
 end
 
 vim.keymap.set({ 'n', 'x' }, 'gy', function()
-    vim.o.operatorfunc = 'v:lua.my_yank_without_leading_indent'
+    vim.o.operatorfunc = my_yank_without_leading_indent
     return 'g@'
 end, {
     desc = 'Yank selection without leading indent',
@@ -90,7 +90,7 @@ end, {
 })
 
 vim.keymap.set('n', 'gyy', function()
-    vim.o.operatorfunc = 'v:lua.my_yank_without_leading_indent'
+    vim.o.operatorfunc = my_yank_without_leading_indent
     return 'g@_'
 end, {
     desc = 'Yank line without leading indent',
