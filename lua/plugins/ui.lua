@@ -48,7 +48,6 @@ return {
         },
         dependencies = {
             'MunifTanjim/nui.nvim',
-            'rcarriga/nvim-notify',
         },
     },
     { 'kevinhwang91/nvim-bqf', ft = 'qf' },

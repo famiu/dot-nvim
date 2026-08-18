@@ -12,9 +12,6 @@ return {
                 preset = 'default',
                 ['<Tab>'] = {
                     'snippet_forward',
-                    function() -- sidekick next edit suggestion
-                        return require('sidekick').nes_jump_or_apply()
-                    end,
                     function() -- if you are using Neovim's native inline completions
                         return vim.lsp.inline_completion.get()
                     end,
@@ -83,38 +80,6 @@ return {
 
                 vim.lsp.enable(server)
             end
-        end,
-    },
-    {
-        'mfussenegger/nvim-lint',
-        init = function()
-            local linters_by_ft = {
-                lua = {},
-                python = { 'ruff' },
-            }
-
-            -- Check if linters are installed, if not, show a warning and remove them from the table.
-            for _, linters in pairs(linters_by_ft) do
-                for i, linter in ipairs(linters) do
-                    if not require('lint').linters[linter] then
-                        vim.notify(
-                            string.format('Linter "%s" is not installed. Please install it.', linter),
-                            vim.log.levels.WARN
-                        )
-                        linters[i] = nil
-                    end
-                end
-            end
-
-            require('lint').linters_by_ft = linters_by_ft
-
-            vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
-                desc = 'Lint configuration',
-                group = vim.api.nvim_create_augroup('NvimLint', {}),
-                callback = function()
-                    require('lint').try_lint()
-                end,
-            })
         end,
     },
 }
