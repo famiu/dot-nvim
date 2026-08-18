@@ -55,14 +55,9 @@ return {
                     assert(client ~= nil)
 
                     -- If client supports folding, use the client for folding.
-                    if client.server_capabilities.foldingRangeProvider then
+                    if client:supports_method('textDocument/foldingRange', args.buf) then
                         vim.wo.foldmethod = 'expr'
                         vim.wo.foldexpr = vim.lsp.foldexpr
-                    end
-
-                    -- Enable document color for supported clients.
-                    if client:supports_method('textDocument/documentColor') then
-                        vim.lsp.document_color.enable(true, { bufnr = args.buf })
                     end
 
                     -- Enable inline completion for supported clients.
