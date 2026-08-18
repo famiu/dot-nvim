@@ -94,6 +94,9 @@ vim.o.listchars = 'tab:» ,extends:›,precedes:‹,nbsp:␣'
 -- Add border to floating windows
 vim.o.winborder = 'single'
 
+-- Use floating preview windows
+vim.o.previewpopup = 'height:10,width:60,border:single'
+
 -- Remove "How-to disable mouse" from right-click menu
 pcall(vim.cmd.aunmenu, [[PopUp.How-to\ disable\ mouse]])
 pcall(vim.cmd.aunmenu, [[PopUp.-2-]])
