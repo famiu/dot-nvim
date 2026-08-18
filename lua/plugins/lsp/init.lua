@@ -80,6 +80,11 @@ return {
                         vim.lsp.on_type_formatting.enable(true, { client_id = client.id })
                     end
 
+                    -- Enable inlay hints for supported clients.
+                    if client:supports_method('textDocument/inlayHint', args.buf) then
+                        vim.lsp.inlay_hint.enable(true, { bufnr = args.buf, client_id = client.id })
+                    end
+
                     -- Enable inline completion for supported clients.
                     if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion, args.buf) then
                         vim.lsp.inline_completion.enable(true, { bufnr = args.buf })
