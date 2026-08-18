@@ -51,6 +51,12 @@ return {
             })
 
             -- LSP configuration
+            vim.lsp.codelens.enable()
+            vim.lsp.inlay_hint.enable()
+            vim.lsp.inline_completion.enable()
+            vim.lsp.linked_editing_range.enable()
+            vim.lsp.on_type_formatting.enable()
+
             local lsp_augroup = vim.api.nvim_create_augroup('lsp-settings', {})
 
             vim.api.nvim_create_autocmd('InsertEnter', {
@@ -90,41 +96,6 @@ return {
                         vim.wo.foldmethod = 'expr'
                         vim.wo.foldexpr = vim.lsp.foldexpr
                         vim.wo.foldtext = vim.lsp.foldtext
-                    end
-
-                    -- Enable code lens for supported clients.
-                    if client:supports_method('textDocument/codeLens', args.buf) then
-                        vim.lsp.codelens.enable(true, { bufnr = args.buf, client_id = client.id })
-                    end
-
-                    -- Enable linked editing for supported clients.
-                    if client:supports_method('textDocument/linkedEditingRange', args.buf) then
-                        vim.lsp.linked_editing_range.enable(true, { bufnr = args.buf, client_id = client.id })
-                    end
-
-                    -- Enable on-type formatting for supported clients.
-                    if client:supports_method('textDocument/onTypeFormatting', args.buf) then
-                        vim.lsp.on_type_formatting.enable(true, { client_id = client.id })
-                    end
-
-                    -- Enable inlay hints for supported clients.
-                    if
-                        client:supports_method('textDocument/inlayHint', args.buf)
-                        and #vim.lsp.get_clients({ bufnr = args.buf, method = 'textDocument/inlayHint' }) == 0
-                    then
-                        local in_insert_mode = args.buf == vim.api.nvim_get_current_buf()
-                            and vim.api.nvim_get_mode().mode:sub(1, 1) == 'i'
-
-                        if in_insert_mode then
-                            vim.b[args.buf].inlay_hints_enabled_before_insert = true
-                        else
-                            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-                        end
-                    end
-
-                    -- Enable inline completion for supported clients.
-                    if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion, args.buf) then
-                        vim.lsp.inline_completion.enable(true, { bufnr = args.buf })
                     end
                 end,
             })
