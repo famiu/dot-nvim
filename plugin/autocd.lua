@@ -1,5 +1,16 @@
 local root_patterns = { '.git' }
 local augroup = vim.api.nvim_create_augroup('AutoCD', {})
+local ignored_clients = {
+    copilot = true,
+}
+
+local function client_root(client)
+    if ignored_clients[client.name] then
+        return nil
+    end
+
+    return client.root_dir
+end
 
 local function set_root(bufnr, root)
     if root and root ~= vim.fn.getcwd(-1, -1, bufnr) then
@@ -11,9 +22,8 @@ end
 
 local function lsp_root(bufnr)
     for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
-        if client.name ~= 'copilot' and client.config.root_dir then
-            return client.config.root_dir
-        end
+        local root = client_root(client)
+        if root then return root end
     end
     return nil
 end
@@ -39,8 +49,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     group = augroup,
     callback = function(args)
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-        if client.name ~= 'copilot' then
-            set_root(args.buf, client.root_dir)
-        end
+        set_root(args.buf, client_root(client))
     end,
 })
