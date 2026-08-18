@@ -51,9 +51,36 @@ return {
             })
 
             -- LSP configuration
+            local lsp_augroup = vim.api.nvim_create_augroup('lsp-settings', {})
+
+            vim.api.nvim_create_autocmd('InsertEnter', {
+                desc = 'Disable LSP inlay hints in Insert mode',
+                group = lsp_augroup,
+                callback = function(args)
+                    local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = args.buf })
+                    vim.b[args.buf].inlay_hints_enabled_before_insert = enabled
+
+                    if enabled then
+                        vim.lsp.inlay_hint.enable(false, { bufnr = args.buf })
+                    end
+                end,
+            })
+
+            vim.api.nvim_create_autocmd('InsertLeave', {
+                desc = 'Restore LSP inlay hints after Insert mode',
+                group = lsp_augroup,
+                callback = function(args)
+                    if vim.b[args.buf].inlay_hints_enabled_before_insert then
+                        vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+                    end
+
+                    vim.b[args.buf].inlay_hints_enabled_before_insert = nil
+                end,
+            })
+
             vim.api.nvim_create_autocmd('LspAttach', {
                 desc = 'LSP configuration',
-                group = vim.api.nvim_create_augroup('lsp-settings', {}),
+                group = lsp_augroup,
                 callback = function(args)
                     local client = vim.lsp.get_client_by_id(args.data.client_id)
                     assert(client ~= nil)
@@ -81,8 +108,18 @@ return {
                     end
 
                     -- Enable inlay hints for supported clients.
-                    if client:supports_method('textDocument/inlayHint', args.buf) then
-                        vim.lsp.inlay_hint.enable(true, { bufnr = args.buf, client_id = client.id })
+                    if
+                        client:supports_method('textDocument/inlayHint', args.buf)
+                        and #vim.lsp.get_clients({ bufnr = args.buf, method = 'textDocument/inlayHint' }) == 0
+                    then
+                        local in_insert_mode = args.buf == vim.api.nvim_get_current_buf()
+                            and vim.api.nvim_get_mode().mode:sub(1, 1) == 'i'
+
+                        if in_insert_mode then
+                            vim.b[args.buf].inlay_hints_enabled_before_insert = true
+                        else
+                            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+                        end
                     end
 
                     -- Enable inline completion for supported clients.
