@@ -1,9 +1,11 @@
 local root_patterns = { '.git' }
 local augroup = vim.api.nvim_create_augroup('AutoCD', {})
 
-local function set_root(root)
-    if root and root ~= vim.fn.getcwd(0) then
-        vim.cmd.tcd(root)
+local function set_root(bufnr, root)
+    if root and root ~= vim.fn.getcwd(-1, -1, bufnr) then
+        vim.api.nvim_buf_call(bufnr, function()
+            vim.cmd.bcd(root)
+        end)
     end
 end
 
@@ -28,7 +30,7 @@ vim.api.nvim_create_autocmd({ 'VimEnter', 'BufEnter' }, {
         local name = vim.api.nvim_buf_get_name(args.buf)
         if name == '' then return end
 
-        set_root(lsp_root(args.buf) or vim.fs.root(name, root_patterns))
+        set_root(args.buf, lsp_root(args.buf) or vim.fs.root(name, root_patterns))
     end,
 })
 
@@ -38,7 +40,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
         if client.name ~= 'copilot' then
-            set_root(client.config.root_dir)
+            set_root(args.buf, client.root_dir)
         end
     end,
 })
