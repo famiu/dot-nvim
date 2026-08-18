@@ -13,13 +13,9 @@ vim.keymap.set('n', '[w', '<CMD>wincmd W<CR>')
 vim.keymap.set('n', ']w', '<CMD>wincmd w<CR>')
 
 -- Tab keybinds
--- Previous/next tab
-vim.keymap.set('n', '[t', '<CMD>tabprevious<CR>')
-vim.keymap.set('n', ']t', '<CMD>tabnext<CR>')
-
 -- Move current tab
-vim.keymap.set('n', '[T', '<CMD>tabmove -1<CR>')
-vim.keymap.set('n', ']T', '<CMD>tabmove +1<CR>')
+vim.keymap.set('n', '<Leader>t[', '<CMD>tabmove -1<CR>')
+vim.keymap.set('n', '<Leader>t]', '<CMD>tabmove +1<CR>')
 
 -- New tab
 vim.keymap.set('n', '<Leader>tn', '<CMD>tabnew<CR>')
