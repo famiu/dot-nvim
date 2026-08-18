@@ -32,8 +32,12 @@ return {
             -- Diagnostics configuration
             vim.diagnostic.config({
                 virtual_text = {
+                    current_line = false,
                     spacing = 4,
                     prefix = '~',
+                },
+                virtual_lines = {
+                    current_line = true,
                 },
                 severity_sort = true,
                 signs = {
