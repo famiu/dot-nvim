@@ -58,6 +58,7 @@ return {
                     if client:supports_method('textDocument/foldingRange', args.buf) then
                         vim.wo.foldmethod = 'expr'
                         vim.wo.foldexpr = vim.lsp.foldexpr
+                        vim.wo.foldtext = vim.lsp.foldtext
                     end
 
                     -- Enable code lens for supported clients.
