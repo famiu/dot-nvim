@@ -65,6 +65,7 @@ vim.o.cursorline = true
 
 -- Scroll offsets
 vim.o.scrolloff = 10
+vim.o.scrolloffpad = 1
 vim.o.sidescrolloff = 5
 
 -- Scroll based on screen lines instead of logical lines
