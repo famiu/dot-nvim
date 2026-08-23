@@ -2,18 +2,14 @@
 vim.loader.enable()
 
 local fn = vim.fn
-local lazypath = fn.stdpath('data') .. '/lazy/lazy.nvim'
 local os_utils = require('utilities.os')
-
-local CheckConfigDeps
-local LoadPlugins
 
 -- Load settings and keybinds
 require('settings')
 require('keymaps')
 
 --- Check if dependencies for Neovim config are installed before bootstrapping the config.
-CheckConfigDeps = function()
+local function CheckConfigDeps()
     -- Ensure that the OS is Windows, Mac or Linux.
     if not os_utils.is_linux() and not os_utils.is_macos() and not os_utils.is_windows() then
         error('Neovim configuration does not support the OS ' .. vim.uv.os_uname().sysname)
@@ -24,6 +20,7 @@ CheckConfigDeps = function()
         { exe = 'fd', reason = 'File search' },
         { exe = 'fzf', reason = 'Fuzzy finder' },
         { exe = 'node', reason = 'Tree-sitter and LSP' },
+        { exe = 'git', reason = 'Plugin management' },
     }
 
     local missing_deps = false
@@ -40,35 +37,8 @@ CheckConfigDeps = function()
     end
 end
 
-LoadPlugins = function()
-    vim.opt.rtp:prepend(lazypath)
-
-    require('lazy').setup({ import = 'plugins' }, {
-        ui = { border = 'rounded' },
-        git = {
-            timeout = -1, -- Disable timeout.
-        },
-        dev = {
-            path = vim.uv.os_homedir() .. '/Projects/nvim-plugins',
-            fallback = true,
-        },
-        concurrency = require('utilities.os').pu_count(),
-    })
-end
-
 -- Check to see if config dependencies are found.
 CheckConfigDeps()
 
--- Bootstrap lazy.nvim if required.
-if not vim.uv.fs_stat(lazypath) then
-    fn.system({
-        'git',
-        'clone',
-        '--filter=blob:none',
-        'https://github.com/folke/lazy.nvim.git',
-        '--branch=stable',
-        lazypath,
-    })
-end
-
-LoadPlugins()
+-- Install and configure plugins with vim.pack.
+require('plugins')

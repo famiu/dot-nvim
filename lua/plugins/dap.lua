@@ -89,103 +89,43 @@ local function dapconfig()
     dap.configurations.rust = c_cpp_rust_base_config
 end
 
-return {
-    {
-        'mfussenegger/nvim-dap',
-        dependencies = {
-            { 'theHamsta/nvim-dap-virtual-text', opts = {} },
-            {
-                'rcarriga/nvim-dap-ui',
-                dependencies = { 'nvim-neotest/nvim-nio' },
-                opts = {},
-            },
-        },
-        keys = {
-            {
-                '<F5>',
-                function()
-                    require('dap').continue()
-                end,
-                desc = 'DAP: Continue',
-            },
-            {
-                '<F6>',
-                function()
-                    require('dap').step_back()
-                end,
-                desc = 'DAP: Step back',
-            },
-            {
-                '<F10>',
-                function()
-                    require('dap').step_over()
-                end,
-                desc = 'DAP: Step Over',
-            },
-            {
-                '<F11>',
-                function()
-                    require('dap').step_into()
-                end,
-                desc = 'DAP: Step Into',
-            },
-            {
-                '<F12>',
-                function()
-                    require('dap').step_out()
-                end,
-                desc = 'DAP: Step Out',
-            },
-            {
-                '<S-F5>',
-                function()
-                    require('dap').terminate()
-                end,
-                desc = 'DAP: Terminate',
-            },
-            {
-                '<Leader>b',
-                function()
-                    require('dap').toggle_breakpoint()
-                end,
-                desc = 'DAP: Toggle Breakpoint',
-            },
-            {
-                '<Leader>B',
-                function()
-                    require('dap').set_breakpoint(fn.input('Breakpoint condition: '))
-                end,
-                desc = 'DAP: Conditional breakpoint',
-            },
-            {
-                '<Leader>dp',
-                function()
-                    require('dap').set_breakpoint(nil, nil, fn.input('Log point message: '))
-                end,
-                desc = 'DAP: Log point',
-            },
-            {
-                '<Leader>dc',
-                function()
-                    require('dap').clear_breakpoints()
-                end,
-                desc = 'DAP: Clear breakpoints',
-            },
-            {
-                '<Leader>dr',
-                function()
-                    require('dap').repl.toggle()
-                end,
-                desc = 'DAP: Toggle REPL',
-            },
-            {
-                '<Leader>dl',
-                function()
-                    require('dap').run_last()
-                end,
-                desc = 'DAP: Run last',
-            },
-        },
-        config = dapconfig,
-    },
-}
+require('dapui').setup({})
+require('nvim-dap-virtual-text').setup({})
+dapconfig()
+
+vim.keymap.set('n', '<F5>', function()
+    require('dap').continue()
+end, { desc = 'DAP: Continue' })
+vim.keymap.set('n', '<F6>', function()
+    require('dap').step_back()
+end, { desc = 'DAP: Step back' })
+vim.keymap.set('n', '<F10>', function()
+    require('dap').step_over()
+end, { desc = 'DAP: Step Over' })
+vim.keymap.set('n', '<F11>', function()
+    require('dap').step_into()
+end, { desc = 'DAP: Step Into' })
+vim.keymap.set('n', '<F12>', function()
+    require('dap').step_out()
+end, { desc = 'DAP: Step Out' })
+vim.keymap.set('n', '<S-F5>', function()
+    require('dap').terminate()
+end, { desc = 'DAP: Terminate' })
+vim.keymap.set('n', '<Leader>b', function()
+    require('dap').toggle_breakpoint()
+end, { desc = 'DAP: Toggle Breakpoint' })
+vim.keymap.set('n', '<Leader>B', function()
+    require('dap').set_breakpoint(fn.input('Breakpoint condition: '))
+end, { desc = 'DAP: Conditional breakpoint' })
+vim.keymap.set('n', '<Leader>dp', function()
+    require('dap').set_breakpoint(nil, nil, fn.input('Log point message: '))
+end, { desc = 'DAP: Log point' })
+vim.keymap.set('n', '<Leader>dc', function()
+    require('dap').clear_breakpoints()
+end, { desc = 'DAP: Clear breakpoints' })
+vim.keymap.set('n', '<Leader>dr', function()
+    require('dap').repl.toggle()
+end, { desc = 'DAP: Toggle REPL' })
+vim.keymap.set('n', '<Leader>dl', function()
+    require('dap').run_last()
+end, { desc = 'DAP: Run last' })
