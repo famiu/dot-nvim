@@ -123,5 +123,6 @@ return {
             formatterMode = 'typstyle',
         },
     },
+    jdtls = {},
     copilot = {},
 }
