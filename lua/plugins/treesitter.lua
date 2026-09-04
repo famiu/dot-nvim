@@ -50,37 +50,13 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.g.no_plugin_maps = true
 
 require('nvim-treesitter-textobjects').setup({
-    select = {
-        lookahead = true,
-        include_surrounding_whitespace = false,
-    },
     move = {
         set_jumps = true, -- whether to set jumps in the jumplist
     },
 })
 
-local select = require('nvim-treesitter-textobjects.select')
 local move = require('nvim-treesitter-textobjects.move')
 local swap = require('nvim-treesitter-textobjects.swap')
-
-local sel = function(query)
-    return function()
-        select.select_textobject(query, 'textobjects')
-    end
-end
-vim.keymap.set({ 'x', 'o' }, 'aa', sel('@parameter.outer'))
-vim.keymap.set({ 'x', 'o' }, 'ia', sel('@parameter.inner'))
-vim.keymap.set({ 'x', 'o' }, 'af', sel('@function.outer'))
-vim.keymap.set({ 'x', 'o' }, 'if', sel('@function.inner'))
-vim.keymap.set({ 'x', 'o' }, 'ac', sel('@class.outer'))
-vim.keymap.set({ 'x', 'o' }, 'ic', sel('@class.inner'))
-vim.keymap.set({ 'x', 'o' }, 'ad', sel('@conditional.outer'))
-vim.keymap.set({ 'x', 'o' }, 'id', sel('@conditional.inner'))
-vim.keymap.set({ 'x', 'o' }, 'ao', sel('@loop.outer'))
-vim.keymap.set({ 'x', 'o' }, 'io', sel('@loop.inner'))
-vim.keymap.set({ 'x', 'o' }, 'as', function()
-    select.select_textobject('@local.scope', 'locals')
-end)
 
 vim.keymap.set('n', '<leader>a', function()
     swap.swap_next('@parameter.inner', 'textobjects')
