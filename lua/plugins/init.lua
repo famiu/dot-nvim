@@ -50,6 +50,7 @@ local startup_specs = {
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects', version = 'main' },
     'https://github.com/nvim-mini/mini.ai',
     'https://github.com/nvim-mini/mini.align',
+    'https://github.com/nvim-mini/mini.extra',
     'https://github.com/nvim-mini/mini.surround',
     'https://github.com/Wansmer/treesj',
     'https://github.com/lewis6991/spaceless.nvim',
