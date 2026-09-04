@@ -53,6 +53,7 @@ local startup_specs = {
     'https://github.com/nvim-mini/mini.surround',
     'https://github.com/Wansmer/treesj',
     'https://github.com/lewis6991/spaceless.nvim',
+    'https://github.com/tpope/vim-abolish',
 }
 
 vim.pack.add(startup_specs)
