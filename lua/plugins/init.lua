@@ -28,6 +28,7 @@ local startup_specs = {
     'https://github.com/theHamsta/nvim-dap-virtual-text',
     'https://github.com/saghen/blink.lib',
     'https://github.com/saghen/blink.cmp',
+    'https://github.com/rafamadriz/friendly-snippets',
     'https://github.com/neovim/nvim-lspconfig',
     'https://github.com/stevearc/conform.nvim',
     'https://github.com/nvim-lua/plenary.nvim',

@@ -13,6 +13,13 @@ require('blink.cmp').setup({
     },
     appearance = { nerd_font_variant = 'normal' },
     signature = { enabled = true },
+    completion = {
+        menu = {
+            draw = {
+                treesitter = { 'lsp' },
+            },
+        },
+    },
     cmdline = {
         keymap = { preset = 'inherit' },
         completion = { menu = { auto_show = true } },
