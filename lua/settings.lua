@@ -13,6 +13,7 @@ vim.o.laststatus = 3
 
 -- Use statusline area for cmdline
 vim.o.cmdheight = 0
+require('vim._core.ui2').enable({})
 
 -- Allow virtual editing
 vim.o.virtualedit = 'all'
